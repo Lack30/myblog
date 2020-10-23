@@ -49,7 +49,7 @@
 <meta itemprop="description" content="最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。 题外话: 学习过几种不同的语言，后来知">
 <meta itemprop="datePublished" content="2019-08-19T16:56:42+08:00" />
 <meta itemprop="dateModified" content="2019-08-19T16:56:42+08:00" />
-<meta itemprop="wordCount" content="1876">
+<meta itemprop="wordCount" content="1859">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
             </div>
-          <span class="more-meta"> 约 1876 字 </span>
+          <span class="more-meta"> 约 1859 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -198,17 +198,19 @@
 </ul>
 <h2 id="bean-的生命周期">Bean 的生命周期</h2>
 <p><img src="https://img2018.cnblogs.com/blog/1219190/201908/1219190-20190819211607950-708913569.png" alt=""></p>
-<p>具体过程为：
-1.Spring 对 bean 进行实例化
-2.Spring 将值和 bean 的引用注入到 bean 对应的属性中
-3.如果 bean 实现了 <code>BeanNameAware</code> 接口， Spring 将 bean 的 ID 传递给 <code>setBeanName()</code> 方法
-4.如果 bean 实现了<code>BeanFactoryAware</code>接口， Spring 将调用 <code>setBeanFactory()</code> 方法，将 BeanFactory 容器实例传入
-5.如果 bean 实现了<code>ApplicationContextAware</code>接口， Spring 将调用 <code>setApplicationContext()</code> 方法，将 bean 所在的应用上下文引用传进来
-6.如果 bean 实现了<code>BeanPostProcesser</code>接口， Spring 将调用它们的 <code>postProcessBeforeInitialization()</code> 方法
-7.如果 bean 实现了<code>InitializationBean</code> 接口，Spring 将调用它们的 <code>afterPropertiesSet()</code> 方法。类似地，如果 bean 使用 init-method 声明了初始化方法，该方法也会被调用
-8.如果 bean 实现了<code>BeanPostProcessor</code>接口，Spring 将调用它们的 <code>postProcessAfterInitialization()</code> 方法
-9.此时，bean 已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁
-10.如果 bean 实现了  <code>DisposableBean</code> 接口，Spring 将调用它们的 <code>destroy()</code> 接口方法。同样，如果 bean 使用 destroy-method 声明了销毁方法，该方法也会被调用</p>
+<p>具体过程为：</p>
+<ul>
+<li>Spring 对 bean 进行实例化</li>
+<li>Spring 将值和 bean 的引用注入到 bean 对应的属性中</li>
+<li>如果 bean 实现了 <code>BeanNameAware</code> 接口， Spring 将 bean 的 ID 传递给 <code>setBeanName()</code> 方法</li>
+<li>如果 bean 实现了<code>BeanFactoryAware</code>接口， Spring 将调用 <code>setBeanFactory()</code> 方法，将 BeanFactory 容器实例传入</li>
+<li>如果 bean 实现了<code>ApplicationContextAware</code>接口， Spring 将调用 <code>setApplicationContext()</code> 方法，将 bean 所在的应用上下文引用传进来</li>
+<li>如果 bean 实现了<code>BeanPostProcesser</code>接口， Spring 将调用它们的 <code>postProcessBeforeInitialization()</code> 方法</li>
+<li>如果 bean 实现了<code>InitializationBean</code> 接口，Spring 将调用它们的 <code>afterPropertiesSet()</code> 方法。类似地，如果 bean 使用 init-method 声明了初始化方法，该方法也会被调用</li>
+<li>如果 bean 实现了<code>BeanPostProcessor</code>接口，Spring 将调用它们的 <code>postProcessAfterInitialization()</code> 方法</li>
+<li>此时，bean 已经准备就绪，可以被应用程序使用了，它们将一直驻留在应用上下文中，直到该应用上下文被销毁</li>
+<li>如果 bean 实现了  <code>DisposableBean</code> 接口，Spring 将调用它们的 <code>destroy()</code> 接口方法。同样，如果 bean 使用 destroy-method 声明了销毁方法，该方法也会被调用</li>
+</ul>
 
     </div>
 
