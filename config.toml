@@ -1,4 +1,4 @@
-baseURL = "http://xingyys.github.io/"
+baseURL = "http://blog.xingyys.tech/"
 languageCode = "en"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
 title = "Xingyys 的个人博客"
