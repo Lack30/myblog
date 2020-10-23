@@ -138,7 +138,7 @@
 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
+  <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#一服务发现">一、服务发现</a></li>
@@ -1876,7 +1876,25 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2019-09-11 15:17:42 \u002b0800 CST',
+        title: 'etcd的使用实例',
+        link: decodeURI(location.href),
+        desc: 'etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leade',
+        owner: 'xingyys',
+        repo: 'https:\/\/github.com\/xingyys\/myblog',
+        oauth: {
+          client_id: '1015bb13b495a5d03d7f',
+          client_secret: '41dc4b99edac08351ce861c24062860b31292c9b'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
   
 
@@ -1924,6 +1942,15 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 
 
 <script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 

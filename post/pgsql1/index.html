@@ -138,7 +138,7 @@
 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
+  <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#安装">安装</a></li>
@@ -769,7 +769,25 @@ Type <span class="s2">&#34;help&#34;</span> <span class="k">for</span> help.
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2020-10-23 14:33:55 \u002b0800 CST',
+        title: 'postgresql 实战一：安装和使用',
+        link: decodeURI(location.href),
+        desc: '安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 \/bin\/bash',
+        owner: 'xingyys',
+        repo: 'https:\/\/github.com\/xingyys\/myblog',
+        oauth: {
+          client_id: '1015bb13b495a5d03d7f',
+          client_secret: '41dc4b99edac08351ce861c24062860b31292c9b'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
   
 
@@ -817,6 +835,15 @@ Type <span class="s2">&#34;help&#34;</span> <span class="k">for</span> help.
 
 
 <script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 

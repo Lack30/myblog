@@ -138,7 +138,7 @@
 
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
-  <div class="post-toc-content always-active">
+  <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
     <li><a href="#安装mysql">安装mysql</a>
@@ -577,7 +577,25 @@ vim 1.php</p>
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2018-05-31 09:13:23 \u002b0000 UTC',
+        title: '搭建lamp环境',
+        link: decodeURI(location.href),
+        desc: 'lamp即 apache \u002b mysql \u002b php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m',
+        owner: 'xingyys',
+        repo: 'https:\/\/github.com\/xingyys\/myblog',
+        oauth: {
+          client_id: '1015bb13b495a5d03d7f',
+          client_secret: '41dc4b99edac08351ce861c24062860b31292c9b'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
 
   
 
@@ -625,6 +643,15 @@ vim 1.php</p>
 
 
 <script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 
