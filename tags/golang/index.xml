@@ -53,6 +53,15 @@
     </item>
     
     <item>
+      <title>Golang使用json格式实现增删查改</title>
+      <link>http://xingyys.tech/post/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</link>
+      <pubDate>Wed, 07 Aug 2019 16:43:13 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</guid>
+      <description>需求和思路 在一般的小项目或者一个小软件,例如客户端之类的小程序中,可能会需要数据的持久化.但是使用一般的数据库(Mysql)之类的不合适.使</description>
+    </item>
+    
+    <item>
       <title>golang打包和解包</title>
       <link>http://xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
       <pubDate>Fri, 15 Feb 2019 15:03:44 +0000</pubDate>

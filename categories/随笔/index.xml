@@ -26,6 +26,33 @@
     </item>
     
     <item>
+      <title>Spring框架的核心总结</title>
+      <link>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 19 Aug 2019 16:56:42 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</guid>
+      <description>最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。 题外话: 学习过几种不同的语言，后来知</description>
+    </item>
+    
+    <item>
+      <title>制作rpm包</title>
+      <link>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
+      <pubDate>Wed, 29 May 2019 17:34:45 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
+      <description>制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;友元</title>
+      <link>http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/</link>
+      <pubDate>Sat, 11 May 2019 16:41:20 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/</guid>
+      <description>友元说明 相对于其他的编程语言，“友元”是C++中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“</description>
+    </item>
+    
+    <item>
       <title>golang打包和解包</title>
       <link>http://xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
       <pubDate>Fri, 15 Feb 2019 15:03:44 +0000</pubDate>

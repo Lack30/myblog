@@ -125,12 +125,120 @@
     </item>
     
     <item>
+      <title>开启oracle的闪回功能</title>
+      <link>http://xingyys.tech/post/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Wed, 21 Aug 2019 16:57:58 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</guid>
+      <description>查看是否开启闪回 1 2 3 4 5 SQL&amp;gt; select flashback_on from v$database; FLASHBACK_ON ------------------ NO 查看是否配置了db_recover_file_dest 1 2 3 4 5 6 SQL&amp;gt; show parameter db_recovery NAME TYPE VALUE ------------------------------------ ----------- ------------------------------ db_recovery_file_dest string db_recovery_file_dest_size big integer 0</description>
+    </item>
+    
+    <item>
+      <title>Spring框架的核心总结</title>
+      <link>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 19 Aug 2019 16:56:42 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</guid>
+      <description>最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。 题外话: 学习过几种不同的语言，后来知</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践七</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/</link>
+      <pubDate>Sun, 18 Aug 2019 16:54:25 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/</guid>
+      <description>在spring cloud 2.x以后,由于zuul一直停滞在1.x版本,所以spring官方就自己开发了一个项目 Spring Cloud Gateway.作为spring c</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践六</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/</link>
+      <pubDate>Fri, 16 Aug 2019 16:53:47 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/</guid>
+      <description>本篇我们就来认识下spring cloud中的zuul组件. 注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA zuul简介 关于zuul 其实</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践五</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%94/</link>
+      <pubDate>Wed, 14 Aug 2019 16:53:17 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%94/</guid>
+      <description>本篇我们来看看怎么实现spring cloud的配置中心. 在分布式系统中,特别是微服务架构下,可能会存在许多的服务,每个服务都会存在一个或多个</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践四</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%9B%9B/</link>
+      <pubDate>Sun, 11 Aug 2019 16:52:14 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%9B%9B/</guid>
+      <description>spring cloud的hystrix还有一个配搭的库hystrix-dashboard,它是hystrix的一款监控工具,能直观的显示hystrix</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践三</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%89/</link>
+      <pubDate>Sun, 11 Aug 2019 16:50:13 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%89/</guid>
+      <description>上篇文章里我们实现了spring cloud中的服务提供者和使用者.接下来我们就来看看spring cloud中微服务的其他组件. 注:这一个系列</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践二</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%8C/</link>
+      <pubDate>Fri, 09 Aug 2019 16:46:02 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%8C/</guid>
+      <description>在上一篇,我们已经搭建了spring cloud微服务中的注册中心.但只有一个注册中心还远远不够. 接下来我们就来尝试提供服务. 注:这一个系列的</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践一</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%80/</link>
+      <pubDate>Thu, 08 Aug 2019 16:44:54 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%80/</guid>
+      <description>最近在学习spring框架.其中spring cloud在微服务方面很火,所以在学习过程中,也做一些记录. 注:这一个系列的开发环境版本为 java1.8, spring boot2.x,</description>
+    </item>
+    
+    <item>
+      <title>Golang使用json格式实现增删查改</title>
+      <link>http://xingyys.tech/post/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</link>
+      <pubDate>Wed, 07 Aug 2019 16:43:13 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</guid>
+      <description>需求和思路 在一般的小项目或者一个小软件,例如客户端之类的小程序中,可能会需要数据的持久化.但是使用一般的数据库(Mysql)之类的不合适.使</description>
+    </item>
+    
+    <item>
       <title>Nginx多组代理配置</title>
       <link>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Wed, 31 Jul 2019 15:25:05 +0800</pubDate>
       
       <guid>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
       <description>一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问</description>
+    </item>
+    
+    <item>
+      <title>制作rpm包</title>
+      <link>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
+      <pubDate>Wed, 29 May 2019 17:34:45 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
+      <description>制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。</description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;友元</title>
+      <link>http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/</link>
+      <pubDate>Sat, 11 May 2019 16:41:20 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/</guid>
+      <description>友元说明 相对于其他的编程语言，“友元”是C++中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“</description>
     </item>
     
     <item>

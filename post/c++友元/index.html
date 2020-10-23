@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C&#43;&#43;友元 - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="友元说明 相对于其他的编程语言，“友元”是C&#43;&#43;中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="C&#43;&#43;友元" />
+<meta property="og:description" content="友元说明 相对于其他的编程语言，“友元”是C&#43;&#43;中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/post/c&#43;&#43;%E5%8F%8B%E5%85%83/" />
+<meta property="article:published_time" content="2019-05-11T16:41:20+08:00" />
+<meta property="article:modified_time" content="2019-05-11T16:41:20+08:00" />
+<meta itemprop="name" content="C&#43;&#43;友元">
+<meta itemprop="description" content="友元说明 相对于其他的编程语言，“友元”是C&#43;&#43;中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“">
+<meta itemprop="datePublished" content="2019-05-11T16:41:20+08:00" />
+<meta itemprop="dateModified" content="2019-05-11T16:41:20+08:00" />
+<meta itemprop="wordCount" content="1354">
+
+
+
+<meta itemprop="keywords" content="C&#43;&#43;," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43;友元"/>
+<meta name="twitter:description" content="友元说明 相对于其他的编程语言，“友元”是C&#43;&#43;中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C&#43;&#43;友元</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
+            </div>
+          <span class="more-meta"> 约 1354 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#友元说明">友元说明</a></li>
+    <li><a href="#友元函数">友元函数</a></li>
+    <li><a href="#友元类">友元类</a></li>
+    <li><a href="#友元成员函数">友元成员函数</a></li>
+    <li><a href="#补充">补充</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="友元说明">友元说明</h1>
+<p>相对于其他的编程语言，“友元”是C++中特别的一种语法。那它有什么作用呢？
+<code>其实“友元”就是提供一种访问类私有部分的的方法</code>。如果没有“友元”，我们只能通过类本身提供的公有方法来访问，但相对地，这样限制太高了，所以“友元”就是一种的在类的封装性和实用性中很好的“折中”方式。</p>
+<p>C++中的友元有三种：</p>
+<ul>
+<li>友元函数</li>
+<li>友元类</li>
+<li>友元成员函数</li>
+</ul>
+<p>C++中使用关键字<code>friend</code>来定义。</p>
+<h1 id="友元函数">友元函数</h1>
+<p>这里直接用代码来说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">account</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">passwd</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Person</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ac</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pw</span><span class="p">);</span>
+
+    <span class="c1">// 这里使用friend关键字，指定Point中的getPerson方法可以使用Person类的私有变量。
+</span><span class="c1"></span>    <span class="k">friend</span> <span class="kt">void</span> <span class="nf">getPerson</span><span class="p">(</span><span class="n">Person</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="n">Person</span><span class="o">::</span><span class="n">Person</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ac</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pw</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">ac</span><span class="p">;</span>
+    <span class="n">passwd</span> <span class="o">=</span> <span class="n">pw</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">getPerson</span><span class="p">(</span><span class="n">Person</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 因为定义了友元，这里就可以访问Person类的私有变量了。
+</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;account: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">account</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&#34;, passwd: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">passwd</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Person</span> <span class="n">p</span><span class="p">(</span><span class="s">&#34;xingyys&#34;</span><span class="p">,</span> <span class="s">&#34;123456&#34;</span><span class="p">);</span>
+
+    <span class="n">getPerson</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个例子还是比较简单的，只要在指定的方法中添加关键字就可以实现了。</p>
+<h1 id="友元类">友元类</h1>
+<p>在来一个例子说明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">class</span> <span class="nc">Tv</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">state</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">volume</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">maxchannel</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">channel</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">mode</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">input</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">// 在这里指定谁是他的友元
+</span><span class="c1"></span>    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Remote</span><span class="p">;</span>
+
+    <span class="k">enum</span> <span class="p">{</span>
+        <span class="n">Off</span><span class="p">,</span> <span class="n">On</span>
+    <span class="p">};</span>
+    <span class="k">enum</span> <span class="p">{</span>
+        <span class="n">MinVal</span><span class="p">,</span> <span class="n">MaxVal</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="p">};</span>
+    <span class="k">enum</span> <span class="p">{</span>
+        <span class="n">Antenna</span><span class="p">,</span> <span class="n">Cable</span>
+    <span class="p">};</span>
+    <span class="k">enum</span> <span class="p">{</span>
+        <span class="n">TV</span><span class="p">,</span> <span class="n">DVD</span>
+    <span class="p">};</span>
+
+    <span class="n">Tv</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Off</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mc</span> <span class="o">=</span> <span class="mi">125</span><span class="p">)</span> <span class="o">:</span> <span class="n">state</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">volume</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+                                    <span class="n">maxchannel</span><span class="p">(</span><span class="n">mc</span><span class="p">),</span> <span class="n">channel</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">mode</span><span class="p">(</span><span class="n">Cable</span><span class="p">),</span> <span class="n">input</span><span class="p">(</span><span class="n">TV</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kt">void</span> <span class="nf">onoff</span><span class="p">()</span> <span class="p">{</span> <span class="n">state</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span> <span class="o">==</span> <span class="n">On</span><span class="p">)</span> <span class="o">?</span> <span class="nl">Off</span> <span class="p">:</span> <span class="n">On</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">ison</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">state</span> <span class="o">==</span> <span class="n">On</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">volup</span><span class="p">();</span>
+
+    <span class="kt">bool</span> <span class="nf">voldown</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">chanup</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">chandown</span><span class="p">();</span>
+
+    <span class="kt">void</span> <span class="nf">set_mode</span><span class="p">()</span> <span class="p">{</span> <span class="n">mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">Antenna</span><span class="p">)</span> <span class="o">?</span> <span class="nl">Cable</span> <span class="p">:</span> <span class="n">Antenna</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">set_input</span><span class="p">()</span> <span class="p">{</span> <span class="n">input</span> <span class="o">=</span> <span class="p">(</span><span class="n">input</span> <span class="o">==</span> <span class="n">TV</span><span class="p">)</span> <span class="o">?</span> <span class="nl">DVD</span> <span class="p">:</span> <span class="n">TV</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">settings</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Remote</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">mode</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Remote</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">Tv</span><span class="o">::</span><span class="n">TV</span><span class="p">)</span> <span class="o">:</span> <span class="n">mode</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kt">bool</span> <span class="nf">volup</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">t</span><span class="p">.</span><span class="n">volup</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">voldown</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">t</span><span class="p">.</span><span class="n">voldown</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">onoff</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">onoff</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">chanup</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">chanup</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">chandown</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">chandown</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">set_chan</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">set_mode</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">set_mode</span><span class="p">();</span> <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">set_input</span><span class="p">(</span><span class="n">Tv</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span> <span class="n">t</span><span class="p">.</span><span class="n">set_input</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">bool</span> <span class="n">Tv</span><span class="o">::</span><span class="n">volup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">volume</span> <span class="o">&lt;</span> <span class="n">MaxVal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">volume</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">Tv</span><span class="o">::</span><span class="n">voldown</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">volume</span> <span class="o">&gt;</span> <span class="n">MinVal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">volume</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Tv</span><span class="o">::</span><span class="n">chanup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">channel</span> <span class="o">&lt;</span> <span class="n">maxchannel</span><span class="p">)</span>
+        <span class="n">channel</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Tv</span><span class="o">::</span><span class="n">chandown</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">channel</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">channel</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="n">maxchannel</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">Tv</span><span class="o">::</span><span class="n">settings</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;TV is &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">state</span> <span class="o">==</span> <span class="n">Off</span> <span class="o">?</span> <span class="s">&#34;Off&#34;</span> <span class="o">:</span> <span class="s">&#34;On&#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="o">==</span> <span class="n">On</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Volume setting = &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">volume</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Channel setting = &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">channel</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Mode = &#34;</span>
+             <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">Antenna</span> <span class="o">?</span> <span class="s">&#34;antenna&#34;</span> <span class="o">:</span> <span class="s">&#34;cable&#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Input = &#34;</span>
+             <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">input</span> <span class="o">==</span> <span class="n">TV</span> <span class="o">?</span> <span class="s">&#34;TV&#34;</span> <span class="o">:</span> <span class="s">&#34;DVD&#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+    <span class="n">Tv</span> <span class="n">s42</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Initial setting for 42</span><span class="se">\&#34;</span><span class="s"> TV:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">settings</span><span class="p">();</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">onoff</span><span class="p">();</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">chanup</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">Adjusted setting for 42</span><span class="se">\&#34;</span><span class="s"> TV:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">chanup</span><span class="p">();</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">Adjusted settings for 42</span><span class="se">\&#34;</span><span class="s"> TV:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">settings</span><span class="p">();</span>
+
+    <span class="n">Remote</span> <span class="n">grey</span><span class="p">;</span>
+
+    <span class="n">grey</span><span class="p">.</span><span class="n">set_chan</span><span class="p">(</span><span class="n">s42</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="n">grey</span><span class="p">.</span><span class="n">volup</span><span class="p">(</span><span class="n">s42</span><span class="p">);</span>
+    <span class="n">grey</span><span class="p">.</span><span class="n">volup</span><span class="p">(</span><span class="n">s42</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">42</span><span class="se">\&#34;</span><span class="s"> setting after using remote:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">s42</span><span class="p">.</span><span class="n">settings</span><span class="p">();</span>
+
+    <span class="n">Tv</span> <span class="n">s58</span><span class="p">(</span><span class="n">Tv</span><span class="o">::</span><span class="n">On</span><span class="p">);</span>
+    <span class="n">s58</span><span class="p">.</span><span class="n">set_mode</span><span class="p">();</span>
+    <span class="n">grey</span><span class="p">.</span><span class="n">set_chan</span><span class="p">(</span><span class="n">s58</span><span class="p">,</span> <span class="mi">28</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">58</span><span class="se">\&#34;</span><span class="s"> settings:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">s58</span><span class="p">.</span><span class="n">settings</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="友元成员函数">友元成员函数</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">getPerson</span><span class="p">(</span><span class="n">Person</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">account</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">passwd</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">Person</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ac</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pw</span><span class="p">);</span>
+
+    <span class="c1">// 这里使用friend关键字，指定Point中的getPerson方法可以使用Person类的私有变量。
+</span><span class="c1"></span>    <span class="k">friend</span> <span class="kt">void</span> <span class="n">Point</span><span class="o">::</span><span class="n">getPerson</span><span class="p">(</span><span class="n">Person</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="n">Person</span><span class="o">::</span><span class="n">Person</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ac</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pw</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">ac</span><span class="p">;</span>
+    <span class="n">passwd</span> <span class="o">=</span> <span class="n">pw</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="n">Point</span><span class="o">::</span><span class="n">getPerson</span><span class="p">(</span><span class="n">Person</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 因为定义了友元，这里就可以访问Person类的私有变量了。
+</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;account: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">account</span>
+              <span class="o">&lt;&lt;</span> <span class="s">&#34;, passwd: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">passwd</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Person</span> <span class="n">p</span> <span class="p">(</span><span class="s">&#34;xingyys&#34;</span><span class="p">,</span> <span class="s">&#34;123456&#34;</span><span class="p">);</span>
+
+    <span class="n">Point</span> <span class="n">pt</span><span class="p">;</span>
+
+    <span class="n">pt</span><span class="p">.</span><span class="n">getPerson</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="补充">补充</h1>
+<ul>
+<li>不能定义类的对象。</li>
+<li>可以用于定义指向这个类型的指针或引用。</li>
+<li>用于声明(不是定义)，使用该类型作为形参类型或者函数的返回值类型。</li>
+<li>友元关系不能被继承。</li>
+<li>友元关系是单向的，不具有交换性。若类B是类A的友元，类A不一定是类B的友元，要看在类中是否有相应的声明。</li>
+<li>友元关系不具有传递性。若类B是类A的友元，类C是B的友元，类C不一定是类A的友元，同样要看类中是否有相应的申明</li>
+</ul>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">制作rpm包</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/bat/">
+            <span class="next-text nav-default">Windows Bat总结</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2019-05-11 16:41:20 \u002b0800 CST',
+        title: 'C\u002b\u002b友元',
+        link: decodeURI(location.href),
+        desc: '友元说明 相对于其他的编程语言，“友元”是C\u002b\u002b中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“',
+        owner: 'xingyys',
+        repo: 'myblog',
+        oauth: {
+          client_id: '1015bb13b495a5d03d7f',
+          client_secret: '41dc4b99edac08351ce861c24062860b31292c9b'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
