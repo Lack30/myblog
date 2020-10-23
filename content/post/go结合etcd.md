@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["golang", "etcd"]
-categories: ["分布式"]
+categories: ["分布式", "代码"]
 author: ""
 
 # You can also close(false) or open(true) something for this content.

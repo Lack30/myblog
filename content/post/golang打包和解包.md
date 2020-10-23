@@ -6,6 +6,7 @@ tags:
  - golang
 categories:
  - 随笔
+ - 代码
 ---
 
 # 打包
