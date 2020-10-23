@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Flask与Vue的token认证 - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Flask与Vue的token认证" />
+<meta property="og:description" content="后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/" />
+<meta property="article:published_time" content="2017-09-20T15:36:05+08:00" />
+<meta property="article:modified_time" content="2017-09-20T15:36:05+08:00" />
+<meta itemprop="name" content="Flask与Vue的token认证">
+<meta itemprop="description" content="后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源">
+<meta itemprop="datePublished" content="2017-09-20T15:36:05+08:00" />
+<meta itemprop="dateModified" content="2017-09-20T15:36:05+08:00" />
+<meta itemprop="wordCount" content="2092">
+
+
+
+<meta itemprop="keywords" content="flask,vue," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Flask与Vue的token认证"/>
+<meta name="twitter:description" content="后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Flask与Vue的token认证</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BB%A3%E7%A0%81/"> 代码 </a>
+            </div>
+          <span class="more-meta"> 约 2092 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#后端flask">后端Flask</a>
+      <ul>
+        <li><a href="#后端结构图">后端结构图</a></li>
+        <li><a href="#具体实现">具体实现</a>
+          <ul>
+            <li><a href="#系统初始化app__init__py">系统初始化<code>app/__init__.py</code></a></li>
+            <li><a href="#配置文件configpy">配置文件<code>config.py</code></a></li>
+            <li><a href="#创建数据库表appmodelspy">创建数据库表<code>app/models.py</code></a></li>
+            <li><a href="#视图appviewspy">视图<code>app/views.py</code></a></li>
+            <li><a href="#测试">测试</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#前端vuejs">前端Vue.js</a>
+      <ul>
+        <li><a href="#具体实现-1">具体实现</a>
+          <ul>
+            <li><a href="#mainjs"><code>main.js</code></a></li>
+            <li><a href="#路由">路由</a></li>
+            <li><a href="#vuex">vuex</a></li>
+            <li><a href="#登录和登出">登录和登出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。</p>
+</blockquote>
+<p>感谢两篇文章的作者：</p>
+<ul>
+<li><a href="http://www.cnblogs.com/vovlie/p/4182814.html">http://www.cnblogs.com/vovlie/p/4182814.html</a></li>
+<li><a href="https://segmentfault.com/a/1190000008383094?_ea=1639495">https://segmentfault.com/a/1190000008383094?_ea=1639495</a></li>
+</ul>
+<p>源码链接：https://github.com/xingyys/flaskvue</p>
+<h1 id="后端flask">后端Flask</h1>
+<p>Flask采用token认证方式，主要思路是通过<code>/api/login</code>登录获取<code>token</code>，然后使用<code>token</code>调用各个接口。
+所用到框架的库：</p>
+<ul>
+<li>flask</li>
+<li>flask-cors：flask跨域</li>
+<li>flask-sqlachemy: flask数据库orm</li>
+<li>flask-httpauth：flask的auth认证</li>
+<li>passlib: python密码解析库</li>
+<li>itsdangerous</li>
+</ul>
+<h2 id="后端结构图">后端结构图</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">flask</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">app</span>    <span class="c1"># 主目录</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">models</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 数据库</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">models</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">views</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 视图</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">views</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">├──</span> <span class="n">config</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 配置信息</span>
+<span class="err">├──</span> <span class="n">config</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">├──</span> <span class="n">db_create</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># 创建数据库</span>
+<span class="err">├──</span> <span class="n">db_migrate</span><span class="o">.</span><span class="n">py</span>   <span class="c1"># 更新数据库</span>
+<span class="err">├──</span> <span class="n">db_repository</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">migrate</span><span class="o">.</span><span class="n">cfg</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">README</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">versions</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="mo">00</span><span class="mi">8</span><span class="n">_migration</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="mo">00</span><span class="mi">8</span><span class="n">_migration</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="mo">00</span><span class="mi">9</span><span class="n">_migration</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="mo">00</span><span class="mi">9</span><span class="n">_migration</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="err">│</span>       <span class="err">└──</span> <span class="fm">__init__</span><span class="o">.</span><span class="n">pyc</span>
+<span class="err">├──</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
+<span class="err">└──</span> <span class="n">run</span><span class="o">.</span><span class="n">py</span>    <span class="c1"># app的运行文件</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="具体实现">具体实现</h2>
+<h3 id="系统初始化app__init__py">系统初始化<code>app/__init__.py</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
+<span class="kn">from</span> <span class="nn">flask_httpauth</span> <span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="kn">from</span> <span class="nn">flask_cors</span> <span class="kn">import</span> <span class="n">CORS</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="c1"># flask的跨域解决</span>
+<span class="n">CORS</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+<span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">models</span><span class="p">,</span> <span class="n">views</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="配置文件configpy">配置文件<code>config.py</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+SQLALCHEMY_DATABASE_URI = &#34;mysql://root:123456@127.0.0.1/rest&#34;
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, &#39;db_repository&#39;)
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+BASEDIR = basedir
+# 安全配置
+CSRF_ENABLED = True
+SECRET_KEY = &#39;jklklsadhfjkhwbii9/sdf\sdf&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>环境中使用<code>mysql</code>数据库，版本为<code>mariadb 10.1.22</code>。创建<code>rest</code>表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mysql -uroot -p xxxxxx
+$ create database rest default charset utf8;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="创建数据库表appmodelspy">创建数据库表<code>app/models.py</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">db</span><span class="p">,</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">passlib.apps</span> <span class="kn">import</span> <span class="n">custom_app_context</span>
+<span class="kn">from</span> <span class="nn">itsdangerous</span> <span class="kn">import</span> <span class="n">TimedJSONWebSignatureSerializer</span> <span class="k">as</span> <span class="n">Serializer</span><span class="p">,</span> <span class="n">SignatureExpired</span><span class="p">,</span> <span class="n">BadSignature</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span>  <span class="s1">&#39;users&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">128</span><span class="p">))</span>
+
+    <span class="c1"># 密码加密</span>
+    <span class="k">def</span> <span class="nf">hash_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">custom_app_context</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+    
+    <span class="c1"># 密码解析</span>
+    <span class="k">def</span> <span class="nf">verify_password</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">custom_app_context</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+
+    <span class="c1"># 获取token，有效时间10min</span>
+    <span class="k">def</span> <span class="nf">generate_auth_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expiration</span> <span class="o">=</span> <span class="mi">600</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">Serializer</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">],</span> <span class="n">expires_in</span> <span class="o">=</span> <span class="n">expiration</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="p">})</span>
+
+    <span class="c1"># 解析token，确认登录的用户身份</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">verify_auth_token</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">Serializer</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">SignatureExpired</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span> <span class="c1"># valid token, but expired</span>
+        <span class="k">except</span> <span class="n">BadSignature</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span> <span class="c1"># invalid token</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">user</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建数据库<code>users</code>表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ python db_create.py
+$ python db_migrate.py
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="视图appviewspy">视图<code>app/views.py</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">auth</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">abort</span><span class="p">,</span> <span class="n">g</span>
+<span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@auth.login_required</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>    
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s1">&#39;Hello, </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/api/users&#39;</span><span class="p">,</span> <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">new_user</span><span class="p">():</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">password</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span> <span class="c1"># missing arguments</span>
+    <span class="k">if</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span> <span class="c1"># existing user</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="p">)</span>
+    <span class="n">user</span><span class="o">.</span><span class="n">hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="p">})</span>
+
+<span class="nd">@auth.verify_password</span>
+<span class="k">def</span> <span class="nf">verify_password</span><span class="p">(</span><span class="n">username_or_token</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&#34;/api/login&#34;</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username_or_token</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">verify_password</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">verify_auth_token</span><span class="p">(</span><span class="n">username_or_token</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>    
+    <span class="n">g</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>   
+    <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/api/login&#39;</span><span class="p">)</span>
+<span class="nd">@auth.login_required</span>
+<span class="k">def</span> <span class="nf">get_auth_token</span><span class="p">():</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">generate_auth_token</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用户注册后密码加密存储，确认用户身份时密码解密。需要认证的<code>api</code>上添加<code>@auth.login_required</code>，它会在调用接口之前调用<code>@auth.verify_password</code>下的方法(此方法唯一)如<code>verify_password</code>。根据请求的路径选择不同的认证方式。</p>
+<h3 id="测试">测试</h3>
+<blockquote>
+<p>使用curl命令测试接口</p>
+</blockquote>
+<p>注册用户:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -i -X POST -H &#34;Content-Type: application/json&#34; -d &#39;{&#34;username&#34;:&#34;admin&#34;,&#34;password&#34;:&#34;123456&#34;}&#39; http://127.0.0.1:5000/api/register
+HTTP/1.0 200 OK
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Content-Length: 26
+Server: Werkzeug/0.12.2 Python/2.7.13
+Date: Wed, 20 Sep 2017 06:33:46 GMT
+
+{
+  &#34;username&#34;: &#34;admin&#34;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>查看数据库：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">MariaDB [rest]&gt; select * from users\G;
+*************************** 1. row ***************************
+      id: 1
+username: admin
+password: $6$rounds=656000$etV4F3xLL0dwflX8$mLFX9l5dumBnQFtajGmey346viGuQ4bxR7YhQdKtB/nQH9ij2e3HHMEBPj.ef/o//4o9P2Wd3Y7dxQfjwR2hY/
+1 row in set (0.00 sec)
+</code></pre></td></tr></table>
+</div>
+</div><p>获取token：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"> curl -i -u admin:123456  -X GET -H &#34;Content-Type: application/json&#34;  http://127.0.0.1:5000/api/login
+HTTP/1.0 200 OK
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Content-Length: 125
+Server: Werkzeug/0.12.2 Python/2.7.13
+Date: Wed, 20 Sep 2017 06:37:01 GMT
+
+&#34;eyJhbGciOiJIUzI1NiIsImV4cCI6MTUwNTg5MDAyMSwiaWF0IjoxNTA1ODg5NDIxfQ.eyJpZCI6MX0.nUIKq-ZhFOiLPwZyUmfgWPfHYNy8o6eoR6lmzdsY0oQ&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>使用token调用api：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -i -u eyJhbGciOiJIUzI1NiIsImV4cCI6MTUwNTg5MDAyMSwiaWF0IjoxNTA1ODg5NDIxfQ.eyJpZCI6MX0.nUIKq-ZhFOiLPwZyUmfgWPfHYNy8o6eoR6lmzdsY0oQ:unused   -X GET -H &#34;Content-Type: application/json&#34;  http://127.0.0.1:5000/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Content-Length: 15
+Server: Werkzeug/0.12.2 Python/2.7.13
+Date: Wed, 20 Sep 2017 06:38:22 GMT
+
+&#34;Hello, admin&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>基于<code>token</code>的<code>Flask api</code>成功！！！！</p>
+<h1 id="前端vuejs">前端Vue.js</h1>
+<p>前端使用<code>vue</code>的全家桶，axios前后端通讯，axios拦截器，localStorage保存token
+所使用的框架和库：</p>
+<ul>
+<li>vue2.0</li>
+<li>iview2.X</li>
+<li>axios</li>
+<li>vuex</li>
+<li>vue-router</li>
+</ul>
+<h2 id="具体实现-1">具体实现</h2>
+<h3 id="mainjs"><code>main.js</code></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js">
+<span class="c1">// 初始化axios
+</span><span class="c1"></span><span class="nx">axios</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">baseURL</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:5000&#39;</span>
+<span class="nx">axios</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">auth</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// axios.interceptors.request.use((config) =&gt; {
+</span><span class="c1">//     console.log(config)
+</span><span class="c1">//     return config;
+</span><span class="c1">// }, (error) =&gt; {
+</span><span class="c1">//     return Promise.reject(error)
+</span><span class="c1">// })
+</span><span class="c1"></span>
+<span class="c1">// axios拦截器，401状态时跳转登录页并清除token
+</span><span class="c1"></span><span class="nx">axios</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+<span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">401</span><span class="o">:</span>
+                <span class="nx">store</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="s1">&#39;del_token&#39;</span><span class="p">)</span>
+                <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1">// 路由跳转
+</span><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">beforeEach</span><span class="p">((</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">required</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 检查localStorage
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">store</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="s1">&#39;set_token&#39;</span><span class="p">,</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span>
+            <span class="c1">// 添加axios头部Authorized
+</span><span class="c1"></span>            <span class="nx">axios</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">auth</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">username</span><span class="o">:</span> <span class="nx">store</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span>
+                <span class="nx">password</span><span class="o">:</span> <span class="nx">store</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="c1">// iview的页面加载条
+</span><span class="c1"></span>            <span class="nx">iView</span><span class="p">.</span><span class="nx">LoadingBar</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+            <span class="nx">next</span><span class="p">()</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">next</span><span class="p">({</span>
+                <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/login&#39;</span><span class="p">,</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">iView</span><span class="p">.</span><span class="nx">LoadingBar</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+        <span class="nx">next</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="nx">afterEach</span><span class="p">((</span><span class="nx">to</span><span class="p">,</span> <span class="nx">from</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">iView</span><span class="p">.</span><span class="nx">LoadingBar</span><span class="p">.</span><span class="nx">finish</span><span class="p">();</span>
+<span class="p">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="路由">路由</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export default new Router({
+    routes: [{
+        path: &#39;/&#39;,
+        name: &#39;index&#39;,
+        component: Index,
+        meta: {
+            required: true,
+        }
+    }, {
+        path: &#39;/login&#39;,
+        name: &#39;login&#39;,
+        component: Login,
+    }]
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>路由添加<code>meta</code>字段，作为需要认证路由的标志</p>
+<h3 id="vuex">vuex</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">export default new Vuex.Store({
+    state: {
+        token: &#39;&#39;
+    },
+    mutations: {
+        set_token(state, token) {
+            state.token = token
+            localStorage.token = token
+        },
+        del_token(state) {
+            state.token = &#39;&#39;
+            localStorage.removeItem(&#39;token&#39;)
+        }
+    }
+})
+</code></pre></td></tr></table>
+</div>
+</div><p><code>vuex</code>中保存<code>token</code>，同时修改删除<code>token</code>和<code>localStorage.token</code></p>
+<h3 id="登录和登出">登录和登出</h3>
+<p>登录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">handleSubmit</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">form</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">validate</span><span class="p">((</span><span class="nx">valid</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">valid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 用户名密码简单验证后添加到axios的auth中
+</span><span class="c1"></span>            <span class="k">this</span><span class="p">.</span><span class="nx">$axios</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">auth</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">username</span><span class="o">:</span> <span class="nx">form</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+                <span class="nx">password</span><span class="o">:</span> <span class="nx">form</span><span class="p">.</span><span class="nx">password</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/login&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$Message</span><span class="p">.</span><span class="nx">success</span><span class="p">(</span><span class="s2">&#34;提交成功&#34;</span><span class="p">)</span>
+                <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
+                <span class="c1">// 保存token
+</span><span class="c1"></span>                <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="s1">&#39;set_token&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$Message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span>
+            <span class="p">})</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$Message</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;表单验证失败!&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>登出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">logout() {
+    this.$store.commit(&#39;del_token&#39;)
+    this.$router.push(&#39;/login&#39;)
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>删除<code>token</code>并跳转到登录页</p>
+<blockquote>
+<p><code>flask</code>和<code>vue</code>的<code>token</code>认证就完成了！！！！</p>
+</blockquote>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/flask/">flask</a>
+          <a href="/tags/vue/">vue</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">python装饰器</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

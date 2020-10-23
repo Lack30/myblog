@@ -163,6 +163,13 @@
   </url>
   
   <url>
+    <loc>http://blog.xingyys.tech/categories/%E4%BB%A3%E7%A0%81/</loc>
+    <lastmod>2020-07-31T14:38:08+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.xingyys.tech/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2020-07-31T14:38:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -375,6 +382,27 @@
   <url>
     <loc>http://blog.xingyys.tech/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2018-03-31T19:55:04+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xingyys.tech/tags/flask/</loc>
+    <lastmod>2017-09-20T15:36:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</loc>
+    <lastmod>2017-09-20T15:36:05+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.xingyys.tech/tags/vue/</loc>
+    <lastmod>2017-09-20T15:36:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

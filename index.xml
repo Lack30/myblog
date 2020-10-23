@@ -223,5 +223,14 @@
       <description>简单的装饰器函数： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import time from functools import wraps def timethis(func): &amp;#34;&amp;#34;&amp;#34; Decorator that reports the execution time. &amp;#34;&amp;#34;&amp;#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就</description>
     </item>
     
+    <item>
+      <title>Flask与Vue的token认证</title>
+      <link>http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</link>
+      <pubDate>Wed, 20 Sep 2017 15:36:05 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</guid>
+      <description>后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源</description>
+    </item>
+    
   </channel>
 </rss>

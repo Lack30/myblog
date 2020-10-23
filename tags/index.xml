@@ -169,5 +169,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>flask</title>
+      <link>http://blog.xingyys.tech/tags/flask/</link>
+      <pubDate>Wed, 20 Sep 2017 15:36:05 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/flask/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vue</title>
+      <link>http://blog.xingyys.tech/tags/vue/</link>
+      <pubDate>Wed, 20 Sep 2017 15:36:05 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/vue/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

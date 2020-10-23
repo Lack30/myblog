@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vue on Xingyys 的个人博客</title>
+    <link>http://blog.xingyys.tech/tags/vue/</link>
+    <description>Recent content in vue on Xingyys 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 20 Sep 2017 15:36:05 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flask与Vue的token认证</title>
+      <link>http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</link>
+      <pubDate>Wed, 20 Sep 2017 15:36:05 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</guid>
+      <description>后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源</description>
+    </item>
+    
+  </channel>
+</rss>
