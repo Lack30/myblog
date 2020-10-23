@@ -1,7 +1,7 @@
 ---
 title: "Windows Bat总结"
-date: 2020-10-23T15:06:27+08:00
-lastmod: 2020-10-23T15:06:27+08:00
+date: 2019-03-22T15:06:27+08:00
+lastmod: 2019-03-22T15:06:27+08:00
 draft: false
 keywords: []
 description: ""

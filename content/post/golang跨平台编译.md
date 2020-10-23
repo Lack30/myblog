@@ -1,7 +1,7 @@
 ---
 title: "Golang跨平台编译"
-date: 2020-10-23T14:52:46+08:00
-lastmod: 2020-10-23T14:52:46+08:00
+date: 2020-09-10T14:52:46+08:00
+lastmod: 2020-09-10T14:52:46+08:00
 draft: false
 keywords: []
 description: ""

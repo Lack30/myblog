@@ -1,7 +1,7 @@
 ---
 title: "Aix添加和删除Iscsi存储卷"
-date: 2020-10-23T15:12:53+08:00
-lastmod: 2020-10-23T15:12:53+08:00
+date: 2019-10-22T15:12:53+08:00
+lastmod: 2019-10-22T15:12:53+08:00
 draft: false
 keywords: []
 description: ""
