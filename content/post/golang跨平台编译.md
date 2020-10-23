@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["golang"]
-categories: ["编译"]
+categories: ["随笔"]
 author: ""
 
 # You can also close(false) or open(true) something for this content.

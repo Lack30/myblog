@@ -1,7 +1,7 @@
 ---
 title: "Scst 安装和使用"
-date: 2020-10-23T14:59:25+08:00
-lastmod: 2020-10-23T14:59:25+08:00
+date: 2020-04-08T14:59:25+08:00
+lastmod: 2020-04-08T14:59:25+08:00
 draft: false
 keywords: []
 description: ""
