@@ -45,7 +45,7 @@
 <meta property="og:description" content="Xingyys 的个人学习站点，记录学习和工作的点点滴滴." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://blog.xingyys.tech/" />
-<meta property="og:updated_time" content="2020-10-23T14:43:08+08:00" />
+<meta property="og:updated_time" content="2020-10-23T15:06:27+08:00" />
 <meta itemprop="name" content="Xingyys 的个人博客">
 <meta itemprop="description" content="Xingyys 的个人学习站点，记录学习和工作的点点滴滴.">
 <meta name="twitter:card" content="summary"/>
@@ -117,6 +117,98 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/bat/">Windows Bat总结</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-23 </span>
+      <div class="post-category">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+          </div>
+        <span class="more-meta"> 约 1614 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可
+    </div>
+    <div class="read-more">
+      <a href="/post/bat/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/scst1/">Scst 安装和使用</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-23 </span>
+      <div class="post-category">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+          </div>
+        <span class="more-meta"> 约 237 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1
+    </div>
+    <div class="read-more">
+      <a href="/post/scst1/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">Scst在线扩容</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-23 </span>
+      <div class="post-category">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+          </div>
+        <span class="more-meta"> 约 166 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客
+    </div>
+    <div class="read-more">
+      <a href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/">Golang跨平台编译</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-23 </span>
+      <div class="post-category">
+          <a href="/categories/%E7%BC%96%E8%AF%91/"> 编译 </a>
+          </div>
+        <span class="more-meta"> 约 289 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。 因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。 在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令
+    </div>
+    <div class="read-more">
+      <a href="/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/">etcd的使用实例</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-10-23 </span>
@@ -134,98 +226,6 @@
     </div>
     <div class="read-more">
       <a href="/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/grpc2/">GPRC 进阶</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-23 </span>
-      <div class="post-category">
-          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"> 微服务 </a>
-          </div>
-        <span class="more-meta"> 约 5615 字 </span>
-        <span class="more-meta"> 预计阅读 12 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请
-    </div>
-    <div class="read-more">
-      <a href="/post/grpc2/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/grpc1/">GPRC 实战</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-23 </span>
-      <div class="post-category">
-          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"> 微服务 </a>
-          </div>
-        <span class="more-meta"> 约 1501 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-
-    </div>
-    <div class="read-more">
-      <a href="/post/grpc1/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/pgsql1/">postgresql 实战一：安装和使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-10-23 </span>
-      <div class="post-category">
-          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
-          </div>
-        <span class="more-meta"> 约 1883 字 </span>
-        <span class="more-meta"> 预计阅读 4 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash
-    </div>
-    <div class="read-more">
-      <a href="/post/pgsql1/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/">golang打包和解包</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-02-15 </span>
-      <div class="post-category">
-          <a href="/categories/%E4%BB%A3%E7%A0%81%E6%AE%B5/"> 代码段 </a>
-          </div>
-        <span class="more-meta"> 约 420 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      打包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 // 打包 func Compress(destPath, srcDir string)
-    </div>
-    <div class="read-more">
-      <a href="/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

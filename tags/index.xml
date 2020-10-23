@@ -6,22 +6,49 @@
     <description>Recent content in Tags on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 14:43:08 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 15:06:27 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>etcd</title>
-      <link>http://blog.xingyys.tech/tags/etcd/</link>
-      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
+      <title>bat</title>
+      <link>http://blog.xingyys.tech/tags/bat/</link>
+      <pubDate>Fri, 23 Oct 2020 15:06:27 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/etcd/</guid>
+      <guid>http://blog.xingyys.tech/tags/bat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>脚本</title>
+      <link>http://blog.xingyys.tech/tags/%E8%84%9A%E6%9C%AC/</link>
+      <pubDate>Fri, 23 Oct 2020 15:06:27 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/%E8%84%9A%E6%9C%AC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iscsi</title>
+      <link>http://blog.xingyys.tech/tags/iscsi/</link>
+      <pubDate>Fri, 23 Oct 2020 14:59:25 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/iscsi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
       <link>http://blog.xingyys.tech/tags/golang/</link>
-      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
+      <pubDate>Fri, 23 Oct 2020 14:52:46 +0800</pubDate>
       
       <guid>http://blog.xingyys.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>etcd</title>
+      <link>http://blog.xingyys.tech/tags/etcd/</link>
+      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/etcd/</guid>
       <description></description>
     </item>
     

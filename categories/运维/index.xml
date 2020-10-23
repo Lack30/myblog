@@ -6,7 +6,34 @@
     <description>Recent content in 运维 on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 26 Jan 2019 08:28:08 +0000</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 15:06:27 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows Bat总结</title>
+      <link>http://blog.xingyys.tech/post/bat/</link>
+      <pubDate>Fri, 23 Oct 2020 15:06:27 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/bat/</guid>
+      <description>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可</description>
+    </item>
+    
+    <item>
+      <title>Scst 安装和使用</title>
+      <link>http://blog.xingyys.tech/post/scst1/</link>
+      <pubDate>Fri, 23 Oct 2020 14:59:25 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/scst1/</guid>
+      <description>安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</description>
+    </item>
+    
+    <item>
+      <title>Scst在线扩容</title>
+      <link>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</link>
+      <pubDate>Fri, 23 Oct 2020 14:57:36 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</guid>
+      <description>SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</description>
+    </item>
+    
     <item>
       <title>iscsi共享磁盘服务</title>
       <link>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
