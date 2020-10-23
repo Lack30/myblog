@@ -43,7 +43,7 @@ sequenceDiagrams:
 <a name="jomdY"></a>
 # 制作rpm包的流程
 
-<br />rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包<br />
+rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包<br />
 
 <a name="qAT7v"></a>
 ## 安装需要的软件
@@ -55,7 +55,7 @@ sequenceDiagrams:
 <a name="U1jWR"></a>
 ## 创建rpmbuild
 
-<br />然后就需要创建rpmbuild
+然后就需要创建rpmbuild
 ```bash
 rpmbuild/
 ├── BUILD         // 在编译的过程中，有些缓存的数据都会放置在这个目录当中；
@@ -262,15 +262,15 @@ Provides:
 - Obsoletes, 其他包提供的功能已经不推荐使用了，这通常是其他包的功能修改了，老版本不推荐使用了，可以在以后的版本中会被废弃。
 
 
-<br />定义依赖关系的语法是：
+定义依赖关系的语法是：
 
 - Requires: capability
 - Provides: capability
 - Obsoletes: capability
 - Conflicts: capability
 
-大部分时候，capability应该是所依赖的包的名称。一行中也可以定义多个依赖，比如： `Requires: tbsys tbnet` <br />
-<br />在指定依赖关系的时候还可以指定版本号，比如:<br />`Requires: tbsys >= 2.0` <br />
+大部分时候，capability应该是所依赖的包的名称。一行中也可以定义多个依赖，比如： `Requires: tbsys tbnet` 
+在指定依赖关系的时候还可以指定版本号，比如:`Requires: tbsys >= 2.0` 
 
 <a name="Requires"></a>
 ## Requires
@@ -321,38 +321,72 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 
 例如：
 - %setup -T -b 0        //解开第一个源程序文件。
-- %setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。
+-%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。<br />
 
 <a name="EgjfN"></a>
 ### 宏%patch
-这个宏将头部定义的补丁应用于源代码。如果定义了多个补丁，它可以用一个数字的参数来指示应用哪个补丁文件。它也接受 -b extension 参数，指示 RPM 在打补丁之前，将文件备份为扩展名是 extension 的文件。<br />%patch N  ：这里N是数字，表示使用第N个补丁文件，等价于%patch-P N<br />-p0       ：指定使用第一个补丁文件，-p1指定使用第二个补丁文件。<br />-s        ：在使用补丁时，不显示任何信息。<br />-bname    ：在加入补丁文件之前，将源文件名上加入name。若为指定此参数，则缺省源文件加入.orig。<br />-T        ：将所有打补丁时产生的输出文件删除<br />
+这个宏将头部定义的补丁应用于源代码。如果定义了多个补丁，它可以用一个数字的参数来指示应用哪个补丁文件。它也接受 -b extension 参数，指示 RPM 在打补丁之前，将文件备份为扩展名是 extension 的文件。
+- %patch N  ：这里N是数字，表示使用第N个补丁文件，等价于%patch-P N
+- -p0       ：指定使用第一个补丁文件，-p1指定使用第二个补丁文件。
+- -s        ：在使用补丁时，不显示任何信息。
+- -bname    ：在加入补丁文件之前，将源文件名上加入name。若为指定此参数，则缺省源文件加入.orig。
+- -T        ：将所有打补丁时产生的输出文件删除
 
 <a name="JIPk7"></a>
 ## 编译%build
 
-<br />定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。<br />作用：<br />在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。<br />如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。<br />如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。<br />软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。<br />环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：<br />makeCC="gcc $RPM_OPT_FLAGS"<br />或者<br />makeCFLAGS="$RPM_OPT_FLAGS"<br />就可以保证总是使用合适的优化选项。也可以使用其他编译器标志和选项。默认的 $RPM_OPT_FLAGS 是：<br />-O2 -g-march=i386 -mcpu=i686<br />
+定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。<br />作用：<br />在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。<br />如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。<br />如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。<br />软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。<br />环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：
+```bash 
+makeCC="gcc $RPM_OPT_FLAGS"
+``` 
+或者
+```bash 
+makeCFLAGS="$RPM_OPT_FLAGS"
+```
+就可以保证总是使用合适的优化选项。也可以使用其他编译器标志和选项。默认的 $RPM_OPT_FLAGS 是: 
+```bash
+-O2 -g-march=i386 -mcpu=i686
+```
 
 <a name="YYTm1"></a>
 ## 安装%install
 
-<br />定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。<br />作用：<br />这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。<br />在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：<br />Buildroot:%{_tmppath}/%{name}-buildroot<br />使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。<br />在 spec 文件的其余部分可以用 shell 变量 $RPM_BUILD_ROOT 获取 Buildroot 的值。<br />mkdir -p $RPM_BUILD_ROOT/usr/share/icons/<br />cp %{SOURCE3}$RPM_BUILD_ROOT/usr/share/icons/<br />Install 段落通常列出要将已编译的软件安装到 Buildroot 中的命令<br />宏 %makeinstall 可以用于安装支持 autoconf 的软件。这个软件自动地将软件安装到 $RPM_BUILD_ROOT 下的正确的子目录中。<br />有时，软件包必须被构建多次，由于打包错误或其他原因。每次构建时，Install 段落将复制文件到 Buildroot 中。要防止由于 Buildroot 中的旧文件而导致错误的打包，必须在安装新文件之前将 Buildroot 中任何现有的文件删除。为此，可以使用一个 clean 脚本。这个脚本通常以 %clean 标记表示，通常仅仅包含这样一句：<br />rm -rf$RPM_BUILD_ROOT<br />如果有的话，在制作了在 Install 段落中安装的文件的打包之后，将运行 %clean，保证下次构建之前 Buildroot 被清空。<br />
+定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。<br />作用：<br />这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。<br />在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：`Buildroot:%{_tmppath}/%{name}-buildroot`
+
+使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。<br />在 spec 文件的其余部分可以用 shell 变量 `$RPM_BUILD_ROOT` 获取 Buildroot 的值。
+```bash
+mkdir -p $RPM_BUILD_ROOT/usr/share/icons/
+cp %{SOURCE3}$RPM_BUILD_ROOT/usr/share/icons/
+```
+Install 段落通常列出要将已编译的软件安装到 Buildroot 中的命令
+宏 %makeinstall 可以用于安装支持 autoconf 的软件。这个软件自动地将软件安装到 $RPM_BUILD_ROOT 下的正确的子目录中。
+有时，软件包必须被构建多次，由于打包错误或其他原因。每次构建时，Install 段落将复制文件到 Buildroot 中。要防止由于 Buildroot 中的旧文件而导致错误的打包，必须在安装新文件之前将 Buildroot 中任何现有的文件删除。为此，可以使用一个 clean 脚本。这个脚本通常以 %clean 标记表示，通常仅仅包含这样一句：
+```bash
+rm -rf$RPM_BUILD_ROOT
+```
+如果有的话，在制作了在 Install 段落中安装的文件的打包之后，将运行 %clean，保证下次构建之前 Buildroot 被清空。
 
 <a name="b7a37f7d"></a>
 ## 清理%clean
 
-<br />%clean<br />
-<br />rm-rf $RPM_BUILD_ROOT<br />
+```bash
+%clean
+rm-rf $RPM_BUILD_ROOT
+```
 
 <a name="0SFVh"></a>
 ## 文件%files
 
-<br />定义软件包所包含的文件，分为三类：说明文档（doc），配置文件（config）及执行程序，还可定义文件存取权限，拥有者及组别。<br />这里会在虚拟根目录下进行，千万不要写绝对路径，而应用宏或变量表示相对路径。 如果描述为目录，表示目录中除%exclude外的所有文件。<br />
-<br />%defattr (-,root,root) 指定包装文件的属性，分别是(mode,owner,group)，-表示默认值，对文本文件是0644，可执行文件是0755<br />
+定义软件包所包含的文件，分为三类：说明文档（doc），配置文件（config）及执行程序，还可定义文件存取权限，拥有者及组别。
+
+这里会在虚拟根目录下进行，千万不要写绝对路径，而应用宏或变量表示相对路径。 如果描述为目录，表示目录中除%exclude外的所有文件。
+
+%defattr (-,root,root) 指定包装文件的属性，分别是(mode,owner,group)，-表示默认值，对文本文件是0644，可执行文件是0755
 
 <a name="GerxY"></a>
 ##  更新日志%changelog
 
-<br />每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。<br />
+每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。<br />
 
 <a name="K7wiA"></a>
 # 更复杂的spec
@@ -414,7 +448,7 @@ systemctl stop oracle-agent
 <a name="0b96aae9"></a>
 # 问题汇总
 
-<br />rpmbuild报error: Installed (but unpackaged) file(s) found的问题
+rpmbuild报error: Installed (but unpackaged) file(s) found的问题
 ```bash
 找到 /usr/lib/rpm/macros 中
 %__check_files

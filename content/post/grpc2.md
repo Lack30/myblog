@@ -93,7 +93,7 @@ func main() {
 }
 ```
 
-<br />keepalive 的实现核心在于 `keepalive.EnforcementPolicy` 和 `keepalive.ServerParameters`。首先是 ``keepalive.ServerParameters`。它包含几个属性：
+<br />keepalive 的实现核心在于 `keepalive.EnforcementPolicy` 和 `keepalive.ServerParameters`。首先是 `keepalive.ServerParameters`。它包含几个属性：
 
 - MaxConnectionIdle : 最大空闲连接时间，默认为无限制。这段时间为客户端 stream 请求为0 或者建立连接。超出这段时间后，serve 会发送一个 `GoWay`，强制 client stream 断开。
 - MaxConnectionAge：最大连接时间，默认为无限制。stream 连接超出这个值是发送一个 `GoWay`。
