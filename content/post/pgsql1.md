@@ -1,6 +1,7 @@
 ---
 title: "postgresql 实战一：安装和使用"
-date: 2020-10-23T14:33:55+08:00
+date: 2020-10-13T14:33:55+08:00
+lastmod: 2020-10-13T14:52:46+08:00
 tags:
  - postgreSQL
  - database
