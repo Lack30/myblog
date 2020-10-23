@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>搭建lamp环境 - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="lamp即 apache &#43; mysql &#43; php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/lamp/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="搭建lamp环境" />
+<meta property="og:description" content="lamp即 apache &#43; mysql &#43; php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/lamp/" />
+<meta property="article:published_time" content="2018-05-31T09:13:23+00:00" />
+<meta property="article:modified_time" content="2018-05-31T09:13:23+00:00" />
+<meta itemprop="name" content="搭建lamp环境">
+<meta itemprop="description" content="lamp即 apache &#43; mysql &#43; php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m">
+<meta itemprop="datePublished" content="2018-05-31T09:13:23+00:00" />
+<meta itemprop="dateModified" content="2018-05-31T09:13:23+00:00" />
+<meta itemprop="wordCount" content="1241">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="搭建lamp环境"/>
+<meta name="twitter:description" content="lamp即 apache &#43; mysql &#43; php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">搭建lamp环境</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-31 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 1241 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装mysql">安装mysql</a>
+      <ul>
+        <li><a href="#下载mysql">下载mysql</a></li>
+        <li><a href="#解压">解压</a></li>
+        <li><a href="#移动到指定目录">移动到指定目录</a></li>
+        <li><a href="#创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</a></li>
+        <li><a href="#创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</a></li>
+        <li><a href="#初始化mysql">初始化mysql</a></li>
+        <li><a href="#mysql配置文件">mysql配置文件</a></li>
+        <li><a href="#mysql启动脚本">mysql启动脚本</a></li>
+        <li><a href="#设置开机启动">设置开机启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装httpd">安装httpd</a>
+      <ul>
+        <li><a href="#下载httpd">下载httpd</a></li>
+        <li><a href="#解压-1">解压</a></li>
+        <li><a href="#编译安装">编译安装</a></li>
+        <li><a href="#启动httpd">启动httpd</a></li>
+        <li><a href="#开机启动">开机启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装php">安装php</a>
+      <ul>
+        <li><a href="#下载php">下载php</a></li>
+        <li><a href="#解压-2">解压</a></li>
+        <li><a href="#编译安装-1">编译安装</a></li>
+        <li><a href="#修改配置文件">修改配置文件</a></li>
+        <li><a href="#测试">测试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>lamp即 apache + mysql + php，是互联网常用架构。</p>
+</blockquote>
+<p>要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5</p>
+<h1 id="安装mysql">安装mysql</h1>
+<p>这里选择免编译安装，可以在官网找到。在mysql5.5之后的版本不在开源了，但还可以选择mariadb的分支版本作为这个架构的代替。接下来就可以开始mysql的安装了。</p>
+<h2 id="下载mysql">下载mysql</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><p>这个版本有点低，可以自己选择合适版本</p>
+<h2 id="解压">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="移动到指定目录">移动到指定目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建mysql用户但不允许登录不创建家目录">创建mysql用户，但不允许登录，不创建家目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">useradd -s /sbin/nologin -M mysql
+</code></pre></td></tr></table>
+</div>
+</div><p><code>-s</code>表示指定bash，这里出于安全性考虑设置不允许登录，<code>-M</code>不创建家目录</p>
+<h2 id="创建数据库目录并改为mysql属主">创建数据库目录，并改为mysql属主</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir /data/mysql -pv
+chown -R mysql：mysql /data/mysql
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="初始化mysql">初始化mysql</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /usr/local/mysql
+./scripts/mysql_install_db --user<span class="o">=</span>mysql --datadir<span class="o">=</span>/data/mysql
+</code></pre></td></tr></table>
+</div>
+</div><p><code>--user=*</code>是指定用户mysql，<code>--datadir=*</code>是指定数据库目录。可以使用<code>echo $?</code>验证命令执行结果是否正确，0为正确。</p>
+<h2 id="mysql配置文件">mysql配置文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf
+vim /etc/my.cnf
+......
+<span class="nv">port</span>            <span class="o">=</span> <span class="m">3306</span>        <span class="c1">#监听端口</span>
+<span class="nv">socket</span>          <span class="o">=</span> /tmp/mysql.sock  <span class="c1">#socket</span>
+.....
+log-bin<span class="o">=</span>mysql-bin   <span class="c1">#修改mysql数据库时，记录日志</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="mysql启动脚本">mysql启动脚本</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/mysql/mysql.server /etc/init.d/mysqld
+vim /etc/init.d/mysqld
+
+<span class="nv">basedir</span><span class="o">=</span>/usr/local/mysql   <span class="c1">#指定安装目录</span>
+<span class="nv">datadir</span><span class="o">=</span>/data/mysql          <span class="c1">#指定数据库目录</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="设置开机启动">设置开机启动</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">chkconfig --add mysqld；chkconfig mysqld on 开机启动
+</code></pre></td></tr></table>
+</div>
+</div><p>编译安装mysql时编译参数记录在<code>cat /usr/local/mysql/bin/mysqlbug |grep -i configure</code></p>
+<h1 id="安装httpd">安装httpd</h1>
+<p>使用apache的httpd提供网络web服务</p>
+<h2 id="下载httpd">下载httpd</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget http://mirrors.cnnic.cn/apache/httpd/httpd-2.2.31.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解压-1">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">tar -zxvf httpd-2.2.31.tar.gz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="编译安装">编译安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 编译</span>
+./configure --prefix<span class="o">=</span>/usr/local/apache <span class="se">\
+</span><span class="se"></span>&gt;-with-include-apr --enable-so <span class="se">\
+</span><span class="se"></span>&gt;--enable-deflate<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;--enable-rewrite<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;--enable-expires<span class="o">=</span>shared <span class="se">\
+</span><span class="se"></span>&gt;-with-pcre <span class="se">\
+</span><span class="se"></span>&gt;-with-mpm<span class="o">=</span>prefork
+
+make
+
+<span class="c1"># 安装</span>
+make install
+</code></pre></td></tr></table>
+</div>
+</div><p>编译选项记录在<code>/usr/local/apache/build/config.nice</code> 中</p>
+<h2 id="启动httpd">启动httpd</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/usr/local/apache/bin/apachectl start
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>/usr/local/apache/bin/apachectl -M ：查看各种库</li>
+<li>静态库(编译时直接放入下列文件)
+/usr/local/apache/bin/httpd</li>
+<li>动态库(用到时加载)
+/usr/local/apache/modules/</li>
+<li>/usr/local/apache/bin/apachectl -l ：查看静态库以及apache工作模式</li>
+<li>/usr/local/apache/bin/apachectl -t ：查看配置文件有无语法错误</li>
+<li>配置文件 /usr/local/apache/conf/httpd.conf</li>
+<li>/usr/local/apache/bin/apachectl graceful 加载配置文件</li>
+</ul>
+<p>启动httpd时的警告：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">httpd: apr_sockaddr_info_get<span class="o">()</span> failed <span class="k">for</span> 【linux】
+httpd: Could not reliably determine the server<span class="err">&#39;</span>s fully qualified domain name, using 127.0.0.1 <span class="k">for</span> ServerName
+</code></pre></td></tr></table>
+</div>
+</div><p>解决方法(问题在于主机名不匹配)
+警告1 ：在/etc/hosts中的127.0.0.1行后添加linux
+警告2 ：在httpd的配置文件/usr/local/apache/conf/httpd.conf中的ServerName行中改为 ServerName linux:80</p>
+<h2 id="开机启动">开机启动</h2>
+<p>修改启动脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/local/apache/bin/apachectl /etc/init.d/httpd
+
+vim /etc/init.d/httpd
+在#!/bin/bash下加入
+
+<span class="c1">#chkconfig:345 61 61</span>
+<span class="c1">#description:Apache httpd</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>设置开机启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">chkconfig --add httpd
+chkconfig --level <span class="m">345</span> httpd on
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="安装php">安装php</h1>
+<h2 id="下载php">下载php</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget http://cn2.php.net/get/php-5.4.45.tar.bz2/from/this/mirror
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解压-2">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv mirror php-5.4.45.tar.bz2
+tar -jxvf php-5.4.45.tar.bz2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="编译安装-1">编译安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> php-5.4.45
+
+./configure --prefix<span class="o">=</span>/usr/local/php --with-apxs2<span class="o">=</span>/usr/local/apache/bin/apxs --with-config-file-path<span class="o">=</span>/usr/local/php/etc --with-mysql<span class="o">=</span>/usr/local/mysql --with-libxml-dir --with-gd --with-jpeg-dir --with-png-dir --with-freetype-dir  --with-iconv-dir --with-zlib-dir --with-bz2 --with-openssl --with-mcrypt --enable-soap  --enable-gd-native-ttf --enable-mbstring --enable-sockets --enable-exif  --disable-ipv6
+
+<span class="c1">#出现错误：</span>
+configure: error: jpeglib.h not found.
+	
+<span class="c1"># 解决方法：</span>
+yum install -y libjpeg-devel
+	
+<span class="c1">#出现错误：</span>
+configure: error: mcrypt.h not found.
+	
+<span class="c1">#解决方法：</span>
+wget http://www.lishiming.net/data/attachment/forum/epel-release-6-8_32.noarch.rpm <span class="c1">#CentOS的yum扩展源</span>
+rpm -ivh epel-release-6-8_32.noarch.rpm
+yum install -y libmcrypt-devel
+
+make
+
+make install
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>/usr/local/php/bin/php -m :查看静态模块</li>
+<li>/usr/local/php/bin/php -i ：查看相关配置</li>
+</ul>
+<h2 id="修改配置文件">修改配置文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cp /usr/src/php-5.4.45/php.ini-production /usr/local/php/etc/php.ini
+
+vim /usr/local/apache/conf/httpd.conf
+
+在
+AddType application/x-compress .Z
+AddType application/x-gzip .gz .tgz
+
+两行下加入
+AddType application/x-httpd-php .php
+
+将
+DirectoryIndex index.html
+后添加 1.php
+DirectoryIndex index.html 1.php
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="测试">测试</h2>
+<p>在Apache的安装文件中添加php文件
+/usr/local/apache/htdocs/目录下创建
+vim 1.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php5" data-lang="php5"><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="k">echo</span> <span class="s2">&#34;Welcome to 1.php&#34;</span> <span class="p">;</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xingyys</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-05-31
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/lnmp/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">搭建lnmp环境</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/">
+            <span class="next-text nav-default">python装饰器</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

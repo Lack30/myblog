@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Xingyys 的个人博客</title>
+    <link>http://blog.xingyys.tech/tags/python/</link>
+    <description>Recent content in python on Xingyys 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 31 Mar 2018 19:55:04 +0000</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python装饰器</title>
+      <link>http://blog.xingyys.tech/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+      <pubDate>Sat, 31 Mar 2018 19:55:04 +0000</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+      <description>简单的装饰器函数： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import time from functools import wraps def timethis(func): &amp;#34;&amp;#34;&amp;#34; Decorator that reports the execution time. &amp;#34;&amp;#34;&amp;#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就</description>
+    </item>
+    
+  </channel>
+</rss>

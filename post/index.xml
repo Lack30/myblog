@@ -6,191 +6,113 @@
     <description>Recent content in Posts on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 14:43:08 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Theme preview</title>
-      <link>http://blog.xingyys.tech/post/even-preview/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>etcd的使用实例</title>
+      <link>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
+      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/even-preview/</guid>
-      <description>Based on MarkdownPreview test.md. Markdown 1 2 3 4 5 6 7 8 # H1 ## H2 ### H3 #### H4 ##### H5 ###### H6 ### Duplicate Header ### Duplicate Header H1 H2 H3 H4 H5 H6 Duplicate Header Duplicate Header Paragraphs 1 2 3 4 This is a paragraph. I am still part of the paragraph. New paragraph. This is a paragraph. I am still part of the paragraph.</description>
+      <guid>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
+      <description>etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leade</description>
     </item>
     
     <item>
-      <title>This is a hidden post.</title>
-      <link>http://blog.xingyys.tech/post/hidden-post/</link>
-      <pubDate>Thu, 08 Mar 2018 17:40:19 +0800</pubDate>
+      <title>GPRC 进阶</title>
+      <link>http://blog.xingyys.tech/post/grpc2/</link>
+      <pubDate>Fri, 23 Oct 2020 14:40:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/hidden-post/</guid>
-      <description>&lt;p&gt;This post is hidden from the home page.&lt;/p&gt;</description>
+      <guid>http://blog.xingyys.tech/post/grpc2/</guid>
+      <description>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请</description>
     </item>
     
     <item>
-      <title>[English] Creating a New Theme</title>
-      <link>http://blog.xingyys.tech/post/english-preview/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>GPRC 实战</title>
+      <link>http://blog.xingyys.tech/post/grpc1/</link>
+      <pubDate>Fri, 23 Oct 2020 14:38:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/english-preview/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+      <guid>http://blog.xingyys.tech/post/grpc1/</guid>
+      <description>GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-</description>
     </item>
     
     <item>
-      <title>[日本語] 敬語体系</title>
-      <link>http://blog.xingyys.tech/post/japanese-preview/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>postgresql 实战一：安装和使用</title>
+      <link>http://blog.xingyys.tech/post/pgsql1/</link>
+      <pubDate>Fri, 23 Oct 2020 14:33:55 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/japanese-preview/</guid>
-      <description>日本語の敬語体系は、一般に、大きく尊敬語・謙譲語・丁寧語に分類される。文化審議会国語分科会は、2007年2月に「敬語の指針」を答申し、これに</description>
+      <guid>http://blog.xingyys.tech/post/pgsql1/</guid>
+      <description>安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash</description>
     </item>
     
     <item>
-      <title>[中文] 《长恨歌》</title>
-      <link>http://blog.xingyys.tech/post/chinese-preview/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>golang打包和解包</title>
+      <link>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
+      <pubDate>Fri, 15 Feb 2019 15:03:44 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/chinese-preview/</guid>
-      <description>《长恨歌》是中国唐朝诗人白居易的一首长篇叙事诗。 第一段：贵妃受宠爱 汉皇重色思倾国，御宇多年求不得。杨家有女初长成，养在深闺人未识。 天生丽质难</description>
+      <guid>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
+      <description>打包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 // 打包 func Compress(destPath, srcDir string)</description>
     </item>
     
     <item>
-      <title>Shortcodes</title>
-      <link>http://blog.xingyys.tech/post/shortcodes/</link>
-      <pubDate>Tue, 30 Aug 2016 16:01:23 +0800</pubDate>
+      <title>linux上使用udev创建裸设备</title>
+      <link>http://blog.xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
+      <pubDate>Sat, 26 Jan 2019 08:28:36 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/shortcodes/</guid>
-      <description>&lt;h1 id=&#34;admonition&#34;&gt;Admonition&lt;/h1&gt;
-&lt;div class=&#34;admonition note&#34;&gt;&lt;p class=&#34;admonition-title&#34;&gt;I&amp;#39;m title!&lt;/p&gt;
-&lt;p&gt;biu biu biu.&lt;/p&gt;
-&lt;details class=&#34;admonition note&#34;&gt;&lt;summary class=&#34;admonition-title&#34;&gt;note&lt;/summary&gt;
-  &lt;p&gt;biu biu biu.&lt;/p&gt;
-&lt;/details&gt;
-&lt;div class=&#34;admonition example&#34;&gt;
-  &lt;p&gt;Without title.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;{{% admonition note &amp;#34;I&amp;#39;m title!&amp;#34; false %}}
-biu biu biu.
-
-{{% admonition type=&amp;#34;note&amp;#34; title=&amp;#34;note&amp;#34; details=&amp;#34;true&amp;#34; %}}
-biu biu biu.
-{{% /admonition %}}
-
-{{% admonition example %}}
-Without title.
-{{% /admonition %}}
-
-{{% /admonition %}}
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
+      <guid>http://blog.xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
+      <description>需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需</description>
     </item>
     
     <item>
-      <title>JS Flowchart Diagrams</title>
-      <link>http://blog.xingyys.tech/post/js-flowchart-diagrams/</link>
-      <pubDate>Wed, 04 Mar 2015 21:57:50 +0800</pubDate>
+      <title>iscsi共享磁盘服务</title>
+      <link>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Sat, 26 Jan 2019 08:28:08 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/js-flowchart-diagrams/</guid>
-      <description>&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;st=&amp;gt;start: Start|past:&amp;gt;http://www.google.com[blank]
-e=&amp;gt;end: End:&amp;gt;http://www.google.com
-op1=&amp;gt;operation: My Operation|past
-op2=&amp;gt;operation: Stuff|current
-sub1=&amp;gt;subroutine: My Subroutine|invalid
-cond=&amp;gt;condition: Yes
-or No?|approved:&amp;gt;http://www.google.com
-c2=&amp;gt;condition: Good idea|rejected
-io=&amp;gt;inputoutput: catch something...|request
-
-st-&amp;gt;op1(right)-&amp;gt;cond
-cond(yes, right)-&amp;gt;c2
-cond(no)-&amp;gt;sub1(left)-&amp;gt;op1
-c2(yes)-&amp;gt;io-&amp;gt;e
-c2(no)-&amp;gt;op2-&amp;gt;e
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
+      <guid>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
+      <description>iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又</description>
     </item>
     
     <item>
-      <title>JS Sequence Diagrams</title>
-      <link>http://blog.xingyys.tech/post/js-sequence-diagrams/</link>
-      <pubDate>Wed, 04 Mar 2015 21:57:45 +0800</pubDate>
+      <title>配置七牛云存储外链</title>
+      <link>http://blog.xingyys.tech/post/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</link>
+      <pubDate>Sat, 19 Jan 2019 19:10:51 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/js-sequence-diagrams/</guid>
-      <description>&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;Andrew-&amp;gt;China: Says Hello
-Note right of China: China thinks\nabout it
-China--&amp;gt;Andrew: How are you?
-Andrew-&amp;gt;&amp;gt;China: I am good thanks!
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
+      <guid>http://blog.xingyys.tech/post/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</guid>
+      <description>今天重新整理了下博客，发现之前配置好的七牛云图片显示错误。重新配置的同时也记录下配置步骤。 添加域名 登录七牛云的官网融合CDN，在“域名管理”</description>
     </item>
     
     <item>
-      <title>Syntax Highlighting</title>
-      <link>http://blog.xingyys.tech/post/syntax-highlighting/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>CentOS下kvm安装</title>
+      <link>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/syntax-highlighting/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloWorld&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Hello, World!&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
+      <guid>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
+      <description>注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop firewalld 关闭selinux 1 2</description>
+    </item>
+    
+    <item>
+      <title>搭建lnmp环境</title>
+      <link>http://blog.xingyys.tech/post/lnmp/</link>
+      <pubDate>Thu, 31 May 2018 09:57:17 +0000</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/lnmp/</guid>
+      <description>lnmp即：nginx + mysql + php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析p</description>
+    </item>
+    
+    <item>
+      <title>搭建lamp环境</title>
+      <link>http://blog.xingyys.tech/post/lamp/</link>
+      <pubDate>Thu, 31 May 2018 09:13:23 +0000</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/lamp/</guid>
+      <description>lamp即 apache + mysql + php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m</description>
+    </item>
+    
+    <item>
+      <title>python装饰器</title>
+      <link>http://blog.xingyys.tech/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+      <pubDate>Sat, 31 Mar 2018 19:55:04 +0000</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/python%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+      <description>简单的装饰器函数： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import time from functools import wraps def timethis(func): &amp;#34;&amp;#34;&amp;#34; Decorator that reports the execution time. &amp;#34;&amp;#34;&amp;#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就</description>
     </item>
     
   </channel>

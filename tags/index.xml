@@ -6,112 +6,103 @@
     <description>Recent content in Tags on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 14:43:08 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>preview</title>
-      <link>http://blog.xingyys.tech/tags/preview/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>etcd</title>
+      <link>http://blog.xingyys.tech/tags/etcd/</link>
+      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/preview/</guid>
+      <guid>http://blog.xingyys.tech/tags/etcd/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-3</title>
-      <link>http://blog.xingyys.tech/tags/tag-3/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>golang</title>
+      <link>http://blog.xingyys.tech/tags/golang/</link>
+      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/tag-3/</guid>
+      <guid>http://blog.xingyys.tech/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Theme preview</title>
-      <link>http://blog.xingyys.tech/tags/theme-preview/</link>
-      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      <title>grpc</title>
+      <link>http://blog.xingyys.tech/tags/grpc/</link>
+      <pubDate>Fri, 23 Oct 2020 14:40:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/theme-preview/</guid>
+      <guid>http://blog.xingyys.tech/tags/grpc/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>English</title>
-      <link>http://blog.xingyys.tech/tags/english/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>database</title>
+      <link>http://blog.xingyys.tech/tags/database/</link>
+      <pubDate>Fri, 23 Oct 2020 14:33:55 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/english/</guid>
+      <guid>http://blog.xingyys.tech/tags/database/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-2</title>
-      <link>http://blog.xingyys.tech/tags/tag-2/</link>
-      <pubDate>Thu, 31 Aug 2017 15:43:48 +0800</pubDate>
+      <title>postgreSQL</title>
+      <link>http://blog.xingyys.tech/tags/postgresql/</link>
+      <pubDate>Fri, 23 Oct 2020 14:33:55 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/tag-2/</guid>
+      <guid>http://blog.xingyys.tech/tags/postgresql/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-4</title>
-      <link>http://blog.xingyys.tech/tags/tag-4/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>linux</title>
+      <link>http://blog.xingyys.tech/tags/linux/</link>
+      <pubDate>Sat, 26 Jan 2019 08:28:36 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/tag-4/</guid>
+      <guid>http://blog.xingyys.tech/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>日本語</title>
-      <link>http://blog.xingyys.tech/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</link>
-      <pubDate>Wed, 30 Aug 2017 01:53:34 +0800</pubDate>
+      <title>其他</title>
+      <link>http://blog.xingyys.tech/tags/%E5%85%B6%E4%BB%96/</link>
+      <pubDate>Sat, 19 Jan 2019 19:10:51 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</guid>
+      <guid>http://blog.xingyys.tech/tags/%E5%85%B6%E4%BB%96/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tag-1</title>
-      <link>http://blog.xingyys.tech/tags/tag-1/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>CentOS</title>
+      <link>http://blog.xingyys.tech/tags/centos/</link>
+      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/tag-1/</guid>
+      <guid>http://blog.xingyys.tech/tags/centos/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>中文</title>
-      <link>http://blog.xingyys.tech/tags/%E4%B8%AD%E6%96%87/</link>
-      <pubDate>Wed, 30 Aug 2017 01:37:56 +0800</pubDate>
+      <title>kvm</title>
+      <link>http://blog.xingyys.tech/tags/kvm/</link>
+      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/%E4%B8%AD%E6%96%87/</guid>
+      <guid>http://blog.xingyys.tech/tags/kvm/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>shortcodes</title>
-      <link>http://blog.xingyys.tech/tags/shortcodes/</link>
-      <pubDate>Tue, 30 Aug 2016 16:01:23 +0800</pubDate>
+      <title>虚拟化</title>
+      <link>http://blog.xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/shortcodes/</guid>
+      <guid>http://blog.xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Syntax Highlighting</title>
-      <link>http://blog.xingyys.tech/tags/syntax-highlighting/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
+      <title>python</title>
+      <link>http://blog.xingyys.tech/tags/python/</link>
+      <pubDate>Sat, 31 Mar 2018 19:55:04 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/tags/syntax-highlighting/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag-5</title>
-      <link>http://blog.xingyys.tech/tags/tag-5/</link>
-      <pubDate>Tue, 30 Aug 2011 16:01:23 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/tags/tag-5/</guid>
+      <guid>http://blog.xingyys.tech/tags/python/</guid>
       <description></description>
     </item>
     

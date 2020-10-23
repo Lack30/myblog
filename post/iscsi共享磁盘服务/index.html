@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>iscsi共享磁盘服务 - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="iscsi共享磁盘服务" />
+<meta property="og:description" content="iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/" />
+<meta property="article:published_time" content="2019-01-26T08:28:08+00:00" />
+<meta property="article:modified_time" content="2019-01-26T08:28:08+00:00" />
+<meta itemprop="name" content="iscsi共享磁盘服务">
+<meta itemprop="description" content="iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又">
+<meta itemprop="datePublished" content="2019-01-26T08:28:08+00:00" />
+<meta itemprop="dateModified" content="2019-01-26T08:28:08+00:00" />
+<meta itemprop="wordCount" content="2917">
+
+
+
+<meta itemprop="keywords" content="linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="iscsi共享磁盘服务"/>
+<meta name="twitter:description" content="iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">iscsi共享磁盘服务</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-01-26 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 2917 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#iscsi简单介绍">iscsi简单介绍</a></li>
+    <li><a href="#iscsi基本概念">iscsi基本概念</a></li>
+    <li><a href="#iscsi-安装配置">iscsi 安装配置</a>
+      <ul>
+        <li><a href="#使用targetcli管理配置iscsi">使用targetcli管理配置iscsi</a></li>
+        <li><a href="#使用tgt配置iscsi">使用tgt配置iscsi</a></li>
+        <li><a href="#客户端连接">客户端连接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><img src="http://image.xingyys.club/blog/iscsi.jpg" alt=""></p>
+<h1 id="iscsi简单介绍">iscsi简单介绍</h1>
+<p>iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又称为IP-SAN，是一种基于因特网及SCSI-3协议下的存储技术，由IETF提出，并于2003年2月11日成为正式的标准。与传统的SCSI技术比较起来，iSCSI技术有以下三个革命性的变化：</p>
+<ul>
+<li>把原来只用于本机的SCSI协义透过TCP/IP网络发送，使连接距离可作无限的地域延伸；</li>
+<li>连接的服务器数量无限（原来的SCSI-3的上限是15）；</li>
+<li>由于是服务器架构，因此也可以实现在线扩容以至动态部署。</li>
+</ul>
+<p>简单的说就是tcp协议仿真scsi，将本地的磁盘通过网络共享给其他机器，提供数据的远程存储。</p>
+<h1 id="iscsi基本概念">iscsi基本概念</h1>
+<p>iscsi中有一些常用的基本概念，了解这些能帮助我们认识iscsi服务的具体工作原理，下面就用一张图表来说明：</p>
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACL</td>
+<td>访问权限控制列表，用来验证客户端启动器的访问，通常是客户端 iSCSI 启动器的 IQN 名称</td>
+</tr>
+<tr>
+<td>IQN</td>
+<td>用于标识单个 iSCSI 目标和启动器的唯一名称(全部小写)</td>
+</tr>
+<tr>
+<td>WWN</td>
+<td>用于标识单个光纤通道端口和节点的唯一编号</td>
+</tr>
+<tr>
+<td>TARGET</td>
+<td>iSCSI 服务器上的存储资源</td>
+</tr>
+<tr>
+<td>LUN</td>
+<td>iSCSI 服务器上的块设备</td>
+</tr>
+<tr>
+<td>initiator(启动器)</td>
+<td>以软件或硬件实施的 iSCSI 客户端</td>
+</tr>
+<tr>
+<td>NODE</td>
+<td>单个 iSCSI 启动器或者目标</td>
+</tr>
+<tr>
+<td>TPG</td>
+<td>启动器或者目标上的单个 IP 连接地址</td>
+</tr>
+<tr>
+<td>Portal</td>
+<td>网络接口及端口</td>
+</tr>
+</tbody>
+</table>
+<h1 id="iscsi-安装配置">iscsi 安装配置</h1>
+<p>iscsi  服务管理的软件有多个，这里就简单介绍两个，<code>targetcli</code>和<code>tgt</code>。</p>
+<h2 id="使用targetcli管理配置iscsi">使用targetcli管理配置iscsi</h2>
+<p><strong>1.准备阶段</strong>
+有两台linux机器，分别作为服务端和客户端。实验环境最好在虚拟机上，方便修改的反复操作。同时在服务端上有一块磁盘作为iscsi共享磁盘。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># lsblk </span>
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda      8:0    <span class="m">0</span>   40G  <span class="m">0</span> disk 
+├─sda1   8:1    <span class="m">0</span>  500M  <span class="m">0</span> part /boot
+├─sda2   8:2    <span class="m">0</span>    4G  <span class="m">0</span> part <span class="o">[</span>SWAP<span class="o">]</span>
+└─sda3   8:3    <span class="m">0</span> 35.5G  <span class="m">0</span> part /
+sdb      8:16   <span class="m">0</span>   10G  <span class="m">0</span> disk 
+└─sdb1   8:17   <span class="m">0</span>   10G  <span class="m">0</span> part 
+sdc      8:32   <span class="m">0</span>   10G  <span class="m">0</span> disk 
+sr0     11:0    <span class="m">1</span> 1024M  <span class="m">0</span> rom 
+</code></pre></td></tr></table>
+</div>
+</div><p>这个选择<code>/dev/sdb1</code>,没有的同学可以使用<code>fdisk</code>命令自己分配一个。
+<strong>2.安装targetcli</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y targetcli
+</code></pre></td></tr></table>
+</div>
+</div><p>还需要启动targetcli服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl start target
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>3.配置targetcli</strong>
+配置targetcli有几个步骤，添加target，在target上添加lun，将target共享到指定网段。
+先来创建一个块设备，使用命令为：
+<code>/backstores/block create westos:storage1 /dev/sdb1</code>
+进入targetcli操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># targetcli</span>
+Warning: Could not load preferences file /root/.targetcli/prefs.bin.
+targetcli shell version 2.1.fb46
+Copyright 2011-2013 by Datera, Inc and others.
+For <span class="nb">help</span> on commands, <span class="nb">type</span> <span class="s1">&#39;help&#39;</span>.
+
+/&gt; /backstores/block create westos:storage1 /dev/sdb1
+Created block storage object westos:storage1 using /dev/sdb1. <span class="c1"># 注意这里就成功创建一个快设备</span>
+/&gt; ls
+o- / ......................................................................................................................... <span class="o">[</span>...<span class="o">]</span>
+  o- backstores .............................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  <span class="p">|</span> o- block .................................................................................................. <span class="o">[</span>Storage Objects: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span> o- westos:storage1 .............................................................. <span class="o">[</span>/dev/sdb1 <span class="o">(</span><span class="m">0</span> bytes<span class="o">)</span> write-thru deactivated<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>   o- alua ................................................................................................... <span class="o">[</span>ALUA Groups: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>     o- default_tg_pt_gp ....................................................................... <span class="o">[</span>ALUA state: Active/optimized<span class="o">]</span>
+  <span class="p">|</span> o- fileio ................................................................................................. <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- pscsi .................................................................................................. <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- ramdisk ................................................................................................ <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  o- iscsi ............................................................................................................ <span class="o">[</span>Targets: 0<span class="o">]</span>
+  o- loopback ......................................................................................................... <span class="o">[</span>Targets: 0<span class="o">]</span>
+/&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>接着创建一个iscsi共享的target，使用命令为：
+<code>/iscsi create iqn.2018-10.com.westos:storage1</code>
+这里的target名称其实可以随意，但一般格式为<code>iqn.year.month.com.domain.xxx</code>,
+执行的结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/&gt; /iscsi create iqn.2018-10.com.westos:storage1
+Created target iqn.2018-10.com.westos:storage1.
+Created TPG 1.
+Global pref <span class="nv">auto_add_default_portal</span><span class="o">=</span><span class="nb">true</span>
+Created default portal listening on all IPs <span class="o">(</span>0.0.0.0<span class="o">)</span>, port 3260.
+/&gt; ls
+o- / ......................................................................................................................... <span class="o">[</span>...<span class="o">]</span>
+  o- backstores .............................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  <span class="p">|</span> o- block .................................................................................................. <span class="o">[</span>Storage Objects: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span> o- westos:storage1 .............................................................. <span class="o">[</span>/dev/sdb1 <span class="o">(</span><span class="m">0</span> bytes<span class="o">)</span> write-thru deactivated<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>   o- alua ................................................................................................... <span class="o">[</span>ALUA Groups: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>     o- default_tg_pt_gp ....................................................................... <span class="o">[</span>ALUA state: Active/optimized<span class="o">]</span>
+  <span class="p">|</span> o- fileio ................................................................................................. <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- pscsi .................................................................................................. <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- ramdisk ................................................................................................ <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  o- iscsi ............................................................................................................ <span class="o">[</span>Targets: 1<span class="o">]</span>
+  <span class="p">|</span> o- iqn.2018-10.com.westos:storage1 ................................................................................... <span class="o">[</span>TPGs: 1<span class="o">]</span>
+  <span class="p">|</span>   o- tpg1 ............................................................................................... <span class="o">[</span>no-gen-acls, no-auth<span class="o">]</span>
+  <span class="p">|</span>     o- acls .......................................................................................................... <span class="o">[</span>ACLs: 0<span class="o">]</span>
+  <span class="p">|</span>     o- luns .......................................................................................................... <span class="o">[</span>LUNs: 0<span class="o">]</span>
+  <span class="p">|</span>     o- portals .................................................................................................... <span class="o">[</span>Portals: 1<span class="o">]</span>
+  <span class="p">|</span>       o- 0.0.0.0:3260 ..................................................................................................... <span class="o">[</span>OK<span class="o">]</span>
+  o- loopback ......................................................................................................... <span class="o">[</span>Targets: 0<span class="o">]</span>
+/&gt; 
+</code></pre></td></tr></table>
+</div>
+</div><p>之后还需要将target共享出去：
+<code>/iscsi/iqn.2018-06.com.westos:storage1/tpg1/acls create iqn.2018-06.com.example:westoskey</code> #cal配置
+<code>/iscsi/iqn.2018-06.com.westos:storage1/tpg1/luns create /backstores/block/westos:storage1</code> #luns配置
+<code>/iscsi/iqn.2018-06.com.westos:storage1/tpg1/portals/ create 172.25.254.101</code> #portals配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/&gt; /iscsi/iqn.2018-10.com.westos:storage1/tpg1/acls create iqn.2018-10.com.example:westoskey
+Created Node ACL <span class="k">for</span> iqn.2018-10.com.example:westoskey
+/&gt; /iscsi/iqn.2018-10.com.westos:storage1/tpg1/luns create /backstores/block/westos:storage1
+Created LUN 0.
+Created LUN 0-&gt;0 mapping in node ACL iqn.2018-10.com.example:westoskey
+/&gt; /iscsi/iqn.2018-10.com.westos:storage1/tpg1/portals/ create 192.168.3.150
+Using default IP port <span class="m">3260</span>
+Could not create NetworkPortal in configFS
+/&gt; ls
+o- / ............................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  o- backstores .................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  <span class="p">|</span> o- block ...................................................................................... <span class="o">[</span>Storage Objects: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span> o- westos:storage1 .................................................... <span class="o">[</span>/dev/sdb1 <span class="o">(</span><span class="m">0</span> bytes<span class="o">)</span> write-thru activated<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>   o- alua ....................................................................................... <span class="o">[</span>ALUA Groups: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>     o- default_tg_pt_gp ........................................................... <span class="o">[</span>ALUA state: Active/optimized<span class="o">]</span>
+  <span class="p">|</span> o- fileio ..................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- pscsi ...................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- ramdisk .................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  o- iscsi ................................................................................................ <span class="o">[</span>Targets: 1<span class="o">]</span>
+  <span class="p">|</span> o- iqn.2018-10.com.westos:storage1 ....................................................................... <span class="o">[</span>TPGs: 1<span class="o">]</span>
+  <span class="p">|</span>   o- tpg1 ................................................................................... <span class="o">[</span>no-gen-acls, no-auth<span class="o">]</span>
+  <span class="p">|</span>     o- acls .............................................................................................. <span class="o">[</span>ACLs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span> o- iqn.2018-10.com.example:westoskey ........................................................ <span class="o">[</span>Mapped LUNs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span>   o- mapped_lun0 ........................................................... <span class="o">[</span>lun0 block/westos:storage1 <span class="o">(</span>rw<span class="o">)]</span>
+  <span class="p">|</span>     o- luns .............................................................................................. <span class="o">[</span>LUNs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span> o- lun0 ............................................... <span class="o">[</span>block/westos:storage1 <span class="o">(</span>/dev/sdb1<span class="o">)</span> <span class="o">(</span>default_tg_pt_gp<span class="o">)]</span>
+  <span class="p">|</span>     o- portals ........................................................................................ <span class="o">[</span>Portals: 1<span class="o">]</span>
+  <span class="p">|</span>       o- 0.0.0.0:3260 ......................................................................................... <span class="o">[</span>OK<span class="o">]</span>
+  o- loopback ............................................................................................. <span class="o">[</span>Targets: 0<span class="o">]</span>
+/&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>有一个报错信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Could not create NetworkPortal in configFS
+</code></pre></td></tr></table>
+</div>
+</div><p>原因是再/iscsi/portals/下已经存在IP地址。可以直接跳过，获取删除，重新创建。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">/&gt; /iscsi/iqn.2018-10.com.westos:storage1/tpg1/portals/ delete 0.0.0.0 <span class="m">3260</span>
+Deleted network portal 0.0.0.0:3260
+/&gt; /iscsi/iqn.2018-10.com.westos:storage1/tpg1/portals/ create 192.168.3.150
+Using default IP port <span class="m">3260</span>
+Created network portal 192.168.3.150:3260.
+/&gt; ls
+o- / ............................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  o- backstores .................................................................................................. <span class="o">[</span>...<span class="o">]</span>
+  <span class="p">|</span> o- block ...................................................................................... <span class="o">[</span>Storage Objects: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span> o- westos:storage1 .................................................... <span class="o">[</span>/dev/sdb1 <span class="o">(</span><span class="m">0</span> bytes<span class="o">)</span> write-thru activated<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>   o- alua ....................................................................................... <span class="o">[</span>ALUA Groups: 1<span class="o">]</span>
+  <span class="p">|</span> <span class="p">|</span>     o- default_tg_pt_gp ........................................................... <span class="o">[</span>ALUA state: Active/optimized<span class="o">]</span>
+  <span class="p">|</span> o- fileio ..................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- pscsi ...................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  <span class="p">|</span> o- ramdisk .................................................................................... <span class="o">[</span>Storage Objects: 0<span class="o">]</span>
+  o- iscsi ................................................................................................ <span class="o">[</span>Targets: 1<span class="o">]</span>
+  <span class="p">|</span> o- iqn.2018-10.com.westos:storage1 ....................................................................... <span class="o">[</span>TPGs: 1<span class="o">]</span>
+  <span class="p">|</span>   o- tpg1 ................................................................................... <span class="o">[</span>no-gen-acls, no-auth<span class="o">]</span>
+  <span class="p">|</span>     o- acls .............................................................................................. <span class="o">[</span>ACLs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span> o- iqn.2018-10.com.example:westoskey ........................................................ <span class="o">[</span>Mapped LUNs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span>   o- mapped_lun0 ........................................................... <span class="o">[</span>lun0 block/westos:storage1 <span class="o">(</span>rw<span class="o">)]</span>
+  <span class="p">|</span>     o- luns .............................................................................................. <span class="o">[</span>LUNs: 1<span class="o">]</span>
+  <span class="p">|</span>     <span class="p">|</span> o- lun0 ............................................... <span class="o">[</span>block/westos:storage1 <span class="o">(</span>/dev/sdb1<span class="o">)</span> <span class="o">(</span>default_tg_pt_gp<span class="o">)]</span>
+  <span class="p">|</span>     o- portals ........................................................................................ <span class="o">[</span>Portals: 1<span class="o">]</span>
+  <span class="p">|</span>       o- 192.168.3.150:3260 ................................................................................... <span class="o">[</span>OK<span class="o">]</span>
+  o- loopback ............................................................................................. <span class="o">[</span>Targets: 0<span class="o">]</span>
+/&gt;
+/&gt; <span class="nb">exit</span>
+Global pref <span class="nv">auto_save_on_exit</span><span class="o">=</span><span class="nb">true</span>
+Last <span class="m">10</span> configs saved in /etc/target/backup/.
+Configuration saved to /etc/target/saveconfig.json
+</code></pre></td></tr></table>
+</div>
+</div><p>退出之后配置结果持久化到<code>/etc/target/saveconfig.json</code>。</p>
+<h2 id="使用tgt配置iscsi">使用tgt配置iscsi</h2>
+<p>再来介绍另外一种软件，就是tgt。
+<strong>1.安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y epel-release
+yum install -y scsi-target-utils
+</code></pre></td></tr></table>
+</div>
+</div><p>启动服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">systemctl start tgtd
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>2.配置tgt</strong>
+配置tgt使用的命令是<code>tgtadm</code>，有以下常用选项：</p>
+<ul>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op new &ndash;tid <id> &ndash;targetname <name> # 新建target</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op delete [&ndash;force] &ndash;tid <id>  # 删除target</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op show # 查看所有的target</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op show &ndash;tid <id> # 查看指定id的target</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op update &ndash;tid <id> &ndash;name <param> &ndash;value <value> # 更新target</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op bind &ndash;tid <id> &ndash;initiator-address <address> # target共享到指定网段</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op bind &ndash;tid <id> &ndash;initiator-name <name> # target共享到指定的客户端名称</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op unbind &ndash;tid <id> &ndash;initiator-address <address> # 解绑</li>
+<li>&ndash;lld <driver> &ndash;mode target &ndash;op unbind &ndash;tid <id> &ndash;initiator-name <name></li>
+<li>&ndash;lld <driver> &ndash;mode logicalunit &ndash;op new &ndash;tid <id> &ndash;lun <lun>
+&ndash;backing-store <path> &ndash;bstype <type> &ndash;bsopts <bs options> &ndash;bsoflags <options> # 创建lun</li>
+<li>&ndash;lld <driver> &ndash;mode logicalunit &ndash;op delete &ndash;tid <id> &ndash;lun <lun> # 删除lun</li>
+<li>&ndash;lld <driver> &ndash;mode account &ndash;op new &ndash;user <name> &ndash;password <pass> # 添加认证</li>
+<li>&ndash;lld <driver> &ndash;mode account &ndash;op delete &ndash;user <name> # 删除认证</li>
+<li>&ndash;lld <driver> &ndash;mode account &ndash;op bind &ndash;tid <id> &ndash;user <name> [&ndash;outgoing] # 绑定认证</li>
+<li>&ndash;lld <driver> &ndash;mode account &ndash;op unbind &ndash;tid <id> &ndash;user <name> [&ndash;outgoing] # 解绑认证</li>
+</ul>
+<p>添加target</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tgtadm --lld iscsi --mode target --op new --tid 1 --targetname iqn-2019-11.com.iscsi.test</span>
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tgtadm --lld iscsi --mode target --op show</span>
+Target 1: iqn-2019-11.com.iscsi.test
+    System information:
+        Driver: iscsi
+        State: ready
+    I_T nexus information:
+    LUN information:
+        LUN: <span class="m">0</span>
+            Type: controller
+            SCSI ID: IET     <span class="m">00010000</span>
+            SCSI SN: beaf10
+            Size: <span class="m">0</span> MB, Block size: <span class="m">1</span>
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            SWP: No
+            Thin-provisioning: No
+            Backing store type: null
+            Backing store path: None
+            Backing store flags: 
+    Account information:
+    ACL information:
+</code></pre></td></tr></table>
+</div>
+</div><p>添加lun</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tgtadm --lld iscsi --mode logicalunit --op new --tid 1 --lun 22 -b /dev/sdb</span>
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tgtadm --lld iscsi --mode target --op show</span>
+Target 1: iqn-2019-11.com.iscsi.test
+    System information:
+        Driver: iscsi
+        State: ready
+    I_T nexus information:
+    LUN information:
+        LUN: <span class="m">0</span>
+            Type: controller
+            SCSI ID: IET     <span class="m">00010000</span>
+            SCSI SN: beaf10
+            Size: <span class="m">0</span> MB, Block size: <span class="m">1</span>
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            SWP: No
+            Thin-provisioning: No
+            Backing store type: null
+            Backing store path: None
+            Backing store flags: 
+        LUN: <span class="m">22</span>
+            Type: disk
+            SCSI ID: IET     <span class="m">00010016</span>
+            SCSI SN: beaf122
+            Size: <span class="m">10737</span> MB, Block size: <span class="m">512</span>
+            Online: Yes
+            Removable media: No
+            Prevent removal: No
+            Readonly: No
+            SWP: No
+            Thin-provisioning: No
+            Backing store type: rdwr
+            Backing store path: /dev/sdb
+            Backing store flags: 
+    Account information:
+    ACL information:
+</code></pre></td></tr></table>
+</div>
+</div><p>注：这里有一个小提示，每个lun中的<code>SCSI ID</code>项是在客户端中的唯一标识，它的值是根据<code>target id</code>和<code>lun id</code>计算得到的，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">SCSI ID = Target ID转16进制(前四位) + Lun ID转16进制(后四位)
+</code></pre></td></tr></table>
+</div>
+</div><p>所以lun 22的<code>SCSI ID</code>为<code>00010016</code>
+共享到客户端：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># tgtadm --lld iscsi --mode target --op bind --tid 1 --initiator-address 192.168.3.131</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="客户端连接">客户端连接</h2>
+<p><strong>1.安装客户端</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y epel-release
+yum install -y iscsi-initiator-utils
+</code></pre></td></tr></table>
+</div>
+</div><p>客户端命令：</p>
+<ul>
+<li>iscsiadm -m session # 查看所有会话</li>
+<li>iscsiadm -m discovery -t st -p 192.168.3.150 #查看共享target</li>
+<li>iscsiadm -m node -T iqn.2018-10.com.westos:storage1 -p 192.168.3.150 -l #登陆连接</li>
+<li>iscsiadm -m node -T iqn.2018-10.com.westos:storage1 -u #退出登陆</li>
+<li>iscsiadm -m node -T iqn.2018-10.com.westos:storage1 -o delete #删除登陆数据</li>
+</ul>
+<p><strong>2.发现设备</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># iscsiadm -m discovery -t st -p 192.168.3.150</span>
+192.168.3.150:3260,1 iqn.2018-10.com.westos:storage1
+</code></pre></td></tr></table>
+</div>
+</div><p>登录
+注：请关闭防火墙和selinux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost mnt<span class="o">]</span><span class="c1"># iscsiadm -m node -T iqn.2018-10.com.westos:storage1 -p 192.168.3.150 -l</span>
+Logging in to <span class="o">[</span>iface: default, target: iqn.2018-10.com.westos:storage1, portal: 192.168.3.150,3260<span class="o">]</span> <span class="o">(</span>multiple<span class="o">)</span>
+Login to <span class="o">[</span>iface: default, target: iqn.2018-10.com.westos:storage1, portal: 192.168.3.150,3260<span class="o">]</span> successful.
+<span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># lsblk </span>
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+fd0      2:0    <span class="m">1</span>    4K  <span class="m">0</span> disk 
+sda      8:0    <span class="m">0</span>   40G  <span class="m">0</span> disk 
+├─sda1   8:1    <span class="m">0</span>  500M  <span class="m">0</span> part /boot
+├─sda2   8:2    <span class="m">0</span>    8G  <span class="m">0</span> part <span class="o">[</span>SWAP<span class="o">]</span>
+└─sda3   8:3    <span class="m">0</span> 31.5G  <span class="m">0</span> part /
+sdb      8:16   <span class="m">0</span>    2G  <span class="m">0</span> disk 
+└─sdb1   8:17   <span class="m">0</span>    2G  <span class="m">0</span> part 
+sr0     11:0    <span class="m">1</span> 1024M  <span class="m">0</span> rom
+</code></pre></td></tr></table>
+</div>
+</div><p>同时在<code>/dev/disk/by-id</code>下生成块设备。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">xingyys</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-01-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">linux上使用udev创建裸设备</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/">
+            <span class="next-text nav-default">配置七牛云存储外链</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

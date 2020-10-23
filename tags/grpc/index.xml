@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>grpc on Xingyys 的个人博客</title>
+    <link>http://blog.xingyys.tech/tags/grpc/</link>
+    <description>Recent content in grpc on Xingyys 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 23 Oct 2020 14:40:08 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPRC 进阶</title>
+      <link>http://blog.xingyys.tech/post/grpc2/</link>
+      <pubDate>Fri, 23 Oct 2020 14:40:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/grpc2/</guid>
+      <description>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请</description>
+    </item>
+    
+    <item>
+      <title>GPRC 实战</title>
+      <link>http://blog.xingyys.tech/post/grpc1/</link>
+      <pubDate>Fri, 23 Oct 2020 14:38:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/grpc1/</guid>
+      <description>GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-</description>
+    </item>
+    
+  </channel>
+</rss>
