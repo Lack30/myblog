@@ -1,239 +1,239 @@
-<?xml-stylesheet type="text/xsl" href="http://xingyys.github.io/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://blog.xingyys.tech/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://xingyys.github.io/post/even-preview/</loc>
+    <loc>http://blog.xingyys.tech/post/even-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/about/</loc>
+    <loc>http://blog.xingyys.tech/about/</loc>
     <lastmod>2017-08-28T21:41:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/</loc>
+    <loc>http://blog.xingyys.tech/categories/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/category-2/</loc>
+    <loc>http://blog.xingyys.tech/categories/category-2/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/category-3/</loc>
+    <loc>http://blog.xingyys.tech/categories/category-3/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/</loc>
+    <loc>http://blog.xingyys.tech/post/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/preview/</loc>
+    <loc>http://blog.xingyys.tech/tags/preview/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/tag-3/</loc>
+    <loc>http://blog.xingyys.tech/tags/tag-3/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/</loc>
+    <loc>http://blog.xingyys.tech/tags/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/theme-preview/</loc>
+    <loc>http://blog.xingyys.tech/tags/theme-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/theme-preview/</loc>
+    <loc>http://blog.xingyys.tech/categories/theme-preview/</loc>
     <lastmod>2018-07-10T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/</loc>
+    <loc>http://blog.xingyys.tech/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/hidden-post/</loc>
+    <loc>http://blog.xingyys.tech/post/hidden-post/</loc>
     <lastmod>2018-03-08T22:01:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/english-preview/</loc>
+    <loc>http://blog.xingyys.tech/post/english-preview/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/english/</loc>
+    <loc>http://blog.xingyys.tech/tags/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/english/</loc>
+    <loc>http://blog.xingyys.tech/categories/english/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/tag-2/</loc>
+    <loc>http://blog.xingyys.tech/tags/tag-2/</loc>
     <lastmod>2017-08-31T15:43:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/japanese-preview/</loc>
+    <loc>http://blog.xingyys.tech/post/japanese-preview/</loc>
     <lastmod>2017-08-30T01:53:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/tag-4/</loc>
+    <loc>http://blog.xingyys.tech/tags/tag-4/</loc>
     <lastmod>2017-08-30T01:53:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>http://blog.xingyys.tech/tags/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2017-08-30T01:53:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
+    <loc>http://blog.xingyys.tech/categories/%E6%97%A5%E6%9C%AC%E8%AA%9E/</loc>
     <lastmod>2017-08-30T01:53:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/chinese-preview/</loc>
+    <loc>http://blog.xingyys.tech/post/chinese-preview/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/tag-1/</loc>
+    <loc>http://blog.xingyys.tech/tags/tag-1/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/%E4%B8%AD%E6%96%87/</loc>
+    <loc>http://blog.xingyys.tech/tags/%E4%B8%AD%E6%96%87/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/%E4%B8%AD%E6%96%87/</loc>
+    <loc>http://blog.xingyys.tech/categories/%E4%B8%AD%E6%96%87/</loc>
     <lastmod>2017-08-30T01:37:56+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/shortcodes/</loc>
+    <loc>http://blog.xingyys.tech/post/shortcodes/</loc>
     <lastmod>2018-02-01T18:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/shortcodes/</loc>
+    <loc>http://blog.xingyys.tech/tags/shortcodes/</loc>
     <lastmod>2018-02-01T18:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/shortcodes/</loc>
+    <loc>http://blog.xingyys.tech/categories/shortcodes/</loc>
     <lastmod>2018-02-01T18:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/js-flowchart-diagrams/</loc>
+    <loc>http://blog.xingyys.tech/post/js-flowchart-diagrams/</loc>
     <lastmod>2015-03-04T21:57:50+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/js-sequence-diagrams/</loc>
+    <loc>http://blog.xingyys.tech/post/js-sequence-diagrams/</loc>
     <lastmod>2015-03-04T21:57:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/syntax-highlighting/</loc>
+    <loc>http://blog.xingyys.tech/tags/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/categories/syntax-highlighting/</loc>
+    <loc>http://blog.xingyys.tech/categories/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/post/syntax-highlighting/</loc>
+    <loc>http://blog.xingyys.tech/post/syntax-highlighting/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.github.io/tags/tag-5/</loc>
+    <loc>http://blog.xingyys.tech/tags/tag-5/</loc>
     <lastmod>2018-11-05T16:01:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

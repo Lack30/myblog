@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://xingyys.github.io/sitemap.xml
+Sitemap: http://blog.xingyys.tech/sitemap.xml
