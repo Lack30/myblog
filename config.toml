@@ -132,7 +132,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 
   [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
     owner = "xingyys"              # Your GitHub ID
-    repo = "https://github.com/xingyys/myblog"               # The repo to store comments
+    repo = "myblog"               # The repo to store comments
     clientId = "1015bb13b495a5d03d7f"           # Your client ID
     clientSecret = "41dc4b99edac08351ce861c24062860b31292c9b"       # Your client secret
 
