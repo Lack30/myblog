@@ -22,10 +22,10 @@ fi
 git commit -m "$msg"
 
 # Push source and build repos.
-git push origin master
+git push origin main
 
-git checkout --orphan gh-pages
-git reset --hard
-git commit --allow-empty -m $msg
-git push upstream gh-pages
-git checkout master
+cd ..
+
+git add .
+git commit -m "$msg"
+git push -u origin gh-pages
