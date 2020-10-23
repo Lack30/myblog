@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://xingyys.github.io/sitemap.xml
