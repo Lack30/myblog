@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/tags/golang/</link>
+    <link>http://xingyys.tech/tags/golang/</link>
     <description>Recent content in golang on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 14:52:46 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Sep 2020 14:52:46 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang跨平台编译</title>
-      <link>http://blog.xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
-      <pubDate>Fri, 23 Oct 2020 14:52:46 +0800</pubDate>
+      <link>http://xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
+      <pubDate>Thu, 10 Sep 2020 14:52:46 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
+      <guid>http://xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
       <description>golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。 因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。 在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令</description>
     </item>
     
     <item>
       <title>GPRC 实战</title>
-      <link>http://blog.xingyys.tech/post/grpc1/</link>
+      <link>http://xingyys.tech/post/grpc1/</link>
       <pubDate>Fri, 31 Jul 2020 14:38:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/grpc1/</guid>
+      <guid>http://xingyys.tech/post/grpc1/</guid>
       <description>GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-</description>
     </item>
     
     <item>
       <title>GPRC 进阶</title>
-      <link>http://blog.xingyys.tech/post/grpc2/</link>
+      <link>http://xingyys.tech/post/grpc2/</link>
       <pubDate>Fri, 31 Jul 2020 14:38:08 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/grpc2/</guid>
+      <guid>http://xingyys.tech/post/grpc2/</guid>
       <description>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请</description>
     </item>
     
     <item>
       <title>etcd的使用实例</title>
-      <link>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
+      <link>http://xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
       <pubDate>Wed, 11 Sep 2019 15:17:42 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
+      <guid>http://xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
       <description>etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leade</description>
     </item>
     
     <item>
       <title>Go 结合 etcd</title>
-      <link>http://blog.xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</link>
+      <link>http://xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</link>
       <pubDate>Tue, 10 Sep 2019 15:17:42 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</guid>
+      <guid>http://xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</guid>
       <description>关于 etcd 的安装和介绍看 这里 。 官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 package main import</description>
     </item>
     
     <item>
       <title>golang打包和解包</title>
-      <link>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
+      <link>http://xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
       <pubDate>Fri, 15 Feb 2019 15:03:44 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
+      <guid>http://xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
       <description>打包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 // 打包 func Compress(destPath, srcDir string)</description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数据库 on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <link>http://xingyys.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
     <description>Recent content in 数据库 on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 14:33:55 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 14:33:55 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>postgresql 实战一：安装和使用</title>
-      <link>http://blog.xingyys.tech/post/pgsql1/</link>
+      <link>http://xingyys.tech/post/pgsql1/</link>
       <pubDate>Fri, 23 Oct 2020 14:33:55 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/pgsql1/</guid>
+      <guid>http://xingyys.tech/post/pgsql1/</guid>
       <description>安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash</description>
     </item>
     

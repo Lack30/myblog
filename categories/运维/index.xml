@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>运维 on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/categories/%E8%BF%90%E7%BB%B4/</link>
+    <link>http://xingyys.tech/categories/%E8%BF%90%E7%BB%B4/</link>
     <description>Recent content in 运维 on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 15:06:27 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Windows Bat总结</title>
-      <link>http://blog.xingyys.tech/post/bat/</link>
-      <pubDate>Fri, 23 Oct 2020 15:06:27 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/bat/</guid>
-      <description>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可</description>
-    </item>
-    
+    <lastBuildDate>Thu, 06 Aug 2020 15:21:50 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scst结合FC</title>
-      <link>http://blog.xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</link>
+      <link>http://xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</link>
       <pubDate>Thu, 06 Aug 2020 15:21:50 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</guid>
+      <guid>http://xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</guid>
       <description>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。 FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。 环境配置 接下</description>
     </item>
     
     <item>
       <title>Scst在线扩容</title>
-      <link>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</link>
+      <link>http://xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</link>
       <pubDate>Thu, 09 Apr 2020 14:59:25 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</guid>
+      <guid>http://xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</guid>
       <description>SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</description>
     </item>
     
     <item>
       <title>Scst 安装和使用</title>
-      <link>http://blog.xingyys.tech/post/scst1/</link>
+      <link>http://xingyys.tech/post/scst1/</link>
       <pubDate>Wed, 08 Apr 2020 14:59:25 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/scst1/</guid>
+      <guid>http://xingyys.tech/post/scst1/</guid>
       <description>安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</description>
     </item>
     
     <item>
+      <title>Windows Bat总结</title>
+      <link>http://xingyys.tech/post/bat/</link>
+      <pubDate>Fri, 22 Mar 2019 15:06:27 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/bat/</guid>
+      <description>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可</description>
+    </item>
+    
+    <item>
       <title>iscsi共享磁盘服务</title>
-      <link>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
+      <link>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Sat, 26 Jan 2019 08:28:08 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
+      <guid>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
       <description>iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又</description>
     </item>
     
     <item>
       <title>CentOS下kvm安装</title>
-      <link>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
+      <link>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
+      <guid>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
       <description>注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop firewalld 关闭selinux 1 2</description>
     </item>
     
     <item>
       <title>搭建lnmp环境</title>
-      <link>http://blog.xingyys.tech/post/lnmp/</link>
+      <link>http://xingyys.tech/post/lnmp/</link>
       <pubDate>Thu, 31 May 2018 09:57:17 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/lnmp/</guid>
+      <guid>http://xingyys.tech/post/lnmp/</guid>
       <description>lnmp即：nginx + mysql + php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析p</description>
     </item>
     
     <item>
       <title>搭建lamp环境</title>
-      <link>http://blog.xingyys.tech/post/lamp/</link>
+      <link>http://xingyys.tech/post/lamp/</link>
       <pubDate>Thu, 31 May 2018 09:13:23 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/lamp/</guid>
+      <guid>http://xingyys.tech/post/lamp/</guid>
       <description>lamp即 apache + mysql + php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m</description>
     </item>
     

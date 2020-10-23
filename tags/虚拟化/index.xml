@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>虚拟化 on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
+    <link>http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
     <description>Recent content in 虚拟化 on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Jun 2018 16:16:02 +0000</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Jun 2018 16:16:02 +0000</lastBuildDate><atom:link href="http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CentOS下kvm安装</title>
-      <link>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
+      <link>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
+      <guid>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
       <description>注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop firewalld 关闭selinux 1 2</description>
     </item>
     

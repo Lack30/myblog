@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>linux on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/tags/linux/</link>
+    <link>http://xingyys.tech/tags/linux/</link>
     <description>Recent content in linux on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Feb 2020 15:23:20 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Feb 2020 15:23:20 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>linux 安装 oh-my-zsh</title>
-      <link>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
+      <link>http://xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
       <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
+      <guid>http://xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
       <description>一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh</description>
     </item>
     
     <item>
       <title>linux上使用udev创建裸设备</title>
-      <link>http://blog.xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
+      <link>http://xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
       <pubDate>Sat, 26 Jan 2019 08:28:36 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
+      <guid>http://xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
       <description>需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需</description>
     </item>
     
     <item>
       <title>iscsi共享磁盘服务</title>
-      <link>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
+      <link>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Sat, 26 Jan 2019 08:28:08 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
+      <guid>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
       <description>iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又</description>
     </item>
     
     <item>
       <title>安装scaleio Gateway</title>
-      <link>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</link>
+      <link>http://xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</link>
       <pubDate>Fri, 31 Aug 2018 15:27:24 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</guid>
+      <guid>http://xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</guid>
       <description>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一</description>
     </item>
     
     <item>
       <title>搭建lnmp环境</title>
-      <link>http://blog.xingyys.tech/post/lnmp/</link>
+      <link>http://xingyys.tech/post/lnmp/</link>
       <pubDate>Thu, 31 May 2018 09:57:17 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/lnmp/</guid>
+      <guid>http://xingyys.tech/post/lnmp/</guid>
       <description>lnmp即：nginx + mysql + php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析p</description>
     </item>
     
     <item>
       <title>搭建lamp环境</title>
-      <link>http://blog.xingyys.tech/post/lamp/</link>
+      <link>http://xingyys.tech/post/lamp/</link>
       <pubDate>Thu, 31 May 2018 09:13:23 +0000</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/lamp/</guid>
+      <guid>http://xingyys.tech/post/lamp/</guid>
       <description>lamp即 apache + mysql + php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m</description>
     </item>
     

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>k8s on Xingyys 的个人博客</title>
-    <link>http://blog.xingyys.tech/tags/k8s/</link>
+    <link>http://xingyys.tech/tags/k8s/</link>
     <description>Recent content in k8s on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Oct 2019 15:10:16 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Oct 2019 15:10:16 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用kubeadm安装kubernetes1.16</title>
-      <link>http://blog.xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
+      <link>http://xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
       <pubDate>Sat, 19 Oct 2019 15:10:16 +0800</pubDate>
       
-      <guid>http://blog.xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
+      <guid>http://xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
       <description>环境版本说明： 三台vmware虚拟机，系统版本CentOS7.6。 Kubernetes 1.16.0，当前最新版。 flannel v0.11 docker 18.09 使用kubeadm可以简单的搭建一套k</description>
     </item>
     
