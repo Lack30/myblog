@@ -49,7 +49,7 @@
 <meta itemprop="description" content="grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请">
 <meta itemprop="datePublished" content="2020-07-31T14:38:08+08:00" />
 <meta itemprop="dateModified" content="2020-07-31T14:38:08+08:00" />
-<meta itemprop="wordCount" content="5615">
+<meta itemprop="wordCount" content="5612">
 
 
 
@@ -131,7 +131,7 @@
             <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"> 微服务 </a>
             <a href="/categories/%E4%BB%A3%E7%A0%81/"> 代码 </a>
             </div>
-          <span class="more-meta"> 约 5615 字 </span>
+          <span class="more-meta"> 约 5612 字 </span>
           <span class="more-meta"> 预计阅读 12 分钟 </span>
         
       </div>
@@ -312,7 +312,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><br />keepalive 的实现核心在于 <code>keepalive.EnforcementPolicy</code> 和 <code>keepalive.ServerParameters</code>。首先是 ``keepalive.ServerParameters`。它包含几个属性：</p>
+</div><p><br />keepalive 的实现核心在于 <code>keepalive.EnforcementPolicy</code> 和 <code>keepalive.ServerParameters</code>。首先是 <code>keepalive.ServerParameters</code>。它包含几个属性：</p>
 <ul>
 <li>MaxConnectionIdle : 最大空闲连接时间，默认为无限制。这段时间为客户端 stream 请求为0 或者建立连接。超出这段时间后，serve 会发送一个 <code>GoWay</code>，强制 client stream 断开。</li>
 <li>MaxConnectionAge：最大连接时间，默认为无限制。stream 连接超出这个值是发送一个 <code>GoWay</code>。</li>
