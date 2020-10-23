@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>linux 安装 oh-my-zsh - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="linux 安装 oh-my-zsh" />
+<meta property="og:description" content="一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/" />
+<meta property="article:published_time" content="2020-02-09T15:23:20+08:00" />
+<meta property="article:modified_time" content="2020-02-09T15:23:20+08:00" />
+<meta itemprop="name" content="linux 安装 oh-my-zsh">
+<meta itemprop="description" content="一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh">
+<meta itemprop="datePublished" content="2020-02-09T15:23:20+08:00" />
+<meta itemprop="dateModified" content="2020-02-09T15:23:20+08:00" />
+<meta itemprop="wordCount" content="708">
+
+
+
+<meta itemprop="keywords" content="linux,终端," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux 安装 oh-my-zsh"/>
+<meta name="twitter:description" content="一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">linux 安装 oh-my-zsh</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-09 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%85%B6%E4%BB%96/"> 其他 </a>
+            </div>
+          <span class="more-meta"> 约 708 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一介绍">一、介绍</a></li>
+    <li><a href="#二安装-oh-my-zsh">二、安装 oh-my-zsh</a></li>
+    <li><a href="#三配置-oh-my-zsh">三、配置 oh-my-zsh</a>
+      <ul>
+        <li><a href="#autojump">autojump</a></li>
+        <li><a href="#zsh-syntax-highlighting">zsh-syntax-highlighting</a></li>
+        <li><a href="#zsh-autosuggestions">zsh-autosuggestions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><a name="N7v9t"></a></p>
+<h1 id="一介绍">一、介绍</h1>
+<p>oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。<br /></p>
+<p><a name="Z9Egb"></a></p>
+<h1 id="二安装-oh-my-zsh">二、安装 oh-my-zsh</h1>
+<p>oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。<br />使用 yum 安装 zsh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ yum install zsh
+</code></pre></td></tr></table>
+</div>
+</div><p>安装完成后，替换默认的 bash 为 zsh。需要在 root 用户下使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ chsh -s /bin/zsh
+Changing shell <span class="k">for</span> root.
+Shell changed.
+<span class="c1"># 在新终端中验证</span>
+$ <span class="nb">echo</span> <span class="nv">$SHELL</span>
+/bin/zsh
+</code></pre></td></tr></table>
+</div>
+</div><p>执行以下命令自动安装 oh-my-zsh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - <span class="p">|</span> sh
+<span class="c1"># 省略输出...</span>
+$ <span class="nb">source</span> .zshrc 
+<span class="c1"># .zshrc 为 zsh 的配置文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="CV09J"></a></p>
+<h1 id="三配置-oh-my-zsh">三、配置 oh-my-zsh</h1>
+<p>接下来还要添加额外的功能。oh-my-zsh 支持很多强大的功能，这些功能都是以插件的方式实现。插件放在目录~/.oh-my-zsh/plugins 下。要让插件开始工作还需要在 .zshrc 中配置相关参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>git textmate ruby autojump osx mvn gradle<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="ACAu1"></a></p>
+<h2 id="autojump">autojump</h2>
+<p><strong>作用</strong><br />目录间快速跳转,不用再一直 <code>cd</code> 了 😁<br />**使用 **<br />使用 <code>autojump</code> 的缩写 <code>j</code><br /><code>cd</code> 命令进入 <code>~/user/github/Youthink</code> 文件夹，下一次再想进入 <code>Yourhink</code> 文件夹的时候,直接 <code>j youthink</code> 即可, 或者只输入 <code>youthink</code> 的一部分 <code>youth</code> 都行删除无效路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ j --purge 无效路径
+</code></pre></td></tr></table>
+</div>
+</div><p>需要额外下载 <code>autojump</code> 并配置<br />首先安装 <code>autojump</code>，如果你用 <code>Mac</code>，可以使用 <code>brew</code> 安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ brew install autojump
+</code></pre></td></tr></table>
+</div>
+</div><p>如果是 <code>Linux</code>，可以使用 <code>git</code> 安装，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone git://github.com/joelthelion/autojump.git
+</code></pre></td></tr></table>
+</div>
+</div><p>进入目录，执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ./install.sh
+</code></pre></td></tr></table>
+</div>
+</div><p>最后把以下代码加入 <code>.zshrc</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[[</span> -s ~/.autojump/etc/profile.d/autojump.sh <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.autojump/etc/profile.d/autojump.sh
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="bPitB"></a></p>
+<h2 id="zsh-syntax-highlighting">zsh-syntax-highlighting</h2>
+<p><strong>作用</strong><br />平常用的<code>ls</code>、<code>cd</code> 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2020/png/551536/1582938007527-692f0553-b222-43e1-9f02-493406413995.png#align=left&amp;display=inline&amp;height=123&amp;originHeight=123&amp;originWidth=470&amp;size=0&amp;status=done&amp;style=none&amp;width=470" alt=""><br /><strong>安装</strong><br />**</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="si">${</span><span class="nv">ZSH_CUSTOM</span><span class="k">:-</span><span class="p">~/.oh-my-zsh/custom</span><span class="si">}</span>/plugins/zsh-syntax-highlighting
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>~/.zshrc</code> 中配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-syntax-highlighting<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使配置生效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> ~/.zshrc
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="pw1oT"></a></p>
+<h2 id="zsh-autosuggestions">zsh-autosuggestions</h2>
+<p><strong>作用</strong><br />如图输入命令时，会给出建议的命令（灰色部分）按键盘 → 补全<br />
+<br /><img src="https://cdn.nlark.com/yuque/0/2020/webp/551536/1582938006410-44c5fca2-81c9-4e06-b421-c3e333259ebc.webp#align=left&amp;display=inline&amp;height=42&amp;originHeight=42&amp;originWidth=394&amp;size=0&amp;status=done&amp;style=none&amp;width=394" alt=""></p>
+<p>如果感觉 → 补全不方便，还可以自定义补全的快捷键，比如我设置的逗号补全<br /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">bindkey <span class="s1">&#39;,&#39;</span> autosuggest-accept
+</code></pre></td></tr></table>
+</div>
+</div><p><br />在 <code>.zshrc</code> 文件添加这句话即可。<br /><strong><br /><strong>安装</strong><br /></strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone git://github.com/zsh-users/zsh-autosuggestions <span class="nv">$ZSH_CUSTOM</span>/plugins/zsh-autosuggestions
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>~/.zshrc</code> 中配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-autosuggestions<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使配置生效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> ~/.zshrc
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/%E7%BB%88%E7%AB%AF/">终端</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/scst1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Scst 安装和使用</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/">
+            <span class="next-text nav-default">使用kubeadm安装kubernetes1.16</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

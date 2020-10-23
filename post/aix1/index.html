@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Aix添加和删除Iscsi存储卷 - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/aix1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Aix添加和删除Iscsi存储卷" />
+<meta property="og:description" content="Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/aix1/" />
+<meta property="article:published_time" content="2020-10-23T15:12:53+08:00" />
+<meta property="article:modified_time" content="2020-10-23T15:12:53+08:00" />
+<meta itemprop="name" content="Aix添加和删除Iscsi存储卷">
+<meta itemprop="description" content="Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L">
+<meta itemprop="datePublished" content="2020-10-23T15:12:53+08:00" />
+<meta itemprop="dateModified" content="2020-10-23T15:12:53+08:00" />
+<meta itemprop="wordCount" content="366">
+
+
+
+<meta itemprop="keywords" content="aix," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Aix添加和删除Iscsi存储卷"/>
+<meta name="twitter:description" content="Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Aix添加和删除Iscsi存储卷</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
+            </div>
+          <span class="more-meta"> 约 366 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用iscsi存储">使用iscsi存储</a>
+      <ul>
+        <li><a href="#检查iscsi是否被安装">检查iscsi是否被安装</a></li>
+        <li><a href="#配置iscsi">配置iscsi</a></li>
+        <li><a href="#重新扫盘">重新扫盘</a></li>
+        <li><a href="#查看iscsi盘">查看iscsi盘</a></li>
+        <li><a href="#创建物理卷">创建物理卷</a></li>
+        <li><a href="#创建vg">创建vg</a></li>
+        <li><a href="#创建lv">创建lv</a></li>
+        <li><a href="#创建挂载目录">创建挂载目录</a></li>
+        <li><a href="#格式化并挂载">格式化并挂载</a></li>
+      </ul>
+    </li>
+    <li><a href="#删除存储盘">删除存储盘</a>
+      <ul>
+        <li><a href="#卸载磁盘">卸载磁盘</a></li>
+        <li><a href="#lv">lv</a></li>
+        <li><a href="#删除文件系统">删除文件系统</a></li>
+        <li><a href="#删除vg">删除vg</a></li>
+        <li><a href="#删除物理盘">删除物理盘</a></li>
+        <li><a href="#删除iscsi-target">删除iscsi target</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>Aix为6.1版本</p>
+</blockquote>
+<h1 id="使用iscsi存储">使用iscsi存储</h1>
+<p>首先需要创建一个iscsi target，并共享到IBM Aix上。</p>
+<h2 id="检查iscsi是否被安装">检查iscsi是否被安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ lslpp -L <span class="p">|</span> grep -i iscsi 
+  devices.common.IBM.iscsi.rte
+                             6.1.5.0    C     F    Common iSCSI Files 
+  devices.iscsi.disk.rte     6.1.5.0    C     F    iSCSI Disk Software 
+  ...
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="配置iscsi">配置iscsi</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
+...
+<span class="c1"># 添加target</span>
+172.16.1.169 <span class="m">3260</span> iqn.2018-11.com.howlink.wbrt.portal.backup
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="重新扫盘">重新扫盘</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
+cfgmgr: 0514-621 WARNING: The following device packages are required <span class="k">for</span>
+        device support but are not currently installed.
+devices.iscsi.array
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看iscsi盘">查看iscsi盘</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ lsdev -Cc disk <span class="p">|</span> grep iSCSI
+hdisk18     Available          Other iSCSI Disk Drive
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建物理卷">创建物理卷</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ chdev -l hdisk18 -a <span class="nv">pv</span><span class="o">=</span>yes
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建vg">创建vg</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkvg -y wbrt_portal_bg hdisk18
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="创建lv">创建lv</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg <span class="m">700</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注:lv的大小可以使用命令
+<code>$ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F' ' '{ print $6}' 703</code>
+但不要全部使用，需要一些剩余空间。</p>
+</blockquote>
+<h2 id="创建挂载目录">创建挂载目录</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /mnt/iscsi
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="格式化并挂载">格式化并挂载</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ crfs -v jfs2 -m /mnt/iscsi -d wbrt_portal_bl
+$ mount /mnt/iscsi
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="删除存储盘">删除存储盘</h1>
+<h2 id="卸载磁盘">卸载磁盘</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ umount /mnt/iscsi
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="lv">lv</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ rmlv wbrt_portal_bl
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除文件系统">删除文件系统</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ rmfs -r /dev/wbrt_portal_bl
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除vg">删除vg</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ reducevg -d wbrt_portal_bg hdisk18
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除物理盘">删除物理盘</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ rmdev -dl hdisk18 -R
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="删除iscsi-target">删除iscsi target</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
+...
+<span class="c1"># 添加target</span>
+<span class="c1"># 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>重读磁盘</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/aix/">aix</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/bat/">
+            <span class="next-text nav-default">Windows Bat总结</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

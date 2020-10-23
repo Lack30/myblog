@@ -6,7 +6,16 @@
     <description>Recent content in Tags on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 15:06:27 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 15:12:53 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aix</title>
+      <link>http://blog.xingyys.tech/tags/aix/</link>
+      <pubDate>Fri, 23 Oct 2020 15:12:53 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/aix/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>bat</title>
       <link>http://blog.xingyys.tech/tags/bat/</link>
@@ -26,38 +35,11 @@
     </item>
     
     <item>
-      <title>iscsi</title>
-      <link>http://blog.xingyys.tech/tags/iscsi/</link>
-      <pubDate>Fri, 23 Oct 2020 14:59:25 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/tags/iscsi/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>golang</title>
       <link>http://blog.xingyys.tech/tags/golang/</link>
       <pubDate>Fri, 23 Oct 2020 14:52:46 +0800</pubDate>
       
       <guid>http://blog.xingyys.tech/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>etcd</title>
-      <link>http://blog.xingyys.tech/tags/etcd/</link>
-      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/tags/etcd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>grpc</title>
-      <link>http://blog.xingyys.tech/tags/grpc/</link>
-      <pubDate>Fri, 23 Oct 2020 14:40:08 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/tags/grpc/</guid>
       <description></description>
     </item>
     
@@ -80,11 +62,56 @@
     </item>
     
     <item>
+      <title>iscsi</title>
+      <link>http://blog.xingyys.tech/tags/iscsi/</link>
+      <pubDate>Thu, 06 Aug 2020 15:21:50 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/iscsi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>grpc</title>
+      <link>http://blog.xingyys.tech/tags/grpc/</link>
+      <pubDate>Fri, 31 Jul 2020 14:38:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/grpc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>linux</title>
       <link>http://blog.xingyys.tech/tags/linux/</link>
-      <pubDate>Sat, 26 Jan 2019 08:28:36 +0000</pubDate>
+      <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
       
       <guid>http://blog.xingyys.tech/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>终端</title>
+      <link>http://blog.xingyys.tech/tags/%E7%BB%88%E7%AB%AF/</link>
+      <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/%E7%BB%88%E7%AB%AF/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k8s</title>
+      <link>http://blog.xingyys.tech/tags/k8s/</link>
+      <pubDate>Sat, 19 Oct 2019 15:10:16 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>etcd</title>
+      <link>http://blog.xingyys.tech/tags/etcd/</link>
+      <pubDate>Wed, 11 Sep 2019 15:17:42 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/etcd/</guid>
       <description></description>
     </item>
     
@@ -94,6 +121,15 @@
       <pubDate>Sat, 19 Jan 2019 19:10:51 +0000</pubDate>
       
       <guid>http://blog.xingyys.tech/tags/%E5%85%B6%E4%BB%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scaleio</title>
+      <link>http://blog.xingyys.tech/tags/scaleio/</link>
+      <pubDate>Fri, 31 Aug 2018 15:27:24 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/tags/scaleio/</guid>
       <description></description>
     </item>
     

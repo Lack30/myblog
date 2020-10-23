@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 23 Oct 2020 15:06:27 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 15:12:53 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aix添加和删除Iscsi存储卷</title>
+      <link>http://blog.xingyys.tech/post/aix1/</link>
+      <pubDate>Fri, 23 Oct 2020 15:12:53 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/aix1/</guid>
+      <description>Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L</description>
+    </item>
+    
     <item>
       <title>Windows Bat总结</title>
       <link>http://blog.xingyys.tech/post/bat/</link>
@@ -14,24 +23,6 @@
       
       <guid>http://blog.xingyys.tech/post/bat/</guid>
       <description>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可</description>
-    </item>
-    
-    <item>
-      <title>Scst 安装和使用</title>
-      <link>http://blog.xingyys.tech/post/scst1/</link>
-      <pubDate>Fri, 23 Oct 2020 14:59:25 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/scst1/</guid>
-      <description>安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</description>
-    </item>
-    
-    <item>
-      <title>Scst在线扩容</title>
-      <link>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</link>
-      <pubDate>Fri, 23 Oct 2020 14:57:36 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</guid>
-      <description>SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</description>
     </item>
     
     <item>
@@ -44,39 +35,102 @@
     </item>
     
     <item>
-      <title>etcd的使用实例</title>
-      <link>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
-      <pubDate>Fri, 23 Oct 2020 14:43:08 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
-      <description>etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leade</description>
-    </item>
-    
-    <item>
-      <title>GPRC 进阶</title>
-      <link>http://blog.xingyys.tech/post/grpc2/</link>
-      <pubDate>Fri, 23 Oct 2020 14:40:08 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/grpc2/</guid>
-      <description>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请</description>
-    </item>
-    
-    <item>
-      <title>GPRC 实战</title>
-      <link>http://blog.xingyys.tech/post/grpc1/</link>
-      <pubDate>Fri, 23 Oct 2020 14:38:08 +0800</pubDate>
-      
-      <guid>http://blog.xingyys.tech/post/grpc1/</guid>
-      <description>GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-</description>
-    </item>
-    
-    <item>
       <title>postgresql 实战一：安装和使用</title>
       <link>http://blog.xingyys.tech/post/pgsql1/</link>
       <pubDate>Fri, 23 Oct 2020 14:33:55 +0800</pubDate>
       
       <guid>http://blog.xingyys.tech/post/pgsql1/</guid>
       <description>安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash</description>
+    </item>
+    
+    <item>
+      <title>Scst结合FC</title>
+      <link>http://blog.xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</link>
+      <pubDate>Thu, 06 Aug 2020 15:21:50 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/scst%E7%BB%93%E5%90%88fc/</guid>
+      <description>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。 FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。 环境配置 接下</description>
+    </item>
+    
+    <item>
+      <title>GPRC 实战</title>
+      <link>http://blog.xingyys.tech/post/grpc1/</link>
+      <pubDate>Fri, 31 Jul 2020 14:38:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/grpc1/</guid>
+      <description>GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-</description>
+    </item>
+    
+    <item>
+      <title>GPRC 进阶</title>
+      <link>http://blog.xingyys.tech/post/grpc2/</link>
+      <pubDate>Fri, 31 Jul 2020 14:38:08 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/grpc2/</guid>
+      <description>grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。 GRPC 进阶功能 每个grpc请</description>
+    </item>
+    
+    <item>
+      <title>Scst在线扩容</title>
+      <link>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</link>
+      <pubDate>Thu, 09 Apr 2020 14:59:25 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/</guid>
+      <description>SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</description>
+    </item>
+    
+    <item>
+      <title>Scst 安装和使用</title>
+      <link>http://blog.xingyys.tech/post/scst1/</link>
+      <pubDate>Wed, 08 Apr 2020 14:59:25 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/scst1/</guid>
+      <description>安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</description>
+    </item>
+    
+    <item>
+      <title>linux 安装 oh-my-zsh</title>
+      <link>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
+      <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
+      <description>一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh</description>
+    </item>
+    
+    <item>
+      <title>使用kubeadm安装kubernetes1.16</title>
+      <link>http://blog.xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
+      <pubDate>Sat, 19 Oct 2019 15:10:16 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
+      <description>环境版本说明： 三台vmware虚拟机，系统版本CentOS7.6。 Kubernetes 1.16.0，当前最新版。 flannel v0.11 docker 18.09 使用kubeadm可以简单的搭建一套k</description>
+    </item>
+    
+    <item>
+      <title>etcd的使用实例</title>
+      <link>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
+      <pubDate>Wed, 11 Sep 2019 15:17:42 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
+      <description>etcd 有如下的使用场景： 服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leade</description>
+    </item>
+    
+    <item>
+      <title>Go 结合 etcd</title>
+      <link>http://blog.xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</link>
+      <pubDate>Tue, 10 Sep 2019 15:17:42 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/go%E7%BB%93%E5%90%88etcd/</guid>
+      <description>关于 etcd 的安装和介绍看 这里 。 官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 package main import</description>
+    </item>
+    
+    <item>
+      <title>Nginx多组代理配置</title>
+      <link>http://blog.xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 31 Jul 2019 15:25:05 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问</description>
     </item>
     
     <item>
@@ -113,6 +167,15 @@
       
       <guid>http://blog.xingyys.tech/post/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</guid>
       <description>今天重新整理了下博客，发现之前配置好的七牛云图片显示错误。重新配置的同时也记录下配置步骤。 添加域名 登录七牛云的官网融合CDN，在“域名管理”</description>
+    </item>
+    
+    <item>
+      <title>安装scaleio Gateway</title>
+      <link>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</link>
+      <pubDate>Fri, 31 Aug 2018 15:27:24 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</guid>
+      <description>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一</description>
     </item>
     
     <item>

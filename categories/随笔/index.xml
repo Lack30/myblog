@@ -6,7 +6,34 @@
     <description>Recent content in 随笔 on Xingyys 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 26 Jan 2019 08:28:36 +0000</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Oct 2020 15:12:53 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aix添加和删除Iscsi存储卷</title>
+      <link>http://blog.xingyys.tech/post/aix1/</link>
+      <pubDate>Fri, 23 Oct 2020 15:12:53 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/aix1/</guid>
+      <description>Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L</description>
+    </item>
+    
+    <item>
+      <title>Golang跨平台编译</title>
+      <link>http://blog.xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
+      <pubDate>Fri, 23 Oct 2020 14:52:46 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
+      <description>golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。 因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。 在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令</description>
+    </item>
+    
+    <item>
+      <title>golang打包和解包</title>
+      <link>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
+      <pubDate>Fri, 15 Feb 2019 15:03:44 +0000</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
+      <description>打包 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 // 打包 func Compress(destPath, srcDir string)</description>
+    </item>
+    
     <item>
       <title>linux上使用udev创建裸设备</title>
       <link>http://blog.xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>

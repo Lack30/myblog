@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>终端 on Xingyys 的个人博客</title>
+    <link>http://blog.xingyys.tech/tags/%E7%BB%88%E7%AB%AF/</link>
+    <description>Recent content in 终端 on Xingyys 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 09 Feb 2020 15:23:20 +0800</lastBuildDate><atom:link href="http://blog.xingyys.tech/tags/%E7%BB%88%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux 安装 oh-my-zsh</title>
+      <link>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
+      <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
+      
+      <guid>http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
+      <description>一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>安装scaleio Gateway - Xingyys 的个人博客</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="xingyys" /><meta name="description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一" /><meta name="keywords" content="blog, study, share" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
+
+
+<link rel="canonical" href="http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="安装scaleio Gateway" />
+<meta property="og:description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/" />
+<meta property="article:published_time" content="2018-08-31T15:27:24+08:00" />
+<meta property="article:modified_time" content="2018-08-31T15:27:24+08:00" />
+<meta itemprop="name" content="安装scaleio Gateway">
+<meta itemprop="description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一">
+<meta itemprop="datePublished" content="2018-08-31T15:27:24+08:00" />
+<meta itemprop="dateModified" content="2018-08-31T15:27:24+08:00" />
+<meta itemprop="wordCount" content="466">
+
+
+
+<meta itemprop="keywords" content="linux,scaleio," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装scaleio Gateway"/>
+<meta name="twitter:description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Xingyys</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Xingyys</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">安装scaleio Gateway</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-31 </span>
+        <div class="post-category">
+            <a href="/categories/%E5%AD%98%E5%82%A8/"> 存储 </a>
+            </div>
+          <span class="more-meta"> 约 466 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一安装">一、安装</a></li>
+    <li><a href="#二配置">二、配置</a></li>
+    <li><a href="#三验证">三、验证</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<br />
+<a name="6NhLo"></a></p>
+<h1 id="一安装">一、安装</h1>
+<p>1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 先配置gateway admin用户的密码</span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># export GATEWAY_ADMIN_PASSWORD=Scale10 </span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm </span>
+<span class="c1"># 安装成功后服务默认启动，绑定在端口80</span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># netstat -tnlp | grep 80 </span>
+tcp6       <span class="m">0</span>      <span class="m">0</span> :::80                   :::*                    LISTEN      4225/java
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="4rT73"></a></p>
+<h1 id="二配置">二、配置</h1>
+<p>安装完gateway还需要配置，gateway的配置有两种方式。</p>
+<ul>
+<li>使用浏览器配置。</li>
+<li>直接修改配置文件。</li>
+</ul>
+<p>使用浏览器配置<br />使用浏览器输入地址 https://&lt;主机ip&gt;，输入用户名密码(admin/Scale10)后登陆 <br />
+<img src="https://cdn.nlark.com/yuque/0/2020/png/551536/1597714980277-9e0ccd1d-1d8b-4d84-87d5-b593b360c22d.png?x-oss-process=image%2Fresize%2Cw_1016" alt="image.png">
+<br />输入后<br />
+<img src="https://cdn.nlark.com/yuque/0/2020/png/551536/1597714988515-81f670e6-0c49-4c21-8224-974ef94d8add.png#align=left&amp;display=inline&amp;height=347&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=693&amp;originWidth=1010&amp;size=58653&amp;status=done&amp;style=none&amp;width=505" alt="image.png"><br /><img src="https://cdn.nlark.com/yuque/0/2020/png/551536/1597714996738-0534e257-a7a3-404a-9ce8-f42c02feb5a7.png#align=left&amp;display=inline&amp;height=277&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=554&amp;originWidth=1202&amp;size=36588&amp;status=done&amp;style=none&amp;width=601" alt="image.png"><br />直接修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties </span>
+// 修改以下字段
+// scaleio管理的ip地址，使用,或<span class="p">;</span>隔开
+mdm.ip.addresses<span class="o">=</span>192.168.3.200<span class="p">;</span>192.168.3.201
+// 允许非加密的通讯
+gateway-security.allow_non_secure_communication<span class="o">=</span><span class="nb">true</span>
+// 防止主从切换中gateway错误
+security.bypass_certificate_check<span class="o">=</span><span class="nb">true</span>
+// 记得重启gateway服务
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># /etc/init.d/scaleio-gateway restart</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><a name="I1tps"></a></p>
+<h1 id="三验证">三、验证</h1>
+<p>使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证<br />curl命令验证验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># curl -k --user admin:Scale10 https://192.168.3.107/api/login</span>
+<span class="s2">&#34;YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/scaleio/">scaleio</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">配置七牛云存储外链</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/">
+            <span class="next-text nav-default">CentOS下kvm安装</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/xingyys" class="iconfont icon-github" title="github"></a>
+  <a href="http://blog.xingyys.tech/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>xingyys</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
