@@ -917,7 +917,29 @@ Date: Wed, 20 Sep 2017 06:38:22 GMT
     </footer>
   </article>
         </div>
-        
+        <div id="comments-gitment"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitment = new Gitment({
+        id: '2017-09-20 15:36:05 \u002b0800 CST',
+        title: 'Flask与Vue的token认证',
+        link: decodeURI(location.href),
+        desc: '后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http:\/\/www.cnblogs.com\/vovlie\/p\/4182814.html https:\/\/segmentfault.com\/a\/1190000008383094?_ea=1639495 源',
+        owner: 'xingyys',
+        repo: 'https:\/\/github.com\/xingyys\/myblog',
+        oauth: {
+          client_id: '1015bb13b495a5d03d7f',
+          client_secret: '41dc4b99edac08351ce861c24062860b31292c9b'
+        }
+      });
+      gitment.render('comments-gitment');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+
+  
+
+  
 
       </div>
     </main>
