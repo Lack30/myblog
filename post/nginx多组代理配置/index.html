@@ -53,7 +53,7 @@
 
 
 
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="linux,nginx," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Nginx多组代理配置"/>
 <meta name="twitter:description" content="一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP&#43;端口的方式能访问内部多个系统，这样一来通过对单台机器作访问"/>
@@ -127,7 +127,9 @@
 
       <div class="post-meta">
         <span class="post-time"> 2019-07-31 </span>
-        
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
           <span class="more-meta"> 约 1259 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
@@ -177,8 +179,8 @@
 </ul>
 <p><a name="ghclX"></a></p>
 <h1 id="三配置代理">三、配置代理</h1>
-<p>假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574596136127-b63d8e6d-56e5-4092-a412-84d0b8f74fd7.png#align=left&amp;display=inline&amp;height=468&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=468&amp;originWidth=1911&amp;size=52536&amp;status=done&amp;style=none&amp;width=1911" alt="image.png"><br />
-<br />tomcat 运行在 192.168.10.11:9000<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574596168428-01caf09d-66c6-462e-939a-09e6310f41f9.png#align=left&amp;display=inline&amp;height=794&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=794&amp;originWidth=1915&amp;size=198896&amp;status=done&amp;style=none&amp;width=1915" alt="image.png"><br />
+<p>假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574596136127-b63d8e6d-56e5-4092-a412-84d0b8f74fd7.png?x-oss-process=image%2Fresize%2Cw_1492" alt="image.png"><br />
+<br />tomcat 运行在 192.168.10.11:9000<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574596168428-01caf09d-66c6-462e-939a-09e6310f41f9.png?x-oss-process=image%2Fresize%2Cw_1492" alt="image.png"><br />
 <br />现在配置 nginx 代理。<br />
 <br /><strong>1.安装 nginx</strong><br />先在代理服务器上安装 nginx，使用命令：<br /></p>
 <div class="highlight"><div class="chroma">
@@ -475,14 +477,17 @@ tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:
 tcp        <span class="m">0</span>      <span class="m">0</span> 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
 </code></pre></td></tr></table>
 </div>
-</div><p><br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574597092405-f74ab212-a471-4a2b-9e67-d28d764ae4b9.png#align=left&amp;display=inline&amp;height=404&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=404&amp;originWidth=1916&amp;size=50200&amp;status=done&amp;style=none&amp;width=1916" alt="image.png"><br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574597116041-79d6b3fd-a244-4d4f-a4f0-f72814bb9927.png#align=left&amp;display=inline&amp;height=560&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=560&amp;originWidth=1919&amp;size=145789&amp;status=done&amp;style=none&amp;width=1919" alt="image.png"><br />
+</div><p><br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574597092405-f74ab212-a471-4a2b-9e67-d28d764ae4b9.png?x-oss-process=image%2Fresize%2Cw_1492" alt="image.png"><br /><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1574597116041-79d6b3fd-a244-4d4f-a4f0-f72814bb9927.png?x-oss-process=image%2Fresize%2Cw_1492" alt="image.png"><br />
 <br />到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。</p>
 
     </div>
 
     
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/nginx/">nginx</a>
+          </div>
       <nav class="post-nav">
         <a class="prev" href="/post/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/">
             <i class="iconfont icon-left"></i>

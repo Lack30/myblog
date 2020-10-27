@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>Nginx多组代理配置</title>
+      <link>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 31 Jul 2019 15:25:05 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问</description>
+    </item>
+    
+    <item>
       <title>Windows Bat总结</title>
       <link>http://xingyys.tech/post/bat/</link>
       <pubDate>Fri, 22 Mar 2019 15:06:27 +0800</pubDate>

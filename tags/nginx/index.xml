@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nginx on Xingyys 的个人博客</title>
+    <link>http://xingyys.tech/tags/nginx/</link>
+    <description>Recent content in nginx on Xingyys 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 31 Jul 2019 15:25:05 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx多组代理配置</title>
+      <link>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Wed, 31 Jul 2019 15:25:05 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问</description>
+    </item>
+    
+  </channel>
+</rss>
