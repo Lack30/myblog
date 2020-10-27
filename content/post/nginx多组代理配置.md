@@ -5,8 +5,8 @@ lastmod: 2019-07-31T15:25:05+08:00
 draft: false
 keywords: []
 description: ""
-tags: []
-categories: []
+tags: ["linux", "nginx"]
+categories: ["运维"]
 author: ""
 
 # You can also close(false) or open(true) something for this content.
@@ -63,8 +63,8 @@ sequenceDiagrams:
 
 <a name="ghclX"></a>
 # 三、配置代理
-假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596136127-b63d8e6d-56e5-4092-a412-84d0b8f74fd7.png#align=left&display=inline&height=468&margin=%5Bobject%20Object%5D&name=image.png&originHeight=468&originWidth=1911&size=52536&status=done&style=none&width=1911)<br />
-<br />tomcat 运行在 192.168.10.11:9000<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596168428-01caf09d-66c6-462e-939a-09e6310f41f9.png#align=left&display=inline&height=794&margin=%5Bobject%20Object%5D&name=image.png&originHeight=794&originWidth=1915&size=198896&status=done&style=none&width=1915)<br />
+假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596136127-b63d8e6d-56e5-4092-a412-84d0b8f74fd7.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
+<br />tomcat 运行在 192.168.10.11:9000<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596168428-01caf09d-66c6-462e-939a-09e6310f41f9.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
 <br />现在配置 nginx 代理。<br />
 <br />**1.安装 nginx**<br />先在代理服务器上安装 nginx，使用命令：<br />
 
@@ -227,6 +227,6 @@ tcp        0      0 192.168.10.10:8080      0.0.0.0:*               LISTEN      
 tcp        0      0 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
 ```
 
-<br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597092405-f74ab212-a471-4a2b-9e67-d28d764ae4b9.png#align=left&display=inline&height=404&margin=%5Bobject%20Object%5D&name=image.png&originHeight=404&originWidth=1916&size=50200&status=done&style=none&width=1916)<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597116041-79d6b3fd-a244-4d4f-a4f0-f72814bb9927.png#align=left&display=inline&height=560&margin=%5Bobject%20Object%5D&name=image.png&originHeight=560&originWidth=1919&size=145789&status=done&style=none&width=1919)<br />
+<br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597092405-f74ab212-a471-4a2b-9e67-d28d764ae4b9.png?x-oss-process=image%2Fresize%2Cw_1492)<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597116041-79d6b3fd-a244-4d4f-a4f0-f72814bb9927.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
 <br />到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
 
