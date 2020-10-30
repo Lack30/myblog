@@ -44,13 +44,21 @@ sequenceDiagrams:
 # 开发环境选择
 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。
 修改统一的文件换行符为 `\n` 。
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1603961295367-f749c61f-09fe-402d-b5ee-a1785fa7098a.png?x-oss-process=image%2Fresize%2Cw_746)
+<br/>
+settings > Editor > Code Style
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110653.png)
 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1603961344665-e179865c-b9ae-4621-8b63-22084b497851.png?x-oss-process=image%2Fresize%2Cw_746)
+<br/>
+settings > Editor > Code Style > Go
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110801.png)
 设置文件自动格式化
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1603961444629-8537cafe-0216-490b-b62b-6b3e197f3ad8.png?x-oss-process=image%2Fresize%2Cw_746)
+<br/>
+settings > Tools > File Watch
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110855.png)
 配置远程主机代码同步（可选）
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1603961377467-519c6e02-d6d3-4476-b8cc-f1f0b6ad62bc.png?x-oss-process=image%2Fresize%2Cw_746)
+<br />
+Tools > Deployment > Configuration
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110938.png)
 # Git 配置
 文本文件所使用的换行符，在不同的系统平台上是不一样的。 `UNIX/Linux` 使用的是 `0x0A（LF）` ，早期的 `Mac OS` 使用的是 `0x0D（CR）` ，后来的 `OS X`  在更换内核后与 `UNIX`  保持一致了。但 `DOS/Windows`  一直使用 `0x0D0A（CRLF）`  作为换行符。
 

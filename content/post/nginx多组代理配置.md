@@ -63,8 +63,12 @@ sequenceDiagrams:
 
 <a name="ghclX"></a>
 # 三、配置代理
-假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596136127-b63d8e6d-56e5-4092-a412-84d0b8f74fd7.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
-<br />tomcat 运行在 192.168.10.11:9000<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574596168428-01caf09d-66c6-462e-939a-09e6310f41f9.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
+假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110455.png)
+<br />
+<br />tomcat 运行在 192.168.10.11:9000<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110507.png)
+<br />
 <br />现在配置 nginx 代理。<br />
 <br />**1.安装 nginx**<br />先在代理服务器上安装 nginx，使用命令：<br />
 
@@ -227,6 +231,10 @@ tcp        0      0 192.168.10.10:8080      0.0.0.0:*               LISTEN      
 tcp        0      0 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
 ```
 
-<br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597092405-f74ab212-a471-4a2b-9e67-d28d764ae4b9.png?x-oss-process=image%2Fresize%2Cw_1492)<br />![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1574597116041-79d6b3fd-a244-4d4f-a4f0-f72814bb9927.png?x-oss-process=image%2Fresize%2Cw_1492)<br />
+<br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br />![image.png]
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110527.png)
+<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110541.png)
+<br />
 <br />到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
 

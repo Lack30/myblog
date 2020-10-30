@@ -21,7 +21,8 @@ etcd 有如下的使用场景：
 
 <a name="9dUZc"></a>
 # 一、服务发现
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1573893479716-e9f3d70f-51a8-4675-b6fb-9b9725201487.png#align=left&display=inline&height=479&name=image.png&originHeight=479&originWidth=633&size=406547&status=done&style=none&width=633)<br />etcd 的常见使用场景之一就是服务发现。实现思路如下：<br />先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 `ip:port` 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。<br />另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。<br />代码的实现如下：
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110140.png)
+<br />etcd 的常见使用场景之一就是服务发现。实现思路如下：<br />先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 `ip:port` 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。<br />另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。<br />代码的实现如下：
 
 ```go
 // server.go
@@ -247,7 +248,8 @@ func main() {
 
 <a name="PWa0Y"></a>
 # 二、消息发布与订阅
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1573893431072-0a5172ec-066c-4abf-9941-93137b8f5fe4.png#align=left&display=inline&height=964&name=image.png&originHeight=964&originWidth=1372&size=1036426&status=done&style=none&width=1372)<br />消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。<br />代码如下：
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110205.png)
+<br />消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。<br />代码如下：
 
 ```go
 package main
@@ -316,7 +318,8 @@ func main() {
 
 <a name="o6Uft"></a>
 # 三、负载均衡
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1573897659797-cb729257-146b-4e99-aa07-ff7bb7b74f68.png#align=left&display=inline&height=940&name=image.png&originHeight=940&originWidth=1270&size=1100362&status=done&style=none&width=1270)<br />etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110220.png)
+<br />etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：
 
 ```go
 // register.go
@@ -688,7 +691,8 @@ func main() {
 
 <a name="UhrqU"></a>
 # 四、分布式通知与协调
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1573909407589-806a459b-454f-4e98-8c4b-f5db8f57a40c.png#align=left&display=inline&height=1004&name=image.png&originHeight=1004&originWidth=2112&size=2001811&status=done&style=none&width=2112)<br />和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110244.png)
+<br />和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。
 
 ```go
 package main
@@ -743,11 +747,12 @@ func main() {
 
 <a name="tIa3r"></a>
 # 五、分布式锁
-![](https://cdn.nlark.com/yuque/0/2019/jpeg/551536/1573910043629-004ebfbc-72af-41b8-8f7a-bd70e5323c98.jpeg#align=left&display=inline&height=263&originHeight=916&originWidth=1744&size=0&status=done&style=none&width=500)<br />因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<br />在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110301.png)
+<br />因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<br />在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go)
 
 <a name="V1e7H"></a>
 # 六、分布式队列
-![image.png](https://cdn.nlark.com/yuque/0/2019/png/551536/1573912256218-d824ab14-2aa0-4c3d-bb27-818ac4f30ffd.png#align=left&display=inline&height=774&name=image.png&originHeight=774&originWidth=1818&size=1277784&status=done&style=none&width=1818)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110313.png)
 
 etcd 分布式队列有两种实现方式，一种等待所有条件都满足后才开始执行任务。另一种是先入先出列队。第一种的思路就是在 watch 一个目录，当目录下存在必要的 key 时就进行对应操作。
 
@@ -884,6 +889,8 @@ func main() {
 
 　　这样就可以第一时间检测到各节点的健康状态，以完成集群的监控要求。<br />
 <br />使用分布式锁，可以完成Leader竞选。<br />　　这种场景通常是一些长时间CPU计算或者使用IO操作的机器，只需要竞选出的Leader计算或处理一次，就可以把结果复制给其他的Follower。从而避免重复劳动，节省计算资源。<br />这个的经典场景是**搜索系统中建立全量索引**。如果每个机器都进行一遍索引的建立，不但耗时而且建立索引的一致性不能保证。通过在etcd的CAS机制同时创建一个节点，创建成功的机器作为Leader，进行索引计算，然后把计算结果分发到其它节点。<br />
-<br />![](https://cdn.nlark.com/yuque/0/2019/jpeg/551536/1573922648374-be3283dd-59f5-4a77-aea3-f69063626b04.jpeg#align=left&display=inline&height=198&originHeight=724&originWidth=1832&size=0&status=done&style=none&width=500)<br />
+<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110336.png)
+<br />
 <br />同样官方自带示例：详细看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_election_test.go)
 
