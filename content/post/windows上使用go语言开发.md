@@ -46,18 +46,22 @@ Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进
 修改统一的文件换行符为 `\n` 。
 <br/>
 settings > Editor > Code Style
+<br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110653.png)
-添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。
+添加格式化工具 `goimports`。`goimports` 同时内置了 `gofmt` 的功能。可以格式化 Go 代理、自动导入依赖包等。
 <br/>
 settings > Editor > Code Style > Go
+<br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110801.png)
 设置文件自动格式化
 <br/>
 settings > Tools > File Watch
+<br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110855.png)
 配置远程主机代码同步（可选）
 <br />
 Tools > Deployment > Configuration
+<br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110938.png)
 # Git 配置
 文本文件所使用的换行符，在不同的系统平台上是不一样的。 `UNIX/Linux` 使用的是 `0x0A（LF）` ，早期的 `Mac OS` 使用的是 `0x0D（CR）` ，后来的 `OS X`  在更换内核后与 `UNIX`  保持一致了。但 `DOS/Windows`  一直使用 `0x0D0A（CRLF）`  作为换行符。
