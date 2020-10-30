@@ -1,3 +1,5 @@
 {
-    "pasteImage.path": "${currentFileDir}/images"
+    "pasteImage.path": "${currentFileDir}/images",
+    "pasteImage.namePrefix": "https://raw.githubusercontent.com/xingyys/myblog/main/post/",
+    "pasteImage.defaultName": "YYYYMMDDHHmmss"
 }
