@@ -165,7 +165,8 @@
 </ul>
 <p><a name="9dUZc"></a></p>
 <h1 id="一服务发现">一、服务发现</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1573893479716-e9f3d70f-51a8-4675-b6fb-9b9725201487.png#align=left&amp;display=inline&amp;height=479&amp;name=image.png&amp;originHeight=479&amp;originWidth=633&amp;size=406547&amp;status=done&amp;style=none&amp;width=633" alt="image.png"><br />etcd 的常见使用场景之一就是服务发现。实现思路如下：<br />先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 <code>ip:port</code> 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。<br />另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。<br />代码的实现如下：</p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110140.png" alt="">
+<br />etcd 的常见使用场景之一就是服务发现。实现思路如下：<br />先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 <code>ip:port</code> 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。<br />另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。<br />代码的实现如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">  1
@@ -612,7 +613,8 @@
 </div>
 </div><p><a name="PWa0Y"></a></p>
 <h1 id="二消息发布与订阅">二、消息发布与订阅</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1573893431072-0a5172ec-066c-4abf-9941-93137b8f5fe4.png#align=left&amp;display=inline&amp;height=964&amp;name=image.png&amp;originHeight=964&amp;originWidth=1372&amp;size=1036426&amp;status=done&amp;style=none&amp;width=1372" alt="image.png"><br />消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。<br />代码如下：</p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110205.png" alt="">
+<br />消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。<br />代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -745,7 +747,8 @@
 </div>
 </div><p><a name="o6Uft"></a></p>
 <h1 id="三负载均衡">三、负载均衡</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1573897659797-cb729257-146b-4e99-aa07-ff7bb7b74f68.png#align=left&amp;display=inline&amp;height=940&amp;name=image.png&amp;originHeight=940&amp;originWidth=1270&amp;size=1100362&amp;status=done&amp;style=none&amp;width=1270" alt="image.png"><br />etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：</p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110220.png" alt="">
+<br />etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1472,7 +1475,8 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 </div>
 </div><p><a name="UhrqU"></a></p>
 <h1 id="四分布式通知与协调">四、分布式通知与协调</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1573909407589-806a459b-454f-4e98-8c4b-f5db8f57a40c.png#align=left&amp;display=inline&amp;height=1004&amp;name=image.png&amp;originHeight=1004&amp;originWidth=2112&amp;size=2001811&amp;status=done&amp;style=none&amp;width=2112" alt="image.png"><br />和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。</p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110244.png" alt="">
+<br />和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -1577,10 +1581,11 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 </div>
 </div><p><a name="tIa3r"></a></p>
 <h1 id="五分布式锁">五、分布式锁</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/551536/1573910043629-004ebfbc-72af-41b8-8f7a-bd70e5323c98.jpeg#align=left&amp;display=inline&amp;height=263&amp;originHeight=916&amp;originWidth=1744&amp;size=0&amp;status=done&amp;style=none&amp;width=500" alt=""><br />因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<br />在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 <a href="https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go">这里</a></p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110301.png" alt="">
+<br />因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<br />在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 <a href="https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go">这里</a></p>
 <p><a name="V1e7H"></a></p>
 <h1 id="六分布式队列">六、分布式队列</h1>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/551536/1573912256218-d824ab14-2aa0-4c3d-bb27-818ac4f30ffd.png#align=left&amp;display=inline&amp;height=774&amp;name=image.png&amp;originHeight=774&amp;originWidth=1818&amp;size=1277784&amp;status=done&amp;style=none&amp;width=1818" alt="image.png"></p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110313.png" alt=""></p>
 <p>etcd 分布式队列有两种实现方式，一种等待所有条件都满足后才开始执行任务。另一种是先入先出列队。第一种的思路就是在 watch 一个目录，当目录下存在必要的 key 时就进行对应操作。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1836,7 +1841,9 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 </ol>
 <p>　　这样就可以第一时间检测到各节点的健康状态，以完成集群的监控要求。<br />
 <br />使用分布式锁，可以完成Leader竞选。<br />　　这种场景通常是一些长时间CPU计算或者使用IO操作的机器，只需要竞选出的Leader计算或处理一次，就可以把结果复制给其他的Follower。从而避免重复劳动，节省计算资源。<br />这个的经典场景是<strong>搜索系统中建立全量索引</strong>。如果每个机器都进行一遍索引的建立，不但耗时而且建立索引的一致性不能保证。通过在etcd的CAS机制同时创建一个节点，创建成功的机器作为Leader，进行索引计算，然后把计算结果分发到其它节点。<br />
-<br /><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/551536/1573922648374-be3283dd-59f5-4a77-aea3-f69063626b04.jpeg#align=left&amp;display=inline&amp;height=198&amp;originHeight=724&amp;originWidth=1832&amp;size=0&amp;status=done&amp;style=none&amp;width=500" alt=""><br />
+<br />
+<img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110336.png" alt="">
+<br />
 <br />同样官方自带示例：详细看 <a href="https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_election_test.go">这里</a></p>
 
     </div>
