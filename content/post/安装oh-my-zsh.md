@@ -114,9 +114,11 @@ $ ./install.sh
 
 <a name="bPitB"></a>
 ## zsh-syntax-highlighting
-**作用**<br />平常用的`ls`、`cd` 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。
+**作用**<br/>平常用的`ls`、`cd` 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。
 
-![](https://cdn.nlark.com/yuque/0/2020/png/551536/1582938007527-692f0553-b222-43e1-9f02-493406413995.png#align=left&display=inline&height=123&originHeight=123&originWidth=470&size=0&status=done&style=none&width=470)<br />**安装**<br />**
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030101839.png)
+
+**安装**
 ```bash
 $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
@@ -136,7 +138,8 @@ source ~/.zshrc
 <a name="pw1oT"></a>
 ## zsh-autosuggestions
 **作用**<br />如图输入命令时，会给出建议的命令（灰色部分）按键盘 → 补全<br />
-<br />![](https://cdn.nlark.com/yuque/0/2020/webp/551536/1582938006410-44c5fca2-81c9-4e06-b421-c3e333259ebc.webp#align=left&display=inline&height=42&originHeight=42&originWidth=394&size=0&status=done&style=none&width=394)
+<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102007.png)
 
 如果感觉 → 补全不方便，还可以自定义补全的快捷键，比如我设置的逗号补全<br />
 

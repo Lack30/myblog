@@ -62,9 +62,12 @@ tcp6       0      0 :::80                   :::*                    LISTEN      
 
 
 使用浏览器配置<br />使用浏览器输入地址 https://<主机ip>，输入用户名密码(admin/Scale10)后登陆 <br />
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1597714980277-9e0ccd1d-1d8b-4d84-87d5-b593b360c22d.png?x-oss-process=image%2Fresize%2Cw_1016)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png)
 <br />输入后<br />
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1597714988515-81f670e6-0c49-4c21-8224-974ef94d8add.png#align=left&display=inline&height=347&margin=%5Bobject%20Object%5D&name=image.png&originHeight=693&originWidth=1010&size=58653&status=done&style=none&width=505)<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1597714996738-0534e257-a7a3-404a-9ce8-f42c02feb5a7.png#align=left&display=inline&height=277&margin=%5Bobject%20Object%5D&name=image.png&originHeight=554&originWidth=1202&size=36588&status=done&style=none&width=601)<br />直接修改配置文件
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png)
+<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png)
+<br />直接修改配置文件
 ```bash
 [root@localhost  ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties 
 // 修改以下字段
