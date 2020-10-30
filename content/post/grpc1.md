@@ -14,7 +14,7 @@ categories:
 
 <br />grpc 是由 google 开发的一款开源，高性能 rpc（[远程进程调用协议](https://zh.wikipedia.org/wiki/%E9%81%A0%E7%A8%8B%E9%81%8E%E7%A8%8B%E8%AA%BF%E7%94%A8)）使用 [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/overview) 作为数据交换格式。<br />![grpc.svg](https://cdn.nlark.com/yuque/0/2020/svg/551536/1594455476531-ee52361b-e66b-4a4c-aa46-78bcf9cb9779.svg#align=left&display=inline&height=327&margin=%5Bobject%20Object%5D&name=grpc.svg&originHeight=327&originWidth=552&size=114389&status=done&style=none&width=552)<br />
 
-![](images/https:/raw.githubusercontent.com/xingyys/myblog/main/post/20201030100407.png)
+![grpc-test](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030100906.png)
 
 <a name="ef344b57"></a>
 # GRPC 安装
