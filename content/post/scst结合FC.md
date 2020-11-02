@@ -40,12 +40,12 @@ sequenceDiagrams:
 
 ---
 
-SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 [FC](https://en.wikipedia.org/wiki/Fibre_Channel) 协议。<br />FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看[这里](http://scst.sourceforge.net/qla2x00t-howto.html) 。<br />
+SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 [FC](https://en.wikipedia.org/wiki/Fibre_Channel) 协议。<br />FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看[这里](http://scst.sourceforge.net/qla2x00t-howto.html) 。
 
 <a name="a69f6882"></a>
 # 环境配置
 
-<br />接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：<br />
+接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png)
 <br />保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：<br />
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png)
@@ -56,53 +56,38 @@ SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本�
 <a name="618af87a"></a>
 # 配置 FC
 
-
 <a name="2034ea04"></a>
 ## SCST 服务端配置
-
-<br />创建 target, FC 设备和 target 一对一。<br />
-
+创建 target, FC 设备和 target 一对一。
 ```bash
 scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 ```
-
-<br />创建 device 对应本地的块文件<br />
-
+创建 device 对应本地的块文件
 ```bash
 scstadmin -open_dev fc1 -handler vdisk_fileio -attributes filename=/dev/sdc
 ```
-
-<br />创建 group，scst 中的 group 用于限定共享的对象。<br />
-
+创建 group，scst 中的 group 用于限定共享的对象。
 ```bash
 scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 ```
-
-<br />创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。<br />
-
+创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。<br />
 ```bash
 scstadmin -add_lun 0 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```
-
-<br />指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 `/sys/class/fc_host/hostx/port_name`<br />
+指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 `/sys/class/fc_host/hostx/port_name`<br />
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png)
 ```bash
 scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```
-
-<br />启动 target<br />
-
+启动 target
 ```bash
 scstadmin -enable_target 50:01:10:a0:00:16:bf:30 --driver qla2x00t
 ```
-
-<br />最后将改动写入配置文件<br />
-
+最后将改动写入配置文件
 ```bash
 scstadmin -write_config /etc/scst.conf
 ```
-
-<br />（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）
+（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）
 <a name="f4f5ae5e"></a>
 ## 客户端配置
 扫描 scst 主机<br />
@@ -110,8 +95,7 @@ scstadmin -write_config /etc/scst.conf
 ```bash
 echo "- - -" > /sys/class/scst_host/host3/scan
 ```
-
-<br />其中 `"- - -"` 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。`host3` 和 `/sys/class/fc_host/host3` 相对应。执行命令后客户端增加了一块磁盘。<br />
+其中 `"- - -"` 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。`host3` 和 `/sys/class/fc_host/host3` 相对应。执行命令后客户端增加了一块磁盘。<br />
 <br />
 
 
