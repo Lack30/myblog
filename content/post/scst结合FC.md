@@ -45,7 +45,14 @@ SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本�
 <a name="a69f6882"></a>
 # 环境配置
 
-<br />接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1596161682842-be237776-e1ae-4e4b-be0b-c7676740a2f0.png)<br />保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1596161697676-a7148b6a-2fa1-4e79-945c-d5f31641dc47.png?x-oss-process=image%2Fresize%2Cw_796)<br />如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。<br />查看 FC 设备的 ID 可以用以下的方式：<br />1.查看内核中 qla2x00t (`/sys/kernel/scst_tgt/targets/qla2x00t`) 目录下的内容<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1596161723584-376d456c-f9ca-4a9e-8414-8b4195965ee7.png?x-oss-process=image%2Fresize%2Cw_894)<br />2.直接查看 FC 设备的 port_id (`/sys/class/fc_host/hostx/port_name`)，<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1596161736093-b87c3fef-99eb-471c-abfb-65e9631244a1.png?x-oss-process=image%2Fresize%2Cw_830)
+<br />接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：<br />
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png)
+<br />保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：<br />
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png)
+<br />如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。<br />查看 FC 设备的 ID 可以用以下的方式：<br />1.查看内核中 qla2x00t (`/sys/kernel/scst_tgt/targets/qla2x00t`) 目录下的内容<br />
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png)
+<br />2.直接查看 FC 设备的 port_id (`/sys/class/fc_host/hostx/port_name`)，<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png)
 <a name="618af87a"></a>
 # 配置 FC
 
@@ -77,7 +84,8 @@ scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 scstadmin -add_lun 0 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```
 
-<br />指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 `/sys/class/fc_host/hostx/port_name`<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/551536/1596161756993-045d1cd9-073e-443b-a5c0-c83ccd843812.png?x-oss-process=image%2Fresize%2Cw_798)
+<br />指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 `/sys/class/fc_host/hostx/port_name`<br />
+![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png)
 ```bash
 scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```
