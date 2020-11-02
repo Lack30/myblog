@@ -153,10 +153,10 @@
   </div>
 </div>
     <div class="post-content">
-      <p>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 <a href="https://en.wikipedia.org/wiki/Fibre_Channel">FC</a> 协议。<br />FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看<a href="http://scst.sourceforge.net/qla2x00t-howto.html">这里</a> 。<br /></p>
+      <p>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 <a href="https://en.wikipedia.org/wiki/Fibre_Channel">FC</a> 协议。<br />FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看<a href="http://scst.sourceforge.net/qla2x00t-howto.html">这里</a> 。</p>
 <p><a name="a69f6882"></a></p>
 <h1 id="环境配置">环境配置</h1>
-<p><br />接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：<br />
+<p>接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：
 <img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png" alt="image.png">
 <br />保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：<br />
 <img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png" alt="image.png">
@@ -168,7 +168,7 @@
 <h1 id="配置-fc">配置 FC</h1>
 <p><a name="2034ea04"></a></p>
 <h2 id="scst-服务端配置">SCST 服务端配置</h2>
-<p><br />创建 target, FC 设备和 target 一对一。<br /></p>
+<p>创建 target, FC 设备和 target 一对一。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -177,7 +177,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 </code></pre></td></tr></table>
 </div>
-</div><p><br />创建 device 对应本地的块文件<br /></p>
+</div><p>创建 device 对应本地的块文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -186,7 +186,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -open_dev fc1 -handler vdisk_fileio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/sdc
 </code></pre></td></tr></table>
 </div>
-</div><p><br />创建 group，scst 中的 group 用于限定共享的对象。<br /></p>
+</div><p>创建 group，scst 中的 group 用于限定共享的对象。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -195,7 +195,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 </code></pre></td></tr></table>
 </div>
-</div><p><br />创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。<br /></p>
+</div><p>创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。<br /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -204,7 +204,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_lun <span class="m">0</span> -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 </code></pre></td></tr></table>
 </div>
-</div><p><br />指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 <code>/sys/class/fc_host/hostx/port_name</code><br />
+</div><p>指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<br />查看 <code>/sys/class/fc_host/hostx/port_name</code><br />
 <img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png" alt=""></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -214,7 +214,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 </code></pre></td></tr></table>
 </div>
-</div><p><br />启动 target<br /></p>
+</div><p>启动 target</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -223,7 +223,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target 50:01:10:a0:00:16:bf:30 --driver qla2x00t
 </code></pre></td></tr></table>
 </div>
-</div><p><br />最后将改动写入配置文件<br /></p>
+</div><p>最后将改动写入配置文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -232,7 +232,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -write_config /etc/scst.conf
 </code></pre></td></tr></table>
 </div>
-</div><p><br />（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）
+</div><p>（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）
 <a name="f4f5ae5e"></a></p>
 <h2 id="客户端配置">客户端配置</h2>
 <p>扫描 scst 主机<br /></p>
@@ -244,7 +244,7 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/host3/scan
 </code></pre></td></tr></table>
 </div>
-</div><p><br />其中 <code>&quot;- - -&quot;</code> 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。<code>host3</code> 和 <code>/sys/class/fc_host/host3</code> 相对应。执行命令后客户端增加了一块磁盘。<br />
+</div><p>其中 <code>&quot;- - -&quot;</code> 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。<code>host3</code> 和 <code>/sys/class/fc_host/host3</code> 相对应。执行命令后客户端增加了一块磁盘。<br />
 <br /></p>
 
     </div>
