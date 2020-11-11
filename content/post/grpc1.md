@@ -38,12 +38,10 @@ go get -u google.golang.org/grpc
 ```
 
 
-<a name="95e45125"></a>
 ## 安装 protoc
 
 <br />golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。<br />
 
-<a name="macos"></a>
 ### macos
 
 <br />macos 下安装直接使用 brew 命令即可。<br />
