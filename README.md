@@ -1,5 +1,13 @@
 # myblog
 
+# 下载
+
+```bash
+git clone -b gh-pages https://github.com/lack-io/myblog.git
+cd myblog
+git clone https://github.com/lack-io/myblog.git public
+```
+
 创建新的博文
 ```bash
 hugo new post/<post_name>.md
@@ -9,3 +17,4 @@ hugo new post/<post_name>.md
 ```bash
 ./deploy.sh
 ```
+
