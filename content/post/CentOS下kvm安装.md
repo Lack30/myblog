@@ -7,7 +7,7 @@ tags:
  - 虚拟化
  - CentOS
 categories:
- - 运维
+ - 云计算
 ---
 
 > 注：运行kvm保证机器支持虚拟化且在bios中开启。
