@@ -6,7 +6,16 @@
     <description>Recent content in 云计算 on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Oct 2019 15:10:16 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Dec 2020 22:22:25 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS7 安装 qemu-5.2.0</title>
+      <link>http://xingyys.tech/post/centos7_install_qemu/</link>
+      <pubDate>Sun, 27 Dec 2020 22:22:25 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/centos7_install_qemu/</guid>
+      <description>本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1</description>
+    </item>
+    
     <item>
       <title>使用kubeadm安装kubernetes1.16</title>
       <link>http://xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
@@ -14,6 +23,15 @@
       
       <guid>http://xingyys.tech/post/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
       <description>环境版本说明： 三台vmware虚拟机，系统版本CentOS7.6。 Kubernetes 1.16.0，当前最新版。 flannel v0.11 docker 18.09 使用kubeadm可以简单的搭建一套k</description>
+    </item>
+    
+    <item>
+      <title>CentOS下kvm安装</title>
+      <link>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
+      
+      <guid>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
+      <description>注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop firewalld 关闭selinux 1 2</description>
     </item>
     
   </channel>
