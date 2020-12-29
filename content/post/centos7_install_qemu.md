@@ -1,7 +1,7 @@
 ---
 title: "CentOS7 安装 qemu-5.2.0"
 date: 2020-12-27T22:22:25+08:00
-lastmod: 2020-12-27T22:32:25+08:00
+lastmod: 2020-12-27T22:33:25+08:00
 draft: false
 keywords: []
 description: ""
