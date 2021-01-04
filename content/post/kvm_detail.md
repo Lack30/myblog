@@ -69,4 +69,7 @@ KVM 就是一种半虚拟化实现。
 - virt-* 工具：包括 Virt-install （创建KVM虚机的命令行工具）， Virt-viewer （连接到虚机屏幕的工具），Virt-clone（虚机克隆工具），virt-top 等
 - sVirt：安全工具
 
+# KVM 文章
+- [KVM介绍](https://www.cnblogs.com/sammyliu/p/4543110.html)
+- [KVM源码分析](https://www.cnblogs.com/LoyenWang/p/13510925.html)
 
