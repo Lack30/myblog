@@ -6,7 +6,16 @@
     <description>Recent content in 虚拟化 on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Dec 2020 22:22:25 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jan 2021 22:45:23 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM介绍</title>
+      <link>http://xingyys.tech/post/kvm_detail/</link>
+      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/kvm_detail/</guid>
+      <description>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu</description>
+    </item>
+    
     <item>
       <title>CentOS7 安装 qemu-5.2.0</title>
       <link>http://xingyys.tech/post/centos7_install_qemu/</link>

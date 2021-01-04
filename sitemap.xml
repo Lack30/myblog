@@ -10,7 +10,63 @@
   
   <url>
     <loc>http://xingyys.tech/categories/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/tags/kvm/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/post/kvm_detail/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/tags/linux/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/post/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/tags/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2021-01-04T22:45:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,42 +79,7 @@
   </url>
   
   <url>
-    <loc>http://xingyys.tech/tags/kvm/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/post/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/tags/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://xingyys.tech/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2020-12-27T22:33:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</loc>
     <lastmod>2020-12-27T22:33:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -122,13 +143,6 @@
   
   <url>
     <loc>http://xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</loc>
-    <lastmod>2020-09-10T14:52:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2020-09-10T14:52:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -200,13 +214,6 @@
   <url>
     <loc>http://xingyys.tech/post/scst1/</loc>
     <lastmod>2020-04-08T14:59:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/tags/linux/</loc>
-    <lastmod>2020-02-09T15:23:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

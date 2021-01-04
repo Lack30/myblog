@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>关于 - lack 的个人博客</title>
+  <title>KVM介绍 - lack 的个人博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lack" /><meta name="description" content="暂时为空" /><meta name="keywords" content="blog, study, share" />
+<meta name="author" content="lack" /><meta name="description" content="KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu" /><meta name="keywords" content="blog, study, share" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.79.1 with theme even" />
 
 
-<link rel="canonical" href="http://xingyys.tech/about/" />
+<link rel="canonical" href="http://xingyys.tech/post/kvm_detail/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,24 +39,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="关于" />
-<meta property="og:description" content="暂时为空" />
+<meta property="og:title" content="KVM介绍" />
+<meta property="og:description" content="KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://xingyys.tech/about/" />
-<meta property="article:published_time" content="2017-08-20T21:38:52+08:00" />
-<meta property="article:modified_time" content="2017-08-28T21:41:52+08:00" />
-<meta itemprop="name" content="关于">
-<meta itemprop="description" content="暂时为空">
-<meta itemprop="datePublished" content="2017-08-20T21:38:52+08:00" />
-<meta itemprop="dateModified" content="2017-08-28T21:41:52+08:00" />
-<meta itemprop="wordCount" content="4">
+<meta property="og:url" content="http://xingyys.tech/post/kvm_detail/" />
+<meta property="article:published_time" content="2021-01-04T22:45:23+08:00" />
+<meta property="article:modified_time" content="2021-01-04T22:45:23+08:00" />
+<meta itemprop="name" content="KVM介绍">
+<meta itemprop="description" content="KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu">
+<meta itemprop="datePublished" content="2021-01-04T22:45:23+08:00" />
+<meta itemprop="dateModified" content="2021-01-04T22:45:23+08:00" />
+<meta itemprop="wordCount" content="469">
 
 
 
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="kvm,linux,虚拟化," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="关于"/>
-<meta name="twitter:description" content="暂时为空"/>
+<meta name="twitter:title" content="KVM介绍"/>
+<meta name="twitter:description" content="KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -121,21 +121,83 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <article class="post">
-  <div class="post-content">
-    <p>暂时为空</p>
+    
+    <header class="post-header">
+      <h1 class="post-title">KVM介绍</h1>
 
+      <div class="post-meta">
+        <span class="post-time"> 2021-01-04 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
+            </div>
+          <span class="more-meta"> 约 469 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kvm-概述">KVM 概述</a></li>
+    <li><a href="#kvm-和-qemu">KVM 和 Qemu</a></li>
+    <li><a href="#全虚拟化和半虚拟化">全虚拟化和半虚拟化</a></li>
+    <li><a href="#kvm-工具集合">KVM 工具集合</a></li>
+  </ul>
+</nav>
   </div>
-</article>
+</div>
+    <div class="post-content">
+      <h1 id="kvm-概述">KVM 概述</h1>
+<p>KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。</p>
+<p><img src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20210104230407.png" alt="KVM架构图"></p>
+<h1 id="kvm-和-qemu">KVM 和 Qemu</h1>
+<p>Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。</p>
+<h1 id="全虚拟化和半虚拟化">全虚拟化和半虚拟化</h1>
+<p>全虚拟化是指不需要修改操作系统内核实现虚拟化功能，半虚拟化则需要修改内核来实现虚拟化。</p>
+<p>KVM 就是一种半虚拟化实现。</p>
+<p>全虚拟化又分为软件全虚拟化 (Qemu) 和硬件全虚拟化(Xen)。</p>
+<h1 id="kvm-工具集合">KVM 工具集合</h1>
+<ul>
+<li>libvirt：操作和管理KVM虚机的虚拟化 API，使用 C 语言编写，可以由 Python,Ruby, Perl, PHP, Java 等语言调用。可以操作包括 KVM，vmware，XEN，Hyper-v, LXC 等在内的多种 Hypervisor。</li>
+<li>Virsh：基于 libvirt 的 命令行工具 （CLI）</li>
+<li>Virt-Manager：基于 libvirt 的 GUI 工具</li>
+<li>virt-v2v：虚机格式迁移工具</li>
+<li>virt-* 工具：包括 Virt-install （创建KVM虚机的命令行工具）， Virt-viewer （连接到虚机屏幕的工具），Virt-clone（虚机克隆工具），virt-top 等</li>
+<li>sVirt：安全工具</li>
+</ul>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/kvm/">kvm</a>
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/centos7_install_qemu/">
+            <span class="next-text nav-default">CentOS7 安装 qemu-5.2.0</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         <div id="comments-gitment"></div>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2017-08-20 21:38:52 \u002b0800 CST',
-        title: '关于',
+        id: '2021-01-04 22:45:23 \u002b0800 CST',
+        title: 'KVM介绍',
         link: decodeURI(location.href),
-        desc: '暂时为空',
+        desc: 'KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu',
         owner: 'lack-io',
         repo: 'myblog',
         oauth: {
@@ -193,15 +255,6 @@
 
 
 <script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        tags: 'ams',
-        }
-    };
-  </script>
-  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 
