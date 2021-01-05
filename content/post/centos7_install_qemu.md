@@ -58,7 +58,7 @@ tar -xvf Python-3.6.12.tar.gz
 ## 安装 openssl
 pip 下载是需要 ssl 支持，所以下载 openssl
 ```bash
-yum install -y openssl openssl-devel
+yum install -y openssl openssl-devel zlib-devel
 ```
 
 ## 编译安装
