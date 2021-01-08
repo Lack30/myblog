@@ -6,16 +6,7 @@
     <description>Recent content in 随笔 on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jan 2021 22:45:23 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>KVM介绍</title>
-      <link>http://xingyys.tech/post/kvm_detail/</link>
-      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm_detail/</guid>
-      <description>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu</description>
-    </item>
-    
+    <lastBuildDate>Thu, 10 Sep 2020 14:52:46 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang跨平台编译</title>
       <link>http://xingyys.tech/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>

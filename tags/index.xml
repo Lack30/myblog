@@ -6,11 +6,11 @@
     <description>Recent content in Tags on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jan 2021 22:45:23 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jan 2021 22:58:06 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>kvm</title>
       <link>http://xingyys.tech/tags/kvm/</link>
-      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
+      <pubDate>Wed, 06 Jan 2021 22:58:06 +0800</pubDate>
       
       <guid>http://xingyys.tech/tags/kvm/</guid>
       <description></description>
@@ -19,18 +19,9 @@
     <item>
       <title>linux</title>
       <link>http://xingyys.tech/tags/linux/</link>
-      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
+      <pubDate>Wed, 06 Jan 2021 22:58:06 +0800</pubDate>
       
       <guid>http://xingyys.tech/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>虚拟化</title>
-      <link>http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</link>
-      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/</guid>
       <description></description>
     </item>
     
@@ -202,15 +193,6 @@
       <pubDate>Fri, 31 Aug 2018 15:27:24 +0800</pubDate>
       
       <guid>http://xingyys.tech/tags/scaleio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CentOS</title>
-      <link>http://xingyys.tech/tags/centos/</link>
-      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/tags/centos/</guid>
       <description></description>
     </item>
     

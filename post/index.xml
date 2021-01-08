@@ -6,7 +6,16 @@
     <description>Recent content in Posts on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 04 Jan 2021 22:45:23 +0800</lastBuildDate><atom:link href="http://xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jan 2021 22:58:06 +0800</lastBuildDate><atom:link href="http://xingyys.tech/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM之虚拟机管理</title>
+      <link>http://xingyys.tech/post/kvm_vm/</link>
+      <pubDate>Wed, 06 Jan 2021 22:58:06 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/kvm_vm/</guid>
+      <description>本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命</description>
+    </item>
+    
     <item>
       <title>KVM介绍</title>
       <link>http://xingyys.tech/post/kvm_detail/</link>

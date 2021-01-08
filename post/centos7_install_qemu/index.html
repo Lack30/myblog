@@ -49,11 +49,11 @@
 <meta itemprop="description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1">
 <meta itemprop="datePublished" content="2020-12-27T22:22:25+08:00" />
 <meta itemprop="dateModified" content="2020-12-27T22:33:25+08:00" />
-<meta itemprop="wordCount" content="535">
+<meta itemprop="wordCount" content="538">
 
 
 
-<meta itemprop="keywords" content="kvm,虚拟化," />
+<meta itemprop="keywords" content="kvm,linux," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CentOS7 安装 qemu-5.2.0"/>
 <meta name="twitter:description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1"/>
@@ -128,9 +128,9 @@
       <div class="post-meta">
         <span class="post-time"> 2020-12-27 </span>
         <div class="post-category">
-            <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"> 云计算 </a>
+            <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"> 虚拟化 </a>
             </div>
-          <span class="more-meta"> 约 535 字 </span>
+          <span class="more-meta"> 约 538 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -207,7 +207,7 @@
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> Python-3.6.12
 ./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations
-make <span class="o">&amp;&amp;</span> make install
+make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="设置软链接">设置软链接</h2>
@@ -327,7 +327,7 @@ qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_6
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/kvm/">kvm</a>
-          <a href="/tags/%E8%99%9A%E6%8B%9F%E5%8C%96/">虚拟化</a>
+          <a href="/tags/linux/">linux</a>
           </div>
       <nav class="post-nav">
         <a class="prev" href="/post/kvm_detail/">
