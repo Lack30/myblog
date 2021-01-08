@@ -4,10 +4,9 @@ date: 2018-06-30 16:16:02
 update: 2018-06-30 16:16:02
 tags:
  - kvm
- - 虚拟化
- - CentOS
+ - linux
 categories:
- - 云计算
+ - 虚拟化
 ---
 
 > 注：运行kvm保证机器支持虚拟化且在bios中开启。

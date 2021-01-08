@@ -8,9 +8,8 @@ description: ""
 tags: 
  - kvm
  - linux
- - 虚拟化
 categories: 
- - 随笔
+ - 虚拟化
 author: ""
 
 # You can also close(false) or open(true) something for this content.

@@ -5,9 +5,12 @@ lastmod: 2020-12-27T22:33:25+08:00
 draft: false
 keywords: []
 description: ""
-tags: ["kvm", "虚拟化"]
-categories: ["云计算"]
-author: "lack"
+tags: 
+ - kvm
+ - linux 
+categories: 
+ - 虚拟化
+author: ""
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -65,7 +68,7 @@ yum install -y openssl openssl-devel zlib-devel
 ```bash
 cd Python-3.6.12
 ./configure --prefix=/usr/local/python3 --enable-optimizations
-make && make install
+make -j8 build_all && make -j8 install
 ```
 
 ## 设置软链接
