@@ -45,7 +45,7 @@
 <meta property="og:description" content="Lack 的个人学习站点，记录学习和工作的点点滴滴." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://xingyys.tech/" />
-<meta property="og:updated_time" content="2020-10-29T16:44:06+08:00" />
+<meta property="og:updated_time" content="2021-01-09T17:06:14+08:00" />
 <meta itemprop="name" content="lack 的个人博客">
 <meta itemprop="description" content="Lack 的个人学习站点，记录学习和工作的点点滴滴.">
 <meta name="twitter:card" content="summary"/>
@@ -117,6 +117,99 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/pgsql1/">postgresql 实战一：安装和使用</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-10-13 </span>
+      <div class="post-category">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"> 数据库 </a>
+          </div>
+        <span class="more-meta"> 约 1883 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安装 这里直接使用 docker 安装 postgresql-13 1 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。 1 2 3 4 5 6 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash
+    </div>
+    <div class="read-more">
+      <a href="/post/pgsql1/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/">Golang跨平台编译</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-09-10 </span>
+      <div class="post-category">
+          <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
+          </div>
+        <span class="more-meta"> 约 289 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。 因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。 在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令
+    </div>
+    <div class="read-more">
+      <a href="/post/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/scst%E7%BB%93%E5%90%88fc/">Scst结合FC</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-08-06 </span>
+      <div class="post-category">
+          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+          </div>
+        <span class="more-meta"> 约 617 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。 FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。 环境配置 接下
+    </div>
+    <div class="read-more">
+      <a href="/post/scst%E7%BB%93%E5%90%88fc/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/grpc1/">GPRC 实战</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2020-07-31 </span>
+      <div class="post-category">
+          <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"> 微服务 </a>
+          <a href="/categories/%E4%BB%A3%E7%A0%81/"> 代码 </a>
+          </div>
+        <span class="more-meta"> 约 1501 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。 GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。 安装grpc-
+    </div>
+    <div class="read-more">
+      <a href="/post/grpc1/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/grpc2/">GPRC 进阶</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2020-07-31 </span>
@@ -135,98 +228,6 @@
     </div>
     <div class="read-more">
       <a href="/post/grpc2/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">Scst在线扩容</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-04-09 </span>
-      <div class="post-category">
-          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
-          </div>
-        <span class="more-meta"> 约 166 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客
-    </div>
-    <div class="read-more">
-      <a href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/scst1/">Scst 安装和使用</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-04-08 </span>
-      <div class="post-category">
-          <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
-          </div>
-        <span class="more-meta"> 约 237 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1
-    </div>
-    <div class="read-more">
-      <a href="/post/scst1/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/%E5%AE%89%E8%A3%85oh-my-zsh/">linux 安装 oh-my-zsh</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2020-02-09 </span>
-      <div class="post-category">
-          <a href="/categories/%E5%85%B6%E4%BB%96/"> 其他 </a>
-          </div>
-        <span class="more-meta"> 约 707 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh
-    </div>
-    <div class="read-more">
-      <a href="/post/%E5%AE%89%E8%A3%85oh-my-zsh/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/aix1/">Aix添加和删除Iscsi存储卷</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-22 </span>
-      <div class="post-category">
-          <a href="/categories/%E9%9A%8F%E7%AC%94/"> 随笔 </a>
-          </div>
-        <span class="more-meta"> 约 366 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L
-    </div>
-    <div class="read-more">
-      <a href="/post/aix1/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -270,7 +271,7 @@
   <span class="copyright-year">
     &copy; 
     2017 - 
-    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>lack</span>
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>lack</span>
   </span>
 </div>
 
