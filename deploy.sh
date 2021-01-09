@@ -29,7 +29,6 @@ git push -u origin main
 
 cd ..
 
-git pull 
 git add .
 git commit -m "$msg"
 git push -u origin gh-pages
