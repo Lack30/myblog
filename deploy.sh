@@ -11,6 +11,9 @@ hugo -t even
 # Go To Public folder
 cd public
 
+# pull code from github
+git pull 
+
 # Add changes to git.
 git add .
 
@@ -26,6 +29,7 @@ git push -u origin main
 
 cd ..
 
+git pull 
 git add .
 git commit -m "$msg"
 git push -u origin gh-pages
