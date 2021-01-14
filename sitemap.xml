@@ -10,41 +10,62 @@
   
   <url>
     <loc>http://xingyys.tech/categories/</loc>
-    <lastmod>2021-01-09T17:06:14+08:00</lastmod>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://xingyys.tech/tags/golang/</loc>
-    <lastmod>2021-01-09T17:06:14+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/post/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/</loc>
-    <lastmod>2021-01-09T17:06:14+08:00</lastmod>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://xingyys.tech/</loc>
-    <lastmod>2021-01-09T17:06:14+08:00</lastmod>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://xingyys.tech/post/</loc>
-    <lastmod>2021-01-09T17:06:14+08:00</lastmod>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://xingyys.tech/tags/</loc>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/tags/%E6%83%B3%E6%B3%95/</loc>
+    <lastmod>2021-01-10T14:34:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/post/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/</loc>
     <lastmod>2021-01-09T17:06:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -290,13 +311,6 @@
   
   <url>
     <loc>http://xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</loc>
-    <lastmod>2019-09-11T15:17:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://xingyys.tech/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</loc>
     <lastmod>2019-09-11T15:17:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

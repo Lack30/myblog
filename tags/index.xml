@@ -6,13 +6,22 @@
     <description>Recent content in Tags on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 09 Jan 2021 17:06:14 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jan 2021 14:34:22 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang</title>
       <link>http://xingyys.tech/tags/golang/</link>
-      <pubDate>Sat, 09 Jan 2021 17:06:14 +0800</pubDate>
+      <pubDate>Sun, 10 Jan 2021 14:34:22 +0800</pubDate>
       
       <guid>http://xingyys.tech/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>想法</title>
+      <link>http://xingyys.tech/tags/%E6%83%B3%E6%B3%95/</link>
+      <pubDate>Sun, 10 Jan 2021 14:34:22 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/tags/%E6%83%B3%E6%B3%95/</guid>
       <description></description>
     </item>
     
