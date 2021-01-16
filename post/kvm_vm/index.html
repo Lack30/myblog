@@ -49,7 +49,7 @@
 <meta itemprop="description" content="本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命">
 <meta itemprop="datePublished" content="2021-01-06T22:58:06+08:00" />
 <meta itemprop="dateModified" content="2021-01-06T22:58:06+08:00" />
-<meta itemprop="wordCount" content="1766">
+<meta itemprop="wordCount" content="1856">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"> 虚拟化 </a>
             </div>
-          <span class="more-meta"> 约 1766 字 </span>
+          <span class="more-meta"> 约 1856 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -160,9 +160,9 @@
         <li><a href="#限制和修改虚拟机内存">限制和修改虚拟机内存</a></li>
         <li><a href="#在线添加和删除虚拟机硬盘">在线添加和删除虚拟机硬盘</a></li>
         <li><a href="#在线添加和删除虚拟机网卡">在线添加和删除虚拟机网卡</a></li>
+        <li><a href="#修改虚拟机-vnc">修改虚拟机 vnc</a></li>
       </ul>
     </li>
-    <li><a href="#虚拟机迁移">虚拟机迁移</a></li>
   </ul>
 </nav>
   </div>
@@ -486,6 +486,10 @@ virsh 中管理域的命令:</p>
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 启动虚拟机</span>
@@ -505,6 +509,10 @@ virsh <span class="nb">suspend</span> centos
 
 <span class="c1"># 恢复虚拟机</span>
 virsh resume centos
+
+<span class="c1"># 删除虚拟机</span>
+virsh undefine centos
+rm -fr /etc/libvirt/qemu/centos.xml
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="限制和修改虚拟机-cpu">限制和修改虚拟机 cpu</h2>
@@ -621,8 +629,53 @@ Formatting <span class="s1">&#39;disk1.qcow2&#39;</span>, <span class="nv">fmt</
 <pre class="chroma"><code class="language-bash" data-lang="bash">virsh detach-interface centos --type bridge --mac 52:54:00:d9:90:bb
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="虚拟机迁移">虚拟机迁移</h1>
-
+</div><h2 id="修改虚拟机-vnc">修改虚拟机 vnc</h2>
+<p>先关闭虚拟机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">virsh stop centos
+</code></pre></td></tr></table>
+</div>
+</div><p>修改虚拟机文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># irsh edit centos</span>
+    &lt;graphics <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;vnc&#39;</span> <span class="nv">port</span><span class="o">=</span><span class="s1">&#39;6000&#39;</span> <span class="nv">autoport</span><span class="o">=</span><span class="s1">&#39;no&#39;</span> <span class="nv">listen</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span> <span class="nv">passwd</span><span class="o">=</span><span class="s1">&#39;123456&#39;</span>&gt;
+      &lt;listen <span class="nv">type</span><span class="o">=</span><span class="s1">&#39;address&#39;</span> <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span>/&gt;
+    &lt;/graphics&gt;
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注: 虚拟机 vnc 的端口必须在 5900 - 65535 之间</p>
+</blockquote>
+<p>加载配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">virsh define /etc/libvirt/qemu/centos.xml
+</code></pre></td></tr></table>
+</div>
+</div><p>最后启动虚拟机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">virsh start centos
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     
