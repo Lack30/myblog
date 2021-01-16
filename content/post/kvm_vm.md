@@ -167,4 +167,101 @@ virsh 中管理域的命令:
 | domname \<ID or UUID\>  | 根据域的ID或UUID返回域的名称 |
 | dommemstat \<ID\>  | 获取一个域的内存使用情况的统计信息 |
 | setmem \<ID\> \<mem-size\> | 设置一个域的内存大小(默认单位为KB) |
-| vcpuinfo \<ID\>  | 获取一个域的 vCPU 的基本信息 |
+| vcpupin \<ID\> \<vCPU\> \<pCPU\> | 将一个域的 vCPU 绑定到某个物理 CPU 上运行 |
+| setvcpus \<ID\> \<vCPU-num\>  | 设置一个域的 vCPU 的个数 |
+| vncdisplay \<ID\> | 获取一个域的 VNC 连接 IP 地址的端口 |
+| create \<dom.xml\> | 根据域的 XML 配置文件创建一个域(客户机) |
+| suspend \<ID\> | 暂停一个域 |
+| resume \<ID\> | 唤醒一个域 |
+| shutdown \<ID\> | 让一个域执行关机操作 |
+| reboot \<ID\> | 让一个域执行重启操作 |
+| reset \<ID\> | 强制重启一个域，相当于在物理机上按带电源 "reset" 按钮 (可能会破坏该域的文件系统) |
+| destroy \<ID\> | 立即销毁一个域，相当于直接拔掉物理机机器的电源线（可能会破坏该域的文件系统） |
+| save \<ID\> \<file.img\> | 保存一个运行中的域的状态到一个文件中 |
+| restore \<file.img\> | 从一个被保存的文件中恢复一个域的运行 |
+| migrate \<ID\> \<dest_url\> | 将一个域迁移到另外一个目的地址 |
+| dumpxml \<ID\>  | 以 XML 格式转存出一个域的信息到标准输出中 |
+| attach-device \<ID\> \<device.xml\> | 向一个域添加 XML 文件中的设备(热插拔) |
+| detach-device \<ID\> \<device.xml\> | 将 XML 文件中的设备从一个域中移除 |
+| console \<ID\> | 连接到一个域的控制台 |
+
+## 虚拟机生命周期
+```bash
+# 启动虚拟机
+virsh start centos
+
+# 关闭虚拟机
+virsh shutdown centos
+
+# 重启虚拟机
+virsh reboot centos
+
+# 销毁虚拟机
+virsh destroy centos
+
+# 暂停虚拟机
+virsh suspend centos
+
+# 恢复虚拟机
+virsh resume centos
+```
+
+## 限制和修改虚拟机 cpu
+先关闭虚拟机，修改虚拟机 xml 文件:
+```bash
+# 设置 cpu 最大个数为 4 个，当前为 1
+<vcpu placement='static' current='1'>4</vcpu>
+```
+开启虚拟机后，动态设置虚拟机 cpu
+```bash
+# 最大个数不能超过指定值
+virsh setvcpus centos 2
+```
+
+## 限制和修改虚拟机内存
+修改虚拟机内存最大值需要先关闭虚拟机
+```bash
+# 最大值不能超过宿主机内存最大值
+virsh setmaxmem centos 4G
+```
+动态设置虚拟机内存
+```bash
+virsh setmem centos 2G
+```
+
+## 在线添加和删除虚拟机硬盘
+先创建硬盘:
+```bash
+# qemu-img create -f qcow2 disk1.qcow2 2G
+Formatting 'disk1.qcow2', fmt=qcow2 cluster_size=65536 extended_l2=off compression_type=zlib size=2147483648 lazy_refcounts=off refcount_bits=16
+```
+创建 disk.xml 文件
+```bash
+$ vim disk.xml
+<disk type='file' device='disk'>
+    <driver name='qemu' type='qcow2'/>
+    <source file='/data/kvm/disk1.qcow2'/>
+    <target dev='vdb' bus='virtio'/>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+</disk>
+```
+添加硬盘设备:
+```bash
+virsh attach-device centos disk.xml
+```
+卸载硬盘设备
+```bash
+virsh dettach-device centos disk.xml
+```
+
+## 在线添加和删除虚拟机网卡
+添加 bridge 网卡
+```bash
+virsh attach-interface centos --type bridge --source br0
+```
+卸载网卡
+```bash
+virsh detach-interface centos --type bridge --mac 52:54:00:d9:90:bb
+```
+
+# 虚拟机迁移
