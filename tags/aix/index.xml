@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>aix on lack 的个人博客</title>
+    <link>http://xingyys.tech/tags/aix/</link>
+    <description>Recent content in aix on lack 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 22 Oct 2019 15:12:53 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/aix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aix添加和删除Iscsi存储卷</title>
+      <link>http://xingyys.tech/post/aix1/</link>
+      <pubDate>Tue, 22 Oct 2019 15:12:53 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/aix1/</guid>
+      <description>Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,16 @@
     <description>Recent content in 分布式 on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Sep 2019 15:17:42 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jan 2021 14:34:22 +0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式的工作流实现</title>
+      <link>http://xingyys.tech/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 10 Jan 2021 14:34:22 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</guid>
+      <description>本篇提供一个实现分布式工作流的思路。 系统组成部分： api (网关接口) : 为用户提供工作流的api接口 discovery (服务发现) : 用于服务的注册和发现 scheduler (调度中</description>
+    </item>
+    
     <item>
       <title>etcd的使用实例</title>
       <link>http://xingyys.tech/post/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>

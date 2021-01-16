@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring on lack 的个人博客</title>
+    <link>http://xingyys.tech/tags/spring/</link>
+    <description>Recent content in spring on lack 的个人博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 19 Aug 2019 16:56:42 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring框架的核心总结</title>
+      <link>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Mon, 19 Aug 2019 16:56:42 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</guid>
+      <description>最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。 题外话: 学习过几种不同的语言，后来知</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践七</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/</link>
+      <pubDate>Sun, 18 Aug 2019 16:54:25 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/</guid>
+      <description>在spring cloud 2.x以后,由于zuul一直停滞在1.x版本,所以spring官方就自己开发了一个项目 Spring Cloud Gateway.作为spring c</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践六</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/</link>
+      <pubDate>Fri, 16 Aug 2019 16:53:47 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/</guid>
+      <description>本篇我们就来认识下spring cloud中的zuul组件. 注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA zuul简介 关于zuul 其实</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践五</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%94/</link>
+      <pubDate>Wed, 14 Aug 2019 16:53:17 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%94/</guid>
+      <description>本篇我们来看看怎么实现spring cloud的配置中心. 在分布式系统中,特别是微服务架构下,可能会存在许多的服务,每个服务都会存在一个或多个</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践四</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%9B%9B/</link>
+      <pubDate>Sun, 11 Aug 2019 16:52:14 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%9B%9B/</guid>
+      <description>spring cloud的hystrix还有一个配搭的库hystrix-dashboard,它是hystrix的一款监控工具,能直观的显示hystrix</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践三</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%89/</link>
+      <pubDate>Sun, 11 Aug 2019 16:50:13 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%89/</guid>
+      <description>上篇文章里我们实现了spring cloud中的服务提供者和使用者.接下来我们就来看看spring cloud中微服务的其他组件. 注:这一个系列</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践二</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%8C/</link>
+      <pubDate>Fri, 09 Aug 2019 16:46:02 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%8C/</guid>
+      <description>在上一篇,我们已经搭建了spring cloud微服务中的注册中心.但只有一个注册中心还远远不够. 接下来我们就来尝试提供服务. 注:这一个系列的</description>
+    </item>
+    
+    <item>
+      <title>Spring Cloud微服务实践一</title>
+      <link>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%80/</link>
+      <pubDate>Thu, 08 Aug 2019 16:44:54 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%80/</guid>
+      <description>最近在学习spring框架.其中spring cloud在微服务方面很火,所以在学习过程中,也做一些记录. 注:这一个系列的开发环境版本为 java1.8, spring boot2.x,</description>
+    </item>
+    
+  </channel>
+</rss>
