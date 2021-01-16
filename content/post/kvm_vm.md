@@ -204,6 +204,10 @@ virsh suspend centos
 
 # 恢复虚拟机
 virsh resume centos
+
+# 删除虚拟机
+virsh undefine centos
+rm -fr /etc/libvirt/qemu/centos.xml
 ```
 
 ## 限制和修改虚拟机 cpu
@@ -264,4 +268,25 @@ virsh attach-interface centos --type bridge --source br0
 virsh detach-interface centos --type bridge --mac 52:54:00:d9:90:bb
 ```
 
-# 虚拟机迁移
+## 修改虚拟机 vnc 
+先关闭虚拟机
+```bash
+virsh stop centos
+```
+修改虚拟机文件
+```bash
+# irsh edit centos
+    <graphics type='vnc' port='6000' autoport='no' listen='0.0.0.0' passwd='123456'>
+      <listen type='address' address='0.0.0.0'/>
+    </graphics>
+```
+> 注: 虚拟机 vnc 的端口必须在 5900 - 65535 之间
+
+加载配置文件
+```bash
+virsh define /etc/libvirt/qemu/centos.xml
+```
+最后启动虚拟机
+```bash
+virsh start centos
+```
