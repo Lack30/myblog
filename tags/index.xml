@@ -6,7 +6,16 @@
     <description>Recent content in Tags on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Jan 2021 14:34:22 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jan 2021 22:35:06 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kvm</title>
+      <link>http://xingyys.tech/tags/kvm/</link>
+      <pubDate>Sun, 17 Jan 2021 22:35:06 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/tags/kvm/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>golang</title>
       <link>http://xingyys.tech/tags/golang/</link>
@@ -22,15 +31,6 @@
       <pubDate>Sun, 10 Jan 2021 14:34:22 +0800</pubDate>
       
       <guid>http://xingyys.tech/tags/%E6%83%B3%E6%B3%95/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kvm</title>
-      <link>http://xingyys.tech/tags/kvm/</link>
-      <pubDate>Wed, 06 Jan 2021 22:58:06 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/tags/kvm/</guid>
       <description></description>
     </item>
     
