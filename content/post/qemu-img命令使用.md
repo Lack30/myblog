@@ -1,5 +1,5 @@
 ---
-title: "Qemu Img命令使用"
+title: "qemu-img命令使用"
 date: 2021-01-17T22:35:06+08:00
 lastmod: 2021-01-17T22:35:06+08:00
 draft: false
@@ -8,6 +8,7 @@ keywords:
 description: ""
 tags: 
  - kvm
+ - linux
 categories: 
  - 虚拟化
 author: ""
