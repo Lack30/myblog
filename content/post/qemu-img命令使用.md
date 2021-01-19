@@ -86,6 +86,7 @@ Image committed.
 ```
 ## convert 
 语法: `convert [-c] [-p] [-f fmt] [-t cache] [-O output_fmt] [-o options] [-s snapshot_name] [-S sparse_size] filename [filename2 [...]] output_filename`
+
 将fmt格式的 filename 镜像文件根据 options 选项转换为格式为 output_fmt 的名为 output_filename 的镜像文件。它支持不同格式的镜像文件之间的转换，比如可以用 VMware 用的vmdk 格式文件转换为 qcow2 文件，这对从其他虚拟化方案转移到 KVM上 的用户非常有用。一般来说，输入文件格式 fmt 由 qemu-img 工具自动检测到，而输出文件格式 output_fmt 根据自己需要来指定，默认会被转换为与 raw 文件格式（且默认使用稀疏文件的方式存储以节省存储空间）。
 
 其中，"-c" 参数是对输出的镜像文件进行压缩，不过只有 qcow2 和 qcow 格式的镜像文件才支持压缩，而且这种压缩是只读的，如果压缩的扇区被重写，则会被重写为未压缩的数据。同样可以使用 "-o options" 来指定各种选项，如：后端镜像、文件大小、是否加密等等。使用 backing_file 选项来指定后端镜像，让生成的文件是 copy-on-write的增量文件，这时必须让转换命令中指定的后端镜像与输入文件的后端镜像的内容是相同的，尽管它们各自后端镜像的目录、格式可能不同。
