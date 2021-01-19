@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.79.1 with theme even" />
+<meta name="generator" content="Hugo 0.76.5 with theme even" />
 
 
 <link rel="canonical" href="http://xingyys.tech/post/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/" />
@@ -225,8 +225,8 @@ Image committed.
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="convert">convert</h2>
-<p>语法: <code>convert [-c] [-p] [-f fmt] [-t cache] [-O output_fmt] [-o options] [-s snapshot_name] [-S sparse_size] filename [filename2 [...]] output_filename</code>
-将fmt格式的 filename 镜像文件根据 options 选项转换为格式为 output_fmt 的名为 output_filename 的镜像文件。它支持不同格式的镜像文件之间的转换，比如可以用 VMware 用的vmdk 格式文件转换为 qcow2 文件，这对从其他虚拟化方案转移到 KVM上 的用户非常有用。一般来说，输入文件格式 fmt 由 qemu-img 工具自动检测到，而输出文件格式 output_fmt 根据自己需要来指定，默认会被转换为与 raw 文件格式（且默认使用稀疏文件的方式存储以节省存储空间）。</p>
+<p>语法: <code>convert [-c] [-p] [-f fmt] [-t cache] [-O output_fmt] [-o options] [-s snapshot_name] [-S sparse_size] filename [filename2 [...]] output_filename</code></p>
+<p>将fmt格式的 filename 镜像文件根据 options 选项转换为格式为 output_fmt 的名为 output_filename 的镜像文件。它支持不同格式的镜像文件之间的转换，比如可以用 VMware 用的vmdk 格式文件转换为 qcow2 文件，这对从其他虚拟化方案转移到 KVM上 的用户非常有用。一般来说，输入文件格式 fmt 由 qemu-img 工具自动检测到，而输出文件格式 output_fmt 根据自己需要来指定，默认会被转换为与 raw 文件格式（且默认使用稀疏文件的方式存储以节省存储空间）。</p>
 <p>其中，&quot;-c&quot; 参数是对输出的镜像文件进行压缩，不过只有 qcow2 和 qcow 格式的镜像文件才支持压缩，而且这种压缩是只读的，如果压缩的扇区被重写，则会被重写为未压缩的数据。同样可以使用 &ldquo;-o options&rdquo; 来指定各种选项，如：后端镜像、文件大小、是否加密等等。使用 backing_file 选项来指定后端镜像，让生成的文件是 copy-on-write的增量文件，这时必须让转换命令中指定的后端镜像与输入文件的后端镜像的内容是相同的，尽管它们各自后端镜像的目录、格式可能不同。</p>
 <p>如果使用 qcow2、qcow、cow 等作为输出文件格式来转换raw格式的镜像文件（非稀疏文件格式），镜像转换还可以起到将镜像文件转化为更小的镜像，因为它可以将空的扇区删除使之在生成的输出文件中并不存在。</p>
 <div class="highlight"><div class="chroma">
