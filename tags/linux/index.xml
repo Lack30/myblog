@@ -6,7 +6,16 @@
     <description>Recent content in linux on lack 的个人博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 17 Jan 2021 22:35:06 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jan 2021 10:38:28 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KVM镜像管理工具libguestfs</title>
+      <link>http://xingyys.tech/post/libguestfs/</link>
+      <pubDate>Sun, 31 Jan 2021 10:38:28 +0800</pubDate>
+      
+      <guid>http://xingyys.tech/post/libguestfs/</guid>
+      <description>简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安装 libguestfs : 1 yum install -y libguestfs-tool libguestfs-devel 默认不支持修改 windows 镜像</description>
+    </item>
+    
     <item>
       <title>qemu-img命令使用</title>
       <link>http://xingyys.tech/post/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</link>
