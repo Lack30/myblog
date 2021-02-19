@@ -100,7 +100,7 @@ scstadmin -add_lun 0 -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv -
 ```
 启用 target
 ```bash
-scstadmin -enable_target iqn.1994-05.com.redhat:pv
+scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
 ```
 使用 iscsi driver
 ```bash
