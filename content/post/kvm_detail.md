@@ -65,7 +65,7 @@ KVM 就是一种半虚拟化实现。
 - Virsh：基于 libvirt 的 命令行工具 （CLI）
 - Virt-Manager：基于 libvirt 的 GUI 工具
 - virt-v2v：虚机格式迁移工具
-- virt-* 工具：包括 Virt-install （创建KVM虚机的命令行工具）， Virt-viewer （连接到虚机屏幕的工具），Virt-clone（虚机克隆工具），virt-top 等
+- virt-* 工具：包括 virt-install （创建KVM虚机的命令行工具）， virt-viewer （连接到虚机屏幕的工具），virt-clone（虚机克隆工具），virt-top 等
 - sVirt：安全工具
 
 # KVM 文章
