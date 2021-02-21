@@ -100,7 +100,7 @@ scstadmin -add_lun 0 -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv -
 ```
 启用 target
 ```bash
-scstadmin -enable_target iqn.1994-05.com.redhat:pv
+scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
 ```
 使用 iscsi driver
 ```bash
@@ -119,7 +119,7 @@ scstadmin -disable_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
 ```bash
 scstadmin -rem_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
 ```
-删除 block
+删除 block 文件
 ```bash
 scstadmin -close_dev pv -handler vdisk_blockio -noprompt
 ```
