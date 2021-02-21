@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Scst 安装和使用 - lack 的个人博客</title>
+  <title>CentOS7 安装 qemu-5.2.0 - lack 的个人博客</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="lack" /><meta name="description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1" /><meta name="keywords" content="blog, study, share" />
+<meta name="author" content="lack" /><meta name="description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1" /><meta name="keywords" content="blog, study, share" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.79.1 with theme even" />
 
 
-<link rel="canonical" href="http://xingyys.tech/post/scst1/" />
+<link rel="canonical" href="http://xingyys.tech/post/kvm/centos7_install_qemu/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,24 +39,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Scst 安装和使用" />
-<meta property="og:description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1" />
+<meta property="og:title" content="CentOS7 安装 qemu-5.2.0" />
+<meta property="og:description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://xingyys.tech/post/scst1/" />
-<meta property="article:published_time" content="2020-04-08T14:59:25+08:00" />
-<meta property="article:modified_time" content="2020-04-08T14:59:25+08:00" />
-<meta itemprop="name" content="Scst 安装和使用">
-<meta itemprop="description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1">
-<meta itemprop="datePublished" content="2020-04-08T14:59:25+08:00" />
-<meta itemprop="dateModified" content="2020-04-08T14:59:25+08:00" />
-<meta itemprop="wordCount" content="241">
+<meta property="og:url" content="http://xingyys.tech/post/kvm/centos7_install_qemu/" />
+<meta property="article:published_time" content="2020-12-27T22:22:25+08:00" />
+<meta property="article:modified_time" content="2020-12-27T22:33:25+08:00" />
+<meta itemprop="name" content="CentOS7 安装 qemu-5.2.0">
+<meta itemprop="description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1">
+<meta itemprop="datePublished" content="2020-12-27T22:22:25+08:00" />
+<meta itemprop="dateModified" content="2020-12-27T22:33:25+08:00" />
+<meta itemprop="wordCount" content="540">
 
 
 
-<meta itemprop="keywords" content="iscsi," />
+<meta itemprop="keywords" content="kvm,linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Scst 安装和使用"/>
-<meta name="twitter:description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1"/>
+<meta name="twitter:title" content="CentOS7 安装 qemu-5.2.0"/>
+<meta name="twitter:description" content="本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -123,15 +123,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Scst 安装和使用</h1>
+      <h1 class="post-title">CentOS7 安装 qemu-5.2.0</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-04-08 </span>
+        <span class="post-time"> 2020-12-27 </span>
         <div class="post-category">
-            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"> 虚拟化 </a>
             </div>
-          <span class="more-meta"> 约 241 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+          <span class="more-meta"> 约 540 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
     </header>
@@ -141,31 +141,87 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#安装-scst">安装 scst</a></li>
-    <li><a href="#创建流程">创建流程</a></li>
-    <li><a href="#删除流程">删除流程</a></li>
+    <li><a href="#安装-python3">安装 Python3</a>
+      <ul>
+        <li><a href="#下载-python3612">下载 Python3.6.12</a></li>
+        <li><a href="#解压">解压</a></li>
+        <li><a href="#安装-openssl">安装 openssl</a></li>
+        <li><a href="#编译安装">编译安装</a></li>
+        <li><a href="#设置软链接">设置软链接</a></li>
+        <li><a href="#验证">验证</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装-ninja">安装 ninja</a></li>
+    <li><a href="#编译安装-qemu-520">编译安装 qemu-5.2.0</a>
+      <ul>
+        <li><a href="#安装依赖">安装依赖</a></li>
+        <li><a href="#下载-qemu-520">下载 qemu-5.2.0</a></li>
+        <li><a href="#编译安装-1">编译安装</a></li>
+        <li><a href="#验证-1">验证</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="安装-scst">安装 scst</h1>
-<p>安装 scst</p>
+      <p>本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0</p>
+<h1 id="安装-python3">安装 Python3</h1>
+<p>编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。</p>
+<h2 id="下载-python3612">下载 Python3.6.12</h2>
+<p>从 Python 官网下载 Python3.6.12 源码包：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tar.xz
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解压">解压</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">tar -xvf Python-3.6.12.tar.gz 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-openssl">安装 openssl</h2>
+<p>pip 下载是需要 ssl 支持，所以下载 openssl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="编译安装">编译安装</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2
-yum install bzip2 
-bunzip2 scst-3.2.0.7058.tar.bz2 
-tar xf scst-3.2.0.7058.tar 
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> Python-3.6.12
+./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations
+make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
 </code></pre></td></tr></table>
 </div>
-</div><p>编译安装scst</p>
+</div><h2 id="设置软链接">设置软链接</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="验证">验证</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -173,158 +229,95 @@ tar xf scst-3.2.0.7058.tar
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">make 2perf 
-make scst 
-make scst_install 
-make iscsi 
-make iscsi_install 
-make scstadm 
-make scstadm_install
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># python3</span>
+Python 3.6.12 <span class="o">(</span>default, Dec <span class="m">27</span> 2020, 07:52:33<span class="o">)</span>
+<span class="o">[</span>GCC 4.8.5 <span class="m">20150623</span> <span class="o">(</span>Red Hat 4.8.5-44<span class="o">)]</span> on linux
+Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34;</span>, <span class="s2">&#34;credits&#34;</span> or <span class="s2">&#34;license&#34;</span> <span class="k">for</span> more information.
+&gt;&gt;&gt;
 </code></pre></td></tr></table>
 </div>
-</div><p>查看是否被加载到内核了</p>
+</div><h1 id="安装-ninja">安装 ninja</h1>
+<p>qemu-5.2.0 编译时使用构建工具 ninja
+下载 ninja</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">git clone git://github.com/ninja-build/ninja.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ninja
+./configure.py --bootstrap
+cp ninja /usr/bin/
+</code></pre></td></tr></table>
+</div>
+</div><p>使用 <code>ninja --version</code>, 验证 ninja 版本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># ninja --version</span>
+1.10.2.git
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="编译安装-qemu-520">编译安装 qemu-5.2.0</h1>
+<p>完成以上步骤之后就可以开始安装qemu了。其实可以通过 yum 安装，但是会缺少一些二进制文件。</p>
+<h2 id="安装依赖">安装依赖</h2>
+<p>首先安装 qemu-5.2.0 所需的依赖，这里追加一个小提示：</p>
+<blockquote>
+<p>CentOS7 编译安装软件时经常需要安装对应的依赖。编译过程中如果发现缺少依赖，则编译后报错并退出，这时候就需要安装依赖包。以qemu-5.2.0安装为例，编译时提示缺少 <code>glib2</code> 包。这时候不是下载 <code>glib2</code>，而是下载对应的开发包，CentOS里是 <code>glib2-devel</code>，Ubuntu 下则是 <code>glib2-dev</code>。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">lsmod <span class="p">|</span>grep scst modinfo scst 
+<pre class="chroma"><code class="language-bash" data-lang="bash">yum install -y pkgconfig-devel glib2-devel pixman-devel
 </code></pre></td></tr></table>
 </div>
-</div><p>启动 scst</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">modprobe scst 
-modprobe scst_vdisk 
-modprobe scst_disk 
-modprobe scst_user 
-modprobe scst_modisk 
-modprobe scst_processor 
-modprobe scst_raid 
-modprobe scst_tape 
-modprobe scst_cdrom 
-modprobe scst_changer 
-modprobe iscsi-scst 
-iscsi-scstd
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="创建流程">创建流程</h1>
-<p>创建 target</p>
+</div><blockquote>
+<p>这里提供的依赖可能补全，编译过程中如果提示缺少依赖，请根据以上给出的提示安装对应依赖。</p>
+</blockquote>
+<h2 id="下载-qemu-520">下载 qemu-5.2.0</h2>
+<p>在 qemu 官网下载源码包</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_target iqn.1994-05.com.redhat:pv -driver iscsi
+<pre class="chroma"><code class="language-bash" data-lang="bash">wget https://download.qemu.org/qemu-5.2.0.tar.xz
 </code></pre></td></tr></table>
 </div>
-</div><p>创建 block</p>
+</div><h2 id="编译安装-1">编译安装</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -open_dev pv -handler vdisk_blockio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/zvol/tank/pv
+<pre class="chroma"><code class="language-bash" data-lang="bash">tar xvJf qemu-5.2.0.tar.xz
+<span class="nb">cd</span> qemu-5.2.0
+./configure --enable-debug --target-list<span class="o">=</span>x86_64-softmmu --enable-kvm
+make <span class="o">&amp;&amp;</span> make install
 </code></pre></td></tr></table>
 </div>
-</div><p>创建 group 做访问控制</p>
+</div><h2 id="验证-1">验证</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_group pv -driver iscsi -target iqn.1994-05.com.redhat:pv
-</code></pre></td></tr></table>
-</div>
-</div><p>添加客户端</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_init iqn.1994-05.com.redhat:48d51365d2b -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv
-</code></pre></td></tr></table>
-</div>
-</div><p>添加 lun</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_lun <span class="m">0</span> -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv -device pv
-</code></pre></td></tr></table>
-</div>
-</div><p>启用 target</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
-</code></pre></td></tr></table>
-</div>
-</div><p>使用 iscsi driver</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -set_drv_attr iscsi -attributes <span class="nv">enabled</span><span class="o">=</span><span class="m">1</span> -noprompt
-</code></pre></td></tr></table>
-</div>
-</div><p>写入到配置文件</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -write_config /etc/scst.conf
-</code></pre></td></tr></table>
-</div>
-</div><h1 id="删除流程">删除流程</h1>
-<p>禁用 target</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -disable_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
-</code></pre></td></tr></table>
-</div>
-</div><p>删除 target</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -rem_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
-</code></pre></td></tr></table>
-</div>
-</div><p>删除 block 文件</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -close_dev pv -handler vdisk_blockio -noprompt
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-</span>
+qemu-edid            qemu-img             qemu-nbd             qemu-storage-daemon
+qemu-ga              qemu-io              qemu-pr-helper       qemu-system-x86_64
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -333,16 +326,17 @@ iscsi-scstd
     
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/iscsi/">iscsi</a>
+          <a href="/tags/kvm/">kvm</a>
+          <a href="/tags/linux/">linux</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">
+        <a class="prev" href="/post/kvm/kvm_detail/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Scst在线扩容</span>
+            <span class="prev-text nav-default">KVM介绍</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-            <span class="next-text nav-default">Scst 安装和使用</span>
+        <a class="next" href="/post/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/">
+            <span class="next-text nav-default">Windows 上使用 Go 语言</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -355,10 +349,10 @@ iscsi-scstd
     <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
       var gitment = new Gitment({
-        id: '2020-04-08 14:59:25 \u002b0800 CST',
-        title: 'Scst 安装和使用',
+        id: '2020-12-27 22:22:25 \u002b0800 CST',
+        title: 'CentOS7 安装 qemu-5.2.0',
         link: decodeURI(location.href),
-        desc: '安装 scst 安装 scst 1 2 3 4 wget https:\/\/ncu.dl.sourceforge.net\/project\/scst\/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1',
+        desc: '本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1',
         owner: 'lack-io',
         repo: 'myblog',
         oauth: {

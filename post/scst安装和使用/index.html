@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.79.1 with theme even" />
 
 
-<link rel="canonical" href="http://xingyys.tech/post/scst1/" />
+<link rel="canonical" href="http://xingyys.tech/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -42,14 +42,14 @@
 <meta property="og:title" content="Scst 安装和使用" />
 <meta property="og:description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://xingyys.tech/post/scst1/" />
+<meta property="og:url" content="http://xingyys.tech/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" />
 <meta property="article:published_time" content="2020-04-08T14:59:25+08:00" />
 <meta property="article:modified_time" content="2020-04-08T14:59:25+08:00" />
 <meta itemprop="name" content="Scst 安装和使用">
 <meta itemprop="description" content="安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1">
 <meta itemprop="datePublished" content="2020-04-08T14:59:25+08:00" />
 <meta itemprop="dateModified" content="2020-04-08T14:59:25+08:00" />
-<meta itemprop="wordCount" content="241">
+<meta itemprop="wordCount" content="237">
 
 
 
@@ -130,7 +130,7 @@
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 241 字 </span>
+          <span class="more-meta"> 约 237 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -278,7 +278,7 @@ iscsi-scstd
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
+<pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target iqn.1994-05.com.redhat:pv
 </code></pre></td></tr></table>
 </div>
 </div><p>使用 iscsi driver</p>
@@ -318,7 +318,7 @@ iscsi-scstd
 <pre class="chroma"><code class="language-bash" data-lang="bash">scstadmin -rem_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
 </code></pre></td></tr></table>
 </div>
-</div><p>删除 block 文件</p>
+</div><p>删除 block</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -336,13 +336,13 @@ iscsi-scstd
           <a href="/tags/iscsi/">iscsi</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">
+        <a class="prev" href="/post/scst1/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Scst在线扩容</span>
+            <span class="prev-text nav-default">Scst 安装和使用</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
-        <a class="next" href="/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-            <span class="next-text nav-default">Scst 安装和使用</span>
+        <a class="next" href="/post/%E5%AE%89%E8%A3%85oh-my-zsh/">
+            <span class="next-text nav-default">linux 安装 oh-my-zsh</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>

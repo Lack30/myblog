@@ -23,7 +23,7 @@
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/libguestfs/</loc>
+    <loc>http://xingyys.tech/post/kvm/libguestfs/</loc>
     <lastmod>2021-01-31T10:38:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://xingyys.tech/post/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2021-01-17T22:35:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -114,21 +114,21 @@
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/kvm_vm/</loc>
+    <loc>http://xingyys.tech/post/kvm/kvm_vm/</loc>
     <lastmod>2021-01-06T22:58:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/kvm_detail/</loc>
+    <loc>http://xingyys.tech/post/kvm/kvm_detail/</loc>
     <lastmod>2021-01-04T22:45:23+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/centos7_install_qemu/</loc>
+    <loc>http://xingyys.tech/post/kvm/centos7_install_qemu/</loc>
     <lastmod>2020-12-27T22:33:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -255,6 +255,13 @@
   
   <url>
     <loc>http://xingyys.tech/post/scst1/</loc>
+    <lastmod>2020-04-08T14:59:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://xingyys.tech/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2020-04-08T14:59:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -541,7 +548,7 @@
   </url>
   
   <url>
-    <loc>http://xingyys.tech/post/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://xingyys.tech/post/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2018-06-30T16:16:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
