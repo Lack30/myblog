@@ -27,15 +27,6 @@
     
     <item>
       <title>Scst 安装和使用</title>
-      <link>http://xingyys.tech/post/scst1/</link>
-      <pubDate>Wed, 08 Apr 2020 14:59:25 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/scst1/</guid>
-      <description>安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</description>
-    </item>
-    
-    <item>
-      <title>Scst 安装和使用</title>
       <link>http://xingyys.tech/post/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Wed, 08 Apr 2020 14:59:25 +0800</pubDate>
       
