@@ -6,6 +6,7 @@ draft: false
 keywords: 
  -
 description: ""
+featuredImage: ""
 tags: 
  - 
 categories: 
