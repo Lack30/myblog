@@ -19,7 +19,7 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
     pre = ""
     # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
-    name = "Posts"
+    name = "文章"
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
@@ -28,18 +28,26 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
     identifier = "tags"
     pre = ""
     post = ""
-    name = "Tags"
+    name = "标签"
     url = "/tags/"
     title = ""
-    weight = 2
+    weight = 5
   [[menu.main]]
     identifier = "categories"
     pre = ""
     post = ""
-    name = "Categories"
+    name = "分类"
     url = "/categories/"
     title = ""
-    weight = 3
+    weight = 9
+  [[menu.main]]
+    identifier = "about"
+    pre = ""
+    post = ""
+    name = "关于"
+    url = "/about/"
+    title = ""
+    weight = 10
 
 # Markup related configuration in Hugo
 [markup]
