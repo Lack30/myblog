@@ -7,7 +7,7 @@
     <title>Nginx多组代理配置</title>
     <link>http://xingyys.tech/posts/linux/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
     <pubDate>Wed, 31 Jul 2019 15:25:05 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/linux/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
     <description><![CDATA[一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：   代理服务器 代理服务     nginx 192.168.10.10:8080 192.168.10.11:8080   nginx 192.168.10.10:8081 192.168.10.11:9000    二、环境 测试环境如下：
  代理服务器：ip 192.168.10.10；系统 CentOS7 ;  需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat  三、配置代理 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080tomcat 运行在 192.168.10.11:9000现在配置 nginx 代理。1.安装 nginx先在代理服务器上安装 nginx，使用命令：$ yum install -y nginx 安装成功后就可以尝试启动 nginx 服务器：$ systemctl start nginx 启动服务成功后，nginx 就运行在 80 端口。2.修改配置文件安装nginx就可以修改配置文件，配置文件的默认路径为 $ ll /etc/nginx/nginx.]]></description>

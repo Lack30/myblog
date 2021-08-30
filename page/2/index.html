@@ -80,13 +80,14 @@
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-10-13">2020-10-13</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div><div class="content">安装 这里直接使用 docker 安装 postgresql-13
 docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。
 [root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash root@3e3b03e3e442:/# psql -h localhost -p 5432 -U postgres psql (13.0 (Debian 13.0-1.pgdg100+1)) Type &#34;help&#34; for help. postgres=# psql 是 pgsql 的客户端命令，使用参数如下：
- -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。   数据库的操作 postgresql 支持的数据库操作有 增、删、查、改 创建数据库 创建数据库的命令为： create database &lt;databasename&gt; [encoding 'UTF-8'] postgres=#createdatabasetestencoding&#39;UTF-8&#39;;CREATEDATABASE查询数据库 查询数据库的命令有两种：第一种是 \l ，只能在 psql 中使用：</div><div class="post-footer">
+ -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。  数据库的操作 postgresql 支持的数据库操作有 增、删、查、改
+创建数据库 创建数据库的命令为： create database &lt;databasename&gt; [encoding 'UTF-8'] postgres=#createdatabasetestencoding&#39;UTF-8&#39;;CREATEDATABASE查询数据库 查询数据库的命令有两种：第一种是 \l ，只能在 psql 中使用：</div><div class="post-footer">
         <a href="/posts/linux/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/postgresql/">postgreSQL</a>,&nbsp;<a href="/tags/database/">database</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/go/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/">Golang跨平台编译</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-09-10">2020-09-10</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div><div class="content">golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：
 # 交叉编译到 linux GOOS=linux GOARCH=amd64 go build main.go # 交叉编译到 windows GOOS=windows GOARCH=amd64 go build -o main.exe main.go 如果使用 cgo 的话，还需要添加 CGO_ENABLED 参数：
 CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -o main.exe main.go 但是这种编译 go-sqlite3 的代码会出现以下错误：
@@ -96,7 +97,7 @@ CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -o main.exe main.go 但是这�
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/linux/scst%E7%BB%93%E5%90%88fc/">Scst结合FC</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-08-06">2020-08-06</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。
 环境配置 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境： 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (/sys/kernel/scst_tgt/targets/qla2x00t) 目录下的内容2.直接查看 FC 设备的 port_id (/sys/class/fc_host/hostx/port_name)，配置 FC SCST 服务端配置 创建 target, FC 设备和 target 一对一。
 scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对应本地的块文件</div><div class="post-footer">
@@ -121,19 +122,21 @@ GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。�
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/linux/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">Scst在线扩容</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-09">2020-04-09</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-09">2020-04-09</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">SCST 共享的磁盘支持在线扩容。操作如下：
+scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性
 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客户端 重新扫描 target
 iscsiadm -m node --target &lt;target_name&gt; -R 扩展磁盘容量，如果磁盘存储 mount 状态则先 umount。
-resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。 FC 客户端 重新扫描 FC host
+resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。
+FC 客户端 重新扫描 FC host
 echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如上。</div><div class="post-footer">
         <a href="/posts/linux/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/iscsi/">iscsi</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/linux/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">Scst 安装和使用</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-08">2020-04-08</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">安装 scst 安装 scst
 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst
 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了
@@ -145,7 +148,7 @@ scstadmin -add_target iqn.1994-05.com.redhat:pv -driver iscsi 创建 block</div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/linux/%E5%AE%89%E8%A3%85oh-my-zsh/">linux 安装 oh-my-zsh</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-02-09">2020-02-09</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%85%B6%E4%BB%96/"><i class="far fa-folder fa-fw"></i>其他</a></span></div><div class="content">一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。使用 yum 安装 zsh
 $ yum install zsh 安装完成后，替换默认的 bash 为 zsh。需要在 root 用户下使用
 $ chsh -s /bin/zsh Changing shell for root. Shell changed. # 在新终端中验证 $ echo $SHELL /bin/zsh 执行以下命令自动安装 oh-my-zsh
@@ -156,7 +159,7 @@ plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快�
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/aix/aix1/">Aix添加和删除Iscsi存储卷</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-22">2019-10-22</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div><div class="content">Aix为6.1版本
  使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
 检查iscsi是否被安装 $ lslpp -L | grep -i iscsi devices.common.IBM.iscsi.rte 6.1.5.0 C F Common iSCSI Files devices.iscsi.disk.rte 6.1.5.0 C F iSCSI Disk Software ... 配置iscsi $ vi /etc/iscsi/targets ... # 添加target 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup 重新扫盘 $ cfgmgr -l iscsi0 cfgmgr: 0514-621 WARNING: The following device packages are required for device support but are not currently installed. devices.iscsi.array 查看iscsi盘 $ lsdev -Cc disk | grep iSCSI hdisk18 Available Other iSCSI Disk Drive 创建物理卷 $ chdev -l hdisk18 -a pv=yes 创建vg $ mkvg -y wbrt_portal_bg hdisk18 创建lv $ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg 700  注:lv的大小可以使用命令 $ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F' ' '{ print $6}' 703 但不要全部使用，需要一些剩余空间。</div><div class="post-footer">
@@ -165,7 +168,7 @@ plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快�
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/cloudnative/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/">使用kubeadm安装kubernetes1.16</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-10-19">2019-10-19</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/"><i class="far fa-folder fa-fw"></i>云计算</a></span></div><div class="content">环境版本说明：
  三台vmware虚拟机，系统版本CentOS7.6。 Kubernetes 1.16.0，当前最新版。 flannel v0.11 docker 18.09  使用kubeadm可以简单的搭建一套k8s集群环境，而不用关注安装部署的细节，而且现在k8s的版本更新频率很快，所以这种方法十分推荐。
 相关准备  注：本节相关操作要在所有节点上执行。

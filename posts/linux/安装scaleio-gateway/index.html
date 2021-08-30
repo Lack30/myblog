@@ -40,9 +40,9 @@
         },"genre": "posts","keywords": "linux, scaleio","wordcount":  72 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/%E5%AE%89%E8%A3%85scaleio-gateway\/","datePublished": "2018-08-31T15:27:24+08:00","dateModified": "2018-08-31T15:27:24+08:00","publisher": {
             "@type": "Organization",
-            "name": "作者"},"author": {
+            "name": "Lack"},"author": {
                 "@type": "Person",
-                "name": "作者"
+                "name": "Lack"
             },"description": ""
     }
     </script></head>
@@ -94,7 +94,7 @@
         <div class="toc-content" id="toc-content-auto"></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">安装scaleio Gateway</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AD%98%E5%82%A8/"><i class="far fa-folder fa-fw"></i>存储</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-08-31">2018-08-31</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2018-08-31">2018-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 72 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
@@ -104,8 +104,7 @@
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<!-- raw HTML omitted -->
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+            </div><div class="content" id="content"><p>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<!-- raw HTML omitted --></p>
 <h1 id="一安装">一、安装</h1>
 <p>1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 先配置gateway admin用户的密码</span>
@@ -114,8 +113,7 @@
 <span class="c1"># 安装成功后服务默认启动，绑定在端口80</span>
 <span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># netstat -tnlp | grep 80 </span>
 tcp6       <span class="m">0</span>      <span class="m">0</span> :::80                   :::*                    LISTEN      4225/java
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="二配置">二、配置</h1>
+</code></pre></div><h1 id="二配置">二、配置</h1>
 <p>安装完gateway还需要配置，gateway的配置有两种方式。</p>
 <ul>
 <li>使用浏览器配置。</li>
@@ -159,8 +157,7 @@ gateway-security.allow_non_secure_communication<span class="o">=</span><span cla
 security.bypass_certificate_check<span class="o">=</span><span class="nb">true</span>
 // 记得重启gateway服务
 <span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># /etc/init.d/scaleio-gateway restart</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="三验证">三、验证</h1>
+</code></pre></div><h1 id="三验证">三、验证</h1>
 <p>使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证<!-- raw HTML omitted -->curl命令验证验证：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># curl -k --user admin:Scale10 https://192.168.3.107/api/login</span>
 <span class="s2">&#34;YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA&#34;</span>

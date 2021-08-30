@@ -7,7 +7,7 @@
     <title>KVM镜像管理工具libguestfs</title>
     <link>http://xingyys.tech/posts/kvm/libguestfs/</link>
     <pubDate>Sun, 31 Jan 2021 10:38:28 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/libguestfs/</guid>
     <description><![CDATA[简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。
 安装 直接使用 yum 安装 libguestfs :
@@ -20,7 +20,7 @@ $ virt-inspector -d centos &lt;?xml version=&#34;1.0&#34;?&gt; &lt;operatingsyst
     <title>qemu-img命令使用</title>
     <link>http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Sun, 17 Jan 2021 22:35:06 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。
  注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致数据不一致甚至导致磁盘损坏。
@@ -32,7 +32,7 @@ $ virt-inspector -d centos &lt;?xml version=&#34;1.0&#34;?&gt; &lt;operatingsyst
     <title>KVM之虚拟机管理</title>
     <link>http://xingyys.tech/posts/kvm/kvm_vm/</link>
     <pubDate>Wed, 06 Jan 2021 22:58:06 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/kvm_vm/</guid>
     <description><![CDATA[本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容
  安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命令：
@@ -44,7 +44,7 @@ virt-install \  --name centos \  --ram 1024 \  --disk path=/data/kvm/centos.img,
     <title>KVM介绍</title>
     <link>http://xingyys.tech/posts/kvm/kvm_detail/</link>
     <pubDate>Mon, 04 Jan 2021 22:45:23 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/kvm_detail/</guid>
     <description><![CDATA[KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
 KVM 和 Qemu Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。
@@ -56,7 +56,7 @@ KVM 工具集合  libvirt：操作和管理KVM虚机的虚拟化 API，使用 C 
     <title>CentOS7 安装 qemu-5.2.0</title>
     <link>http://xingyys.tech/posts/kvm/centos7_install_qemu/</link>
     <pubDate>Sun, 27 Dec 2020 22:22:25 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/centos7_install_qemu/</guid>
     <description><![CDATA[本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0
 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。

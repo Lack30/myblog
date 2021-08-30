@@ -16,9 +16,10 @@
     <title>Go 结合 etcd</title>
     <link>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</link>
     <pubDate>Tue, 10 Sep 2019 15:17:42 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</guid>
-    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; + err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca.]]></description>
 </item></channel>

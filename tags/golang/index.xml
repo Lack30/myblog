@@ -7,7 +7,7 @@
     <title>分布式的工作流实现</title>
     <link>http://xingyys.tech/posts/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</link>
     <pubDate>Sun, 10 Jan 2021 14:34:22 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/linux/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</guid>
     <description><![CDATA[本篇提供一个实现分布式工作流的思路。
 系统组成部分：
@@ -18,14 +18,14 @@
     <title>Golang监控进程流量</title>
     <link>http://xingyys.tech/posts/go/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/</link>
     <pubDate>Sat, 09 Jan 2021 17:06:14 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/golang%E7%9B%91%E6%8E%A7%E8%BF%9B%E7%A8%8B%E6%B5%81%E9%87%8F/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Windows 上使用 Go 语言</title>
     <link>http://xingyys.tech/posts/go/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/</link>
     <pubDate>Thu, 29 Oct 2020 16:44:06 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/</guid>
     <description><![CDATA[在 Windows 使用 Go 开发项目是，为了实现统一的配置和格式管理，需要进行一下的配置。
 开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选） Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
@@ -34,7 +34,7 @@
     <title>Golang跨平台编译</title>
     <link>http://xingyys.tech/posts/go/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
     <pubDate>Thu, 10 Sep 2020 14:52:46 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
     <description><![CDATA[golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：
 # 交叉编译到 linux GOOS=linux GOARCH=amd64 go build main.go # 交叉编译到 windows GOOS=windows GOARCH=amd64 go build -o main.exe main.go 如果使用 cgo 的话，还需要添加 CGO_ENABLED 参数：
@@ -69,16 +69,17 @@ GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。�
     <title>Go 结合 etcd</title>
     <link>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</link>
     <pubDate>Tue, 10 Sep 2019 15:17:42 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</guid>
-    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; + err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca.]]></description>
 </item><item>
     <title>Golang使用json格式实现增删查改</title>
     <link>http://xingyys.tech/posts/go/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</link>
     <pubDate>Wed, 07 Aug 2019 16:43:13 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</guid>
     <description><![CDATA[需求和思路 在一般的小项目或者一个小软件,例如客户端之类的小程序中,可能会需要数据的持久化.但是使用一般的数据库(Mysql)之类的不合适.使用sqlite3这种嵌入式的是个较好的方法,但是Go语言中sqlite3的库是C语言的,Cgo不支持跨平台编译.正是由于这种需求,才想到使用json格式将数据直接保存在文件中. 具体的思路是怎么样呢? 在Go语言中如果要将数据转化成json格式的话,有两种格式 struct 和 map. 如果同时需要增删查改功能的话,将map作为中间格式是比较合适的.接下来我们就来实现它.
 查询操作 这种操作的实现比较简单,直接将文件中的数据读取出来,使用json库反序列化就可以了. 代码如下 :

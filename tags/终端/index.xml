@@ -7,7 +7,7 @@
     <title>linux 安装 oh-my-zsh</title>
     <link>http://xingyys.tech/posts/linux/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
     <pubDate>Sun, 09 Feb 2020 15:23:20 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/linux/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
     <description><![CDATA[一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。使用 yum 安装 zsh
 $ yum install zsh 安装完成后，替换默认的 bash 为 zsh。需要在 root 用户下使用

@@ -23,16 +23,17 @@ GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。�
     <title>Go 结合 etcd</title>
     <link>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</link>
     <pubDate>Tue, 10 Sep 2019 15:17:42 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</guid>
-    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+    <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; + err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca.]]></description>
 </item><item>
     <title>Golang使用json格式实现增删查改</title>
     <link>http://xingyys.tech/posts/go/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</link>
     <pubDate>Wed, 07 Aug 2019 16:43:13 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/golang%E4%BD%BF%E7%94%A8json%E6%A0%BC%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%9F%A5%E6%94%B9/</guid>
     <description><![CDATA[需求和思路 在一般的小项目或者一个小软件,例如客户端之类的小程序中,可能会需要数据的持久化.但是使用一般的数据库(Mysql)之类的不合适.使用sqlite3这种嵌入式的是个较好的方法,但是Go语言中sqlite3的库是C语言的,Cgo不支持跨平台编译.正是由于这种需求,才想到使用json格式将数据直接保存在文件中. 具体的思路是怎么样呢? 在Go语言中如果要将数据转化成json格式的话,有两种格式 struct 和 map. 如果同时需要增删查改功能的话,将map作为中间格式是比较合适的.接下来我们就来实现它.
 查询操作 这种操作的实现比较简单,直接将文件中的数据读取出来,使用json库反序列化就可以了. 代码如下 :

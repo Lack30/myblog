@@ -36,9 +36,9 @@
         },"genre": "posts","keywords": "linux, nginx","wordcount":  371 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE\/","datePublished": "2019-07-31T15:25:05+08:00","dateModified": "2019-07-31T15:25:05+08:00","publisher": {
             "@type": "Organization",
-            "name": "作者"},"author": {
+            "name": "Lack"},"author": {
                 "@type": "Person",
-                "name": "作者"
+                "name": "Lack"
             },"description": ""
     }
     </script></head>
@@ -90,7 +90,7 @@
         <div class="toc-content" id="toc-content-auto"></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Nginx多组代理配置</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-07-31">2019-07-31</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-07-31">2019-07-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 371 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
@@ -100,8 +100,7 @@
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="一需求">一、需求</h1>
+            </div><div class="content" id="content"><h1 id="一需求">一、需求</h1>
 <p>具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。<!-- raw HTML omitted -->实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：<!-- raw HTML omitted --></p>
 <table>
 <thead>
@@ -121,14 +120,12 @@
 </tr>
 </tbody>
 </table>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="二环境">二、环境</h1>
 <p>测试环境如下：</p>
 <ul>
 <li>代理服务器：ip 192.168.10.10；系统 CentOS7 ; </li>
 <li>需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat</li>
 </ul>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="三配置代理">三、配置代理</h1>
 <p>假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<!-- raw HTML omitted -->
 <img

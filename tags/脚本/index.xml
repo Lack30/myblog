@@ -7,7 +7,7 @@
     <title>Windows Bat总结</title>
     <link>http://xingyys.tech/posts/windows/bat/</link>
     <pubDate>Fri, 22 Mar 2019 15:06:27 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/windows/bat/</guid>
     <description><![CDATA[最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。
 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可以说 windows bat 脚本和 linux bash 脚本还是有很多区别的。

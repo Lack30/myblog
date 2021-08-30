@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">Go 结合 etcd - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="Go 结合 etcd" />
-<meta property="og:description" content="关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+<meta property="og:description" content="关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; &#43; err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca." />
 <meta property="og:type" content="article" />
@@ -16,7 +17,8 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go 结合 etcd"/>
-<meta name="twitter:description" content="关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+<meta name="twitter:description" content="关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; &#43; err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca."/>
 <meta name="application-name" content="lack 的个人博客">
@@ -38,9 +40,9 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
         },"genre": "posts","keywords": "golang, etcd","wordcount":  1904 ,
         "url": "http:\/\/xingyys.tech\/posts\/go\/go%E7%BB%93%E5%90%88etcd\/","datePublished": "2019-09-10T15:17:42+08:00","dateModified": "2019-09-10T15:17:42+08:00","publisher": {
             "@type": "Organization",
-            "name": "作者"},"author": {
+            "name": "Lack"},"author": {
                 "@type": "Person",
-                "name": "作者"
+                "name": "Lack"
             },"description": ""
     }
     </script></head>
@@ -92,7 +94,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
         <div class="toc-content" id="toc-content-auto"></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go 结合 etcd</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw"></i>分布式</a>&nbsp;<a href="/categories/%E4%BB%A3%E7%A0%81/"><i class="far fa-folder fa-fw"></i>代码</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-09-10">2019-09-10</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-09-10">2019-09-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1904 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
@@ -122,8 +124,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
     <li><a href="#63-软件事务内存">6.3 软件事务内存</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>关于 etcd 的安装和介绍看 <a href="https://www.yuque.com/xingyys/szknb5/at7lql" target="_blank" rel="noopener noreffer">这里</a> 。<!-- raw HTML omitted -->官方的实例可以看 <a href="https://github.com/etcd-io/etcd/tree/master/clientv3" target="_blank" rel="noopener noreffer">这里</a>
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+            </div><div class="content" id="content"><p>关于 etcd 的安装和介绍看 <a href="https://www.yuque.com/xingyys/szknb5/at7lql" target="_blank" rel="noopener noreffer">这里</a> 。<!-- raw HTML omitted -->官方的实例可以看 <a href="https://github.com/etcd-io/etcd/tree/master/clientv3" target="_blank" rel="noopener noreffer">这里</a></p>
 <h1 id="一连接">一、连接</h1>
 <p>首先是关于 golang 如何连接 etcd ，先是简单的连接。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
@@ -172,9 +173,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 	<span class="o">}</span>
 	cli.Close<span class="o">()</span>
 <span class="o">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="二kv-操作">二、KV 操作</h1>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</code></pre></div><h1 id="二kv-操作">二、KV 操作</h1>
 <h2 id="21-简单的-curd">2.1 简单的 curd</h2>
 <p>在连接基础上，接下来就可以对key做操作了。对key做 curd</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">kv</span><span class="p">()</span> <span class="p">{</span>
@@ -212,8 +211,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;delete key: &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="22-事务">2.2 事务</h2>
+</code></pre></div><h2 id="22-事务">2.2 事务</h2>
 <p>使用事务如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">txn</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -246,8 +244,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;run txn: &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="23-批量操作">2.3 批量操作</h2>
+</code></pre></div><h2 id="23-批量操作">2.3 批量操作</h2>
 <p>批量指定操作</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">do</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -273,8 +270,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="23-watch">2.3 watch</h2>
+</code></pre></div><h2 id="23-watch">2.3 watch</h2>
 <p>监视key</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">watch</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -329,9 +325,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;wresp.Header.Revision: %d\n&#34;</span><span class="p">,</span> <span class="nx">wresp</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Revision</span><span class="p">)</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;wresp.IsProgressNotify:&#34;</span><span class="p">,</span> <span class="nx">wresp</span><span class="p">.</span><span class="nf">IsProgressNotify</span><span class="p">())</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="三lease">三、lease</h1>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</code></pre></div><h1 id="三lease">三、lease</h1>
 <h2 id="21-创建-lease">2.1 创建 lease</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">grant</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -358,8 +352,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="s">&#34;put key with lease: &#34;</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">())</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="22-删除-lease">2.2 删除 lease</h2>
+</code></pre></div><h2 id="22-删除-lease">2.2 删除 lease</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">revoke</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 		<span class="c1">// etcd 集群的地址集合
@@ -388,8 +381,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="23-续租">2.3 续租</h2>
+</code></pre></div><h2 id="23-续租">2.3 续租</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">keepAlive</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 		<span class="c1">// etcd 集群的地址集合
@@ -428,8 +420,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ttl:&#34;</span><span class="p">,</span> <span class="nx">kaa</span><span class="p">.</span><span class="nx">TTL</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="24-查询-lease">2.4 查询 lease</h2>
+</code></pre></div><h2 id="24-查询-lease">2.4 查询 lease</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">leases</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 		<span class="c1">// etcd 集群的地址集合
@@ -469,8 +460,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="四访问控制">四、访问控制</h1>
+</code></pre></div><h1 id="四访问控制">四、访问控制</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">auth</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 		<span class="c1">// etcd 集群的地址集合
@@ -556,8 +546,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 		<span class="nf">Commit</span><span class="p">()</span>
 	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="五集群">五、集群</h1>
+</code></pre></div><h1 id="五集群">五、集群</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">member</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
 		<span class="c1">// etcd 集群的地址集合
@@ -588,9 +577,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 </span><span class="c1"></span>	<span class="c1">//_, _ = cluster.MemberRemove(ctx, // id)
 </span><span class="c1"></span>	<span class="c1">//_, _ = cluster.MemberUpdate(ctx, // id, // peer)
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="六并发">六、并发</h1>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</code></pre></div><h1 id="六并发">六、并发</h1>
 <h2 id="61-锁">6.1 锁</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">lock</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
@@ -686,8 +673,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 	<span class="p">}</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;acquired lock for s2&#34;</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="62-领导选举">6.2 领导选举</h2>
+</code></pre></div><h2 id="62-领导选举">6.2 领导选举</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">election</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Endpoints</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;192.168.10.10:2379&#34;</span><span class="p">}})</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
@@ -747,8 +733,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 
 	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="63-软件事务内存">6.3 软件事务内存</h2>
+</code></pre></div><h2 id="63-软件事务内存">6.3 软件事务内存</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">stm</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">cli</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">clientv3</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">clientv3</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span><span class="nx">Endpoints</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;192.168.10.10:2379&#34;</span><span class="p">}})</span>
 	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>

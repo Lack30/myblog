@@ -7,7 +7,7 @@
     <title>安装scaleio Gateway</title>
     <link>http://xingyys.tech/posts/linux/%E5%AE%89%E8%A3%85scaleio-gateway/</link>
     <pubDate>Fri, 31 Aug 2018 15:27:24 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/linux/%E5%AE%89%E8%A3%85scaleio-gateway/</guid>
     <description><![CDATA[scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：一、安装 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
 # 先配置gateway admin用户的密码 [root@localhost ~]# export GATEWAY_ADMIN_PASSWORD=Scale10  [root@localhost ~]# rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm  # 安装成功后服务默认启动，绑定在端口80 [root@localhost ~]# netstat -tnlp | grep 80  tcp6 0 0 :::80 :::* LISTEN 4225/java 二、配置 安装完gateway还需要配置，gateway的配置有两种方式。

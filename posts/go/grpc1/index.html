@@ -117,8 +117,7 @@ GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。�
     <li><a href="#client">Client</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="grpc-简介">GRPC 简介</h1>
+            </div><div class="content" id="content"><h1 id="grpc-简介">GRPC 简介</h1>
 <p>grpc 是由 google 开发的一款开源，高性能 rpc（<a href="https://zh.wikipedia.org/wiki/%E9%81%A0%E7%A8%8B%E9%81%8E%E7%A8%8B%E8%AA%BF%E7%94%A8" target="_blank" rel="noopener noreffer">远程进程调用协议</a>）使用 <a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener noreffer">Protocol Buffers</a> 作为数据交换格式。</p>
 <p><img
         class="lazyload"
@@ -128,10 +127,8 @@ GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。�
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030101652.png"
         title="grpc.png"
     /></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="grpc-安装">GRPC 安装</h1>
 <p><!-- raw HTML omitted -->golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。<!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="安装grpc-go">安装grpc-go</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">go get -u github.com/golang/protobuf/<span class="o">{</span>proto,protoc-gen-go<span class="o">}</span>
 go get -u google.golang.org/grpc
@@ -143,16 +140,12 @@ go get -u google.golang.org/grpc
 <h3 id="macos">macos</h3>
 <p><!-- raw HTML omitted -->macos 下安装直接使用 brew 命令即可。<!-- raw HTML omitted --></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">brew install protobuf
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h3 id="linux">linux</h3>
+</code></pre></div><h3 id="linux">linux</h3>
 <p><!-- raw HTML omitted -->linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，<a href="https://github.com/protocolbuffers/protobuf/releases" target="_blank" rel="noopener noreffer">下载地址</a>。<!-- raw HTML omitted -->二进制安装的话就下载 protobuf-all-*.tar.gz 包，解压后进入生成的目录。之后执行命令：<!-- raw HTML omitted --></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">make <span class="o">&amp;&amp;</span> make install
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h3 id="windows">windows</h3>
+</code></pre></div><h3 id="windows">windows</h3>
 <p><!-- raw HTML omitted -->下载 protobuf.all-*.zip 包，解压后再配置环境变量，将 protobuf\bin 配置到 $PATH 变量中。<!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="grpc使用">GRPC使用</h1>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h2 id="新建项目">新建项目</h2>
 <p><!-- raw HTML omitted -->新建一个 grpc 项目，如下:<!-- raw HTML omitted --></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">../sample
@@ -196,8 +189,7 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
 └── pb
     ├── echo.pb.go
     └── echo.proto
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="server">Server</h2>
+</code></pre></div><h2 id="server">Server</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 <span class="kn">import</span> <span class="p">(</span>
 	<span class="s">&#34;context&#34;</span>
@@ -277,8 +269,7 @@ protoc -I. --go_out<span class="o">=</span><span class="nv">plugins</span><span 
   		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;start grpc: %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="client">Client</h2>
+</code></pre></div><h2 id="client">Client</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
 <span class="kn">import</span> <span class="p">(</span>
 	<span class="s">&#34;context&#34;</span>

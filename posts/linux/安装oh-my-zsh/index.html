@@ -42,9 +42,9 @@ plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快�
         },"genre": "posts","keywords": "linux, 终端","wordcount":  168 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/%E5%AE%89%E8%A3%85oh-my-zsh\/","datePublished": "2020-02-09T15:23:20+08:00","dateModified": "2020-02-09T15:23:20+08:00","publisher": {
             "@type": "Organization",
-            "name": "作者"},"author": {
+            "name": "Lack"},"author": {
                 "@type": "Person",
-                "name": "作者"
+                "name": "Lack"
             },"description": ""
     }
     </script></head>
@@ -96,7 +96,7 @@ plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快�
         <div class="toc-content" id="toc-content-auto"></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">linux 安装 oh-my-zsh</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%85%B6%E4%BB%96/"><i class="far fa-folder fa-fw"></i>其他</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-02-09">2020-02-09</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-02-09">2020-02-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 168 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
@@ -112,10 +112,8 @@ plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快�
     <li><a href="#zsh-autosuggestions">zsh-autosuggestions</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="一介绍">一、介绍</h1>
+            </div><div class="content" id="content"><h1 id="一介绍">一、介绍</h1>
 <p>oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。<!-- raw HTML omitted --></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="二安装-oh-my-zsh">二、安装 oh-my-zsh</h1>
 <p>oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。<!-- raw HTML omitted -->使用 yum 安装 zsh</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ yum install zsh
@@ -131,12 +129,10 @@ $ <span class="nb">echo</span> <span class="nv">$SHELL</span>
 <span class="c1"># 省略输出...</span>
 $ <span class="nb">source</span> .zshrc 
 <span class="c1"># .zshrc 为 zsh 的配置文件</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="三配置-oh-my-zsh">三、配置 oh-my-zsh</h1>
+</code></pre></div><h1 id="三配置-oh-my-zsh">三、配置 oh-my-zsh</h1>
 <p>接下来还要添加额外的功能。oh-my-zsh 支持很多强大的功能，这些功能都是以插件的方式实现。插件放在目录~/.oh-my-zsh/plugins 下。要让插件开始工作还需要在 .zshrc 中配置相关参数。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>git textmate ruby autojump osx mvn gradle<span class="o">)</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="autojump">autojump</h2>
+</code></pre></div><h2 id="autojump">autojump</h2>
 <p><strong>作用</strong><!-- raw HTML omitted -->目录间快速跳转,不用再一直 <code>cd</code> 了 😁<!-- raw HTML omitted -->**使用 **<!-- raw HTML omitted -->使用 <code>autojump</code> 的缩写 <code>j</code><!-- raw HTML omitted --><code>cd</code> 命令进入 <code>~/user/github/Youthink</code> 文件夹，下一次再想进入 <code>Yourhink</code> 文件夹的时候,直接 <code>j youthink</code> 即可, 或者只输入 <code>youthink</code> 的一部分 <code>youth</code> 都行删除无效路径</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ j --purge 无效路径
 </code></pre></div><p>需要额外下载 <code>autojump</code> 并配置<!-- raw HTML omitted -->首先安装 <code>autojump</code>，如果你用 <code>Mac</code>，可以使用 <code>brew</code> 安装：</p>
@@ -147,8 +143,7 @@ $ <span class="nb">source</span> .zshrc
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ./install.sh
 </code></pre></div><p>最后把以下代码加入 <code>.zshrc</code>：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[[</span> -s ~/.autojump/etc/profile.d/autojump.sh <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.autojump/etc/profile.d/autojump.sh
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="zsh-syntax-highlighting">zsh-syntax-highlighting</h2>
+</code></pre></div><h2 id="zsh-syntax-highlighting">zsh-syntax-highlighting</h2>
 <p><strong>作用</strong><!-- raw HTML omitted -->平常用的<code>ls</code>、<code>cd</code> 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。</p>
 <p><img
         class="lazyload"
@@ -164,8 +159,7 @@ $ <span class="nb">source</span> .zshrc
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-syntax-highlighting<span class="o">)</span>
 </code></pre></div><p>使配置生效</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> ~/.zshrc
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h2 id="zsh-autosuggestions">zsh-autosuggestions</h2>
+</code></pre></div><h2 id="zsh-autosuggestions">zsh-autosuggestions</h2>
 <p><strong>作用</strong><!-- raw HTML omitted -->如图输入命令时，会给出建议的命令（灰色部分）按键盘 → 补全<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <img

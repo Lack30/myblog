@@ -85,8 +85,9 @@
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/go/go%E7%BB%93%E5%90%88etcd/">Go 结合 etcd</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-09-10">2019-09-10</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw"></i>分布式</a>&nbsp;<a href="/categories/%E4%BB%A3%E7%A0%81/"><i class="far fa-folder fa-fw"></i>代码</a></span></div><div class="content">关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-09-10">2019-09-10</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="far fa-folder fa-fw"></i>分布式</a>&nbsp;<a href="/categories/%E4%BB%A3%E7%A0%81/"><i class="far fa-folder fa-fw"></i>代码</a></span></div><div class="content">关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里
+一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; + err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca.</div><div class="post-footer">
         <a href="/posts/go/go%E7%BB%93%E5%90%88etcd/">阅读全文</a><div class="post-tags">
@@ -94,7 +95,7 @@ func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.p
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/oracle/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/">开启oracle的闪回功能</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-21">2019-08-21</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div><div class="content">查看是否开启闪回
 SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ NO查看是否配置了db_recover_file_dest
 SQL&gt;showparameterdb_recoveryNAMETYPEVALUE------------------------------------ ----------- ------------------------------ db_recovery_file_deststringdb_recovery_file_dest_sizebiginteger0没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致
@@ -109,7 +110,7 @@ SQL&gt;alterdatabaseopen;Databasealtered.SQL&gt;selectflashback_onfromv$database
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/">Spring框架的核心总结</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-19">2019-08-19</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div><div class="content">最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。
  题外话: 学习过几种不同的语言，后来知道所有的编程语言里所有的概念翻来覆去都是一样的事物，只是它们被不同的术语所描述，加上大部分中文翻译，又扯上一些专有名词，让一些本来简单的概念变得复杂而深奥。不知是因人的有限，还是那些书籍的作者有意为之，其实很多的东西本来都是很简单了，这些奇怪的名词反而让初学者糊涂起来。如果有刚开始学习编程的同学看到这里，也请注意了，不要被一些概念和名字带偏了，究其本质，也就那样。
  Spring 基本概念 其实编程语言和框架的发展都是为了实际使用而来的，既然是使用，怎么使用，怎么简单的使用，怎么用更舒服就成为了其发展的主要动力了。Java框架的发展也是如此，所以spring代替了Java EE，再到后来 Spring Boot 的热门，皆是如此。因此框架的作者就会想法设法简化一些不必要和繁琐的东西。而 Spring 的核心思想就是：简化 Java 开发。
@@ -125,7 +126,7 @@ SQL&gt;alterdatabaseopen;Databasealtered.SQL&gt;selectflashback_onfromv$database
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/">Spring Cloud微服务实践七</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-18">2019-08-18</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">在spring cloud 2.x以后,由于zuul一直停滞在1.x版本,所以spring官方就自己开发了一个项目 Spring Cloud Gateway.作为spring cloud微服务的网关组件.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  spring cloud gateway 入门 根据官方的简介,它是spring mvc基础之上,旨在提供一个简单有效的路由管理方式,如 安全，监控/指标，和限流等.
@@ -137,7 +138,7 @@ Spring Cloud Gateway 的特征：
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/">Spring Cloud微服务实践六</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-16">2019-08-16</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">本篇我们就来认识下spring cloud中的zuul组件.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  zuul简介 关于zuul 其实在前面的内容中,我们已经搭建了一个微服务平台,也实现了该有的功能.但是一般的微服务架构中还会有api gateway.那么api gateway(网关)又是做什么用的呢?
@@ -159,7 +160,7 @@ spring cloud zuul 初使用 在了解了gateway的作用和zuul之后,我们就�
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%94/">Spring Cloud微服务实践五</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-14">2019-08-14</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">本篇我们来看看怎么实现spring cloud的配置中心. 在分布式系统中,特别是微服务架构下,可能会存在许多的服务,每个服务都会存在一个或多个的配置文件.那怎么多的配置文件的管理就会成为一个大问题.同时,微服务运行过程中还需要动态的修改配置参数.所以spring cloud config就是在spring cloud微服务架构中解决配置文件的管理,刷新,查看等问题的.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  spring cloud config和git 我们先来一个简单的配置,只有server和config的.
@@ -173,7 +174,7 @@ pom &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;spring-c
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%9B%9B/">Spring Cloud微服务实践四</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-11">2019-08-11</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">spring cloud的hystrix还有一个配搭的库hystrix-dashboard,它是hystrix的一款监控工具,能直观的显示hystrix响应信息,请求成功率等.但是hystrix-dashboard只能查看单机和集群的信息,如果需要将多台的信息汇总起来的话就需要使用turbine.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  hystrix-dashboard hystrix-dashboard只要在上一篇的hystrix的基础上稍微修改下就可以了.
@@ -185,7 +186,7 @@ pom &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;spring-c
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%89/">Spring Cloud微服务实践三</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-11">2019-08-11</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">上篇文章里我们实现了spring cloud中的服务提供者和使用者.接下来我们就来看看spring cloud中微服务的其他组件.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  熔断器 spring cloud架构成员中有一个叫&quot;熔断器&quot;.微服务中一个服务通常存在多级调用情况,在这种情况下就出现了一些严重的问题.假如其中的一个服务故障了,那么调用这个服务的使用者就会处于等待状态中,由于多级联调用,所以后续的调用者也会处于这种情况.因此错误就会在一个系统中被放大,从而出现了服务的&quot;雪崩效应&quot;.为了应对这种效应,就有了&quot;熔断器&quot;. 所谓熔断器,就是当服务提供者出现问题时,调用者发现了这个问题,它会快速响应报错.
@@ -201,7 +202,7 @@ pom &lt;properties&gt; &lt;java.version&gt;1.8&lt;/java.version&gt; &lt;spring-c
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%BA%8C/">Spring Cloud微服务实践二</a>
     </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-09">2019-08-09</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">在上一篇,我们已经搭建了spring cloud微服务中的注册中心.但只有一个注册中心还远远不够. 接下来我们就来尝试提供服务.
  注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA
  服务提供 假设我们现在有个需求,需要一个接口,当我们传入一个名字,它会返回一句问好的话.如传入body,输入则为hello body!.

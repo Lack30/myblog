@@ -112,7 +112,6 @@
 <li>分布式队列</li>
 <li>集群监控于Leader竞选。</li>
 </ul>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="一服务发现">一、服务发现</h1>
 <p><img
         class="lazyload"
@@ -339,8 +338,7 @@
 		<span class="nx">lis</span><span class="p">.</span><span class="nf">Accept</span><span class="p">()</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="二消息发布与订阅">二、消息发布与订阅</h1>
+</code></pre></div><h1 id="二消息发布与订阅">二、消息发布与订阅</h1>
 <p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110205.png"
@@ -412,8 +410,7 @@
 	<span class="c1">//
 </span><span class="c1"></span>	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="三负载均衡">三、负载均衡</h1>
+</code></pre></div><h1 id="三负载均衡">三、负载均衡</h1>
 <p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110220.png"
@@ -766,8 +763,7 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="四分布式通知与协调">四、分布式通知与协调</h1>
+</code></pre></div><h1 id="四分布式通知与协调">四、分布式通知与协调</h1>
 <p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110244.png"
@@ -825,8 +821,7 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="五分布式锁">五、分布式锁</h1>
+</code></pre></div><h1 id="五分布式锁">五、分布式锁</h1>
 <p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110301.png"
@@ -836,7 +831,6 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
         title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110301.png"
     />
 <!-- raw HTML omitted -->因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<!-- raw HTML omitted -->在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 <a href="https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go" target="_blank" rel="noopener noreffer">这里</a></p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h1 id="六分布式队列">六、分布式队列</h1>
 <p><img
         class="lazyload"
@@ -964,8 +958,7 @@ $ protoc -I ./pb --go_out<span class="o">=</span><span class="nv">plugins</span>
 		<span class="c1">//fmt.Println(resp.Kvs)
 </span><span class="c1"></span>	<span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="七集群监控与leader竞选">七、集群监控与Leader竞选。</h1>
+</code></pre></div><h1 id="七集群监控与leader竞选">七、集群监控与Leader竞选。</h1>
 <p>通过etcd来进行监控实现起来非常简单并且实时性强。</p>
 <ol>
 <li>Watcher机制，当某个节点消失或有变动时，Watcher会第一时间发现并告知用户。</li>

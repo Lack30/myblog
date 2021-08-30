@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">Scst在线扩容 - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="Scst在线扩容" />
-<meta property="og:description" content="SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
+<meta property="og:description" content="SCST 共享的磁盘支持在线扩容。操作如下：
+scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性
 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客户端 重新扫描 target
 iscsiadm -m node --target &lt;target_name&gt; -R 扩展磁盘容量，如果磁盘存储 mount 状态则先 umount。
-resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。 FC 客户端 重新扫描 FC host
+resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。
+FC 客户端 重新扫描 FC host
 echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如上。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/posts/linux/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/" /><meta property="article:section" content="posts" />
@@ -19,11 +21,13 @@ echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如�
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Scst在线扩容"/>
-<meta name="twitter:description" content="SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
+<meta name="twitter:description" content="SCST 共享的磁盘支持在线扩容。操作如下：
+scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性
 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客户端 重新扫描 target
 iscsiadm -m node --target &lt;target_name&gt; -R 扩展磁盘容量，如果磁盘存储 mount 状态则先 umount。
-resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。 FC 客户端 重新扫描 FC host
+resize2fs /dev/sdX e2fsck -f /dev/sdX resize2fs /dev/sdX 重新挂载，使用 df 即可发现磁盘的容量被修改。
+FC 客户端 重新扫描 FC host
 echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如上。"/>
 <meta name="application-name" content="lack 的个人博客">
 <meta name="apple-mobile-web-app-title" content="lack 的个人博客">
@@ -44,9 +48,9 @@ echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如�
         },"genre": "posts","keywords": "iscsi","wordcount":  63 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9\/","datePublished": "2020-04-09T14:59:25+08:00","dateModified": "2020-04-09T14:59:25+08:00","publisher": {
             "@type": "Organization",
-            "name": "作者"},"author": {
+            "name": "Lack"},"author": {
                 "@type": "Person",
-                "name": "作者"
+                "name": "Lack"
             },"description": ""
     }
     </script></head>
@@ -98,7 +102,7 @@ echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如�
         <div class="toc-content" id="toc-content-auto"></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Scst在线扩容</h1><div class="post-meta">
             <div class="post-meta-line">
-                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-04-09">2020-04-09</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-04-09">2020-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 63 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
@@ -108,23 +112,20 @@ echo &#34;- - -&#34; &gt; /sys/class/scst_host/hostX/scan 扩展磁盘容量如�
                     <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p>SCST 共享的磁盘支持在线扩容。操作如下：
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+            </div><div class="content" id="content"><p>SCST 共享的磁盘支持在线扩容。操作如下：</p>
 <h1 id="scst-服务端">scst 服务端</h1>
 <p>首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">zfs <span class="nb">set</span> <span class="nv">volsize</span><span class="o">=</span>20G tank/vol
 </code></pre></div><p>修改 scst 中 device 的 size 属性</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -set_dev_attr device1 -attributes <span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span> -noprompt
-</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-<h1 id="iscsi-客户端">iscsi 客户端</h1>
+</code></pre></div><h1 id="iscsi-客户端">iscsi 客户端</h1>
 <p>重新扫描 target</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">iscsiadm -m node --target &lt;target_name&gt; -R
 </code></pre></div><p>扩展磁盘容量，如果磁盘存储 mount 状态则先 umount。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">resize2fs /dev/sdX
 e2fsck -f /dev/sdX
 resize2fs /dev/sdX
-</code></pre></div><p>重新挂载，使用 <code>df</code> 即可发现磁盘的容量被修改。
-<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+</code></pre></div><p>重新挂载，使用 <code>df</code> 即可发现磁盘的容量被修改。</p>
 <h1 id="fc-客户端">FC 客户端</h1>
 <p>重新扫描 FC host</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/hostX/scan

@@ -7,7 +7,7 @@
     <title>Aix添加和删除Iscsi存储卷</title>
     <link>http://xingyys.tech/posts/aix/aix1/</link>
     <pubDate>Tue, 22 Oct 2019 15:12:53 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/aix/aix1/</guid>
     <description><![CDATA[Aix为6.1版本
  使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
