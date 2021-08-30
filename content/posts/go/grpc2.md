@@ -12,13 +12,13 @@ categories:
 
 grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。<br />
 
-<a name="9b0314d3"></a>
+
 # GRPC 进阶功能
 > 每个grpc请求都是 stream。
 
 
 
-<a name="Keepalive"></a>
+
 ## Keepalive
 Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。<br />先给出实例的代码在来说明 grpc keepalive 的使用情况：<br />server 实现：<br />
 
@@ -114,7 +114,7 @@ func main() {
 
 
 
-<a name="c3c8ae55"></a>
+
 ## 请求重试
 grpc 支持请求重试，在客户端配置好规则之后，客户端会在请求失败之后尝试重新发起请求。<br />
 
@@ -150,7 +150,7 @@ func retryDial() (*grpc.ClientConn, error) {
 
 
 
-<a name="4eaa6f6d"></a>
+
 ## 负载均衡
 grpc 支持客户端负载均衡策略，负载均衡在 grpc name_resolver 的基础上实现：<br />
 
@@ -372,11 +372,11 @@ func (r *etcdResolver) FetchBackends() []resolver.Address {
 ```
 
 
-<a name="5ea12b92"></a>
+
 ## grpc 加密传输
 
 <br />以上的请求中，grpc 都是通过明文传输数据。但这种方式是很容易泄露数据内容的，grpc 支持 TLS 格式的加密通讯，来保存数据传输的安全性。
-<a name="fa5a64de"></a>
+
 ### TLS 证书
 我们首先来生成 TLS 证书<br />
 
@@ -463,7 +463,7 @@ func main() {
 ```
 
 
-<a name="91110f84"></a>
+
 ### CA TLS 证书
 
 <br />TLS 证书的安全性还不够高，特别在证书生成之后，`server.key`文件的传输就成为一个问题。所以 CA 来签发 TLS 证书来解决这个问题。使用开源工具 [cfssl](https://github.com/cloudflare/cfssl/releases) 生成对应的证书：<br />[1.ca](http://1.ca/) 配置<br />
@@ -663,7 +663,7 @@ func main() {
 ```
 
 
-<a name="f7ae864d"></a>
+
 ## 拦截器
 
 <br />grpc 支持服务端和客户端的拦截器，可以在请求发起或返回前进行处理，而不用修改原来的代码。接下来来看服务端和客户端各自怎么使用拦截器：<br />
@@ -845,7 +845,7 @@ func main() {
 
 <br />grpc 的拦截器同时支持单个拦截器和链式拦截器。<br />
 
-<a name="416b744b"></a>
+
 ## grpc 添加 pprof 接口
 grpc 本身是使用 http2 作为底层协议，所以它也能和 golang 的 pprof 结合提供 pprof 接口。下面给出代码：<br />
 
@@ -917,7 +917,7 @@ func main() {
 ```
 
 
-<a name="35ab2bbe"></a>
+
 ## grpc 请求断开处理
 grpc 的请求没有自己设置请求的超时时间，而是将这部分的处理交给 golang 的 context 包。通过 context 的功能实现客户端的登录超时，请求超时。<br />服务端代码：<br />
 
@@ -1020,7 +1020,7 @@ func main() {
 ```
 
 
-<a name="5b1e28d3"></a>
+
 # GRPC 性能优化
 
 <br />虽然 grpc 的官方自诩是高性能的框架，但是 grpc 内部使用大量的反射，使得 grpc 在性能上并不算很好，所以还是有必要优化。<br />grpc 的优化思路比较简单，不需要直接修改源码，只需要在 protoc 命令生成 golang 代码是，将 golang/protobuf 换成第三方的 [gogo/protobuf](https://github.com/gogo/protobuf) 。<br />gogo库基于官方库开发，增加了很多的功能，包括：

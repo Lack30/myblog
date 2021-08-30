@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["linux", "nginx"]
 categories: ["运维"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -40,7 +40,7 @@ sequenceDiagrams:
 
 ---
 
-<a name="O1fj3"></a>
+
 # 一、需求
 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。<br />实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：<br />
 
@@ -52,7 +52,7 @@ sequenceDiagrams:
 
 
 
-<a name="229ZX"></a>
+
 # 二、环境
 测试环境如下：
 
@@ -61,7 +61,7 @@ sequenceDiagrams:
 
 
 
-<a name="ghclX"></a>
+
 # 三、配置代理
 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110455.png)

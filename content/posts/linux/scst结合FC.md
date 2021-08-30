@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["iscsi"]
 categories: ["运维"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -42,7 +42,7 @@ sequenceDiagrams:
 
 SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 [FC](https://en.wikipedia.org/wiki/Fibre_Channel) 协议。<br />FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看[这里](http://scst.sourceforge.net/qla2x00t-howto.html) 。
 
-<a name="a69f6882"></a>
+
 # 环境配置
 
 接下来 SCST 和 FC 的使用。<br />首先需要有 scst 的环境：
@@ -53,10 +53,10 @@ SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本�
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png)
 <br />2.直接查看 FC 设备的 port_id (`/sys/class/fc_host/hostx/port_name`)，<br />
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png)
-<a name="618af87a"></a>
+
 # 配置 FC
 
-<a name="2034ea04"></a>
+
 ## SCST 服务端配置
 创建 target, FC 设备和 target 一对一。
 ```bash
@@ -88,7 +88,7 @@ scstadmin -enable_target 50:01:10:a0:00:16:bf:30 --driver qla2x00t
 scstadmin -write_config /etc/scst.conf
 ```
 （如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）
-<a name="f4f5ae5e"></a>
+
 ## 客户端配置
 扫描 scst 主机<br />
 

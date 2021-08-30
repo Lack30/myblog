@@ -9,7 +9,7 @@ categories:
  - 数据库
 ---
 
-<a name="mj7Zu"></a>
+
 # 安装
 这里直接使用 docker 安装 postgresql-13
 ```bash
@@ -29,17 +29,17 @@ psql 是 pgsql 的客户端命令，使用参数如下：
 - -h：指定 pgsql 的地址
 - -p：指定 pgsql 的绑定端口
 - -U：指定登录的用户名，默认为 postgres。后面可以紧接 "database"，直接进入指定的数据库。
-<a name="6f0OL"></a>
+
 # 数据库的操作
 postgresql 支持的数据库操作有 增、删、查、改
-<a name="JEDOx"></a>
+
 ## 创建数据库
 创建数据库的命令为： `create database <databasename> [encoding 'UTF-8']` 
 ```sql
 postgres=# create database test encoding 'UTF-8';
 CREATE DATABASE
 ```
-<a name="QyV4r"></a>
+
 ## 查询数据库
 查询数据库的命令有两种：第一种是 `\l` ，只能在 psql 中使用：
 ```sql
@@ -68,20 +68,20 @@ postgres=# select datname from pg_database;
  test
 (5 rows)
 ```
-<a name="towYr"></a>
+
 ## 修改数据库
 修改数据库使用关键字 `alter` 
 ```sql
 postgres=# alter database testx rename to test;
 ALTER DATABASE
 ```
-<a name="qVaX2"></a>
+
 ## 删除数据库
 ```sql
 postgres=# drop database test;
 DROP DATABASE
 ```
-<a name="JmKTV"></a>
+
 ## 选择数据库
 选择数据和切换数据的命令是相同的，使用命令 `\c databasename` 
 ```sql
@@ -90,9 +90,9 @@ You are now connected to database "test" as user "postgres".
 test=# \c postgres;
 You are now connected to database "postgres" as user "postgres".
 ```
-<a name="75TEu"></a>
+
 # 表的操作
-<a name="NHjm2"></a>
+
 ## 创建表
 创建 postgresql 表的语法为：
 ```sql
@@ -116,7 +116,7 @@ testdb=# CREATE TABLE COMPANY (
 );
 CREATE TABLE
 ```
-<a name="sgCTx"></a>
+
 ## 查询表
 查询表使用 `\d` ：
 ```sql
@@ -136,7 +136,7 @@ testdb=# select * from pg_tables where schemaname='public';
  public     | company   | postgres   |            | t          | f        | f           | f
 (2 rows
 ```
-<a name="MJ2ry"></a>
+
 ## 查看表结构
 查看表结构也是使用 `\d` 命令：
 ```sql
@@ -173,7 +173,7 @@ ORDER BY a.attnum;
       5 | salary  | float4 |      4 |        -1 | f       |
 (5 rows)
 ```
-<a name="kFrpI"></a>
+
 ## 修改表结构
 `ALTER TABLE` 语句用于添加、修改、删除表中的列：<br />在现有表中添加列：
 ```sql
@@ -201,14 +201,14 @@ ADD CONSTRAINT MyUniqueConstraint UNIQUE(colume_name1, colume_name2...);
 ALTER TABLE table_name
 DROP CONSTRAINT MyUniqueConstraint UNIQUE;
 ```
-<a name="e47Zh"></a>
+
 ## 删除表
 `DROP` 用于删除表：
 ```sql
 testdb=# drop table company;
 DROP TABLE
 ```
-<a name="FC7I4"></a>
+
 # JSON 类型的支持
 PostgreSQL 支持存储 JSON 类型的数据，提供了两种类型： `json`  和 `jsonb` 。
 

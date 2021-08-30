@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["linux", "终端"]
 categories: ["其他"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -40,11 +40,11 @@ sequenceDiagrams:
 
 ---
 
-<a name="N7v9t"></a>
+
 # 一、介绍
 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。<br />
 
-<a name="Z9Egb"></a>
+
 # 二、安装 oh-my-zsh
 oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。<br />使用 yum 安装 zsh
 
@@ -72,7 +72,7 @@ $ source .zshrc
 # .zshrc 为 zsh 的配置文件
 ```
 
-<a name="CV09J"></a>
+
 # 三、配置 oh-my-zsh
 接下来还要添加额外的功能。oh-my-zsh 支持很多强大的功能，这些功能都是以插件的方式实现。插件放在目录~/.oh-my-zsh/plugins 下。要让插件开始工作还需要在 .zshrc 中配置相关参数。
 
@@ -80,7 +80,7 @@ $ source .zshrc
 plugins=(git textmate ruby autojump osx mvn gradle)
 ```
 
-<a name="ACAu1"></a>
+
 ## autojump
 **作用**<br />目录间快速跳转,不用再一直 `cd` 了 😁<br />**使用 **<br />使用 `autojump` 的缩写 `j`<br />`cd` 命令进入 `~/user/github/Youthink` 文件夹，下一次再想进入 `Yourhink` 文件夹的时候,直接 `j youthink` 即可, 或者只输入 `youthink` 的一部分 `youth` 都行删除无效路径
 
@@ -112,7 +112,7 @@ $ ./install.sh
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 ```
 
-<a name="bPitB"></a>
+
 ## zsh-syntax-highlighting
 **作用**<br/>平常用的`ls`、`cd` 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。
 
@@ -135,7 +135,7 @@ plugins=(其他的插件 zsh-syntax-highlighting)
 source ~/.zshrc
 ```
 
-<a name="pw1oT"></a>
+
 ## zsh-autosuggestions
 **作用**<br />如图输入命令时，会给出建议的命令（灰色部分）按键盘 → 补全<br />
 <br />

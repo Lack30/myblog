@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["golang", "etcd"]
 categories: ["分布式", "代码"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -41,7 +41,7 @@ sequenceDiagrams:
 ---
 
 关于 etcd 的安装和介绍看 [这里](https://www.yuque.com/xingyys/szknb5/at7lql) 。<br />官方的实例可以看 [这里](https://github.com/etcd-io/etcd/tree/master/clientv3)
-<a name="js1se"></a>
+
 # 一、连接
 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 
@@ -98,9 +98,9 @@ func connectTlsAuth() {
 }
 ```
 
-<a name="flvhJ"></a>
+
 # 二、KV 操作
-<a name="Tcnhj"></a>
+
 ## 2.1 简单的 curd
 在连接基础上，接下来就可以对key做操作了。对key做 curd
 
@@ -142,7 +142,7 @@ func kv() {
 }
 ```
 
-<a name="HayW3"></a>
+
 ## 2.2 事务
 使用事务如下：
 
@@ -180,7 +180,7 @@ func txn() {
 }
 ```
 
-<a name="J9jjJ"></a>
+
 ## 2.3 批量操作
 批量指定操作
 
@@ -211,7 +211,7 @@ func do() {
 }
 ```
 
-<a name="5RWWz"></a>
+
 ## 2.3 watch
 监视key
 
@@ -274,9 +274,9 @@ func watchWithProcessNotify() {
 }
 ```
 
-<a name="op4iN"></a>
+
 # 三、lease
-<a name="COWZY"></a>
+
 ## 2.1 创建 lease
 
 ```go
@@ -307,7 +307,7 @@ func grant() {
 }
 ```
 
-<a name="dl46s"></a>
+
 ## 2.2 删除 lease
 
 ```go
@@ -341,7 +341,7 @@ func revoke() {
 }
 ```
 
-<a name="LnDcZ"></a>
+
 ## 2.3 续租
 
 ```go
@@ -385,7 +385,7 @@ func keepAlive() {
 }
 ```
 
-<a name="iG6nS"></a>
+
 ## 2.4 查询 lease
 
 ```go
@@ -430,7 +430,7 @@ func leases() {
 }
 ```
 
-<a name="2LSHk"></a>
+
 # 四、访问控制
 
 ```go
@@ -521,7 +521,7 @@ func auth() {
 }
 ```
 
-<a name="OWRKB"></a>
+
 # 五、集群
 
 ```go
@@ -557,9 +557,9 @@ func member() {
 }
 ```
 
-<a name="ws41n"></a>
+
 # 六、并发
-<a name="LDDT8"></a>
+
 ## 6.1 锁
 
 ```go
@@ -659,7 +659,7 @@ func tryLock() {
 }
 ```
 
-<a name="VQSoN"></a>
+
 ## 6.2 领导选举
 
 ```go
@@ -724,7 +724,7 @@ func election() {
 }
 ```
 
-<a name="1YEdn"></a>
+
 ## 6.3 软件事务内存
 
 ```go

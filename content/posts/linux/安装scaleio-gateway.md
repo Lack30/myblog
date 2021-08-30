@@ -7,41 +7,11 @@ keywords: []
 description: ""
 tags: ["linux", "scaleio"]
 categories: ["存储"]
-author: ""
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: false
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
+author: "Lack"
 ---
 
 scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<br />
-<a name="6NhLo"></a>
+
 # 一、安装
 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
 ```bash
@@ -52,7 +22,7 @@ scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现
 [root@localhost  ~]# netstat -tnlp | grep 80 
 tcp6       0      0 :::80                   :::*                    LISTEN      4225/java
 ```
-<a name="4rT73"></a>
+
 # 二、配置
 安装完gateway还需要配置，gateway的配置有两种方式。
 
@@ -80,7 +50,7 @@ security.bypass_certificate_check=true
 // 记得重启gateway服务
 [root@localhost  ~]# /etc/init.d/scaleio-gateway restart
 ```
-<a name="I1tps"></a>
+
 # 三、验证
 使用浏览器登陆 https://<主机ip>/api/login 验证<br />curl命令验证验证：
 ```bash

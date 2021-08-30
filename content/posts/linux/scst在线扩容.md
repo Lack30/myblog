@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["iscsi"]
 categories: ["运维"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed
@@ -41,7 +41,7 @@ sequenceDiagrams:
 ---
 
 SCST 共享的磁盘支持在线扩容。操作如下：
-<a name="eNUjo"></a>
+
 # scst 服务端
 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。
 ```bash
@@ -51,7 +51,7 @@ zfs set volsize=20G tank/vol
 ```bash
 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt
 ```
-<a name="BPvoN"></a>
+
 # iscsi 客户端
 重新扫描 target
 ```bash
@@ -64,7 +64,7 @@ e2fsck -f /dev/sdX
 resize2fs /dev/sdX
 ```
 重新挂载，使用 `df` 即可发现磁盘的容量被修改。
-<a name="NhF54"></a>
+
 # FC 客户端
 重新扫描 FC host
 ```bash

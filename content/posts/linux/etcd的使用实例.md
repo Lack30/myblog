@@ -19,7 +19,7 @@ etcd 有如下的使用场景：
 - 分布式队列
 - 集群监控于Leader竞选。
 
-<a name="9dUZc"></a>
+
 # 一、服务发现
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110140.png)
 <br />etcd 的常见使用场景之一就是服务发现。实现思路如下：<br />先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 `ip:port` 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。<br />另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。<br />代码的实现如下：
@@ -246,7 +246,7 @@ func main() {
 }
 ```
 
-<a name="PWa0Y"></a>
+
 # 二、消息发布与订阅
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110205.png)
 <br />消息发布和订阅使用的场景也很多的。利用 etcd 的实现思路也很简单：只要消息的发布者向 etcd 发布一系列相同前缀的key，订阅者 watch 指定的前缀即可。<br />代码如下：
@@ -316,7 +316,7 @@ func main() {
 }
 ```
 
-<a name="o6Uft"></a>
+
 # 三、负载均衡
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110220.png)
 <br />etcd 可以配合 grpc 实现负载均衡的功能。可以在服务发现的基础上，利用 grpc 自带的 client 负载均衡实现。首先实现服务发现：
@@ -689,7 +689,7 @@ func main() {
 }
 ```
 
-<a name="UhrqU"></a>
+
 # 四、分布式通知与协调
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110244.png)
 <br />和消息发布与订阅相似，都是用到 etcd 的 watch 机制，通过注册与异步通知机制，实现分布式环境下不同系统之间的通知与协调，从而对数据变更做到实时处理。实现思路如下：不同的系统在 etcd 注册目录，并监控目录下 key 的变化，到检测到变化时，watcher 做出放映。
@@ -745,12 +745,12 @@ func main() {
 }
 ```
 
-<a name="tIa3r"></a>
+
 # 五、分布式锁
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110301.png)
 <br />因为etcd使用Raft算法保持了数据的强一致性，某次操作存储到集群中的值必然是全局一致的，所以很容易实现分布式锁。实现的思路：多个 session 同时使用开启事物抢占同一 key，最先抢到的 session 获得锁，其他 session 等待锁的释放。如果是 trylock，session 在抢不到 session 时不再等待直接报错。<br />在 etcd clientv3的版本中，官方自带锁的实现，支持locks 和 trylock（需要 etcd v3.4.3）示例看 [这里](https://github.com/etcd-io/etcd/blob/master/clientv3/concurrency/example_mutex_test.go)
 
-<a name="V1e7H"></a>
+
 # 六、分布式队列
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110313.png)
 
@@ -880,7 +880,7 @@ func main() {
 }
 ```
 
-<a name="w3ruu"></a>
+
 # 七、集群监控与Leader竞选。
 通过etcd来进行监控实现起来非常简单并且实时性强。
 

@@ -7,7 +7,7 @@ keywords: []
 description: ""
 tags: ["oracle"]
 categories: ["数据库"]
-author: ""
+author: "Lack"
 
 # You can also close(false) or open(true) something for this content.
 # P.S. comment can only be closed

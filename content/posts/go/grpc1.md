@@ -9,19 +9,19 @@ categories:
  - 代码
 ---
 
-<a name="c2864fad"></a>
+
 # GRPC 简介
 
 grpc 是由 google 开发的一款开源，高性能 rpc（[远程进程调用协议](https://zh.wikipedia.org/wiki/%E9%81%A0%E7%A8%8B%E9%81%8E%E7%A8%8B%E8%AA%BF%E7%94%A8)）使用 [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/overview) 作为数据交换格式。
 
 ![grpc.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030101652.png)
 
-<a name="ef344b57"></a>
+
 # GRPC 安装
 
 <br />golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。<br />
 
-<a name="2b441172"></a>
+
 ## 安装grpc-go
 
 
@@ -51,7 +51,7 @@ brew install protobuf
 ```
 
 
-<a name="linux"></a>
+
 ### linux
 
 <br />linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，[下载地址](https://github.com/protocolbuffers/protobuf/releases)。<br />二进制安装的话就下载 protobuf-all-*.tar.gz 包，解压后进入生成的目录。之后执行命令：<br />
@@ -61,16 +61,16 @@ make && make install
 ```
 
 
-<a name="windows"></a>
+
 ### windows
 
 <br />下载 protobuf.all-*.zip 包，解压后再配置环境变量，将 protobuf\bin 配置到 $PATH 变量中。<br />
 
-<a name="24d450f9"></a>
+
 # GRPC使用
 
 
-<a name="a1a9f6e5"></a>
+
 ## 新建项目
 
 <br />新建一个 grpc 项目，如下:<br />
@@ -133,7 +133,7 @@ protoc -I. --go_out=plugins=grpc:. pb/echo.proto
 ```
 
 
-<a name="Server"></a>
+
 ## Server
 
 
@@ -220,7 +220,7 @@ func main() {
 ```
 
 
-<a name="Client"></a>
+
 ## Client
 
 

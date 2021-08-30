@@ -7,52 +7,22 @@ keywords: []
 description: ""
 tags: ["linux"]
 categories: ["随笔"]
-author: ""
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: true
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
+author: "Lack"
 ---
 
-<a name="jomdY"></a>
+
 # 制作rpm包的流程
 
 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包<br />
 
-<a name="qAT7v"></a>
+
 ## 安装需要的软件
 ```bash
 [root@CentOS1  ~]# yum install -y rpm-build
 ```
 执行了以上的命令后我们就这里使用rpmbuild这个命令了。<br />
 
-<a name="U1jWR"></a>
+
 ## 创建rpmbuild
 
 然后就需要创建rpmbuild
@@ -70,7 +40,7 @@ rpmbuild/
 ```
 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。<br />
 
-<a name="8YNQg"></a>
+
 ## 创建helloworld.spec文件
 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
 ```bash
@@ -108,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 rpmbuild/SOURCES/helloworld-1.0.0/
 rpmbuild/SOURCES/helloworld-1.0.0/helloworld
 ```
-<a name="4pBG9"></a>
+
 ## 制作rpm包
 需要的文件都准备好了，就可以制作文件包了。
 ```bash
@@ -118,10 +88,10 @@ rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
 ```
 生成的rpm包就可以使用 rpm -ivh 命令安装了<br />
 
-<a name="BA78V"></a>
+
 # spec文件说明
 接下来说明spec文件的语法规则。<br />一般的spec文件头包含以下几个域：
-<a name="IWZZh"></a>
+
 ## Name
 ```bash
 描述：
@@ -129,7 +99,7 @@ rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
 格式：
 Name:
 ```
-<a name="36APg"></a>
+
 ## Version
 ```bash
 描述：
@@ -137,7 +107,7 @@ Name:
 格式：
 Version:
 ```
-<a name="Release"></a>
+
 ## Release
 ```bash
 描述：
@@ -145,7 +115,7 @@ Version:
 格式：
 Release:
 ```
-<a name="Packager"></a>
+
 ## Packager
 ```bash
 描述：
@@ -153,7 +123,7 @@ Release:
 格式：
 Packager:          youner_liucn@126.com
 ```
-<a name="1neqK"></a>
+
 ## License
 ```bash
 描述：
@@ -161,7 +131,7 @@ Packager:          youner_liucn@126.com
 格式：
 License:          GPL
 ```
-<a name="Vja5v"></a>
+
 ## Summary
 ```bash
 描述：
@@ -169,7 +139,7 @@ License:          GPL
 格式：
 Summary:          
 ```
-<a name="pp2vn"></a>
+
 ## Group
 ```bash
 描述：
@@ -207,7 +177,7 @@ UserInterface/Desktops（用户界面/桌面）
 User Interface/X（用户界面/X窗口）
 User Interface/XHardware Support （用户界面/X硬件支持）
 ```
-<a name="Source0"></a>
+
 ## Source0
 ```bash
 描述：
@@ -215,7 +185,7 @@ User Interface/XHardware Support （用户界面/X硬件支持）
 格式：
 Source0:       %{name}-%{version}.tar.gz
 ```
-<a name="2FKle"></a>
+
 ## BuildRoot
 ```bash
 描述：
@@ -225,7 +195,7 @@ Source0:       %{name}-%{version}.tar.gz
 格式：
 BuildRoot：%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 ```
-<a name="URL"></a>
+
 ## URL
 ```bash
 描述：
@@ -233,7 +203,7 @@ BuildRoot：%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 格式：
 URL:
 ```
-<a name="gpEE9"></a>
+
 ##  Vendor
 ```bash
 描述：
@@ -241,7 +211,7 @@ URL:
 格式：
 Vendor: <RedFlag Co,Ltd>
 ```
-<a name="xdEMN"></a>
+
 ## Provides
 ```bash
 描述：
@@ -250,9 +220,7 @@ Vendor: <RedFlag Co,Ltd>
 Provides:
 ```
 描述：<br />指明本软件一些特定的功能，以便其他rpm识别<br />格式：<br />Provides: 
-<a name="mlx59"></a>
-## 
-<a name="3RKE2"></a>
+
 ## 依赖关系
 依赖关系定义了一个包正常工作需要依赖的其他包，RPM在升级、安装和删除的时候会确保依赖关系得到满足。rpm支持4种依赖：
 
@@ -272,7 +240,7 @@ Provides:
 大部分时候，capability应该是所依赖的包的名称。一行中也可以定义多个依赖，比如： `Requires: tbsys tbnet` 
 在指定依赖关系的时候还可以指定版本号，比如:`Requires: tbsys >= 2.0` 
 
-<a name="Requires"></a>
+
 ## Requires
 ```bash
 描述：
@@ -288,7 +256,7 @@ Requires: perl(Carp)>=3.2         # 需要perl模块Carp
 PreReq: capability>=version      # capability包必须先安装
 Conflicts:bash>=2.0              # 该包和所有不小于2.0的bash包有冲突
 ```
-<a name="HZZKo"></a>
+
 ## BuildRequires
 ```bash
 描述：
@@ -297,18 +265,18 @@ Conflicts:bash>=2.0              # 该包和所有不小于2.0的bash包有冲�
 BuildRequires: zlib-devel
 依赖包格式：
 ```
-<a name="ac5ba80b"></a>
+
 ## 说明%description
 ```bash
 软件包详细说明，可写在多个行上。
 %description
 Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 ```
-<a name="IHVlp"></a>
+
 ## 预处理%prep
 预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。<br />作用：<br />用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。<br />检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。<br />它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。<br />
 
-<a name="tJwQH"></a>
+
 ### 宏%setup
 
 这个宏解压源代码，将当前目录改为源代码解压之后产生的目录。这个宏还有一些选项可以用。例如，在解压后，%setup 宏假设产生的目录是%{name}-%{version}<br />如果 tar 打包中的目录不是这样命名的，可以用 -n 选项来指定要切换到的目录。例如：
@@ -323,7 +291,7 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 - %setup -T -b 0        //解开第一个源程序文件。
 -%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。<br />
 
-<a name="EgjfN"></a>
+
 ### 宏%patch
 这个宏将头部定义的补丁应用于源代码。如果定义了多个补丁，它可以用一个数字的参数来指示应用哪个补丁文件。它也接受 -b extension 参数，指示 RPM 在打补丁之前，将文件备份为扩展名是 extension 的文件。
 - %patch N  ：这里N是数字，表示使用第N个补丁文件，等价于%patch-P N
@@ -332,7 +300,7 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 - -bname    ：在加入补丁文件之前，将源文件名上加入name。若为指定此参数，则缺省源文件加入.orig。
 - -T        ：将所有打补丁时产生的输出文件删除
 
-<a name="JIPk7"></a>
+
 ## 编译%build
 
 定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。<br />作用：<br />在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。<br />如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。<br />如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。<br />软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。<br />环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：
@@ -348,7 +316,7 @@ makeCFLAGS="$RPM_OPT_FLAGS"
 -O2 -g-march=i386 -mcpu=i686
 ```
 
-<a name="YYTm1"></a>
+
 ## 安装%install
 
 定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。<br />作用：<br />这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。<br />在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：`Buildroot:%{_tmppath}/%{name}-buildroot`
@@ -366,7 +334,7 @@ rm -rf$RPM_BUILD_ROOT
 ```
 如果有的话，在制作了在 Install 段落中安装的文件的打包之后，将运行 %clean，保证下次构建之前 Buildroot 被清空。
 
-<a name="b7a37f7d"></a>
+
 ## 清理%clean
 
 ```bash
@@ -374,7 +342,7 @@ rm -rf$RPM_BUILD_ROOT
 rm-rf $RPM_BUILD_ROOT
 ```
 
-<a name="0SFVh"></a>
+
 ## 文件%files
 
 定义软件包所包含的文件，分为三类：说明文档（doc），配置文件（config）及执行程序，还可定义文件存取权限，拥有者及组别。
@@ -383,12 +351,12 @@ rm-rf $RPM_BUILD_ROOT
 
 %defattr (-,root,root) 指定包装文件的属性，分别是(mode,owner,group)，-表示默认值，对文本文件是0644，可执行文件是0755
 
-<a name="GerxY"></a>
+
 ##  更新日志%changelog
 
 每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。<br />
 
-<a name="K7wiA"></a>
+
 # 更复杂的spec
 ```bash
 Name:           oracle-agent
@@ -445,7 +413,7 @@ rm -rf $RPM_BUILD_ROOT/opt/howlink/oracle-agent
 systemctl stop oracle-agent
 %changelog
 ```
-<a name="0b96aae9"></a>
+
 # 问题汇总
 
 rpmbuild报error: Installed (but unpackaged) file(s) found的问题
