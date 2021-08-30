@@ -4,7 +4,7 @@ date: 2021-08-30T17:49:19+08:00
 lastmod: 2021-08-30T17:49:19+08:00
 draft: false
 description: ""
-featuredImage: "20210830184359"
+featuredImage: "https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210830185536.png"
 tags: 
  - oracle
 categories: 
