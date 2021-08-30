@@ -7,7 +7,7 @@
     <title>Flask与Vue的token认证</title>
     <link>http://xingyys.tech/posts/python/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</link>
     <pubDate>Wed, 20 Sep 2017 15:36:05 &#43;0800</pubDate><author>
-        <name>作者</name>
+        <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/python/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/</guid>
     <description><![CDATA[后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。
  感谢两篇文章的作者：
