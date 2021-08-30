@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>aix on lack 的个人博客</title>
-    <link>http://xingyys.tech/tags/aix/</link>
-    <description>Recent content in aix on lack 的个人博客</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Tue, 22 Oct 2019 15:12:53 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/aix/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Aix添加和删除Iscsi存储卷</title>
-      <link>http://xingyys.tech/post/aix1/</link>
-      <pubDate>Tue, 22 Oct 2019 15:12:53 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/aix1/</guid>
-      <description>Aix为6.1版本 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。 检查iscsi是否被安装 1 2 3 4 5 $ lslpp -L</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>aix - 标签 - lack 的个人博客</title>
+        <link>http://xingyys.tech/tags/aix/</link>
+        <description>aix - 标签 - lack 的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 22 Oct 2019 15:12:53 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/aix/" rel="self" type="application/rss+xml" /><item>
+    <title>Aix添加和删除Iscsi存储卷</title>
+    <link>http://xingyys.tech/posts/aix1/</link>
+    <pubDate>Tue, 22 Oct 2019 15:12:53 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/aix1/</guid>
+    <description><![CDATA[Aix为6.1版本
+ 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
+检查iscsi是否被安装 $ lslpp -L | grep -i iscsi devices.common.IBM.iscsi.rte 6.1.5.0 C F Common iSCSI Files devices.iscsi.disk.rte 6.1.5.0 C F iSCSI Disk Software ... 配置iscsi $ vi /etc/iscsi/targets ... # 添加target 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup 重新扫盘 $ cfgmgr -l iscsi0 cfgmgr: 0514-621 WARNING: The following device packages are required for device support but are not currently installed. devices.iscsi.array 查看iscsi盘 $ lsdev -Cc disk | grep iSCSI hdisk18 Available Other iSCSI Disk Drive 创建物理卷 $ chdev -l hdisk18 -a pv=yes 创建vg $ mkvg -y wbrt_portal_bg hdisk18 创建lv $ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg 700  注:lv的大小可以使用命令 $ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F' ' '{ print $6}' 703 但不要全部使用，需要一些剩余空间。]]></description>
+</item></channel>
 </rss>

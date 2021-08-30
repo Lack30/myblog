@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>oracle on lack 的个人博客</title>
-    <link>http://xingyys.tech/tags/oracle/</link>
-    <description>Recent content in oracle on lack 的个人博客</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Wed, 21 Aug 2019 16:57:58 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/oracle/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>开启oracle的闪回功能</title>
-      <link>http://xingyys.tech/post/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Wed, 21 Aug 2019 16:57:58 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</guid>
-      <description>查看是否开启闪回 1 2 3 4 5 SQL&amp;gt; select flashback_on from v$database; FLASHBACK_ON ------------------ NO 查看是否配置了db_recover_file_dest 1 2 3 4 5 6 SQL&amp;gt; show parameter db_recovery NAME TYPE VALUE ------------------------------------ ----------- ------------------------------ db_recovery_file_dest string db_recovery_file_dest_size big integer 0</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>oracle - 标签 - lack 的个人博客</title>
+        <link>http://xingyys.tech/tags/oracle/</link>
+        <description>oracle - 标签 - lack 的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 21 Aug 2019 16:57:58 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/oracle/" rel="self" type="application/rss+xml" /><item>
+    <title>开启oracle的闪回功能</title>
+    <link>http://xingyys.tech/posts/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</link>
+    <pubDate>Wed, 21 Aug 2019 16:57:58 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</guid>
+    <description><![CDATA[查看是否开启闪回
+SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ NO查看是否配置了db_recover_file_dest
+SQL&gt;showparameterdb_recoveryNAMETYPEVALUE------------------------------------ ----------- ------------------------------ db_recovery_file_deststringdb_recovery_file_dest_sizebiginteger0没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致
+mkdir /u01/flashback chown oracle:oinstall /u01/flashback SQL&gt;altersystemsetdb_recovery_file_dest_size=30Gscope=both;SQL&gt;altersystemsetdb_recovery_file_dest=&#39;/u01/flashback&#39;scope=both;Systemaltered.关闭 oracle
+SQL&gt;shutdownimmediate;Databaseclosed.Databasedismounted.ORACLEinstanceshutdown.启动到 mount 状态
+SQL&gt;startupmount;ORACLEinstancestarted.TotalSystemGlobalArea1603411968bytesFixedSize2253664bytesVariableSize905972896bytesDatabaseBuffers687865856bytesRedoBuffers7319552bytesDatabasemounted.开启 archeve log
+SQL&gt;alterdatabasearchivelog;Databasealtered.开启闪回功能
+SQL&gt;alterdatabaseflashbackon;Databasealtered.启动数据库到 open 状态
+SQL&gt;alterdatabaseopen;Databasealtered.SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ YES]]></description>
+</item></channel>
 </rss>

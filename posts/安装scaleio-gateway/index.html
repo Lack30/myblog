@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">安装scaleio Gateway - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="安装scaleio Gateway" />
+<meta property="og:description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：一、安装 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
+# 先配置gateway admin用户的密码 [root@localhost ~]# export GATEWAY_ADMIN_PASSWORD=Scale10  [root@localhost ~]# rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm  # 安装成功后服务默认启动，绑定在端口80 [root@localhost ~]# netstat -tnlp | grep 80  tcp6 0 0 :::80 :::* LISTEN 4225/java 二、配置 安装完gateway还需要配置，gateway的配置有两种方式。
+ 使用浏览器配置。 直接修改配置文件。  使用浏览器配置使用浏览器输入地址 https://&lt;主机ip&gt;，输入用户名密码(admin/Scale10)后登陆 输入后直接修改配置文件
+[root@localhost ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties  // 修改以下字段 // scaleio管理的ip地址，使用,或;隔开 mdm.ip.addresses=192.168.3.200;192.168.3.201 // 允许非加密的通讯 gateway-security.allow_non_secure_communication=true // 防止主从切换中gateway错误 security.bypass_certificate_check=true // 记得重启gateway服务 [root@localhost ~]# /etc/init.d/scaleio-gateway restart 三、验证 使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证curl命令验证验证：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/posts/%E5%AE%89%E8%A3%85scaleio-gateway/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-08-31T15:27:24+08:00" />
+<meta property="article:modified_time" content="2018-08-31T15:27:24+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="安装scaleio Gateway"/>
+<meta name="twitter:description" content="scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：一、安装 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
+# 先配置gateway admin用户的密码 [root@localhost ~]# export GATEWAY_ADMIN_PASSWORD=Scale10  [root@localhost ~]# rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm  # 安装成功后服务默认启动，绑定在端口80 [root@localhost ~]# netstat -tnlp | grep 80  tcp6 0 0 :::80 :::* LISTEN 4225/java 二、配置 安装完gateway还需要配置，gateway的配置有两种方式。
+ 使用浏览器配置。 直接修改配置文件。  使用浏览器配置使用浏览器输入地址 https://&lt;主机ip&gt;，输入用户名密码(admin/Scale10)后登陆 输入后直接修改配置文件
+[root@localhost ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties  // 修改以下字段 // scaleio管理的ip地址，使用,或;隔开 mdm.ip.addresses=192.168.3.200;192.168.3.201 // 允许非加密的通讯 gateway-security.allow_non_secure_communication=true // 防止主从切换中gateway错误 security.bypass_certificate_check=true // 记得重启gateway服务 [root@localhost ~]# /etc/init.d/scaleio-gateway restart 三、验证 使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证curl命令验证验证："/>
+<meta name="application-name" content="lack 的个人博客">
+<meta name="apple-mobile-web-app-title" content="lack 的个人博客">
+
+<meta name="theme-color" content="#ffffff"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://xingyys.tech/posts/%E5%AE%89%E8%A3%85scaleio-gateway/" /><link rel="prev" href="http://xingyys.tech/posts/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" /><link rel="next" href="http://xingyys.tech/posts/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "安装scaleio Gateway",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/posts\/%E5%AE%89%E8%A3%85scaleio-gateway\/"
+        },"genre": "posts","keywords": "linux, scaleio","wordcount":  72 ,
+        "url": "http:\/\/xingyys.tech\/posts\/%E5%AE%89%E8%A3%85scaleio-gateway\/","datePublished": "2018-08-31T15:27:24+08:00","dateModified": "2018-08-31T15:27:24+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let themeColorMeta = getMeta('theme-color');
+        if (document.body.getAttribute('theme') != 'light') themeColorMeta.content = '#000000';
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">安装scaleio Gateway</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AD%98%E5%82%A8/"><i class="far fa-folder fa-fw"></i>存储</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2018-08-31">2018-08-31</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2018-08-31">2018-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 72 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<!-- raw HTML omitted -->
+<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h1 id="一安装">一、安装</h1>
+<p>1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 先配置gateway admin用户的密码</span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># export GATEWAY_ADMIN_PASSWORD=Scale10 </span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm </span>
+<span class="c1"># 安装成功后服务默认启动，绑定在端口80</span>
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># netstat -tnlp | grep 80 </span>
+tcp6       <span class="m">0</span>      <span class="m">0</span> :::80                   :::*                    LISTEN      4225/java
+</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h1 id="二配置">二、配置</h1>
+<p>安装完gateway还需要配置，gateway的配置有两种方式。</p>
+<ul>
+<li>使用浏览器配置。</li>
+<li>直接修改配置文件。</li>
+</ul>
+<p>使用浏览器配置<!-- raw HTML omitted -->使用浏览器输入地址 https://&lt;主机ip&gt;，输入用户名密码(admin/Scale10)后登陆 <!-- raw HTML omitted -->
+<img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png"
+    />
+<!-- raw HTML omitted -->输入后<!-- raw HTML omitted -->
+<img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png"
+    />
+<!-- raw HTML omitted -->
+<img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png"
+    />
+<!-- raw HTML omitted -->直接修改配置文件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties </span>
+// 修改以下字段
+// scaleio管理的ip地址，使用,或<span class="p">;</span>隔开
+mdm.ip.addresses<span class="o">=</span>192.168.3.200<span class="p">;</span>192.168.3.201
+// 允许非加密的通讯
+gateway-security.allow_non_secure_communication<span class="o">=</span><span class="nb">true</span>
+// 防止主从切换中gateway错误
+security.bypass_certificate_check<span class="o">=</span><span class="nb">true</span>
+// 记得重启gateway服务
+<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># /etc/init.d/scaleio-gateway restart</span>
+</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h1 id="三验证">三、验证</h1>
+<p>使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证<!-- raw HTML omitted -->curl命令验证验证：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># curl -k --user admin:Scale10 https://192.168.3.107/api/login</span>
+<span class="s2">&#34;YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA&#34;</span>
+</code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2018-08-31</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">linux</a>,&nbsp;<a href="/tags/scaleio/">scaleio</a></section>
+        <section>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/" class="prev" rel="prev" title="CentOS下kvm安装"><i class="fas fa-angle-left fa-fw"></i>CentOS下kvm安装</a>
+            <a href="/posts/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/" class="next" rel="next" title="配置七牛云存储外链">配置七牛云存储外链<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span></div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script></div>
+</body>
+
+</html>

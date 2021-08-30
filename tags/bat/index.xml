@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>bat on lack 的个人博客</title>
-    <link>http://xingyys.tech/tags/bat/</link>
-    <description>Recent content in bat on lack 的个人博客</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Fri, 22 Mar 2019 15:06:27 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/bat/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Windows Bat总结</title>
-      <link>http://xingyys.tech/post/bat/</link>
-      <pubDate>Fri, 22 Mar 2019 15:06:27 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/bat/</guid>
-      <description>最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。 基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>bat - 标签 - lack 的个人博客</title>
+        <link>http://xingyys.tech/tags/bat/</link>
+        <description>bat - 标签 - lack 的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Mar 2019 15:06:27 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/bat/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows Bat总结</title>
+    <link>http://xingyys.tech/posts/bat/</link>
+    <pubDate>Fri, 22 Mar 2019 15:06:27 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/bat/</guid>
+    <description><![CDATA[最近项目需要再 windows 上做开发，而且一些自动化的处理需要使用 windows 的的脚本。所以做些记录，防止遗忘。
+基本的语法 首先从基础开始吧，之前都是使用 linux bash 的。可以说 windows bat 脚本和 linux bash 脚本还是有很多区别的。
+设置变量 变量设置使用的命令为set。
+set a=&#34;hello world&#34; echo %a% 从上面的脚本中可以知道，使用set来设置变量，语法为set var=&lt;值&gt;。如果要引用这个变量的话就使用%var%。
+ 注：bat 脚本不能像 bash 中一样设置临时变量，只用将变量设置为环境变量。
+ set命令的功能还是比较强大的，比如获取从键盘中输入的字符：
+set /p a=&#34;Input a number:&#34; echo %a% 支持算术：
+set /a a=1+2 echo %a% set /a a-=1 echo %a% set /a a*=3 echo %a% set /a a/=3 echo %a% 这个关键在于set /a 还有字符串的修改和截取：
+:::::::::: 字符串的截取 :::::::::: set a=Hello Windows Bat :: 截取所有 set a=%a:~0% :: 截取指定的 set a=%a:~1,-1% set a=%a:~2,4% :::::::::: 字符串的替换 :::::::::: set a=Hello Windows :: 将Windows替换成Linux set a=%a:Windows=Linux% 注释 bat 中能实现注释功能的有两个::和rem。 它们的不同点是：rem是一条命令，在运行的时候相当于把rem本身及其后面的内容置空。既然它是一条命令，就必须处于单独的一行或者有类似 &ldquo;&amp;&rdquo; 的连接符号连接。 bat 遇到以冒号 &ldquo;:&rdquo; 开头的行时（忽略冒号前的空格），会将其后的语句识别为“标记”而不是命令语句，因此类似 &ldquo;:label&rdquo; 这样的在 bat 中仅仅是一个标记。]]></description>
+</item></channel>
 </rss>

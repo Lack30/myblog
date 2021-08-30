@@ -1,137 +1,115 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>linux on lack 的个人博客</title>
-    <link>http://xingyys.tech/tags/linux/</link>
-    <description>Recent content in linux on lack 的个人博客</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 31 Jan 2021 10:38:28 +0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/linux/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>KVM镜像管理工具libguestfs</title>
-      <link>http://xingyys.tech/post/kvm/libguestfs/</link>
-      <pubDate>Sun, 31 Jan 2021 10:38:28 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/libguestfs/</guid>
-      <description>简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安装 libguestfs : 1 yum install -y libguestfs-tool libguestfs-devel 默认不支持修改 windows 镜像</description>
-    </item>
-    
-    <item>
-      <title>qemu-img命令使用</title>
-      <link>http://xingyys.tech/post/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Sun, 17 Jan 2021 22:35:06 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
-      <description>qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致</description>
-    </item>
-    
-    <item>
-      <title>KVM之虚拟机管理</title>
-      <link>http://xingyys.tech/post/kvm/kvm_vm/</link>
-      <pubDate>Wed, 06 Jan 2021 22:58:06 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/kvm_vm/</guid>
-      <description>本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命</description>
-    </item>
-    
-    <item>
-      <title>KVM介绍</title>
-      <link>http://xingyys.tech/post/kvm/kvm_detail/</link>
-      <pubDate>Mon, 04 Jan 2021 22:45:23 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/kvm_detail/</guid>
-      <description>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu</description>
-    </item>
-    
-    <item>
-      <title>CentOS7 安装 qemu-5.2.0</title>
-      <link>http://xingyys.tech/post/kvm/centos7_install_qemu/</link>
-      <pubDate>Sun, 27 Dec 2020 22:22:25 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/centos7_install_qemu/</guid>
-      <description>本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1</description>
-    </item>
-    
-    <item>
-      <title>linux 安装 oh-my-zsh</title>
-      <link>http://xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
-      <pubDate>Sun, 09 Feb 2020 15:23:20 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
-      <description>一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh</description>
-    </item>
-    
-    <item>
-      <title>Nginx多组代理配置</title>
-      <link>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Wed, 31 Jul 2019 15:25:05 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
-      <description>一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问</description>
-    </item>
-    
-    <item>
-      <title>制作rpm包</title>
-      <link>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
-      <pubDate>Wed, 29 May 2019 17:34:45 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
-      <description>制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。</description>
-    </item>
-    
-    <item>
-      <title>linux上使用udev创建裸设备</title>
-      <link>http://xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
-      <pubDate>Sat, 26 Jan 2019 08:28:36 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/post/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
-      <description>需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需</description>
-    </item>
-    
-    <item>
-      <title>iscsi共享磁盘服务</title>
-      <link>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
-      <pubDate>Sat, 26 Jan 2019 08:28:08 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/post/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
-      <description>iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又</description>
-    </item>
-    
-    <item>
-      <title>安装scaleio Gateway</title>
-      <link>http://xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</link>
-      <pubDate>Fri, 31 Aug 2018 15:27:24 +0800</pubDate>
-      
-      <guid>http://xingyys.tech/post/%E5%AE%89%E8%A3%85scaleio-gateway/</guid>
-      <description>scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置： 一</description>
-    </item>
-    
-    <item>
-      <title>CentOS下kvm安装</title>
-      <link>http://xingyys.tech/post/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</link>
-      <pubDate>Sat, 30 Jun 2018 16:16:02 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/post/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/</guid>
-      <description>注：运行kvm保证机器支持虚拟化且在bios中开启。 准备工作 清除iptables规则 1 2 3 4 # CentOS6 service iptables stop; service iptables save # CentOS7 systemctl stop firewalld 关闭selinux 1 2</description>
-    </item>
-    
-    <item>
-      <title>搭建lnmp环境</title>
-      <link>http://xingyys.tech/post/lnmp/</link>
-      <pubDate>Thu, 31 May 2018 09:57:17 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/post/lnmp/</guid>
-      <description>lnmp即：nginx + mysql + php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析p</description>
-    </item>
-    
-    <item>
-      <title>搭建lamp环境</title>
-      <link>http://xingyys.tech/post/lamp/</link>
-      <pubDate>Thu, 31 May 2018 09:13:23 +0000</pubDate>
-      
-      <guid>http://xingyys.tech/post/lamp/</guid>
-      <description>lamp即 apache + mysql + php，是互联网常用架构。 要注意的是php依赖apache和mysql，所以要最后安装。系统环境为CentOS6.5 安装m</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>linux - 标签 - lack 的个人博客</title>
+        <link>http://xingyys.tech/tags/linux/</link>
+        <description>linux - 标签 - lack 的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 31 Jan 2021 10:38:28 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>KVM镜像管理工具libguestfs</title>
+    <link>http://xingyys.tech/posts/kvm/libguestfs/</link>
+    <pubDate>Sun, 31 Jan 2021 10:38:28 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/kvm/libguestfs/</guid>
+    <description><![CDATA[简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。
+安装 直接使用 yum 安装 libguestfs :
+yum install -y libguestfs-tool libguestfs-devel 默认不支持修改 windows 镜像，可以安装 libguestfs-winsupport :
+yum install -y libguestfs-winsupport libguestfs 命令 libguestfs 的通用参数
+ -a|&ndash;add image : 指定查看的镜像文件路径 -c|&ndash;connect uri : 指定远程 libvirt 地址 -d|&ndash;domain guest : 指定 libvirt 上的 domain 名称   注: libguestfs 的命令需要调用 libvirt 所以响应的速度会比较慢。同时，如果命令会修改镜像的内容，需要先关闭域，避免造成数据不同步。
+ virt-inspector virt-inspector 命令用来查看镜像信息，输出格式为 xml
+$ virt-inspector -d centos &lt;?xml version=&#34;1.0&#34;?&gt; &lt;operatingsystems&gt; &lt;operatingsystem&gt; &lt;root&gt;/dev/centos/root&lt;/root&gt; &lt;name&gt;linux&lt;/name&gt; &lt;arch&gt;x86_64&lt;/arch&gt; &lt;distro&gt;centos&lt;/distro&gt; &lt;product_name&gt;CentOS Linux release 7.]]></description>
+</item><item>
+    <title>qemu-img命令使用</title>
+    <link>http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Sun, 17 Jan 2021 22:35:06 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。
+ 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致数据不一致甚至导致磁盘损坏。
+ qemu-img 基本命令 check 语法: check [-f fmt] filename
+对磁盘镜像文件进行一致性检查，查找镜像文件中的错误，目前仅支持对“qcow2”、“qed”、“vdi”格式文件的检查。其中，qcow2 是 QEMU 0.8.3版本引入的镜像文件格式，也是目前使用最广泛的格式。qed（QEMU enhanced disk）是从 QEMU 0.14 版开始加入的增强磁盘文件格式，为了避免 qcow2 格式的一些缺点，也为了提高性能，不过目前还不够成熟。而 vdi（Virtual Disk Image）是 Oracle 的 VirtualBox 虚拟机中的存储格式。参数-f fmt 是指定文件的格式，如果不指定格式 qemu-img 会自动检测，filename 是磁盘镜像文件的名称（包括路径）。
+# qemu-img check -f qcow2 sdb.qcow2 No errors were found on the image. Image end offset: 524288 create 语法: create [-f fmt] [-o options] filename [size]
+创建一个格式为 fmt，大小为 size，文件名为filename 的镜像文件。根据文件格式 fmt 的不同，还可以添加一个或多个选项（options）来附加对该文件的各种功能设置，可以使用“-o ?]]></description>
+</item><item>
+    <title>KVM之虚拟机管理</title>
+    <link>http://xingyys.tech/posts/kvm/kvm_vm/</link>
+    <pubDate>Wed, 06 Jan 2021 22:58:06 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/kvm/kvm_vm/</guid>
+    <description><![CDATA[本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容
+ 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命令：
+virt-install \  --name centos \  --ram 1024 \  --disk path=/data/kvm/centos.img,size=20 \  --vcpus 1 \  --os-type linux --os-variant rhel7 \  --network bridge=br0 \  --graphics vnc,listen=0.0.0.0,port=5999 --noautoconsole \  --console pty,target_type=serial \  --cdrom CentOS-7-x86_64-DVD-1810.iso 进入安装流程：
+# virsh list --all Id 名称 状态 ---------------------------------------------------- 2 centos running 可以使用 vnc 客户端连接虚拟机。
+参数说明：
+ -–name 指定虚拟机的名字 –-ram 指定内存分配多少 –-disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考 http://www.]]></description>
+</item><item>
+    <title>KVM介绍</title>
+    <link>http://xingyys.tech/posts/kvm/kvm_detail/</link>
+    <pubDate>Mon, 04 Jan 2021 22:45:23 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/kvm/kvm_detail/</guid>
+    <description><![CDATA[KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
+KVM 和 Qemu Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。
+全虚拟化和半虚拟化 全虚拟化是指不需要修改操作系统内核实现虚拟化功能，半虚拟化则需要修改内核来实现虚拟化。
+KVM 就是一种半虚拟化实现。
+全虚拟化又分为软件全虚拟化 (Qemu) 和硬件全虚拟化(Xen)。
+KVM 工具集合  libvirt：操作和管理KVM虚机的虚拟化 API，使用 C 语言编写，可以由 Python,Ruby, Perl, PHP, Java 等语言调用。可以操作包括 KVM，vmware，XEN，Hyper-v, LXC 等在内的多种 Hypervisor。 Virsh：基于 libvirt 的 命令行工具 （CLI） Virt-Manager：基于 libvirt 的 GUI 工具 virt-v2v：虚机格式迁移工具 virt-* 工具：包括 Virt-install （创建KVM虚机的命令行工具）， Virt-viewer （连接到虚机屏幕的工具），Virt-clone（虚机克隆工具），virt-top 等 sVirt：安全工具  KVM 文章  KVM介绍 KVM源码分析  ]]></description>
+</item><item>
+    <title>CentOS7 安装 qemu-5.2.0</title>
+    <link>http://xingyys.tech/posts/kvm/centos7_install_qemu/</link>
+    <pubDate>Sun, 27 Dec 2020 22:22:25 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/kvm/centos7_install_qemu/</guid>
+    <description><![CDATA[本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0
+安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。
+下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包：
+wget https://www.python.org/ftp/python/3.6.12/Python-3.6.12.tar.xz 解压 tar -xvf Python-3.6.12.tar.gz 安装 openssl pip 下载是需要 ssl 支持，所以下载 openssl
+yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2 编译安装 cd Python-3.6.12 ./configure --prefix=/usr/local/python3 --enable-optimizations make -j8 build_all &amp;&amp; make -j8 install 设置软链接 ln -s /usr/local/python3/bin/python3 /usr/bin/python3 ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3 验证 # python3 Python 3.6.12 (default, Dec 27 2020, 07:52:33) [GCC 4.]]></description>
+</item><item>
+    <title>linux 安装 oh-my-zsh</title>
+    <link>http://xingyys.tech/posts/%E5%AE%89%E8%A3%85oh-my-zsh/</link>
+    <pubDate>Sun, 09 Feb 2020 15:23:20 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/%E5%AE%89%E8%A3%85oh-my-zsh/</guid>
+    <description><![CDATA[一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh。一般linux发行版默认使用bash。以下环境为CentOS7。使用 yum 安装 zsh
+$ yum install zsh 安装完成后，替换默认的 bash 为 zsh。需要在 root 用户下使用
+$ chsh -s /bin/zsh Changing shell for root. Shell changed. # 在新终端中验证 $ echo $SHELL /bin/zsh 执行以下命令自动安装 oh-my-zsh
+$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh # 省略输出... $ source .zshrc # .zshrc 为 zsh 的配置文件 三、配置 oh-my-zsh 接下来还要添加额外的功能。oh-my-zsh 支持很多强大的功能，这些功能都是以插件的方式实现。插件放在目录~/.oh-my-zsh/plugins 下。要让插件开始工作还需要在 .zshrc 中配置相关参数。
+plugins=(git textmate ruby autojump osx mvn gradle) autojump 作用目录间快速跳转,不用再一直 cd 了 😁**使用 **使用 autojump 的缩写 jcd 命令进入 ~/user/github/Youthink 文件夹，下一次再想进入 Yourhink 文件夹的时候,直接 j youthink 即可, 或者只输入 youthink 的一部分 youth 都行删除无效路径]]></description>
+</item><item>
+    <title>Nginx多组代理配置</title>
+    <link>http://xingyys.tech/posts/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Wed, 31 Jul 2019 15:25:05 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/nginx%E5%A4%9A%E7%BB%84%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[一、需求 具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：   代理服务器 代理服务     nginx 192.168.10.10:8080 192.168.10.11:8080   nginx 192.168.10.10:8081 192.168.10.11:9000    二、环境 测试环境如下：
+ 代理服务器：ip 192.168.10.10；系统 CentOS7 ;  需要代理的服务：192.168.10.11:8080 nginx ；192.168.10.11:9000 tomcat  三、配置代理 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080tomcat 运行在 192.168.10.11:9000现在配置 nginx 代理。1.安装 nginx先在代理服务器上安装 nginx，使用命令：$ yum install -y nginx 安装成功后就可以尝试启动 nginx 服务器：$ systemctl start nginx 启动服务成功后，nginx 就运行在 80 端口。2.修改配置文件安装nginx就可以修改配置文件，配置文件的默认路径为 $ ll /etc/nginx/nginx.]]></description>
+</item><item>
+    <title>制作rpm包</title>
+    <link>http://xingyys.tech/posts/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
+    <pubDate>Wed, 29 May 2019 17:34:45 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
+    <description><![CDATA[制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。创建rpmbuild 然后就需要创建rpmbuild
+rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
+[root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1.0.0 Release: 1%{?]]></description>
+</item><item>
+    <title>linux上使用udev创建裸设备</title>
+    <link>http://xingyys.tech/posts/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
+    <pubDate>Sat, 26 Jan 2019 08:28:36 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
+    <description><![CDATA[需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需要对磁盘进行修改，转化中asm格式的。 基于这种情况下，在linux中将磁盘转化成对应的裸设备是一种合适的方法。 简单的操作就是将配置写入/etc/udev/rule.d/1401-oracle-asmdevice.rules文件中，让udev管理。
+udev 规则的匹配键
+ ACTION： 事件 (uevent) 的行为，例如：add( 添加设备 )、remove( 删除设备 )。 KERNEL： 内核设备名称，例如：sda, cdrom。 DEVPATH：设备的 devpath 路径。 SUBSYSTEM： 设备的子系统名称，例如：sda 的子系统为 block。 BUS： 设备在 devpath 里的总线名称，例如：usb。 DRIVER： 设备在 devpath 里的设备驱动名称，例如：ide-cdrom。 ID： 设备在 devpath 里的识别号。 SYSFS{filename}： 设备的 devpath 路径下，设备的属性文件“filename”里的内容。 例如：SYSFS{model}==“ST936701SS”表示：如果设备的型号为 ST936701SS，则该设备匹配该 匹配键。 在一条规则中，可以设定最多五条 SYSFS 的 匹配键。 ENV{key}： 环境变量。在一条规则中，可以设定最多五条环境变量的 匹配键。 PROGRAM：调用外部命令。 RESULT： 外部命令 PROGRAM 的返回结果。  配置文件 这里是CentOS 6的版本
+[root@rac1 ~]# cat /etc/udev/rules.d/99-oracle-asmdevice.rules  KERNEL==&#34;sd*&#34;,SUBSYSTEM==&#34;block&#34;,PROGRAM==&#34;/sbin/scsi_id --whitelisted --replace-whitespace --device=/dev/$name&#34;,RESULT==&#34;360000000000000000e00000000020fa8&#34;,NAME+=&#34;oracleasm/disks/HL_360000000000000000e00000000020fa8&#34;,OWNER=&#34;grid&#34;,GROUP=&#34;asmadmin&#34;,MODE=&#34;0660&#34; 然后加载配置文件]]></description>
+</item><item>
+    <title>iscsi共享磁盘服务</title>
+    <link>http://xingyys.tech/posts/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</link>
+    <pubDate>Sat, 26 Jan 2019 08:28:08 &#43;0000</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/posts/iscsi%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E6%9C%8D%E5%8A%A1/</guid>
+    <description><![CDATA[iscsi简单介绍 iSCSI（Internet Small Computer System Interface，发音为/ˈаɪskʌzi/），Internet小型计算机系统接口，又称为IP-SAN，是一种基于因特网及SCSI-3协议下的存储技术，由IETF提出，并于2003年2月11日成为正式的标准。与传统的SCSI技术比较起来，iSCSI技术有以下三个革命性的变化：
+ 把原来只用于本机的SCSI协义透过TCP/IP网络发送，使连接距离可作无限的地域延伸； 连接的服务器数量无限（原来的SCSI-3的上限是15）； 由于是服务器架构，因此也可以实现在线扩容以至动态部署。  简单的说就是tcp协议仿真scsi，将本地的磁盘通过网络共享给其他机器，提供数据的远程存储。
+iscsi基本概念 iscsi中有一些常用的基本概念，了解这些能帮助我们认识iscsi服务的具体工作原理，下面就用一张图表来说明：
+   名词 说明     ACL 访问权限控制列表，用来验证客户端启动器的访问，通常是客户端 iSCSI 启动器的 IQN 名称   IQN 用于标识单个 iSCSI 目标和启动器的唯一名称(全部小写)   WWN 用于标识单个光纤通道端口和节点的唯一编号   TARGET iSCSI 服务器上的存储资源   LUN iSCSI 服务器上的块设备   initiator(启动器) 以软件或硬件实施的 iSCSI 客户端   NODE 单个 iSCSI 启动器或者目标   TPG 启动器或者目标上的单个 IP 连接地址   Portal 网络接口及端口    iscsi 安装配置 iscsi 服务管理的软件有多个，这里就简单介绍两个，targetcli和tgt。]]></description>
+</item></channel>
 </rss>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Aix添加和删除Iscsi存储卷 - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="Aix添加和删除Iscsi存储卷" />
+<meta property="og:description" content="Aix为6.1版本
+ 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
+检查iscsi是否被安装 $ lslpp -L | grep -i iscsi devices.common.IBM.iscsi.rte 6.1.5.0 C F Common iSCSI Files devices.iscsi.disk.rte 6.1.5.0 C F iSCSI Disk Software ... 配置iscsi $ vi /etc/iscsi/targets ... # 添加target 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup 重新扫盘 $ cfgmgr -l iscsi0 cfgmgr: 0514-621 WARNING: The following device packages are required for device support but are not currently installed. devices.iscsi.array 查看iscsi盘 $ lsdev -Cc disk | grep iSCSI hdisk18 Available Other iSCSI Disk Drive 创建物理卷 $ chdev -l hdisk18 -a pv=yes 创建vg $ mkvg -y wbrt_portal_bg hdisk18 创建lv $ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg 700  注:lv的大小可以使用命令 $ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F&#39; &#39; &#39;{ print $6}&#39; 703 但不要全部使用，需要一些剩余空间。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/posts/aix1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-10-22T15:12:53+08:00" />
+<meta property="article:modified_time" content="2019-10-22T15:12:53+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Aix添加和删除Iscsi存储卷"/>
+<meta name="twitter:description" content="Aix为6.1版本
+ 使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
+检查iscsi是否被安装 $ lslpp -L | grep -i iscsi devices.common.IBM.iscsi.rte 6.1.5.0 C F Common iSCSI Files devices.iscsi.disk.rte 6.1.5.0 C F iSCSI Disk Software ... 配置iscsi $ vi /etc/iscsi/targets ... # 添加target 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup 重新扫盘 $ cfgmgr -l iscsi0 cfgmgr: 0514-621 WARNING: The following device packages are required for device support but are not currently installed. devices.iscsi.array 查看iscsi盘 $ lsdev -Cc disk | grep iSCSI hdisk18 Available Other iSCSI Disk Drive 创建物理卷 $ chdev -l hdisk18 -a pv=yes 创建vg $ mkvg -y wbrt_portal_bg hdisk18 创建lv $ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg 700  注:lv的大小可以使用命令 $ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F&#39; &#39; &#39;{ print $6}&#39; 703 但不要全部使用，需要一些剩余空间。"/>
+<meta name="application-name" content="lack 的个人博客">
+<meta name="apple-mobile-web-app-title" content="lack 的个人博客">
+
+<meta name="theme-color" content="#ffffff"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://xingyys.tech/posts/aix1/" /><link rel="prev" href="http://xingyys.tech/posts/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/" /><link rel="next" href="http://xingyys.tech/posts/%E5%AE%89%E8%A3%85oh-my-zsh/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Aix添加和删除Iscsi存储卷",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/posts\/aix1\/"
+        },"genre": "posts","keywords": "aix","wordcount":  173 ,
+        "url": "http:\/\/xingyys.tech\/posts\/aix1\/","datePublished": "2019-10-22T15:12:53+08:00","dateModified": "2019-10-22T15:12:53+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let themeColorMeta = getMeta('theme-color');
+        if (document.body.getAttribute('theme') != 'light') themeColorMeta.content = '#000000';
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Aix添加和删除Iscsi存储卷</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-10-22">2019-10-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-10-22">2019-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 173 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#检查iscsi是否被安装">检查iscsi是否被安装</a></li>
+    <li><a href="#配置iscsi">配置iscsi</a></li>
+    <li><a href="#重新扫盘">重新扫盘</a></li>
+    <li><a href="#查看iscsi盘">查看iscsi盘</a></li>
+    <li><a href="#创建物理卷">创建物理卷</a></li>
+    <li><a href="#创建vg">创建vg</a></li>
+    <li><a href="#创建lv">创建lv</a></li>
+    <li><a href="#创建挂载目录">创建挂载目录</a></li>
+    <li><a href="#格式化并挂载">格式化并挂载</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#卸载磁盘">卸载磁盘</a></li>
+    <li><a href="#lv">lv</a></li>
+    <li><a href="#删除文件系统">删除文件系统</a></li>
+    <li><a href="#删除vg">删除vg</a></li>
+    <li><a href="#删除物理盘">删除物理盘</a></li>
+    <li><a href="#删除iscsi-target">删除iscsi target</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>Aix为6.1版本</p>
+</blockquote>
+<h1 id="使用iscsi存储">使用iscsi存储</h1>
+<p>首先需要创建一个iscsi target，并共享到IBM Aix上。</p>
+<h2 id="检查iscsi是否被安装">检查iscsi是否被安装</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ lslpp -L <span class="p">|</span> grep -i iscsi 
+  devices.common.IBM.iscsi.rte
+                             6.1.5.0    C     F    Common iSCSI Files 
+  devices.iscsi.disk.rte     6.1.5.0    C     F    iSCSI Disk Software 
+  ...
+</code></pre></div><h2 id="配置iscsi">配置iscsi</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
+...
+<span class="c1"># 添加target</span>
+172.16.1.169 <span class="m">3260</span> iqn.2018-11.com.howlink.wbrt.portal.backup
+</code></pre></div><h2 id="重新扫盘">重新扫盘</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
+cfgmgr: 0514-621 WARNING: The following device packages are required <span class="k">for</span>
+        device support but are not currently installed.
+devices.iscsi.array
+</code></pre></div><h2 id="查看iscsi盘">查看iscsi盘</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ lsdev -Cc disk <span class="p">|</span> grep iSCSI
+hdisk18     Available          Other iSCSI Disk Drive
+</code></pre></div><h2 id="创建物理卷">创建物理卷</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ chdev -l hdisk18 -a <span class="nv">pv</span><span class="o">=</span>yes
+</code></pre></div><h2 id="创建vg">创建vg</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkvg -y wbrt_portal_bg hdisk18
+</code></pre></div><h2 id="创建lv">创建lv</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg <span class="m">700</span>
+</code></pre></div><blockquote>
+<p>注:lv的大小可以使用命令
+<code>$ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F' ' '{ print $6}' 703</code>
+但不要全部使用，需要一些剩余空间。</p>
+</blockquote>
+<h2 id="创建挂载目录">创建挂载目录</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ mkdir /mnt/iscsi
+</code></pre></div><h2 id="格式化并挂载">格式化并挂载</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ crfs -v jfs2 -m /mnt/iscsi -d wbrt_portal_bl
+$ mount /mnt/iscsi
+</code></pre></div><h1 id="删除存储盘">删除存储盘</h1>
+<h2 id="卸载磁盘">卸载磁盘</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ umount /mnt/iscsi
+</code></pre></div><h2 id="lv">lv</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmlv wbrt_portal_bl
+</code></pre></div><h2 id="删除文件系统">删除文件系统</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmfs -r /dev/wbrt_portal_bl
+</code></pre></div><h2 id="删除vg">删除vg</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ reducevg -d wbrt_portal_bg hdisk18
+</code></pre></div><h2 id="删除物理盘">删除物理盘</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ rmdev -dl hdisk18 -R
+</code></pre></div><h2 id="删除iscsi-target">删除iscsi target</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ vi /etc/iscsi/targets
+...
+<span class="c1"># 添加target</span>
+<span class="c1"># 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup</span>
+</code></pre></div><p>重读磁盘</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ cfgmgr -l iscsi0
+</code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-10-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/aix/">aix</a></section>
+        <section>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/" class="prev" rel="prev" title="使用kubeadm安装kubernetes1.16"><i class="fas fa-angle-left fa-fw"></i>使用kubeadm安装kubernetes1.16</a>
+            <a href="/posts/%E5%AE%89%E8%A3%85oh-my-zsh/" class="next" rel="next" title="linux 安装 oh-my-zsh">linux 安装 oh-my-zsh<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span></div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script></div>
+</body>
+
+</html>

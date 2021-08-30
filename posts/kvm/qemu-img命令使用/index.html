@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">qemu-img命令使用 - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="qemu-img命令使用" />
+<meta property="og:description" content="qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。
+ 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致数据不一致甚至导致磁盘损坏。
+ qemu-img 基本命令 check 语法: check [-f fmt] filename
+对磁盘镜像文件进行一致性检查，查找镜像文件中的错误，目前仅支持对“qcow2”、“qed”、“vdi”格式文件的检查。其中，qcow2 是 QEMU 0.8.3版本引入的镜像文件格式，也是目前使用最广泛的格式。qed（QEMU enhanced disk）是从 QEMU 0.14 版开始加入的增强磁盘文件格式，为了避免 qcow2 格式的一些缺点，也为了提高性能，不过目前还不够成熟。而 vdi（Virtual Disk Image）是 Oracle 的 VirtualBox 虚拟机中的存储格式。参数-f fmt 是指定文件的格式，如果不指定格式 qemu-img 会自动检测，filename 是磁盘镜像文件的名称（包括路径）。
+# qemu-img check -f qcow2 sdb.qcow2 No errors were found on the image. Image end offset: 524288 create 语法: create [-f fmt] [-o options] filename [size]
+创建一个格式为 fmt，大小为 size，文件名为filename 的镜像文件。根据文件格式 fmt 的不同，还可以添加一个或多个选项（options）来附加对该文件的各种功能设置，可以使用“-o ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-17T22:35:06+08:00" />
+<meta property="article:modified_time" content="2021-01-17T22:35:06+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="qemu-img命令使用"/>
+<meta name="twitter:description" content="qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。
+ 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致数据不一致甚至导致磁盘损坏。
+ qemu-img 基本命令 check 语法: check [-f fmt] filename
+对磁盘镜像文件进行一致性检查，查找镜像文件中的错误，目前仅支持对“qcow2”、“qed”、“vdi”格式文件的检查。其中，qcow2 是 QEMU 0.8.3版本引入的镜像文件格式，也是目前使用最广泛的格式。qed（QEMU enhanced disk）是从 QEMU 0.14 版开始加入的增强磁盘文件格式，为了避免 qcow2 格式的一些缺点，也为了提高性能，不过目前还不够成熟。而 vdi（Virtual Disk Image）是 Oracle 的 VirtualBox 虚拟机中的存储格式。参数-f fmt 是指定文件的格式，如果不指定格式 qemu-img 会自动检测，filename 是磁盘镜像文件的名称（包括路径）。
+# qemu-img check -f qcow2 sdb.qcow2 No errors were found on the image. Image end offset: 524288 create 语法: create [-f fmt] [-o options] filename [size]
+创建一个格式为 fmt，大小为 size，文件名为filename 的镜像文件。根据文件格式 fmt 的不同，还可以添加一个或多个选项（options）来附加对该文件的各种功能设置，可以使用“-o ?"/>
+<meta name="application-name" content="lack 的个人博客">
+<meta name="apple-mobile-web-app-title" content="lack 的个人博客">
+
+<meta name="theme-color" content="#ffffff"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://xingyys.tech/posts/kvm/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="http://xingyys.tech/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/" /><link rel="next" href="http://xingyys.tech/posts/kvm/libguestfs/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "qemu-img命令使用",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/posts\/kvm\/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8\/"
+        },"genre": "posts","keywords": "kvm, linux","wordcount":  610 ,
+        "url": "http:\/\/xingyys.tech\/posts\/kvm\/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8\/","datePublished": "2021-01-17T22:35:06+08:00","dateModified": "2021-01-17T22:35:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let themeColorMeta = getMeta('theme-color');
+        if (document.body.getAttribute('theme') != 'light') themeColorMeta.content = '#000000';
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-auto"></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">qemu-img命令使用</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"><i class="far fa-folder fa-fw"></i>虚拟化</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-17">2021-01-17</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-01-17">2021-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 610 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#check">check</a></li>
+    <li><a href="#create">create</a></li>
+    <li><a href="#commit">commit</a></li>
+    <li><a href="#convert">convert</a></li>
+    <li><a href="#info">info</a></li>
+    <li><a href="#snapshot">snapshot</a></li>
+    <li><a href="#rebase">rebase</a></li>
+    <li><a href="#resize">resize</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#raw">raw</a></li>
+    <li><a href="#qcow2">qcow2</a></li>
+    <li><a href="#qcow">qcow</a></li>
+    <li><a href="#cow">cow</a></li>
+    <li><a href="#vmdk">vmdk</a></li>
+    <li><a href="#cloop">cloop</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><code>qemu-img</code> 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。</p>
+<blockquote>
+<p>注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致数据不一致甚至导致磁盘损坏。</p>
+</blockquote>
+<h1 id="qemu-img-基本命令">qemu-img 基本命令</h1>
+<h2 id="check">check</h2>
+<p>语法: <code>check [-f fmt] filename</code></p>
+<p>对磁盘镜像文件进行一致性检查，查找镜像文件中的错误，目前仅支持对“qcow2”、“qed”、“vdi”格式文件的检查。其中，qcow2 是 QEMU 0.8.3版本引入的镜像文件格式，也是目前使用最广泛的格式。qed（QEMU enhanced disk）是从 QEMU 0.14 版开始加入的增强磁盘文件格式，为了避免 qcow2 格式的一些缺点，也为了提高性能，不过目前还不够成熟。而 vdi（Virtual Disk Image）是 Oracle 的 VirtualBox 虚拟机中的存储格式。参数-f fmt 是指定文件的格式，如果不指定格式 qemu-img 会自动检测，filename 是磁盘镜像文件的名称（包括路径）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img check -f qcow2 sdb.qcow2</span>
+No errors were found on the image.
+Image end offset: <span class="m">524288</span>
+</code></pre></div><h2 id="create">create</h2>
+<p>语法: <code>create [-f fmt] [-o options] filename [size]</code></p>
+<p>创建一个格式为 fmt，大小为 size，文件名为filename 的镜像文件。根据文件格式 fmt 的不同，还可以添加一个或多个选项（options）来附加对该文件的各种功能设置，可以使用“-o ?”来查询某种格式文件支持那些选项，在“-o”选项中各个选项用逗号来分隔。</p>
+<p>如果 &ldquo;-o&rdquo; 选项中使用了 backing_file 这个选项来指定其后端镜像文件，那么这个创建的镜像文件仅记录与后端镜像文件的差异部分。后端镜像文件不会被修改，除非在 QEMU monitor 中使用&quot;commit&quot; 命令或者使用 &ldquo;qemu-img commit&rdquo; 命令去手动提交这些改动。这种情况下，size 参数不是必须需的，其值默认为后端镜像文件的大小。另外，直接使用 &ldquo;-b backfile&rdquo; 参数也与 &ldquo;-o backing_file=backfile&rdquo; 效果相同。</p>
+<p>size 选项用于指定镜像文件的大小，其默认单位是字节（bytes），也可以支持k（或K）、M、G、T来分别表示KB、MB、GB、TB大小。另外，镜像文件的大小（size）也并非必须写在命令的最后，它也可以被写在 &ldquo;-o&rdquo; 选项中作为其中一个选项。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img create -f qcow2 -o backing_file=sdb.qcow2 sdc.qcow2 10G</span>
+qemu-img: warning: Deprecated use of backing file without explicit backing format <span class="o">(</span>detected format of qcow2<span class="o">)</span>
+Formatting <span class="s1">&#39;sdc.qcow2&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>qcow2 <span class="nv">cluster_size</span><span class="o">=</span><span class="m">65536</span> <span class="nv">extended_l2</span><span class="o">=</span>off <span class="nv">compression_type</span><span class="o">=</span>zlib <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span> <span class="nv">backing_file</span><span class="o">=</span>sdb.qcow2 <span class="nv">backing_fmt</span><span class="o">=</span>qcow2 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span><span class="m">16</span>
+
+<span class="c1"># qemu-img create -f raw sdd.raw 10G</span>
+Formatting <span class="s1">&#39;sdd.raw&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>raw <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span>
+</code></pre></div><h2 id="commit">commit</h2>
+<p>语法: <code>[-f fmt] [-t cache] filename</code></p>
+<p>提交 filename 文件中的更改到后端支持镜像文件（创建时通过 backing_file 指定的）中去。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img commit sdc.qcow2</span>
+Image committed.
+</code></pre></div><h2 id="convert">convert</h2>
+<p>语法: <code>convert [-c] [-p] [-f fmt] [-t cache] [-O output_fmt] [-o options] [-s snapshot_name] [-S sparse_size] filename [filename2 [...]] output_filename</code></p>
+<p>将fmt格式的 filename 镜像文件根据 options 选项转换为格式为 output_fmt 的名为 output_filename 的镜像文件。它支持不同格式的镜像文件之间的转换，比如可以用 VMware 用的vmdk 格式文件转换为 qcow2 文件，这对从其他虚拟化方案转移到 KVM上 的用户非常有用。一般来说，输入文件格式 fmt 由 qemu-img 工具自动检测到，而输出文件格式 output_fmt 根据自己需要来指定，默认会被转换为与 raw 文件格式（且默认使用稀疏文件的方式存储以节省存储空间）。</p>
+<p>其中，&quot;-c&quot; 参数是对输出的镜像文件进行压缩，不过只有 qcow2 和 qcow 格式的镜像文件才支持压缩，而且这种压缩是只读的，如果压缩的扇区被重写，则会被重写为未压缩的数据。同样可以使用 &ldquo;-o options&rdquo; 来指定各种选项，如：后端镜像、文件大小、是否加密等等。使用 backing_file 选项来指定后端镜像，让生成的文件是 copy-on-write的增量文件，这时必须让转换命令中指定的后端镜像与输入文件的后端镜像的内容是相同的，尽管它们各自后端镜像的目录、格式可能不同。</p>
+<p>如果使用 qcow2、qcow、cow 等作为输出文件格式来转换raw格式的镜像文件（非稀疏文件格式），镜像转换还可以起到将镜像文件转化为更小的镜像，因为它可以将空的扇区删除使之在生成的输出文件中并不存在。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img convert -p -f qcow2 -O raw sdc.qcow2 sdc.raw</span>
+    <span class="o">(</span>100.00/100%<span class="o">)</span>
+
+<span class="c1"># qemu-img convert -c -p -f raw -O qcow2 sdc.raw sdcc.qcow2</span>
+    <span class="o">(</span>100.00/100%<span class="o">)</span>
+</code></pre></div><h2 id="info">info</h2>
+<p>语法: <code>[-f fmt] filename</code></p>
+<p>展示 filename 镜像文件的信息。如果文件是使用稀疏文件的存储方式，也会显示出它的本来分配的大小以及实际已占用的磁盘空间大小。如果文件中存放有客户机快照，快照的信息也会被显示出来。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img info sdc.qcow2</span>
+image: sdc.qcow2
+file format: qcow2
+virtual size: <span class="m">10</span> GiB <span class="o">(</span><span class="m">10737418240</span> bytes<span class="o">)</span>
+disk size: <span class="m">256</span> KiB
+cluster_size: <span class="m">65536</span>
+backing file: sdb.qcow2
+backing file format: qcow2
+Format specific information:
+    compat: 1.1
+    compression type: zlib
+    lazy refcounts: <span class="nb">false</span>
+    refcount bits: <span class="m">16</span>
+    corrupt: <span class="nb">false</span>
+    extended l2: <span class="nb">false</span>
+</code></pre></div><h2 id="snapshot">snapshot</h2>
+<p>语法: <code>snapshot [-l | -a snapshot | -c snapshot | -d snapshot] filename</code></p>
+<ul>
+<li>&ldquo;-l&rdquo; 选项是查询并列出镜像文件中的所有快照</li>
+<li>&ldquo;-a snapshot&rdquo; 是让镜像文件使用某个快照</li>
+<li>&ldquo;-c snapshot&rdquo; 是创建一个快照</li>
+<li>&ldquo;-d&rdquo; 是删除一个快照。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+Snapshot list:
+ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+<span class="c1"># qemu-img snapshot -c sdb-ss2 sdb.qcow2</span>
+<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+Snapshot list:
+ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+<span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
+<span class="c1"># qemu-img snapshot -c sdb-ss3 sdb.qcow2</span>
+<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+Snapshot list:
+ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+<span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
+<span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
+<span class="c1"># qemu-img snapshot -d sdb-ss2 sdb.qcow2</span>
+<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+Snapshot list:
+ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+<span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
+</code></pre></div><h2 id="rebase">rebase</h2>
+<p>语法: <code>rebase [-f fmt] [-t cache] [-p] [-u] -b backing_file [-F backing_fmt] filename</code></p>
+<p>改变镜像文件的后端镜像文件，只有 qcow2 和 qed 格式支持rebase命令。使用 &ldquo;-b backing_file&rdquo; 中指定的文件作为后端镜像，后端镜像也被转化为 &ldquo;-F backing_fmt&rdquo; 中指定的后端镜像格式。</p>
+<p>它可以工作于两种模式之下，一种是安全模式（Safe Mode）也是默认的模式，qemu-img会去比较原来的后端镜像与现在的后端镜像的不同进行合理的处理；另一种是非安全模式（Unsafe Mode），是通过 &ldquo;-u&rdquo; 参数来指定的，这种模式主要用于将后端镜像进行了重命名或者移动了位置之后对前端镜像文件的修复处理，由用户去保证后端镜像的一致性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img rebase -f qcow2 -p -b sdc.qcow2 sdd.qcow2</span>
+qemu-img: warning: Deprecated use of backing file without explicit backing format, use of this image requires potentially unsafe format probing
+    <span class="o">(</span>100.00/100%<span class="o">)</span>
+</code></pre></div><h2 id="resize">resize</h2>
+<p>语法: <code>resize filename [+ | -]size</code></p>
+<p>改变镜像文件的大小，使其不同于创建之时的大小。&quot;+&quot; 和 &ldquo;-&rdquo; 分别表示增加和减少镜像文件的大小，而 size 也是支持 K、M、G、T 等单位的使用。缩小镜像的大小之前，需要在客户机中保证里面的文件系统有空余空间，否则会数据丢失，另外，qcow2 格式文件不支持缩小镜像的操作。在增加了镜像文件大小后，也需启动客户机到里面去应用 &ldquo;fdisk&rdquo;、&ldquo;parted&rdquo; 等分区工具进行相应的操作才能真正让客户机使用到增加后的镜像空间。不过使用 resize 命令时需要小心（最好做好备份），如果失败的话，可能会导致镜像文件无法正常使用而造成数据丢失。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img resize sdd.qcow2 +2G</span>
+Image resized.
+</code></pre></div><h1 id="qemu-img-支持格式">qemu-img 支​持​格​式​</h1>
+<h2 id="raw">raw</h2>
+<p>Raw 磁​盘​映​像​格​式​（默​认​）。​这​个​格​式​的​优​点​是​可​以​简​单​、​容​易​地​导​出​到​其​它​模​拟​器​中​。​如​果​您​的​文​件​系​统​支​持​中​断​（例​如​在​ Linux 中​的​ ext2 或​者​ ext3 以​及​ Windows 中​的​ NTFS），那​么​只​有​写​入​的​字​段​会​占​用​空​间​。​使​用​ qemu-img info 了​解​ Unix/Linux 中​映​像​或​者​ ls -ls 使​用​的​实​际​大​小​。​</p>
+<h2 id="qcow2">qcow2</h2>
+<p>QEMU 映​像​格​式​，最​万​能​的​格​式​。​使​用​它​可​获​得​较​小​映​像​（如​果​您​的​系​统​不​支​持​中​断​，例​如​在​ Windows 中​，它​会​很​有​用​）、​额​外​的​ AES 加​密​法​、​zlib 压​缩​以​及​对​多​ VM 快​照​的​支​持​。​</p>
+<h2 id="qcow">qcow</h2>
+<p>旧​的​ QEMU 映​像​格​式​。​只​用​于​与​旧​版​本​兼​容​。​</p>
+<h2 id="cow">cow</h2>
+<p>写​入​映​像​格​式​的​用​户​模​式​ Linux 副​本​。​包​含​ cow 格​式​的​目​的​只​是​为​了​与​前​面​的​版​本​兼​容​。​它​无​法​在​ Windows 中​使​用​。​</p>
+<h2 id="vmdk">vmdk</h2>
+<p>VMware 3 和​ 4 兼​容​映​像​格​式​。​</p>
+<h2 id="cloop">cloop</h2>
+<p>Linux 压​缩​回​送​映​像​，只​有​在​重​复​使​用​直​接​压​缩​的​ CD-ROM 映​像​时​有​用​，比​如​在​ Knoppix CD-ROM 中​。​</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-01-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></section>
+        <section>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/" class="prev" rel="prev" title="分布式的工作流实现"><i class="fas fa-angle-left fa-fw"></i>分布式的工作流实现</a>
+            <a href="/posts/kvm/libguestfs/" class="next" rel="next" title="KVM镜像管理工具libguestfs">KVM镜像管理工具libguestfs<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span></div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script></div>
+</body>
+
+</html>
