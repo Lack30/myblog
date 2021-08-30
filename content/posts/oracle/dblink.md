@@ -4,13 +4,13 @@ date: 2021-08-30T17:49:19+08:00
 lastmod: 2021-08-30T17:49:19+08:00
 draft: false
 description: ""
+featuredImage: "20210830184359"
 tags: 
  - oracle
 categories: 
  - 笔记
 author: "Lack"
 ---
-
 
 查询所有触发器
 ```sql
