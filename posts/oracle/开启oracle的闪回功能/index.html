@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">开启oracle的闪回功能 - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="开启oracle的闪回功能" />
+<meta property="og:description" content="查看是否开启闪回
+SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ NO查看是否配置了db_recover_file_dest
+SQL&gt;showparameterdb_recoveryNAMETYPEVALUE------------------------------------ ----------- ------------------------------ db_recovery_file_deststringdb_recovery_file_dest_sizebiginteger0没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致
+mkdir /u01/flashback chown oracle:oinstall /u01/flashback SQL&gt;altersystemsetdb_recovery_file_dest_size=30Gscope=both;SQL&gt;altersystemsetdb_recovery_file_dest=&#39;/u01/flashback&#39;scope=both;Systemaltered.关闭 oracle
+SQL&gt;shutdownimmediate;Databaseclosed.Databasedismounted.ORACLEinstanceshutdown.启动到 mount 状态
+SQL&gt;startupmount;ORACLEinstancestarted.TotalSystemGlobalArea1603411968bytesFixedSize2253664bytesVariableSize905972896bytesDatabaseBuffers687865856bytesRedoBuffers7319552bytesDatabasemounted.开启 archeve log
+SQL&gt;alterdatabasearchivelog;Databasealtered.开启闪回功能
+SQL&gt;alterdatabaseflashbackon;Databasealtered.启动数据库到 open 状态
+SQL&gt;alterdatabaseopen;Databasealtered.SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ YES" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/posts/oracle/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-08-21T16:57:58+08:00" />
+<meta property="article:modified_time" content="2019-08-21T16:57:58+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="开启oracle的闪回功能"/>
+<meta name="twitter:description" content="查看是否开启闪回
+SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ NO查看是否配置了db_recover_file_dest
+SQL&gt;showparameterdb_recoveryNAMETYPEVALUE------------------------------------ ----------- ------------------------------ db_recovery_file_deststringdb_recovery_file_dest_sizebiginteger0没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致
+mkdir /u01/flashback chown oracle:oinstall /u01/flashback SQL&gt;altersystemsetdb_recovery_file_dest_size=30Gscope=both;SQL&gt;altersystemsetdb_recovery_file_dest=&#39;/u01/flashback&#39;scope=both;Systemaltered.关闭 oracle
+SQL&gt;shutdownimmediate;Databaseclosed.Databasedismounted.ORACLEinstanceshutdown.启动到 mount 状态
+SQL&gt;startupmount;ORACLEinstancestarted.TotalSystemGlobalArea1603411968bytesFixedSize2253664bytesVariableSize905972896bytesDatabaseBuffers687865856bytesRedoBuffers7319552bytesDatabasemounted.开启 archeve log
+SQL&gt;alterdatabasearchivelog;Databasealtered.开启闪回功能
+SQL&gt;alterdatabaseflashbackon;Databasealtered.启动数据库到 open 状态
+SQL&gt;alterdatabaseopen;Databasealtered.SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ YES"/>
+<meta name="application-name" content="lack 的个人博客">
+<meta name="apple-mobile-web-app-title" content="lack 的个人博客">
+
+<meta name="theme-color" content="#ffffff"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="canonical" href="http://xingyys.tech/posts/oracle/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/" /><link rel="prev" href="http://xingyys.tech/posts/java/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/" /><link rel="next" href="http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/fontawesome-free/all.min.css">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="/lib/animate/animate.min.css">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "开启oracle的闪回功能",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/posts\/oracle\/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD\/"
+        },"genre": "posts","keywords": "oracle","wordcount":  26 ,
+        "url": "http:\/\/xingyys.tech\/posts\/oracle\/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD\/","datePublished": "2019-08-21T16:57:58+08:00","dateModified": "2019-08-21T16:57:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="" header-mobile=""><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme);}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('' === 'light' || '' === 'dark' || '' === 'black') setTheme(''), saveTheme(''); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let themeColorMeta = getMeta('theme-color');
+        if (document.body.getAttribute('theme') != 'light') themeColorMeta.content = '#000000';
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">lack 的个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "false")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">开启oracle的闪回功能</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-08-21">2019-08-21</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-08-21">2019-08-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 26 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="content" id="content"><p>查看是否开启闪回</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
+</span><span class="w"></span><span class="c1">------------------
+</span><span class="c1"></span><span class="k">NO</span><span class="w">
+</span></code></pre></div><p>查看是否配置了db_recover_file_dest</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">db_recovery</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">NAME</span><span class="w">				     </span><span class="k">TYPE</span><span class="w">	 </span><span class="n">VALUE</span><span class="w">
+</span><span class="w"></span><span class="c1">------------------------------------ ----------- ------------------------------
+</span><span class="c1"></span><span class="n">db_recovery_file_dest</span><span class="w">		     </span><span class="n">string</span><span class="w">
+</span><span class="w"></span><span class="n">db_recovery_file_dest_size</span><span class="w">	     </span><span class="n">big</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></code></pre></div><p>没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /u01/flashback
+chown oracle:oinstall /u01/flashback
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest_size</span><span class="o">=</span><span class="mi">30</span><span class="k">G</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest</span><span class="o">=</span><span class="s1">&#39;/u01/flashback&#39;</span><span class="w">  </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">System</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></code></pre></div><p>关闭 oracle</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">closed</span><span class="p">.</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">dismounted</span><span class="p">.</span><span class="w">
+</span><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">shut</span><span class="w"> </span><span class="n">down</span><span class="p">.</span><span class="w">
+</span></code></pre></div><p>启动到 mount 状态</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">started</span><span class="p">.</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">Total</span><span class="w"> </span><span class="k">System</span><span class="w"> </span><span class="k">Global</span><span class="w"> </span><span class="n">Area</span><span class="w"> </span><span class="mi">1603411968</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span><span class="w"></span><span class="n">Fixed</span><span class="w"> </span><span class="k">Size</span><span class="w">		    </span><span class="mi">2253664</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span><span class="w"></span><span class="k">Variable</span><span class="w"> </span><span class="k">Size</span><span class="w">		  </span><span class="mi">905972896</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">Buffers</span><span class="w">	  </span><span class="mi">687865856</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span><span class="w"></span><span class="n">Redo</span><span class="w"> </span><span class="n">Buffers</span><span class="w">		    </span><span class="mi">7319552</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">mounted</span><span class="p">.</span><span class="w">
+</span></code></pre></div><p>开启 archeve log</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">archivelog</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></code></pre></div><p>开启闪回功能</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">flashback</span><span class="w"> </span><span class="k">on</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></code></pre></div><p>启动数据库到 open 状态</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">open</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
+</span><span class="w"></span><span class="c1">------------------
+</span><span class="c1"></span><span class="n">YES</span><span class="w">
+</span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-08-21</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/oracle/">oracle</a></section>
+        <section>
+            <span><a href="#" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/java/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/" class="prev" rel="prev" title="Spring框架的核心总结"><i class="fas fa-angle-left fa-fw"></i>Spring框架的核心总结</a>
+            <a href="/posts/go/go%E7%BB%93%E5%90%88etcd/" class="next" rel="next" title="Go 结合 etcd">Go 结合 etcd<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreffer" title="DoIt 0.2.10"><i class="far fa-edit fa-fw"></i> DoIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer"></a></span></div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/topbar/topbar.min.js"></script><script type="text/javascript" src="/lib/pjax/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js"></script></div>
+
+<div class="pjax-assets"><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{}};</script></div>
+</body>
+
+</html>

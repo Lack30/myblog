@@ -17,10 +17,10 @@ BEGINdbms_job.broken(4001,true);END;禁用 oracle dblink
 altersystemsetopen_links=0sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=0sid=&#39;$sid&#39;scope=spfile;启用 oracle dblink]]></description>
 </item><item>
     <title>开启oracle的闪回功能</title>
-    <link>http://xingyys.tech/posts/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</link>
+    <link>http://xingyys.tech/posts/oracle/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</link>
     <pubDate>Wed, 21 Aug 2019 16:57:58 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</guid>
+    </author><guid>http://xingyys.tech/posts/oracle/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</guid>
     <description><![CDATA[查看是否开启闪回
 SQL&gt;selectflashback_onfromv$database;FLASHBACK_ON------------------ NO查看是否配置了db_recover_file_dest
 SQL&gt;showparameterdb_recoveryNAMETYPEVALUE------------------------------------ ----------- ------------------------------ db_recovery_file_deststringdb_recovery_file_dest_sizebiginteger0没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致

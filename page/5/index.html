@@ -74,14 +74,14 @@
 <main class="main">
             <div class="container"><div class="page home" posts><div class="home-profile"></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/%E5%AE%89%E8%A3%85scaleio-gateway/">安装scaleio Gateway</a>
+        <a href="/posts/linux/%E5%AE%89%E8%A3%85scaleio-gateway/">安装scaleio Gateway</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-08-31">2018-08-31</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%AD%98%E5%82%A8/"><i class="far fa-folder fa-fw"></i>存储</a></span></div><div class="content">scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：一、安装 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
 # 先配置gateway admin用户的密码 [root@localhost ~]# export GATEWAY_ADMIN_PASSWORD=Scale10  [root@localhost ~]# rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm  # 安装成功后服务默认启动，绑定在端口80 [root@localhost ~]# netstat -tnlp | grep 80  tcp6 0 0 :::80 :::* LISTEN 4225/java 二、配置 安装完gateway还需要配置，gateway的配置有两种方式。
  使用浏览器配置。 直接修改配置文件。  使用浏览器配置使用浏览器输入地址 https://&lt;主机ip&gt;，输入用户名密码(admin/Scale10)后登陆 输入后直接修改配置文件
 [root@localhost ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties  // 修改以下字段 // scaleio管理的ip地址，使用,或;隔开 mdm.ip.addresses=192.168.3.200;192.168.3.201 // 允许非加密的通讯 gateway-security.allow_non_secure_communication=true // 防止主从切换中gateway错误 security.bypass_certificate_check=true // 记得重启gateway服务 [root@localhost ~]# /etc/init.d/scaleio-gateway restart 三、验证 使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证curl命令验证验证：</div><div class="post-footer">
-        <a href="/posts/%E5%AE%89%E8%A3%85scaleio-gateway/">阅读全文</a><div class="post-tags">
+        <a href="/posts/linux/%E5%AE%89%E8%A3%85scaleio-gateway/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">linux</a>,&nbsp;<a href="/tags/scaleio/">scaleio</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/">CentOS下kvm安装</a>
@@ -96,7 +96,7 @@ modprobe kvm-intel 配置网卡 cd /etc/sysconfig/network-scripts/ cp ifcfg-eth0
         <a href="/posts/kvm/centos%E4%B8%8Bkvm%E5%AE%89%E8%A3%85/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/lnmp/">搭建lnmp环境</a>
+        <a href="/posts/linux/lnmp/">搭建lnmp环境</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-05-31">2018-05-31</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">lnmp即：nginx + mysql + php 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。 同样的php依赖mysql，所以首先安装mysql 这里环境为CentOS6.5
@@ -105,10 +105,10 @@ modprobe kvm-intel 配置网卡 cd /etc/sysconfig/network-scripts/ cp ifcfg-eth0
 解压 tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz 移动到指定目录 mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql 创建mysql用户，但不允许登录，不创建家目录 useradd -s /sbin/nologin -M mysql -s表示指定bash，这里出于安全性考虑设置不允许登录，-M不创建家目录
 创建数据库目录，并改为mysql属主 mkdir /data/mysql -pv chown -R mysql：mysql /data/mysql 初始化mysql cd /usr/local/mysql ./scripts/mysql_install_db --user=mysql --datadir=/data/mysql --user=*是指定用户mysql，--datadir=*是指定数据库目录。可以使用echo $?验证命令执行结果是否正确，0为正确。
 mysql配置文件 cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf vim /etc/my.cnf ...... port = 3306 #监听端口 socket = /tmp/mysql.sock #socket ..... log-bin=mysql-bin #修改mysql数据库时，记录日志 mysql启动脚本 cp /usr/local/mysql/mysql.server /etc/init.d/mysqld vim /etc/init.</div><div class="post-footer">
-        <a href="/posts/lnmp/">阅读全文</a><div class="post-tags">
+        <a href="/posts/linux/lnmp/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">linux</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/lamp/">搭建lamp环境</a>
+        <a href="/posts/linux/lamp/">搭建lamp环境</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-05-31">2018-05-31</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">lamp即 apache + mysql + php，是互联网常用架构。
@@ -118,20 +118,20 @@ mysql配置文件 cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf vim
 解压 tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz 移动到指定目录 mv mysql-5.1.73-linux-i686-glibc23 /usr/local/mysql 创建mysql用户，但不允许登录，不创建家目录 useradd -s /sbin/nologin -M mysql -s表示指定bash，这里出于安全性考虑设置不允许登录，-M不创建家目录
 创建数据库目录，并改为mysql属主 mkdir /data/mysql -pv chown -R mysql：mysql /data/mysql 初始化mysql cd /usr/local/mysql ./scripts/mysql_install_db --user=mysql --datadir=/data/mysql --user=*是指定用户mysql，--datadir=*是指定数据库目录。可以使用echo $?验证命令执行结果是否正确，0为正确。
 mysql配置文件 cp /usr/local/mysql/support-files/my-large.cnf /etc/my.cnf vim /etc/my.cnf ...... port = 3306 #监听端口 socket = /tmp/mysql.sock #socket ..... log-bin=mysql-bin #修改mysql数据库时，记录日志 mysql启动脚本 cp /usr/local/mysql/mysql.server /etc/init.d/mysqld vim /etc/init.</div><div class="post-footer">
-        <a href="/posts/lamp/">阅读全文</a><div class="post-tags">
+        <a href="/posts/linux/lamp/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">linux</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/python%E8%A3%85%E9%A5%B0%E5%99%A8/">python装饰器</a>
+        <a href="/posts/python/python%E8%A3%85%E9%A5%B0%E5%99%A8/">python装饰器</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-03-31">2018-03-31</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div><div class="content">简单的装饰器函数： import time from functools import wraps def timethis(func): &#34;&#34;&#34; Decorator that reports the execution time. &#34;&#34;&#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就是输出调用函数的执行时间。
 In [2]: @timethis ...: def countdown(n): ...: while n &gt; 0: ...: n -= 1 ...: In [3]: countdown(100000) countdown 0.009751319885253906 本质上来说python的装饰器就是一个函数外再包装一个函数，等同于：
 timethis(countdown(100000)) 装饰器内部的wrapper()函数中使用*args和**kwargs来接受任意参数，并用新的函数包装器来代替原来函数，其中的func就是原来的函数，即调用包装器的函数。而使用@wraps(func)的目的时保留原始函数的元数据。
 In [19]: @timethis ...: def countdown(n:int): ...: &#39;&#39;&#39;counts down&#39;&#39;&#39; .</div><div class="post-footer">
-        <a href="/posts/python%E8%A3%85%E9%A5%B0%E5%99%A8/">阅读全文</a><div class="post-tags">
+        <a href="/posts/python/python%E8%A3%85%E9%A5%B0%E5%99%A8/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">Flask与Vue的token认证</a>
+        <a href="/posts/python/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">Flask与Vue的token认证</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-09-20">2017-09-20</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E4%BB%A3%E7%A0%81/"><i class="far fa-folder fa-fw"></i>代码</a></span></div><div class="content">后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。
@@ -139,7 +139,7 @@ In [19]: @timethis ...: def countdown(n:int): ...: &#39;&#39;&#39;counts down&#3
  http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495  源码链接：https://github.com/xingyys/flaskvue
 后端Flask Flask采用token认证方式，主要思路是通过/api/login登录获取token，然后使用token调用各个接口。 所用到框架的库：
  flask flask-cors：flask跨域 flask-sqlachemy: flask数据库orm flask-httpauth：flask的auth认证 passlib: python密码解析库 itsdangerous  后端结构图 flask/ ├── app # 主目录 │ ├── __init__.py │ ├── __init__.pyc │ ├── models.py # 数据库 │ ├── models.pyc │ ├── views.py # 视图 │ └── views.pyc ├── config.py # 配置信息 ├── config.pyc ├── db_create.py # 创建数据库 ├── db_migrate.py # 更新数据库 ├── db_repository │ ├── __init__.py │ ├── __init__.</div><div class="post-footer">
-        <a href="/posts/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">阅读全文</a><div class="post-tags">
+        <a href="/posts/python/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/flask/">flask</a>,&nbsp;<a href="/tags/vue/">vue</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">

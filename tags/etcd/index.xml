@@ -5,19 +5,19 @@
         <description>etcd - 标签 - lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 11 Sep 2019 15:17:42 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/etcd/" rel="self" type="application/rss+xml" /><item>
     <title>etcd的使用实例</title>
-    <link>http://xingyys.tech/posts/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
+    <link>http://xingyys.tech/posts/linux/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</link>
     <pubDate>Wed, 11 Sep 2019 15:17:42 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
+    </author><guid>http://xingyys.tech/posts/linux/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</guid>
     <description><![CDATA[etcd 有如下的使用场景：
  服务发现（Service Discovery） 消息发布与订阅 负载均衡 分布式通知与协调 分布式锁 分布式队列 集群监控于Leader竞选。  一、服务发现 etcd 的常见使用场景之一就是服务发现。实现思路如下：先准备 etcd 服务端，服务端的程序在第一次启动之后会连接到 etcd 服务器并设置一个格式为 ip:port 的键值对，并绑定一个 lease。之后的服务端内部维护一个定时器，每隔一段时间就更新服务端注册中心的 lease 的 TTL。另外一个组件就是服务发现组件，discovery 会 watch 服务端的 key。每次该 key 变化时，discovery 就可以检测到时间并做出对应的操作。代码的实现如下：
 // server.go package main import ( &#34;context&#34; &#34;crypto/md5&#34; &#34;encoding/json&#34; &#34;errors&#34; &#34;flag&#34; &#34;fmt&#34; &#34;github.com/coreos/etcd/clientv3&#34; &#34;github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes&#34; &#34;log&#34; &#34;net&#34; &#34;os&#34; &#34;os/signal&#34; &#34;strings&#34; &#34;syscall&#34; &#34;time&#34; ) var ( prefix = &#34;register&#34; client *clientv3.Client stopSignal = make(chan struct{}, 1) srvKey string ) var ( serv = flag.]]></description>
 </item><item>
     <title>Go 结合 etcd</title>
-    <link>http://xingyys.tech/posts/go%E7%BB%93%E5%90%88etcd/</link>
+    <link>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</link>
     <pubDate>Tue, 10 Sep 2019 15:17:42 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/go%E7%BB%93%E5%90%88etcd/</guid>
+    </author><guid>http://xingyys.tech/posts/go/go%E7%BB%93%E5%90%88etcd/</guid>
     <description><![CDATA[关于 etcd 的安装和介绍看 这里 。官方的实例可以看 这里 一、连接 首先是关于 golang 如何连接 etcd ，先是简单的连接。
 package main import ( &#34;github.com/coreos/etcd/clientv3&#34; &#34;log&#34; &#34;time&#34; ) func connect() { cli, err := clientv3.New(clientv3.Config{ // etcd 集群的地址集合 	Endpoints: []string{&#34;192.168.10.10:2379&#34;}, // 请求超时时间 	DialTimeout: time.Second * 3, }) if err != nil { log.Fatal(&#34;connect etcd cluster: &#34; + err.Error()) } cli.Close() } 还有带 https 和 开启用户验证的连接
 func connectTlsAuth() { tlsInfo := transport.TLSInfo{ CertFile: &#34;/tmp/cert.pem&#34;, KeyFile: &#34;/tmp/key.pem&#34;, TrustedCAFile: &#34;/tmp/ca.]]></description>

@@ -5,36 +5,36 @@
         <description>随笔 - 分类 - lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/" rel="self" type="application/rss+xml" /><item>
     <title>C语言指针</title>
-    <link>http://xingyys.tech/posts/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</link>
+    <link>http://xingyys.tech/posts/clang/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</link>
     <pubDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</pubDate><author>
         <name>lack</name>
-    </author><guid>http://xingyys.tech/posts/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</guid>
+    </author><guid>http://xingyys.tech/posts/clang/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Golang跨平台编译</title>
-    <link>http://xingyys.tech/posts/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
+    <link>http://xingyys.tech/posts/go/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</link>
     <pubDate>Thu, 10 Sep 2020 14:52:46 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
+    </author><guid>http://xingyys.tech/posts/go/golang%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%BC%96%E8%AF%91/</guid>
     <description><![CDATA[golang cgo 到 Windows 的交叉编译 本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：
 # 交叉编译到 linux GOOS=linux GOARCH=amd64 go build main.go # 交叉编译到 windows GOOS=windows GOARCH=amd64 go build -o main.exe main.go 如果使用 cgo 的话，还需要添加 CGO_ENABLED 参数：
 CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -o main.exe main.go 但是这种编译 go-sqlite3 的代码会出现以下错误：
 # runtime/cgo gcc_libinit_windows.c:7:10: fatal error: &#39;windows.h&#39; file not found 因为 Windows 中使用 MinGW，MacOS 下如果交叉编译需要安装 C/C++ 交叉编译工具：]]></description>
 </item><item>
     <title>Aix添加和删除Iscsi存储卷</title>
-    <link>http://xingyys.tech/posts/aix1/</link>
+    <link>http://xingyys.tech/posts/aix/aix1/</link>
     <pubDate>Tue, 22 Oct 2019 15:12:53 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/aix1/</guid>
+    </author><guid>http://xingyys.tech/posts/aix/aix1/</guid>
     <description><![CDATA[Aix为6.1版本
  使用iscsi存储 首先需要创建一个iscsi target，并共享到IBM Aix上。
 检查iscsi是否被安装 $ lslpp -L | grep -i iscsi devices.common.IBM.iscsi.rte 6.1.5.0 C F Common iSCSI Files devices.iscsi.disk.rte 6.1.5.0 C F iSCSI Disk Software ... 配置iscsi $ vi /etc/iscsi/targets ... # 添加target 172.16.1.169 3260 iqn.2018-11.com.howlink.wbrt.portal.backup 重新扫盘 $ cfgmgr -l iscsi0 cfgmgr: 0514-621 WARNING: The following device packages are required for device support but are not currently installed. devices.iscsi.array 查看iscsi盘 $ lsdev -Cc disk | grep iSCSI hdisk18 Available Other iSCSI Disk Drive 创建物理卷 $ chdev -l hdisk18 -a pv=yes 创建vg $ mkvg -y wbrt_portal_bg hdisk18 创建lv $ mklv -t jfs2 -y wbrt_portal_bl wbrt_portal_bg 700  注:lv的大小可以使用命令 $ lsvg wbrt_portal_bg | grep &quot;TOTAL PPs&quot; | awk -F' ' '{ print $6}' 703 但不要全部使用，需要一些剩余空间。]]></description>
 </item><item>
     <title>Spring框架的核心总结</title>
-    <link>http://xingyys.tech/posts/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</link>
+    <link>http://xingyys.tech/posts/java/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</link>
     <pubDate>Mon, 19 Aug 2019 16:56:42 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</guid>
+    </author><guid>http://xingyys.tech/posts/java/spring%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[最近在学习Java语言，从而也学习了SpringFramework 这个大名鼎鼎的框架。从而做一些的记录。
  题外话: 学习过几种不同的语言，后来知道所有的编程语言里所有的概念翻来覆去都是一样的事物，只是它们被不同的术语所描述，加上大部分中文翻译，又扯上一些专有名词，让一些本来简单的概念变得复杂而深奥。不知是因人的有限，还是那些书籍的作者有意为之，其实很多的东西本来都是很简单了，这些奇怪的名词反而让初学者糊涂起来。如果有刚开始学习编程的同学看到这里，也请注意了，不要被一些概念和名字带偏了，究其本质，也就那样。
  Spring 基本概念 其实编程语言和框架的发展都是为了实际使用而来的，既然是使用，怎么使用，怎么简单的使用，怎么用更舒服就成为了其发展的主要动力了。Java框架的发展也是如此，所以spring代替了Java EE，再到后来 Spring Boot 的热门，皆是如此。因此框架的作者就会想法设法简化一些不必要和繁琐的东西。而 Spring 的核心思想就是：简化 Java 开发。
@@ -47,19 +47,19 @@ CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -o main.exe main.go 但是这�
  面向过程编程: 我就看实现一个功能需要什么步骤，然后用代码表示出这些步骤就好了，我不管代码的重用，耦合性问题。关注点是 步骤、过程。 面向对象编程: 我需要实现该功能，但是我需要考虑到流程的结构，代码重用，耦合问题。我需要先建立一个对象，对这个对象实例化实现功能。关注点是 对象。 面向切面编程: 这个是在 spring 里第一次见到的，它关注于应用中的 核心业务 模块，而设法将一些次要的，辅助的功能统一管理，如日志、安全、验证等。  spring Bean 而在 spring 中实现了 ioc 的就是这个 bean。它是spring中的容器，用来管理构成应用的组件和业务代码类。它是spring的核心。]]></description>
 </item><item>
     <title>制作rpm包</title>
-    <link>http://xingyys.tech/posts/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
+    <link>http://xingyys.tech/posts/linux/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</link>
     <pubDate>Wed, 29 May 2019 17:34:45 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
+    </author><guid>http://xingyys.tech/posts/linux/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/</guid>
     <description><![CDATA[制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。创建rpmbuild 然后就需要创建rpmbuild
 rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
 [root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1.0.0 Release: 1%{?]]></description>
 </item><item>
     <title>C&#43;&#43;友元</title>
-    <link>http://xingyys.tech/posts/c&#43;&#43;%E5%8F%8B%E5%85%83/</link>
+    <link>http://xingyys.tech/posts/clang/c&#43;&#43;%E5%8F%8B%E5%85%83/</link>
     <pubDate>Sat, 11 May 2019 16:41:20 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/c&#43;&#43;%E5%8F%8B%E5%85%83/</guid>
+    </author><guid>http://xingyys.tech/posts/clang/c&#43;&#43;%E5%8F%8B%E5%85%83/</guid>
     <description><![CDATA[友元说明 相对于其他的编程语言，“友元”是C++中特别的一种语法。那它有什么作用呢？ 其实“友元”就是提供一种访问类私有部分的的方法。如果没有“友元”，我们只能通过类本身提供的公有方法来访问，但相对地，这样限制太高了，所以“友元”就是一种的在类的封装性和实用性中很好的“折中”方式。
 C++中的友元有三种：
  友元函数 友元类 友元成员函数  C++中使用关键字friend来定义。
@@ -67,27 +67,27 @@ C++中的友元有三种：
 #include &lt;iostream&gt;#include &lt;string&gt; class Person { private: std::string account; std::string passwd; public: Person(std::string ac, std::string pw); // 这里使用friend关键字，指定Point中的getPerson方法可以使用Person类的私有变量。  friend void getPerson(Person &amp;p); }; Person::Person(std::string ac, std::string pw) { account = ac; passwd = pw; } void getPerson(Person &amp;p) { // 因为定义了友元，这里就可以访问Person类的私有变量了。  std::cout &lt;&lt; &#34;account: &#34; &lt;&lt; p.account &lt;&lt; &#34;, passwd: &#34; &lt;&lt; p.passwd &lt;&lt; std::endl; } int main() { Person p(&#34;xingyys&#34;, &#34;123456&#34;); getPerson(p); return 0; } 这个例子还是比较简单的，只要在指定的方法中添加关键字就可以实现了。]]></description>
 </item><item>
     <title>golang打包和解包</title>
-    <link>http://xingyys.tech/posts/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
+    <link>http://xingyys.tech/posts/go/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</link>
     <pubDate>Fri, 15 Feb 2019 15:03:44 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
+    </author><guid>http://xingyys.tech/posts/go/golang%E6%89%93%E5%8C%85%E5%92%8C%E8%A7%A3%E5%8C%85/</guid>
     <description><![CDATA[打包 // 打包 func Compress(destPath, srcDir string) error { // 压缩文件路径 	fw, err := os.Create(destPath) if err != nil { return err } defer fw.Close() // gzip writer 	gw := gzip.NewWriter(fw) defer gw.Close() // tar writer 	tw := tar.NewWriter(gw) defer tw.Close() // 读取要压缩的目录 	dir, err := os.Open(srcDir) if err != nil { return err } defer dir.Close() // 读取目录内容 	files, err := dir.Readdir(0) if err !]]></description>
 </item><item>
     <title>linux上使用udev创建裸设备</title>
-    <link>http://xingyys.tech/posts/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
+    <link>http://xingyys.tech/posts/linux/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</link>
     <pubDate>Sat, 26 Jan 2019 08:28:36 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
+    </author><guid>http://xingyys.tech/posts/linux/linux%E4%B8%8A%E4%BD%BF%E7%94%A8udev%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%AE%BE%E5%A4%87/</guid>
     <description><![CDATA[需求和分析 在一次项目中需要将进行oracle数据库的备份，要求在oracle机器总是能认到备份的块设备的路径以保证备份和恢复的正常。同时还需要对磁盘进行修改，转化中asm格式的。 基于这种情况下，在linux中将磁盘转化成对应的裸设备是一种合适的方法。 简单的操作就是将配置写入/etc/udev/rule.d/1401-oracle-asmdevice.rules文件中，让udev管理。
 udev 规则的匹配键
  ACTION： 事件 (uevent) 的行为，例如：add( 添加设备 )、remove( 删除设备 )。 KERNEL： 内核设备名称，例如：sda, cdrom。 DEVPATH：设备的 devpath 路径。 SUBSYSTEM： 设备的子系统名称，例如：sda 的子系统为 block。 BUS： 设备在 devpath 里的总线名称，例如：usb。 DRIVER： 设备在 devpath 里的设备驱动名称，例如：ide-cdrom。 ID： 设备在 devpath 里的识别号。 SYSFS{filename}： 设备的 devpath 路径下，设备的属性文件“filename”里的内容。 例如：SYSFS{model}==“ST936701SS”表示：如果设备的型号为 ST936701SS，则该设备匹配该 匹配键。 在一条规则中，可以设定最多五条 SYSFS 的 匹配键。 ENV{key}： 环境变量。在一条规则中，可以设定最多五条环境变量的 匹配键。 PROGRAM：调用外部命令。 RESULT： 外部命令 PROGRAM 的返回结果。  配置文件 这里是CentOS 6的版本
 [root@rac1 ~]# cat /etc/udev/rules.d/99-oracle-asmdevice.rules  KERNEL==&#34;sd*&#34;,SUBSYSTEM==&#34;block&#34;,PROGRAM==&#34;/sbin/scsi_id --whitelisted --replace-whitespace --device=/dev/$name&#34;,RESULT==&#34;360000000000000000e00000000020fa8&#34;,NAME+=&#34;oracleasm/disks/HL_360000000000000000e00000000020fa8&#34;,OWNER=&#34;grid&#34;,GROUP=&#34;asmadmin&#34;,MODE=&#34;0660&#34; 然后加载配置文件]]></description>
 </item><item>
     <title>配置七牛云存储外链</title>
-    <link>http://xingyys.tech/posts/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</link>
+    <link>http://xingyys.tech/posts/linux/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</link>
     <pubDate>Sat, 19 Jan 2019 19:10:51 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</guid>
+    </author><guid>http://xingyys.tech/posts/linux/%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8%E5%A4%96%E9%93%BE/</guid>
     <description><![CDATA[今天重新整理了下博客，发现之前配置好的七牛云图片显示错误。重新配置的同时也记录下配置步骤。
 添加域名 登录七牛云的官网融合CDN，在“域名管理”中“添加域名”，如图：
 填写“加速域名”字段为image.xingyys.club 其他默认。
@@ -100,10 +100,10 @@ udev 规则的匹配键
 配置完成。]]></description>
 </item><item>
     <title>python装饰器</title>
-    <link>http://xingyys.tech/posts/python%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+    <link>http://xingyys.tech/posts/python/python%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
     <pubDate>Sat, 31 Mar 2018 19:55:04 &#43;0000</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/python%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+    </author><guid>http://xingyys.tech/posts/python/python%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
     <description><![CDATA[简单的装饰器函数： import time from functools import wraps def timethis(func): &#34;&#34;&#34; Decorator that reports the execution time. &#34;&#34;&#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就是输出调用函数的执行时间。
 In [2]: @timethis ...: def countdown(n): ...: while n &gt; 0: ...: n -= 1 ...: In [3]: countdown(100000) countdown 0.009751319885253906 本质上来说python的装饰器就是一个函数外再包装一个函数，等同于：
 timethis(countdown(100000)) 装饰器内部的wrapper()函数中使用*args和**kwargs来接受任意参数，并用新的函数包装器来代替原来函数，其中的func就是原来的函数，即调用包装器的函数。而使用@wraps(func)的目的时保留原始函数的元数据。

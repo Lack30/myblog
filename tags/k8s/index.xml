@@ -5,10 +5,10 @@
         <description>k8s - 标签 - lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 19 Oct 2019 15:10:16 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/tags/k8s/" rel="self" type="application/rss+xml" /><item>
     <title>使用kubeadm安装kubernetes1.16</title>
-    <link>http://xingyys.tech/posts/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
+    <link>http://xingyys.tech/posts/cloudnative/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</link>
     <pubDate>Sat, 19 Oct 2019 15:10:16 &#43;0800</pubDate><author>
         <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
+    </author><guid>http://xingyys.tech/posts/cloudnative/%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85kubernetes1.16/</guid>
     <description><![CDATA[环境版本说明：
  三台vmware虚拟机，系统版本CentOS7.6。 Kubernetes 1.16.0，当前最新版。 flannel v0.11 docker 18.09  使用kubeadm可以简单的搭建一套k8s集群环境，而不用关注安装部署的细节，而且现在k8s的版本更新频率很快，所以这种方法十分推荐。
 相关准备  注：本节相关操作要在所有节点上执行。
