@@ -12,7 +12,7 @@
         <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/oracle/dblink/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210830185536.png" referrerpolicy="no-referrer">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/oracle/images/20210830185536.png" referrerpolicy="no-referrer">
             </div>查询所有触发器
 select*fromuser_triggers;根据名称禁用触发器
 altertriggerLOGMNRGGC_TRIGGERdisable;查询所有 job
