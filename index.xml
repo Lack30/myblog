@@ -11,7 +11,9 @@
     <pubDate>Mon, 30 Aug 2021 17:49:19 &#43;0800</pubDate><author>
         <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/oracle/dblink/</guid>
-    <description><![CDATA[查询所有触发器
+    <description><![CDATA[<div class="featured-image">
+                <img src="/20210830184359" referrerpolicy="no-referrer">
+            </div>查询所有触发器
 select*fromuser_triggers;根据名称禁用触发器
 altertriggerLOGMNRGGC_TRIGGERdisable;查询所有 job
 select*fromuser_jobs;根据 id 禁用 job
