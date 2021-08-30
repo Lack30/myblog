@@ -3,9 +3,21 @@
         <title>lack 的个人博客</title>
         <link>http://xingyys.tech/</link>
         <description>lack 的个人博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Aug 2021 17:49:19 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Dblink</title>
+    <link>http://xingyys.tech/posts/oracle/dblink/</link>
+    <pubDate>Mon, 30 Aug 2021 17:49:19 &#43;0800</pubDate><author>
+        <name>Lack</name>
+    </author><guid>http://xingyys.tech/posts/oracle/dblink/</guid>
+    <description><![CDATA[查询所有触发器
+select*fromuser_triggers;根据名称禁用触发器
+altertriggerLOGMNRGGC_TRIGGERdisable;查询所有 job
+select*fromuser_jobs;根据 id 禁用 job
+BEGINdbms_job.broken(4001,true);END;禁用 oracle dblink
+altersystemsetopen_links=0sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=0sid=&#39;$sid&#39;scope=spfile;启用 oracle dblink]]></description>
+</item><item>
     <title>C语言指针</title>
     <link>http://xingyys.tech/posts/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</link>
     <pubDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</pubDate><author>
@@ -99,15 +111,5 @@ yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2 编译安装 c
     <description><![CDATA[在 Windows 使用 Go 开发项目是，为了实现统一的配置和格式管理，需要进行一下的配置。
 开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选） Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
 跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整个文件被修改，这就造成我们没法 diff，不能正确反映本次的修改。还好 Git 在设计时就考虑了这一点，其提供了一个 autocrlf 的配置项，用于在提交和检出时自动转换换行符，该配置有三个可选项：]]></description>
-</item><item>
-    <title>postgresql 实战一：安装和使用</title>
-    <link>http://xingyys.tech/posts/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
-    <pubDate>Tue, 13 Oct 2020 14:33:55 &#43;0800</pubDate><author>
-        <name>作者</name>
-    </author><guid>http://xingyys.tech/posts/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
-    <description><![CDATA[安装 这里直接使用 docker 安装 postgresql-13
-docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。
-[root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash root@3e3b03e3e442:/# psql -h localhost -p 5432 -U postgres psql (13.0 (Debian 13.0-1.pgdg100+1)) Type &#34;help&#34; for help. postgres=# psql 是 pgsql 的客户端命令，使用参数如下：
- -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。   数据库的操作 postgresql 支持的数据库操作有 增、删、查、改 创建数据库 创建数据库的命令为： create database &lt;databasename&gt; [encoding 'UTF-8'] postgres=#createdatabasetestencoding&#39;UTF-8&#39;;CREATEDATABASE查询数据库 查询数据库的命令有两种：第一种是 \l ，只能在 psql 中使用：]]></description>
 </item></channel>
 </rss>

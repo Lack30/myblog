@@ -3,12 +3,15 @@
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
             <loc>http://xingyys.tech/about/</loc><lastmod>2017-08-28T21:41:52&#43;08:00</lastmod></url><url>
-            <loc>http://xingyys.tech/categories/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/categories/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/posts/oracle/dblink/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/tags/oracle/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/posts/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/tags/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
+            <loc>http://xingyys.tech/categories/%E7%AC%94%E8%AE%B0/</loc><lastmod>2021-08-30T17:49:19&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/tags/c%E8%AF%AD%E8%A8%80/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/posts/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
-            <loc>http://xingyys.tech/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
-            <loc>http://xingyys.tech/posts/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
-            <loc>http://xingyys.tech/tags/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/</loc><lastmod>2021-02-23T09:22:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/tags/kvm/</loc><lastmod>2021-01-31T10:38:28&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/posts/kvm/libguestfs/</loc><lastmod>2021-01-31T10:38:28&#43;08:00</lastmod></url><url>
@@ -52,7 +55,6 @@
             <loc>http://xingyys.tech/tags/etcd/</loc><lastmod>2019-09-11T15:17:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/posts/etcd%E7%9A%84%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</loc><lastmod>2019-09-11T15:17:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/posts/go%E7%BB%93%E5%90%88etcd/</loc><lastmod>2019-09-10T15:17:42&#43;08:00</lastmod></url><url>
-            <loc>http://xingyys.tech/tags/oracle/</loc><lastmod>2019-08-21T16:57:58&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/posts/%E5%BC%80%E5%90%AForacle%E7%9A%84%E9%97%AA%E5%9B%9E%E5%8A%9F%E8%83%BD/</loc><lastmod>2019-08-21T16:57:58&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/tags/java/</loc><lastmod>2019-08-19T16:56:42&#43;08:00</lastmod></url><url>
             <loc>http://xingyys.tech/tags/spring/</loc><lastmod>2019-08-19T16:56:42&#43;08:00</lastmod></url><url>

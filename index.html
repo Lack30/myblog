@@ -45,7 +45,7 @@
             <a href="/" title="lack 的个人博客">lack 的个人博客</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                     <i class="fas fa-adjust fa-fw"></i>
                 </a></div>
         </div>
@@ -60,7 +60,7 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/about/" title="关于">关于</a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
@@ -74,6 +74,18 @@
 <main class="main">
             <div class="container"><div class="page home" posts><div class="home-profile"></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/oracle/dblink/">Dblink</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-08-30">2021-08-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div><div class="content">查询所有触发器
+select*fromuser_triggers;根据名称禁用触发器
+altertriggerLOGMNRGGC_TRIGGERdisable;查询所有 job
+select*fromuser_jobs;根据 id 禁用 job
+BEGINdbms_job.broken(4001,true);END;禁用 oracle dblink
+altersystemsetopen_links=0sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=0sid=&#39;$sid&#39;scope=spfile;启用 oracle dblink</div><div class="post-footer">
+        <a href="/posts/oracle/dblink/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/oracle/">oracle</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">lack</a>
@@ -167,16 +179,6 @@ yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2 编译安装 c
 跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整个文件被修改，这就造成我们没法 diff，不能正确反映本次的修改。还好 Git 在设计时就考虑了这一点，其提供了一个 autocrlf 的配置项，用于在提交和检出时自动转换换行符，该配置有三个可选项：</div><div class="post-footer">
         <a href="/posts/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/windows/">windows</a>,&nbsp;<a href="/tags/golang/">golang</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">postgresql 实战一：安装和使用</a>
-    </h1><div class="post-meta">
-        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
-        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-10-13">2020-10-13</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div><div class="content">安装 这里直接使用 docker 安装 postgresql-13
-docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d postgres:13 安装成功后会绑定主机端口 54322。直接进入 postgresql13 容器，使用 pgsql。
-[root@localhost ~]# docker exec -it 3e3b03e3 /bin/bash root@3e3b03e3e442:/# psql -h localhost -p 5432 -U postgres psql (13.0 (Debian 13.0-1.pgdg100+1)) Type &#34;help&#34; for help. postgres=# psql 是 pgsql 的客户端命令，使用参数如下：
- -h：指定 pgsql 的地址 -p：指定 pgsql 的绑定端口 -U：指定登录的用户名，默认为 postgres。后面可以紧接 &ldquo;database&rdquo;，直接进入指定的数据库。   数据库的操作 postgresql 支持的数据库操作有 增、删、查、改 创建数据库 创建数据库的命令为： create database &lt;databasename&gt; [encoding 'UTF-8'] postgres=#createdatabasetestencoding&#39;UTF-8&#39;;CREATEDATABASE查询数据库 查询数据库的命令有两种：第一种是 \l ，只能在 psql 中使用：</div><div class="post-footer">
-        <a href="/posts/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/postgresql/">postgreSQL</a>,&nbsp;<a href="/tags/database/">database</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/">1</a>

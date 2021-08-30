@@ -3,7 +3,14 @@
         <title>Categories - 分类 - lack 的个人博客</title>
         <link>http://xingyys.tech/categories/</link>
         <description>Categories - 分类 - lack 的个人博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Aug 2021 17:49:19 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>笔记</title>
+    <link>http://xingyys.tech/categories/%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Mon, 30 Aug 2021 17:49:19 &#43;0800</pubDate><author>
+        <name>作者</name>
+    </author><guid>http://xingyys.tech/categories/%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>随笔</title>
     <link>http://xingyys.tech/categories/%E9%9A%8F%E7%AC%94/</link>
     <pubDate>Tue, 23 Feb 2021 09:22:42 &#43;0800</pubDate><author>
@@ -65,13 +72,6 @@
     <pubDate>Sun, 09 Feb 2020 15:23:20 &#43;0800</pubDate><author>
         <name>作者</name>
     </author><guid>http://xingyys.tech/categories/%E5%85%B6%E4%BB%96/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>云计算</title>
-    <link>http://xingyys.tech/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</link>
-    <pubDate>Sat, 19 Oct 2019 15:10:16 &#43;0800</pubDate><author>
-        <name>作者</name>
-    </author><guid>http://xingyys.tech/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>
