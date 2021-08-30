@@ -40,14 +40,14 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
     url = "/categories/"
     title = ""
     weight = 9
-  [[menu.main]]
-    identifier = "about"
-    pre = ""
-    post = ""
-    name = "关于"
-    url = "/about/"
-    title = ""
-    weight = 10
+  # [[menu.main]]
+  #   identifier = "about"
+  #   pre = ""
+  #   post = ""
+  #   name = "关于"
+  #   url = "/about/"
+  #   title = ""
+  #   weight = 10
 
 # Markup related configuration in Hugo
 [markup]
