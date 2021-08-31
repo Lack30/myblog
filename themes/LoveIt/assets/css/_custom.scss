@@ -1,0 +1,26 @@
+// ==============================
+// Custom style
+// 自定义样式
+// ==============================
+
+
+body, button, input, select, textarea {
+    color: #404040;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.content p {
+    color: #797979;
+    line-height: 30px;
+
+}
+
