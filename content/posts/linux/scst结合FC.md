@@ -16,12 +16,21 @@ SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本�
 # 环境配置
 
 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：
+
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png)
+
 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：
+
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png)
-如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (`/sys/kernel/scst_tgt/targets/qla2x00t`) 目录下的内容
+
+如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：
+
+1.查看内核中 qla2x00t (`/sys/kernel/scst_tgt/targets/qla2x00t`) 目录下的内容
+
 ![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png)
+
 2.直接查看 FC 设备的 port_id (`/sys/class/fc_host/hostx/port_name`)，
+
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png)
 
 # 配置 FC
