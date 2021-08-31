@@ -112,38 +112,38 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
 <p>接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：
 <img
         class="lazyload"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png 2x"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png"
         title="image.png"
     />
 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：
 <img
         class="lazyload"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png 2x"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png"
         title="image.png"
     />
 如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (<code>/sys/kernel/scst_tgt/targets/qla2x00t</code>) 目录下的内容
 <img
         class="lazyload"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png 2x"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png"
         title="image.png"
     />
 2.直接查看 FC 设备的 port_id (<code>/sys/class/fc_host/hostx/port_name</code>)，
 <img
         class="lazyload"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png 2x"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png"
     /></p>
 <h1 id="配置-fc">配置 FC</h1>
 <h2 id="scst-服务端配置">SCST 服务端配置</h2>
@@ -158,11 +158,11 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
 </code></pre></div><p>指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。查看 <code>/sys/class/fc_host/hostx/port_name</code>
 <img
         class="lazyload"
-        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png"
-        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png 2x"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png 2x"
         data-sizes="auto"
-        alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png"
-        title="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png"
     /></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 </code></pre></div><p>启动 target</p>
