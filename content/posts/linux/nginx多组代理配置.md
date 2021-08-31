@@ -8,36 +8,6 @@ description: ""
 tags: ["linux", "nginx"]
 categories: ["运维"]
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: false
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 
@@ -64,10 +34,10 @@ sequenceDiagrams:
 
 # 三、配置代理
 假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110455.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030110455.png)
 
 tomcat 运行在 192.168.10.11:9000
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110507.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030110507.png)
 
 现在配置 nginx 代理。
 **1.安装 nginx**先在代理服务器上安装 nginx，使用命令：
@@ -232,9 +202,9 @@ tcp        0      0 192.168.10.10:8081      0.0.0.0:*               LISTEN      
 ```
 
 可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081![image.png]
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110527.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030110527.png)
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110541.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030110541.png)
 
 到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
 

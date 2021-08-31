@@ -8,36 +8,6 @@ description: ""
 tags: ["iscsi"]
 categories: ["运维"]
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: true
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 SCST 共享的磁盘支持在线扩容。操作如下：

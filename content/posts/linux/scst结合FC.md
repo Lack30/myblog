@@ -8,36 +8,6 @@ description: ""
 tags: ["iscsi"]
 categories: ["运维"]
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: true
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 [FC](https://en.wikipedia.org/wiki/Fibre_Channel) 协议。FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看[这里](http://scst.sourceforge.net/qla2x00t-howto.html) 。
@@ -46,13 +16,13 @@ SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本�
 # 环境配置
 
 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：
-![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png)
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png)
 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：
-![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png)
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png)
 如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (`/sys/kernel/scst_tgt/targets/qla2x00t`) 目录下的内容
-![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png)
+![image.png](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png)
 2.直接查看 FC 设备的 port_id (`/sys/class/fc_host/hostx/port_name`)，
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png)
 
 # 配置 FC
 
@@ -75,7 +45,7 @@ scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
 scstadmin -add_lun 0 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```
 指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。查看 `/sys/class/fc_host/hostx/port_name`
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143050.png)
 ```bash
 scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
 ```

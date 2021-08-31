@@ -32,11 +32,11 @@ tcp6       0      0 :::80                   :::*                    LISTEN      
 
 
 使用浏览器配置使用浏览器输入地址 https://<主机ip>，输入用户名密码(admin/Scale10)后登陆 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030102048.png)
 输入后
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030102116.png)
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201030102139.png)
 直接修改配置文件
 ```bash
 [root@localhost  ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties 

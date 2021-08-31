@@ -8,36 +8,6 @@ description: ""
 tags: ["golang", "etcd"]
 categories: ["分布式", "代码"]
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: false
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 关于 etcd 的安装和介绍看 [这里](https://www.yuque.com/xingyys/szknb5/at7lql) 。官方的实例可以看 [这里](https://github.com/etcd-io/etcd/tree/master/clientv3)
