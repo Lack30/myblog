@@ -59,7 +59,7 @@ settings > Tools > File Watch
 <br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110855.png)
 配置远程主机代码同步（可选）
-<br />
+
 Tools > Deployment > Configuration
 <br/>
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110938.png)

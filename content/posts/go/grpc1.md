@@ -19,7 +19,7 @@ grpc 是由 google 开发的一款开源，高性能 rpc（[远程进程调用�
 
 # GRPC 安装
 
-<br />golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。<br />
+golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。
 
 
 ## 安装grpc-go
@@ -30,7 +30,7 @@ go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
 go get -u google.golang.org/grpc
 ```
 
-<br />如果是国内用户无法连接到 google.golang.org 的话可以使用 VPN。或者直接从 github.com 直接下载源代码再编译安装<br />
+如果是国内用户无法连接到 google.golang.org 的话可以使用 VPN。或者直接从 github.com 直接下载源代码再编译安装
 
 ```bash
 git clone https://github.com/grpc/grpc-go.git $GOPATH/src/google.golang.org/grpc
@@ -40,11 +40,11 @@ go get -u google.golang.org/grpc
 
 ## 安装 protoc
 
-<br />golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。<br />
+golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。
 
 ### macos
 
-<br />macos 下安装直接使用 brew 命令即可。<br />
+macos 下安装直接使用 brew 命令即可。
 
 ```bash
 brew install protobuf
@@ -54,7 +54,7 @@ brew install protobuf
 
 ### linux
 
-<br />linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，[下载地址](https://github.com/protocolbuffers/protobuf/releases)。<br />二进制安装的话就下载 protobuf-all-*.tar.gz 包，解压后进入生成的目录。之后执行命令：<br />
+linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，[下载地址](https://github.com/protocolbuffers/protobuf/releases)。二进制安装的话就下载 protobuf-all-*.tar.gz 包，解压后进入生成的目录。之后执行命令：
 
 ```bash
 make && make install
@@ -64,7 +64,7 @@ make && make install
 
 ### windows
 
-<br />下载 protobuf.all-*.zip 包，解压后再配置环境变量，将 protobuf\bin 配置到 $PATH 变量中。<br />
+下载 protobuf.all-*.zip 包，解压后再配置环境变量，将 protobuf\bin 配置到 $PATH 变量中。
 
 
 # GRPC使用
@@ -73,7 +73,7 @@ make && make install
 
 ## 新建项目
 
-<br />新建一个 grpc 项目，如下:<br />
+新建一个 grpc 项目，如下:
 
 ```bash
 ../sample
@@ -81,7 +81,7 @@ make && make install
     └── echo.proto
 ```
 
-<br />echo.proto 的内容为:<br />
+echo.proto 的内容为:
 
 ```protobuf
 syntax = "proto3"; // protobuf 语法版本，默认为 proto2
@@ -110,7 +110,7 @@ service Echo {
 }
 ```
 
-<br />执行以下命令将  .proto 转化为 golang 代码:<br />
+执行以下命令将  .proto 转化为 golang 代码:
 
 ```bash
 cd sample
@@ -118,10 +118,10 @@ cd sample
 protoc -I. --go_out=plugins=grpc:. pb/echo.proto
 ```
 
-<br />简单描述下 protoc 命令的功能。<br />
+简单描述下 protoc 命令的功能。
 
 - -I  :  *.proto 中导入的包的路径，导入的路径为全路径格式。. 表示当前路径。
-- --go_out=plugins=grpc: ：指定 _.proto 输出的格式和路径，生成 _.go 文件的路径为  和 *.proto 的拼接。<br />执行成功后成为文件 echo.pb.go 文件:
+- --go_out=plugins=grpc: ：指定 _.proto 输出的格式和路径，生成 _.go 文件的路径为  和 *.proto 的拼接。执行成功后成为文件 echo.pb.go 文件:
 
 
 

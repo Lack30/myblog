@@ -5,49 +5,18 @@ lastmod: 2021-01-04T22:45:23+08:00
 draft: false
 keywords: []
 description: ""
+featuredImage: "https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png"
 tags: 
  - kvm
  - linux
 categories: 
  - 虚拟化
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: true
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 # KVM 概述
 
 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
-
-![KVM架构图](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20210104230407.png)
 
 # KVM 和 Qemu 
 Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。

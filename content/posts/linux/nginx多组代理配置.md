@@ -42,7 +42,7 @@ sequenceDiagrams:
 
 
 # 一、需求
-具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。<br />实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：<br />
+具体实现以下功能：使用 nginx 作为对外的服务机器，让客户端通过访问 nginx 所在的IP+端口的方式能访问内部多个系统，这样一来通过对单台机器作访问控制就可以保证内部系统的访问安全。实现思路如下：在对外的机器上部署 nginx 服务，通过 nginx 虚拟机功能和代理功能相结合实现多组代理。具体场景如下：
 
 
 | 代理服务器 | 代理服务 |
@@ -63,34 +63,34 @@ sequenceDiagrams:
 
 
 # 三、配置代理
-假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080<br />
+假如有两个服务需要配置代理，一个 web，一个 tomcat。web 运行在 192.168.10.11:8080
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110455.png)
-<br />
-<br />tomcat 运行在 192.168.10.11:9000<br />
+
+tomcat 运行在 192.168.10.11:9000
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110507.png)
-<br />
-<br />现在配置 nginx 代理。<br />
-<br />**1.安装 nginx**<br />先在代理服务器上安装 nginx，使用命令：<br />
+
+现在配置 nginx 代理。
+**1.安装 nginx**先在代理服务器上安装 nginx，使用命令：
 
 ```bash
 $ yum install -y nginx
 ```
 
-<br />安装成功后就可以尝试启动 nginx 服务器：<br />
+安装成功后就可以尝试启动 nginx 服务器：
 
 ```bash
 $ systemctl start nginx
 ```
 
-<br />启动服务成功后，nginx 就运行在 80 端口。<br />
-<br />**2.修改配置文件**<br />安装nginx就可以修改配置文件，配置文件的默认路径为 <br />
+启动服务成功后，nginx 就运行在 80 端口。
+**2.修改配置文件**安装nginx就可以修改配置文件，配置文件的默认路径为 
 
 ```bash
 $ ll /etc/nginx/nginx.conf
 -rw-r--r-- 1 root root 1822 Nov 24 19:30 /etc/nginx/nginx.conf
 ```
 
-<br />修改 nginx.conf 如下<br />
+修改 nginx.conf 如下
 
 ```bash
 # 系统用户
@@ -162,14 +162,14 @@ http {
 }
 ```
 
-<br />注意 23 行的配置：`include /etc/nginx/conf.d/*.conf;` 这个目录下就是要存放代理的配置文件。一般这个文件默认是存在的，如果目录不存在，就创建并修改权限。<br />
+注意 23 行的配置：`include /etc/nginx/conf.d/*.conf;` 这个目录下就是要存放代理的配置文件。一般这个文件默认是存在的，如果目录不存在，就创建并修改权限。
 
 ```bash
 $ mkdir /etc/nginx/conf.d
 $ chmod 755 /etc/nginx/conf.d
 ```
 
-<br />**3.配置代理文件**<br />在这个目录下存放代理服务的文件，最好一个代理对应一个配置文件。我们之前需求上需要代理的服务是两个，直接创建两个代理文件，并修改<br />
+**3.配置代理文件**在这个目录下存放代理服务的文件，最好一个代理对应一个配置文件。我们之前需求上需要代理的服务是两个，直接创建两个代理文件，并修改
 
 ```bash
 # /etc/nginx/conf.d/nginx.conf 
@@ -214,7 +214,7 @@ server
 }
 ```
 
-<br />修改并保存后，使用 nginx 命令来验证文件的语法：<br />
+修改并保存后，使用 nginx 命令来验证文件的语法：
 
 ```bash
 $ # nginx -t
@@ -222,7 +222,7 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-<br />之后就可以重启 nginx 服务<br />
+之后就可以重启 nginx 服务
 
 ```bash
 $ systemctl restart nginx
@@ -231,10 +231,10 @@ tcp        0      0 192.168.10.10:8080      0.0.0.0:*               LISTEN      
 tcp        0      0 192.168.10.10:8081      0.0.0.0:*               LISTEN      11643/nginx: master
 ```
 
-<br />可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081<br />![image.png]
+可以看到成功绑定两个端口，代理两个服务。通过浏览器访问8080和8081![image.png]
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110527.png)
-<br />
+
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030110541.png)
-<br />
-<br />到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
+
+到这里配置就完成了。如果需要再代理，在 /etc/nginx/conf.d 目录下再添加相应的配置文件就可以。如果没有访问成功，请检查各种防火墙和安全策略。
 

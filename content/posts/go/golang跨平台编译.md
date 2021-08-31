@@ -42,7 +42,7 @@ sequenceDiagrams:
 
 # golang cgo 到 Windows 的交叉编译
 
-本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。<br />因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。<br />在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：
+本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：
 ```bash
 # 交叉编译到 linux
 GOOS=linux GOARCH=amd64 go build main.go

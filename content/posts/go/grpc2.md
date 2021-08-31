@@ -10,7 +10,7 @@ categories:
 
 ---
 
-grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。<br />
+grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。
 
 
 # GRPC 进阶功能
@@ -20,7 +20,7 @@ grpc 除了提供四种请求类型之外，还支持很多高级功能：keepal
 
 
 ## Keepalive
-Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。<br />先给出实例的代码在来说明 grpc keepalive 的使用情况：<br />server 实现：<br />
+Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。先给出实例的代码在来说明 grpc keepalive 的使用情况：server 实现：
 
 ```go
 // ...
@@ -63,7 +63,7 @@ func main() {
 }
 ```
 
-<br />client 端实现：<br />
+client 端实现：
 
 ```go
 // ...
@@ -93,7 +93,7 @@ func main() {
 }
 ```
 
-<br />keepalive 的实现核心在于 `keepalive.EnforcementPolicy` 和 `keepalive.ServerParameters`。首先是 `keepalive.ServerParameters`。它包含几个属性：
+keepalive 的实现核心在于 `keepalive.EnforcementPolicy` 和 `keepalive.ServerParameters`。首先是 `keepalive.ServerParameters`。它包含几个属性：
 
 - MaxConnectionIdle : 最大空闲连接时间，默认为无限制。这段时间为客户端 stream 请求为0 或者建立连接。超出这段时间后，serve 会发送一个 `GoWay`，强制 client stream 断开。
 - MaxConnectionAge：最大连接时间，默认为无限制。stream 连接超出这个值是发送一个 `GoWay`。
@@ -116,7 +116,7 @@ func main() {
 
 
 ## 请求重试
-grpc 支持请求重试，在客户端配置好规则之后，客户端会在请求失败之后尝试重新发起请求。<br />
+grpc 支持请求重试，在客户端配置好规则之后，客户端会在请求失败之后尝试重新发起请求。
 
 ```go
 var (
@@ -141,7 +141,7 @@ func retryDial() (*grpc.ClientConn, error) {
 // ...
 ```
 
-<br />retry 配置只需要在客户端设置即可生效。主要是配置ServerConfig，格式为[该链接](https://github.com/grpc/grpc-proto/blob/master/grpc/service_config/service_config.proto)
+retry 配置只需要在客户端设置即可生效。主要是配置ServerConfig，格式为[该链接](https://github.com/grpc/grpc-proto/blob/master/grpc/service_config/service_config.proto)
 
 - MaxAttempts ：重试的最大次数，最大值是5。
 - InitialBackoff : 初始化重试间隔时间，第一次重试去 `Randon(0,initialBackoff)`。
@@ -152,7 +152,7 @@ func retryDial() (*grpc.ClientConn, error) {
 
 
 ## 负载均衡
-grpc 支持客户端负载均衡策略，负载均衡在 grpc name_resolver 的基础上实现：<br />
+grpc 支持客户端负载均衡策略，负载均衡在 grpc name_resolver 的基础上实现：
 
 ```go
 const (
@@ -211,7 +211,7 @@ func init() {
 }
 ```
 
-<br />主要是要实现 `resolver.Builder`接口<br />
+主要是要实现 `resolver.Builder`接口
 
 ```go
 // Builder creates a resolver that will be used to watch name resolution updates.
@@ -227,7 +227,7 @@ type Builder interface {
 }
 ```
 
-<br />上面的实现方式不支持动态增减服务端地址，可以使用 etcd 实现负载均衡：<br />
+上面的实现方式不支持动态增减服务端地址，可以使用 etcd 实现负载均衡：
 
 ```go
 type etcdBuilder struct {
@@ -375,17 +375,17 @@ func (r *etcdResolver) FetchBackends() []resolver.Address {
 
 ## grpc 加密传输
 
-<br />以上的请求中，grpc 都是通过明文传输数据。但这种方式是很容易泄露数据内容的，grpc 支持 TLS 格式的加密通讯，来保存数据传输的安全性。
+以上的请求中，grpc 都是通过明文传输数据。但这种方式是很容易泄露数据内容的，grpc 支持 TLS 格式的加密通讯，来保存数据传输的安全性。
 
 ### TLS 证书
-我们首先来生成 TLS 证书<br />
+我们首先来生成 TLS 证书
 
 ```bash
 openssl ecparam -genkey -name secp384r1 -out server.key
 openssl req -new -x509 -sha256 -key server.key -out server.pem -days 3650
 ```
 
-<br />这里需要填写相关信息<br />
+这里需要填写相关信息
 
 ```bash
 Country Name (2 letter code) []:
@@ -397,7 +397,7 @@ Common Name (eg, fully qualified host name) []: mysite
 Email Address []:
 ```
 
-<br />填写完成后就生成对应的证书：<br />
+填写完成后就生成对应的证书：
 
 ```bash
 ssl
@@ -405,7 +405,7 @@ ssl
 └── server.pem
 ```
 
-<br />服务端实现<br />
+服务端实现
 
 ```go
 // ...
@@ -431,7 +431,7 @@ func main() {
 }
 ```
 
-<br />客户端实现<br />
+客户端实现
 
 ```go
 const PORT = "9001"
@@ -466,7 +466,7 @@ func main() {
 
 ### CA TLS 证书
 
-<br />TLS 证书的安全性还不够高，特别在证书生成之后，`server.key`文件的传输就成为一个问题。所以 CA 来签发 TLS 证书来解决这个问题。使用开源工具 [cfssl](https://github.com/cloudflare/cfssl/releases) 生成对应的证书：<br />[1.ca](http://1.ca/) 配置<br />
+TLS 证书的安全性还不够高，特别在证书生成之后，`server.key`文件的传输就成为一个问题。所以 CA 来签发 TLS 证书来解决这个问题。使用开源工具 [cfssl](https://github.com/cloudflare/cfssl/releases) 生成对应的证书：[1.ca](http://1.ca/) 配置
 
 ```bash
 cat << EOF | tee ca-config.json
@@ -490,7 +490,7 @@ cat << EOF | tee ca-config.json
 EOF
 ```
 
-<br />配置 mysite 机构证书可以进行服务端和客户端双向验证。<br />[2.ca](http://2.ca/) 证书<br />
+配置 mysite 机构证书可以进行服务端和客户端双向验证。[2.ca](http://2.ca/) 证书
 
 ```bash
 cat << EOF | tee ca-csr.json
@@ -510,7 +510,7 @@ cat << EOF | tee ca-csr.json
 EOF
 ```
 
-<br />3.服务端证书<br />
+3.服务端证书
 
 ```bash
 cat << EOF | tee server-csr.json
@@ -533,19 +533,19 @@ cat << EOF | tee server-csr.json
 EOF
 ```
 
-<br />生成 mysite ca 证书和私钥，初始化 ca<br />
+生成 mysite ca 证书和私钥，初始化 ca
 
 ```bash
 cfssl gencert -initca ca-csr.json | cfssljson -bare ca
 ```
 
-<br />生成server证书<br />
+生成server证书
 
 ```bash
 cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=mysite -hostname=mysite server-csr.json | cfssljson -bare server
 ```
 
-<br />最后的结果为:<br />
+最后的结果为:
 
 ```bash
 ../ssl
@@ -560,7 +560,7 @@ cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=mysi
 └── server.pem
 ```
 
-<br />接下来是代码实现，先是服务端：<br />
+接下来是代码实现，先是服务端：
 
 ```go
 // ...
@@ -612,7 +612,7 @@ func main() {
 }
 ```
 
-<br />然后是客户端：<br />
+然后是客户端：
 
 ```go
 // ...
@@ -666,7 +666,7 @@ func main() {
 
 ## 拦截器
 
-<br />grpc 支持服务端和客户端的拦截器，可以在请求发起或返回前进行处理，而不用修改原来的代码。接下来来看服务端和客户端各自怎么使用拦截器：<br />
+grpc 支持服务端和客户端的拦截器，可以在请求发起或返回前进行处理，而不用修改原来的代码。接下来来看服务端和客户端各自怎么使用拦截器：
 
 ```go
 // unary 请求拦截器
@@ -754,8 +754,8 @@ func main() {
 }
 ```
 
-<br />grpc 中的拦截器分两种，一元请求的拦截器和流式请求的拦截器。其中流式请求的连接器同时作用于服务端流式、客户端流式和双向流式三种请求模式。<br />
-<br />接下来是客户端：<br />
+grpc 中的拦截器分两种，一元请求的拦截器和流式请求的拦截器。其中流式请求的连接器同时作用于服务端流式、客户端流式和双向流式三种请求模式。
+接下来是客户端：
 
 ```go
 func clientUnaryInterceptor(
@@ -843,11 +843,11 @@ func main() {
 }
 ```
 
-<br />grpc 的拦截器同时支持单个拦截器和链式拦截器。<br />
+grpc 的拦截器同时支持单个拦截器和链式拦截器。
 
 
 ## grpc 添加 pprof 接口
-grpc 本身是使用 http2 作为底层协议，所以它也能和 golang 的 pprof 结合提供 pprof 接口。下面给出代码：<br />
+grpc 本身是使用 http2 作为底层协议，所以它也能和 golang 的 pprof 结合提供 pprof 接口。下面给出代码：
 
 ```go
 type server struct {
@@ -919,7 +919,7 @@ func main() {
 
 
 ## grpc 请求断开处理
-grpc 的请求没有自己设置请求的超时时间，而是将这部分的处理交给 golang 的 context 包。通过 context 的功能实现客户端的登录超时，请求超时。<br />服务端代码：<br />
+grpc 的请求没有自己设置请求的超时时间，而是将这部分的处理交给 golang 的 context 包。通过 context 的功能实现客户端的登录超时，请求超时。服务端代码：
 
 ```go
 type server struct {
@@ -956,7 +956,7 @@ func main() {
 }
 ```
 
-<br />客户端:<br />
+客户端:
 
 ```go
 func sendMessage(stream pb.Echo_BidirectionalStreamingEchoClient, msg string) error {
@@ -1023,7 +1023,7 @@ func main() {
 
 # GRPC 性能优化
 
-<br />虽然 grpc 的官方自诩是高性能的框架，但是 grpc 内部使用大量的反射，使得 grpc 在性能上并不算很好，所以还是有必要优化。<br />grpc 的优化思路比较简单，不需要直接修改源码，只需要在 protoc 命令生成 golang 代码是，将 golang/protobuf 换成第三方的 [gogo/protobuf](https://github.com/gogo/protobuf) 。<br />gogo库基于官方库开发，增加了很多的功能，包括：
+虽然 grpc 的官方自诩是高性能的框架，但是 grpc 内部使用大量的反射，使得 grpc 在性能上并不算很好，所以还是有必要优化。grpc 的优化思路比较简单，不需要直接修改源码，只需要在 protoc 命令生成 golang 代码是，将 golang/protobuf 换成第三方的 [gogo/protobuf](https://github.com/gogo/protobuf) 。gogo库基于官方库开发，增加了很多的功能，包括：
 
 - 快速的序列化和反序列化
 - 更规范的Go数据结构
@@ -1032,7 +1032,7 @@ func main() {
 - 可以选择产生测试代码和benchmark代码
 - 其它序列化格式
 
-比如etcd、k8s、dgraph、docker swarmkit都使用它。<br />基于速度和定制化的考虑，gogo有三种产生代码的方式
+比如etcd、k8s、dgraph、docker swarmkit都使用它。基于速度和定制化的考虑，gogo有三种产生代码的方式
 
 - `gofast`: 速度优先，不支持其它gogoprotobuf extensions。
 
@@ -1060,7 +1060,7 @@ protoc -I=. -I=$GOPATH/src -I=$GOPATH/src/github.com/gogo/protobuf/protobuf --{b
 
 - `protoc-gen-gogo`: 最快的速度，最多的可定制化
 
-你可以通过扩展定制序列化: [扩展](https://github.com/gogo/protobuf/blob/master/extensions.md).<br />
+你可以通过扩展定制序列化: [扩展](https://github.com/gogo/protobuf/blob/master/extensions.md).
 
 ```bash
 go get github.com/gogo/protobuf/proto
@@ -1069,4 +1069,4 @@ go get github.com/gogo/protobuf/protoc-gen-gogo
 go get github.com/gogo/protobuf/gogoproto
 ```
 
-<br />gogo同样支持grpc: `protoc --gofast_out=plugins=grpc:. my.proto`。<br />同时还有 protobuf 对应的[教程](https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/) 。
+gogo同样支持grpc: `protoc --gofast_out=plugins=grpc:. my.proto`。同时还有 protobuf 对应的[教程](https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/) 。

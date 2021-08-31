@@ -40,7 +40,7 @@ sequenceDiagrams:
 
 ---
 
-关于 etcd 的安装和介绍看 [这里](https://www.yuque.com/xingyys/szknb5/at7lql) 。<br />官方的实例可以看 [这里](https://github.com/etcd-io/etcd/tree/master/clientv3)
+关于 etcd 的安装和介绍看 [这里](https://www.yuque.com/xingyys/szknb5/at7lql) 。官方的实例可以看 [这里](https://github.com/etcd-io/etcd/tree/master/clientv3)
 
 # 一、连接
 首先是关于 golang 如何连接 etcd ，先是简单的连接。

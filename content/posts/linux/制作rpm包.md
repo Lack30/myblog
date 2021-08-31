@@ -13,14 +13,14 @@ author: "Lack"
 
 # 制作rpm包的流程
 
-rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包<br />
+rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包
 
 
 ## 安装需要的软件
 ```bash
 [root@CentOS1  ~]# yum install -y rpm-build
 ```
-执行了以上的命令后我们就这里使用rpmbuild这个命令了。<br />
+执行了以上的命令后我们就这里使用rpmbuild这个命令了。
 
 
 ## 创建rpmbuild
@@ -38,7 +38,7 @@ rpmbuild/
 ```bash
 [root@CentOS1  ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 ```
-这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。<br />
+这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。
 
 
 ## 创建helloworld.spec文件
@@ -86,11 +86,11 @@ rpmbuild/SOURCES/helloworld-1.0.0/helloworld
 [root@CentOS1  ~]# ls rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm 
 rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
 ```
-生成的rpm包就可以使用 rpm -ivh 命令安装了<br />
+生成的rpm包就可以使用 rpm -ivh 命令安装了
 
 
 # spec文件说明
-接下来说明spec文件的语法规则。<br />一般的spec文件头包含以下几个域：
+接下来说明spec文件的语法规则。一般的spec文件头包含以下几个域：
 
 ## Name
 ```bash
@@ -219,7 +219,7 @@ Vendor: <RedFlag Co,Ltd>
 格式：
 Provides:
 ```
-描述：<br />指明本软件一些特定的功能，以便其他rpm识别<br />格式：<br />Provides: 
+描述：指明本软件一些特定的功能，以便其他rpm识别格式：Provides: 
 
 ## 依赖关系
 依赖关系定义了一个包正常工作需要依赖的其他包，RPM在升级、安装和删除的时候会确保依赖关系得到满足。rpm支持4种依赖：
@@ -274,12 +274,12 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 ```
 
 ## 预处理%prep
-预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。<br />作用：<br />用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。<br />检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。<br />它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。<br />
+预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。作用：用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。
 
 
 ### 宏%setup
 
-这个宏解压源代码，将当前目录改为源代码解压之后产生的目录。这个宏还有一些选项可以用。例如，在解压后，%setup 宏假设产生的目录是%{name}-%{version}<br />如果 tar 打包中的目录不是这样命名的，可以用 -n 选项来指定要切换到的目录。例如：
+这个宏解压源代码，将当前目录改为源代码解压之后产生的目录。这个宏还有一些选项可以用。例如，在解压后，%setup 宏假设产生的目录是%{name}-%{version}如果 tar 打包中的目录不是这样命名的，可以用 -n 选项来指定要切换到的目录。例如：
 - %setup -n %{name}-April2003Rel
 - %setup-q             ：将 tar 命令的繁复输出关闭。
 - %setup -n newdir     ：将压缩的软件源程序在newdir目录下解开。
@@ -289,7 +289,7 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 
 例如：
 - %setup -T -b 0        //解开第一个源程序文件。
--%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。<br />
+-%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。
 
 
 ### 宏%patch
@@ -303,7 +303,7 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 
 ## 编译%build
 
-定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。<br />作用：<br />在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。<br />如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。<br />如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。<br />软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。<br />环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：
+定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。作用：在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：
 ```bash 
 makeCC="gcc $RPM_OPT_FLAGS"
 ``` 
@@ -319,9 +319,9 @@ makeCFLAGS="$RPM_OPT_FLAGS"
 
 ## 安装%install
 
-定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。<br />作用：<br />这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。<br />在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：`Buildroot:%{_tmppath}/%{name}-buildroot`
+定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。作用：这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：`Buildroot:%{_tmppath}/%{name}-buildroot`
 
-使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。<br />在 spec 文件的其余部分可以用 shell 变量 `$RPM_BUILD_ROOT` 获取 Buildroot 的值。
+使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。在 spec 文件的其余部分可以用 shell 变量 `$RPM_BUILD_ROOT` 获取 Buildroot 的值。
 ```bash
 mkdir -p $RPM_BUILD_ROOT/usr/share/icons/
 cp %{SOURCE3}$RPM_BUILD_ROOT/usr/share/icons/
@@ -354,7 +354,7 @@ rm-rf $RPM_BUILD_ROOT
 
 ##  更新日志%changelog
 
-每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。<br />
+每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。
 
 
 # 更复杂的spec

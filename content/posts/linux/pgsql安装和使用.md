@@ -175,7 +175,7 @@ ORDER BY a.attnum;
 ```
 
 ## 修改表结构
-`ALTER TABLE` 语句用于添加、修改、删除表中的列：<br />在现有表中添加列：
+`ALTER TABLE` 语句用于添加、修改、删除表中的列：在现有表中添加列：
 ```sql
 ALTER TABLE table_name ADD column_name datatype;
 ```
@@ -215,8 +215,8 @@ PostgreSQL 支持存储 JSON 类型的数据，提供了两种类型： `json` 
 - `json`数据类型存储输入文本的精准拷贝，处理函数必须在每 次执行时必须重新解析该数据。
 - `jsonb`数据被存储在一种分解好的 二进制格式中，它在输入时要稍慢一些，因为需要做附加的转换。但是 `jsonb`在处理时要快很多，因为不需要解析。`jsonb`也支持索引，`jsonb`不保留空格、不 保留对象键的顺序并且不保留重复的对象键。
 
-关于 `JSONB` 的详细信息可以参考 [JSON 类型](http://www.postgres.cn/docs/12/datatype-json.html#JSON-KEYS-ELEMENTS)，这里只介绍 `JSONB` 类型数据的使用。<br />
-<br />创建 JSONB 类型的表
+关于 `JSONB` 的详细信息可以参考 [JSON 类型](http://www.postgres.cn/docs/12/datatype-json.html#JSON-KEYS-ELEMENTS)，这里只介绍 `JSONB` 类型数据的使用。
+创建 JSONB 类型的表
 ```sql
 CREATE TABLE posts(
   ID    INT PRIMARY KEY NOT NULL,

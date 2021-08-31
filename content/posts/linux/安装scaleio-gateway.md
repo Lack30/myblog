@@ -10,7 +10,7 @@ categories: ["存储"]
 author: "Lack"
 ---
 
-scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：<br />
+scaleio-gateway是EMC ScaleIO存储的网关接口，通过调用其api能实现EMC存储软件的管理。下面来介绍怎么安装和配置：
 
 # 一、安装
 1.直接是使用rpm软件安装：gateway运行环境需要 java1.8，内存大于3G
@@ -31,13 +31,13 @@ tcp6       0      0 :::80                   :::*                    LISTEN      
 
 
 
-使用浏览器配置<br />使用浏览器输入地址 https://<主机ip>，输入用户名密码(admin/Scale10)后登陆 <br />
+使用浏览器配置使用浏览器输入地址 https://<主机ip>，输入用户名密码(admin/Scale10)后登陆 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102048.png)
-<br />输入后<br />
+输入后
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102116.png)
-<br />
+
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201030102139.png)
-<br />直接修改配置文件
+直接修改配置文件
 ```bash
 [root@localhost  ~]# vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties 
 // 修改以下字段
@@ -52,7 +52,7 @@ security.bypass_certificate_check=true
 ```
 
 # 三、验证
-使用浏览器登陆 https://<主机ip>/api/login 验证<br />curl命令验证验证：
+使用浏览器登陆 https://<主机ip>/api/login 验证curl命令验证验证：
 ```bash
 [root@localhost  ~]# curl -k --user admin:Scale10 https://192.168.3.107/api/login
 "YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA"
