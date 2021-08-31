@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["aix"]
-categories: ["随笔"]
+categories: ["笔记"]
 author: "Lack"
 ---
 

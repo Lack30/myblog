@@ -5,7 +5,7 @@ update: 2018-05-31 09:57:17
 tags: 
  - python
 categories: 
- - 随笔
+ - 笔记
 ---
 ![](http://image.xingyys.club/blog/python.jpg)
 # 简单的装饰器函数：

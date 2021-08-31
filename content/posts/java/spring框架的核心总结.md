@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["java", "spring"]
-categories: ["随笔"]
+categories: ["笔记"]
 author: "Lack"
 ---
 

@@ -8,7 +8,7 @@ description: ""
 tags: 
  - C语言
 categories: 
- - 随笔
+ - 笔记
 author: "lack"
 ---
 

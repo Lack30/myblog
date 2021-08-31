@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["golang"]
-categories: ["随笔"]
+categories: ["笔记"]
 author: "Lack"
 ---
 
