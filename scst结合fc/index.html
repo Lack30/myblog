@@ -155,35 +155,36 @@
 </nav></div>
             </div><div class="content" id="content"><p>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 <a href="https://en.wikipedia.org/wiki/Fibre_Channel" target="_blank" rel="noopener noreffer">FC</a> 协议。FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看<a href="http://scst.sourceforge.net/qla2x00t-howto.html" target="_blank" rel="noopener noreffer">这里</a> 。</p>
 <h1 id="环境配置">环境配置</h1>
-<p>接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：
-<img
+<p>接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：</p>
+<p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png"
         data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png 2x"
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142919.png"
         title="image.png"
-    />
-保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：
-<img
+    /></p>
+<p>保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：</p>
+<p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png"
         data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png 2x"
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102142951.png"
         title="image.png"
-    />
-如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (<code>/sys/kernel/scst_tgt/targets/qla2x00t</code>) 目录下的内容
-<img
+    /></p>
+<p>如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：</p>
+<p>1.查看内核中 qla2x00t (<code>/sys/kernel/scst_tgt/targets/qla2x00t</code>) 目录下的内容</p>
+<p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png"
         data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png 2x"
         data-sizes="auto"
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143014.png"
         title="image.png"
-    />
-2.直接查看 FC 设备的 port_id (<code>/sys/class/fc_host/hostx/port_name</code>)，
-<img
+    /></p>
+<p>2.直接查看 FC 设备的 port_id (<code>/sys/class/fc_host/hostx/port_name</code>)，</p>
+<p><img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png"
         data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20201102143032.png 2x"
