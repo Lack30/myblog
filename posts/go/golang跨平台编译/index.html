@@ -105,7 +105,7 @@ CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -o main.exe main.go 但是这�
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
             </div><div class="content" id="content"><h1 id="golang-cgo-到-windows-的交叉编译">golang cgo 到 Windows 的交叉编译</h1>
-<p>本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。<!-- raw HTML omitted -->因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。<!-- raw HTML omitted -->在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：</p>
+<p>本篇记录在 MaxOS 下 cgo 交叉编译的解决方案。因为在项目中使用 go-sqlite3 ，编译 go-sqlite3 中需要使用到 cgo。在 MacOS 下编译 Go 原生 Linux 和 Windows 的程序使用以下命令：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 交叉编译到 linux</span>
 <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build main.go
 <span class="c1"># 交叉编译到 windows</span>

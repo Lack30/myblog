@@ -46,7 +46,9 @@ virt-install \  --name centos \  --ram 1024 \  --disk path=/data/kvm/centos.img,
     <pubDate>Mon, 04 Jan 2021 22:45:23 &#43;0800</pubDate><author>
         <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/kvm_detail/</guid>
-    <description><![CDATA[KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png" referrerpolicy="no-referrer">
+            </div>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
 KVM 和 Qemu Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。
 全虚拟化和半虚拟化 全虚拟化是指不需要修改操作系统内核实现虚拟化功能，半虚拟化则需要修改内核来实现虚拟化。
 KVM 就是一种半虚拟化实现。

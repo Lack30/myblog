@@ -10,15 +10,21 @@
         <name>作者</name>
     </author><guid>http://xingyys.tech/posts/go/grpc1/</guid>
     <description><![CDATA[GRPC 简介 grpc 是由 google 开发的一款开源，高性能 rpc（远程进程调用协议）使用 Protocol Buffers 作为数据交换格式。
-GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。安装grpc-go go get -u github.com/golang/protobuf/{proto,protoc-gen-go} go get -u google.golang.org/grpc 如果是国内用户无法连接到 google.golang.org 的话可以使用 VPN。或者直接从 github.com 直接下载源代码再编译安装git clone https://github.com/grpc/grpc-go.git $GOPATH/src/google.golang.org/grpc go get -u google.golang.org/grpc 安装 protoc golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。macos macos 下安装直接使用 brew 命令即可。brew install protobuf linux linux 下需要先从 github.com 下载 protobuf 源码或者二进制文件，下载地址。二进制安装的话就下载 protobuf-all-*.]]></description>
+GRPC 安装 golang 使用 grpc 要安装 grpc-go, protoc 和 对应的插件。
+安装grpc-go go get -u github.com/golang/protobuf/{proto,protoc-gen-go} go get -u google.golang.org/grpc 如果是国内用户无法连接到 google.golang.org 的话可以使用 VPN。或者直接从 github.com 直接下载源代码再编译安装
+git clone https://github.com/grpc/grpc-go.git $GOPATH/src/google.golang.org/grpc go get -u google.golang.org/grpc 安装 protoc golang 要使用 grpc，还需要使用 protoc 工具。因为 golang 不能直接识别 .proto 文件，需要使用 protoc 工具将 .proto 转化成 golang 代码。下面介绍几个平台下安装 protobuf 的方法。
+macos macos 下安装直接使用 brew 命令即可。
+brew install protobuf linux linux 下需要先从 github.]]></description>
 </item><item>
     <title>GPRC 进阶</title>
     <link>http://xingyys.tech/posts/go/grpc2/</link>
     <pubDate>Fri, 31 Jul 2020 14:38:08 &#43;0800</pubDate><author>
         <name>作者</name>
     </author><guid>http://xingyys.tech/posts/go/grpc2/</guid>
-    <description><![CDATA[grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。GRPC 进阶功能  每个grpc请求都是 stream。
- Keepalive Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。先给出实例的代码在来说明 grpc keepalive 的使用情况：server 实现：// ... var kaep = keepalive.EnforcementPolicy{ MinTime: 5 * time.Second, // If a client pings more than once every 5 seconds, terminate the connection 	PermitWithoutStream: true, // Allow pings even when there are no active streams } var kasp = keepalive.ServerParameters{ MaxConnectionIdle: 15 * time.Second, // If a client is idle for 15 seconds, send a GOAWAY 	MaxConnectionAge: 30 * time.]]></description>
+    <description><![CDATA[grpc 除了提供四种请求类型之外，还支持很多高级功能：keepalive、请求重试、负载均衡、用户验证等。接下来一一介绍。
+GRPC 进阶功能  每个grpc请求都是 stream。
+ Keepalive Keepalive 能够让 grpc 的每个 stream 保持长连接状态，适合一些执行时间长的请求。Keepalive 支持在服务端和客户端配置，且只有服务端配置后，客户端的配置才会真正有效。先给出实例的代码在来说明 grpc keepalive 的使用情况：server 实现：
+// ... var kaep = keepalive.EnforcementPolicy{ MinTime: 5 * time.Second, // If a client pings more than once every 5 seconds, terminate the connection 	PermitWithoutStream: true, // Allow pings even when there are no active streams } var kasp = keepalive.ServerParameters{ MaxConnectionIdle: 15 * time.Second, // If a client is idle for 15 seconds, send a GOAWAY 	MaxConnectionAge: 30 * time.]]></description>
 </item><item>
     <title>Spring Cloud微服务实践七</title>
     <link>http://xingyys.tech/posts/java/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/</link>

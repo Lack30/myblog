@@ -156,7 +156,16 @@ virt-install \  --name centos \  --ram 1024 \  --disk path=/data/kvm/centos.img,
  -–name 指定虚拟机的名字 –-ram 指定内存分配多少 –-disk path 指定虚拟磁盘放到哪里，size=30 指定磁盘大小为30G,这样磁盘文件格式为raw，raw格式不能做快照，后面有说明，需要转换为qcow2格式，如果要使用qcow2格式的虚拟磁盘，需要事先创建qcow2格式的虚拟磁盘。 参考 http://www.</div><div class="post-footer">
         <a href="/posts/kvm/kvm_vm/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+            <a href="/posts/kvm/kvm_detail/" aria-label=KVM介绍><img
+        class="lazyload"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png" height="auto" width="auto"
+    /></a>
+        </div><h1 class="single-title" itemprop="name headline">
         <a href="/posts/kvm/kvm_detail/">KVM介绍</a>
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
@@ -184,7 +193,8 @@ yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2 编译安装 c
     </h1><div class="post-meta">
         <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
         </span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-10-29">2020-10-29</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E5%BC%80%E5%8F%91/"><i class="far fa-folder fa-fw"></i>开发</a></span></div><div class="content">在 Windows 使用 Go 开发项目是，为了实现统一的配置和格式管理，需要进行一下的配置。
-开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选） Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
+开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选）
+Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
 跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整个文件被修改，这就造成我们没法 diff，不能正确反映本次的修改。还好 Git 在设计时就考虑了这一点，其提供了一个 autocrlf 的配置项，用于在提交和检出时自动转换换行符，该配置有三个可选项：</div><div class="post-footer">
         <a href="/posts/go/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/windows/">windows</a>,&nbsp;<a href="/tags/golang/">golang</a></div></div>

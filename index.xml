@@ -87,7 +87,9 @@ virt-install \  --name centos \  --ram 1024 \  --disk path=/data/kvm/centos.img,
     <pubDate>Mon, 04 Jan 2021 22:45:23 &#43;0800</pubDate><author>
         <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/kvm/kvm_detail/</guid>
-    <description><![CDATA[KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png" referrerpolicy="no-referrer">
+            </div>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。
 KVM 和 Qemu Qemu（quick emulator）开源的软件虚拟化实现，通过软件来模拟硬件的功能，但缺点是性能低。通过和 KVM 相结合来提高性能。现在的版本已经内置 KVM。
 全虚拟化和半虚拟化 全虚拟化是指不需要修改操作系统内核实现虚拟化功能，半虚拟化则需要修改内核来实现虚拟化。
 KVM 就是一种半虚拟化实现。
@@ -111,7 +113,8 @@ yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2 编译安装 c
         <name>Lack</name>
     </author><guid>http://xingyys.tech/posts/go/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/</guid>
     <description><![CDATA[在 Windows 使用 Go 开发项目是，为了实现统一的配置和格式管理，需要进行一下的配置。
-开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选） Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
+开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进行一些配置。 修改统一的文件换行符为 \n 。 settings &gt; Editor &gt; Code Style 添加格式化工具 goimports。goimports 同时内置了 gofmt 的功能。可以格式化 Go 代理、自动导入依赖包等。 settings &gt; Editor &gt; Code Style &gt; Go 设置文件自动格式化 settings &gt; Tools &gt; File Watch 配置远程主机代码同步（可选）
+Tools &gt; Deployment &gt; Configuration Git 配置 文本文件所使用的换行符，在不同的系统平台上是不一样的。 UNIX/Linux 使用的是 0x0A（LF） ，早期的 Mac OS 使用的是 0x0D（CR） ，后来的 OS X 在更换内核后与 UNIX 保持一致了。但 DOS/Windows 一直使用 0x0D0A（CRLF） 作为换行符。
 跨平台协作开发是常有的，不统一的换行符确实对跨平台的文件交换带来了麻烦。最大的问题是，在不同平台上，换行符发生改变时，Git 会认为整个文件被修改，这就造成我们没法 diff，不能正确反映本次的修改。还好 Git 在设计时就考虑了这一点，其提供了一个 autocrlf 的配置项，用于在提交和检出时自动转换换行符，该配置有三个可选项：]]></description>
 </item></channel>
 </rss>

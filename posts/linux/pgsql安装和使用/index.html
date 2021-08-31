@@ -39,7 +39,7 @@ docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d post
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/posts\/linux\/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8\/"
-        },"genre": "posts","keywords": "postgreSQL, database","wordcount":  290 ,
+        },"genre": "posts","keywords": "postgreSQL, database","wordcount":  291 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/pgsql%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8\/","datePublished": "2020-10-13T14:33:55+08:00","dateModified": "2020-10-13T14:52:46+08:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
@@ -98,7 +98,7 @@ docker run --name postgresql13 -e POSTGRES_PASSWORD=123456 -p 54322:5432 -d post
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">作者</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-13">2020-10-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-10-13">2020-10-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 290 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-13">2020-10-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-10-13">2020-10-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 291 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -249,7 +249,7 @@ Type <span class="s2">&#34;help&#34;</span> <span class="k">for</span> help.
 </span><span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">salary</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">float4</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">4</span><span class="w"> </span><span class="o">|</span><span class="w">        </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">f</span><span class="w">       </span><span class="o">|</span><span class="w">
 </span><span class="w"></span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="k">rows</span><span class="p">)</span><span class="w">
 </span></code></pre></div><h2 id="修改表结构">修改表结构</h2>
-<p><code>ALTER TABLE</code> 语句用于添加、修改、删除表中的列：<!-- raw HTML omitted -->在现有表中添加列：</p>
+<p><code>ALTER TABLE</code> 语句用于添加、修改、删除表中的列：在现有表中添加列：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="n">datatype</span><span class="p">;</span><span class="w">
 </span></code></pre></div><p>在现有表中删除列：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">colume_name</span><span class="p">;</span><span class="w">
@@ -273,8 +273,8 @@ Type <span class="s2">&#34;help&#34;</span> <span class="k">for</span> help.
 <li><code>json</code>数据类型存储输入文本的精准拷贝，处理函数必须在每 次执行时必须重新解析该数据。</li>
 <li><code>jsonb</code>数据被存储在一种分解好的 二进制格式中，它在输入时要稍慢一些，因为需要做附加的转换。但是 <code>jsonb</code>在处理时要快很多，因为不需要解析。<code>jsonb</code>也支持索引，<code>jsonb</code>不保留空格、不 保留对象键的顺序并且不保留重复的对象键。</li>
 </ul>
-<p>关于 <code>JSONB</code> 的详细信息可以参考 <a href="http://www.postgres.cn/docs/12/datatype-json.html#JSON-KEYS-ELEMENTS" target="_blank" rel="noopener noreffer">JSON 类型</a>，这里只介绍 <code>JSONB</code> 类型数据的使用。<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->创建 JSONB 类型的表</p>
+<p>关于 <code>JSONB</code> 的详细信息可以参考 <a href="http://www.postgres.cn/docs/12/datatype-json.html#JSON-KEYS-ELEMENTS" target="_blank" rel="noopener noreffer">JSON 类型</a>，这里只介绍 <code>JSONB</code> 类型数据的使用。
+创建 JSONB 类型的表</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">posts</span><span class="p">(</span><span class="w">
 </span><span class="w">  </span><span class="n">ID</span><span class="w">    </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
 </span><span class="w">  </span><span class="n">spec</span><span class="w">  </span><span class="n">JSONB</span><span class="w">

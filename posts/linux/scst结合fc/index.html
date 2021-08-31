@@ -7,7 +7,7 @@
     <meta name="robots" content="noodp" />
     <title class="pjax-title">Scst结合FC - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="Scst结合FC" />
 <meta property="og:description" content="SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。
-环境配置 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境： 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (/sys/kernel/scst_tgt/targets/qla2x00t) 目录下的内容2.直接查看 FC 设备的 port_id (/sys/class/fc_host/hostx/port_name)，配置 FC SCST 服务端配置 创建 target, FC 设备和 target 一对一。
+环境配置 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境： 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动： 如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (/sys/kernel/scst_tgt/targets/qla2x00t) 目录下的内容 2.直接查看 FC 设备的 port_id (/sys/class/fc_host/hostx/port_name)， 配置 FC SCST 服务端配置 创建 target, FC 设备和 target 一对一。
 scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对应本地的块文件" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/posts/linux/scst%E7%BB%93%E5%90%88fc/" /><meta property="article:section" content="posts" />
@@ -17,7 +17,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Scst结合FC"/>
 <meta name="twitter:description" content="SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 FC 协议。FC 协议需要硬件 FC HBA 卡的支持。 SCST 和 FC 的环境搭建如下看这里 。
-环境配置 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境： 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (/sys/kernel/scst_tgt/targets/qla2x00t) 目录下的内容2.直接查看 FC 设备的 port_id (/sys/class/fc_host/hostx/port_name)，配置 FC SCST 服务端配置 创建 target, FC 设备和 target 一对一。
+环境配置 接下来 SCST 和 FC 的使用。首先需要有 scst 的环境： 保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动： 如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (/sys/kernel/scst_tgt/targets/qla2x00t) 目录下的内容 2.直接查看 FC 设备的 port_id (/sys/class/fc_host/hostx/port_name)， 配置 FC SCST 服务端配置 创建 target, FC 设备和 target 一对一。
 scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对应本地的块文件"/>
 <meta name="application-name" content="lack 的个人博客">
 <meta name="apple-mobile-web-app-title" content="lack 的个人博客">
@@ -35,7 +35,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/posts\/linux\/scst%E7%BB%93%E5%90%88fc\/"
-        },"genre": "posts","keywords": "iscsi","wordcount":  163 ,
+        },"genre": "posts","keywords": "iscsi","wordcount":  169 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/scst%E7%BB%93%E5%90%88fc\/","datePublished": "2020-08-06T15:21:50+08:00","dateModified": "2020-08-06T15:21:50+08:00","publisher": {
             "@type": "Organization",
             "name": "Lack"},"author": {
@@ -94,7 +94,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-06">2020-08-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-08-06">2020-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 163 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-08-06">2020-08-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2020-08-06">2020-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 169 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -107,9 +107,9 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
     <li><a href="#客户端配置">客户端配置</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 <a href="https://en.wikipedia.org/wiki/Fibre_Channel" target="_blank" rel="noopener noreffer">FC</a> 协议。<!-- raw HTML omitted -->FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看<a href="http://scst.sourceforge.net/qla2x00t-howto.html" target="_blank" rel="noopener noreffer">这里</a> 。</p>
+            </div><div class="content" id="content"><p>SCST 是 iscsi 的一种实现方式，它既可以使用 iscsi 协议共享本地磁盘，同时也支持 <a href="https://en.wikipedia.org/wiki/Fibre_Channel" target="_blank" rel="noopener noreffer">FC</a> 协议。FC 协议需要硬件 FC HBA 卡的支持。  SCST 和 FC 的环境搭建如下看<a href="http://scst.sourceforge.net/qla2x00t-howto.html" target="_blank" rel="noopener noreffer">这里</a> 。</p>
 <h1 id="环境配置">环境配置</h1>
-<p>接下来 SCST 和 FC 的使用。<!-- raw HTML omitted -->首先需要有 scst 的环境：
+<p>接下来 SCST 和 FC 的使用。首先需要有 scst 的环境：
 <img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png"
@@ -118,7 +118,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142919.png"
         title="image.png"
     />
-<!-- raw HTML omitted -->保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：<!-- raw HTML omitted -->
+保证 linux 内核中加载了 qla。使用 scstadm 查看所支持的驱动：
 <img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png"
@@ -127,7 +127,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102142951.png"
         title="image.png"
     />
-<!-- raw HTML omitted -->如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。<!-- raw HTML omitted -->查看 FC 设备的 ID 可以用以下的方式：<!-- raw HTML omitted -->1.查看内核中 qla2x00t (<code>/sys/kernel/scst_tgt/targets/qla2x00t</code>) 目录下的内容<!-- raw HTML omitted -->
+如果使用 FC 去共享磁盘，scst 需要创建和 FC 设备对应的 target。FC 设备和 target 属于一对一关系，而且创建 target 的名称要和 FC 设备的 ID 相同。查看 FC 设备的 ID 可以用以下的方式：1.查看内核中 qla2x00t (<code>/sys/kernel/scst_tgt/targets/qla2x00t</code>) 目录下的内容
 <img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png"
@@ -136,7 +136,7 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143014.png"
         title="image.png"
     />
-<!-- raw HTML omitted -->2.直接查看 FC 设备的 port_id (<code>/sys/class/fc_host/hostx/port_name</code>)，<!-- raw HTML omitted -->
+2.直接查看 FC 设备的 port_id (<code>/sys/class/fc_host/hostx/port_name</code>)，
 <img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143032.png"
@@ -153,9 +153,9 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -open_dev fc1 -handler vdisk_fileio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/sdc
 </code></pre></div><p>创建 group，scst 中的 group 用于限定共享的对象。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
-</code></pre></div><p>创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。<!-- raw HTML omitted --></p>
+</code></pre></div><p>创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_lun <span class="m">0</span> -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
-</code></pre></div><p>指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。<!-- raw HTML omitted -->查看 <code>/sys/class/fc_host/hostx/port_name</code><!-- raw HTML omitted -->
+</code></pre></div><p>指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。查看 <code>/sys/class/fc_host/hostx/port_name</code>
 <img
         class="lazyload"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/post/images/20201102143050.png"
@@ -171,10 +171,9 @@ scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t 创建 device 对
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -write_config /etc/scst.conf
 </code></pre></div><p>（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）</p>
 <h2 id="客户端配置">客户端配置</h2>
-<p>扫描 scst 主机<!-- raw HTML omitted --></p>
+<p>扫描 scst 主机</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/host3/scan
-</code></pre></div><p>其中 <code>&quot;- - -&quot;</code> 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。<code>host3</code> 和 <code>/sys/class/fc_host/host3</code> 相对应。执行命令后客户端增加了一块磁盘。<!-- raw HTML omitted -->
-<!-- raw HTML omitted --></p>
+</code></pre></div><p>其中 <code>&quot;- - -&quot;</code> 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。<code>host3</code> 和 <code>/sys/class/fc_host/host3</code> 相对应。执行命令后客户端增加了一块磁盘。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

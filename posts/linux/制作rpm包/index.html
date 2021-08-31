@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">制作rpm包 - lack 的个人博客</title><meta name="Description" content=""><meta property="og:title" content="制作rpm包" />
-<meta property="og:description" content="制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。创建rpmbuild 然后就需要创建rpmbuild
-rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
-[root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1.0.0 Release: 1%{?" />
+<meta property="og:description" content="制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包
+安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。
+创建rpmbuild 然后就需要创建rpmbuild
+rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。
+创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
+[root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/posts/linux/%E5%88%B6%E4%BD%9Crpm%E5%8C%85/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-05-29T17:34:45+08:00" />
@@ -16,9 +19,12 @@ rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="制作rpm包"/>
-<meta name="twitter:description" content="制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。创建rpmbuild 然后就需要创建rpmbuild
-rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
-[root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1.0.0 Release: 1%{?"/>
+<meta name="twitter:description" content="制作rpm包的流程 rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包
+安装需要的软件 [root@CentOS1 ~]# yum install -y rpm-build 执行了以上的命令后我们就这里使用rpmbuild这个命令了。
+创建rpmbuild 然后就需要创建rpmbuild
+rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会放置在这个目录当中； ├── BUILDROOT // 编译后生成的软件临时安装目录 ├── RPMS // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。 ├── SOURCES // 这个目录当中放置的是该软件的原始档 (*.tar.gz 的文件) 以及 config 这个配置档； ├── SPECS // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里； └── SRPMS // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。 [root@CentOS1 ~]# mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS} 这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。
+创建helloworld.spec文件 接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec
+[root@CentOS1 ~]# vim rpmbuild/SPCES/helloworld.spec  Name: helloworld Version: 1."/>
 <meta name="application-name" content="lack 的个人博客">
 <meta name="apple-mobile-web-app-title" content="lack 的个人博客">
 
@@ -35,7 +41,7 @@ rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/posts\/linux\/%E5%88%B6%E4%BD%9Crpm%E5%8C%85\/"
-        },"genre": "posts","keywords": "linux","wordcount":  643 ,
+        },"genre": "posts","keywords": "linux","wordcount":  649 ,
         "url": "http:\/\/xingyys.tech\/posts\/linux\/%E5%88%B6%E4%BD%9Crpm%E5%8C%85\/","datePublished": "2019-05-29T17:34:45+08:00","dateModified": "2019-05-29T17:34:45+08:00","publisher": {
             "@type": "Organization",
             "name": "Lack"},"author": {
@@ -94,7 +100,7 @@ rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Lack</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E9%9A%8F%E7%AC%94/"><i class="far fa-folder fa-fw"></i>随笔</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-05-29">2019-05-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-05-29">2019-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 643 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-05-29">2019-05-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2019-05-29">2019-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 649 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -140,10 +146,10 @@ rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h1 id="制作rpm包的流程">制作rpm包的流程</h1>
-<p>rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包<!-- raw HTML omitted --></p>
+<p>rpm包是redhat和CentOS等linux发行版的包管理工具，能有效的管理系统的软件包，包括添加、删除、升级等操作。所以为了我们自己开发的软件也可以这样容易的管理，我们需要知道怎么制作rpm软件包</p>
 <h2 id="安装需要的软件">安装需要的软件</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># yum install -y rpm-build</span>
-</code></pre></div><p>执行了以上的命令后我们就这里使用rpmbuild这个命令了。<!-- raw HTML omitted --></p>
+</code></pre></div><p>执行了以上的命令后我们就这里使用rpmbuild这个命令了。</p>
 <h2 id="创建rpmbuild">创建rpmbuild</h2>
 <p>然后就需要创建rpmbuild</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rpmbuild/
@@ -154,7 +160,7 @@ rpmbuild/ ├── BUILD // 在编译的过程中，有些缓存的数据都会
 ├── SPECS         // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里；
 └── SRPMS         // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。
 </code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}</span>
-</code></pre></div><p>这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。<!-- raw HTML omitted --></p>
+</code></pre></div><p>这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。</p>
 <h2 id="创建helloworldspec文件">创建helloworld.spec文件</h2>
 <p>接下来来一个简单的demo，先在rpmbuild/SPECS下新建文件helloworld.spec</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># vim rpmbuild/SPCES/helloworld.spec </span>
@@ -193,9 +199,9 @@ rpmbuild/SOURCES/helloworld-1.0.0/helloworld
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># rpmbuild -bb rpmbuild/SPECS/helloworld.spec </span>
 <span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># ls rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm </span>
 rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
-</code></pre></div><p>生成的rpm包就可以使用 rpm -ivh 命令安装了<!-- raw HTML omitted --></p>
+</code></pre></div><p>生成的rpm包就可以使用 rpm -ivh 命令安装了</p>
 <h1 id="spec文件说明">spec文件说明</h1>
-<p>接下来说明spec文件的语法规则。<!-- raw HTML omitted -->一般的spec文件头包含以下几个域：</p>
+<p>接下来说明spec文件的语法规则。一般的spec文件头包含以下几个域：</p>
 <h2 id="name">Name</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
 软件包的名称，后面可使用%<span class="o">{</span>name<span class="o">}</span>的方式引用
@@ -288,7 +294,7 @@ Vendor: &lt;RedFlag Co,Ltd&gt;
 指明本软件一些特定的功能，以便其他rpm识别
 格式：
 Provides:
-</code></pre></div><p>描述：<!-- raw HTML omitted -->指明本软件一些特定的功能，以便其他rpm识别<!-- raw HTML omitted -->格式：<!-- raw HTML omitted -->Provides:</p>
+</code></pre></div><p>描述：指明本软件一些特定的功能，以便其他rpm识别格式：Provides:</p>
 <h2 id="依赖关系">依赖关系</h2>
 <p>依赖关系定义了一个包正常工作需要依赖的其他包，RPM在升级、安装和删除的时候会确保依赖关系得到满足。rpm支持4种依赖：</p>
 <ul>
@@ -330,9 +336,9 @@ BuildRequires: zlib-devel
 %description
 Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 </code></pre></div><h2 id="预处理prep">预处理%prep</h2>
-<p>预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。<!-- raw HTML omitted -->作用：<!-- raw HTML omitted -->用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。<!-- raw HTML omitted -->检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。<!-- raw HTML omitted -->它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。<!-- raw HTML omitted --></p>
+<p>预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。作用：用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。</p>
 <h3 id="宏setup">宏%setup</h3>
-<p>这个宏解压源代码，将当前目录改为源代码解压之后产生的目录。这个宏还有一些选项可以用。例如，在解压后，%setup 宏假设产生的目录是%{name}-%{version}<!-- raw HTML omitted -->如果 tar 打包中的目录不是这样命名的，可以用 -n 选项来指定要切换到的目录。例如：</p>
+<p>这个宏解压源代码，将当前目录改为源代码解压之后产生的目录。这个宏还有一些选项可以用。例如，在解压后，%setup 宏假设产生的目录是%{name}-%{version}如果 tar 打包中的目录不是这样命名的，可以用 -n 选项来指定要切换到的目录。例如：</p>
 <ul>
 <li>%setup -n %{name}-April2003Rel</li>
 <li>%setup-q             ：将 tar 命令的繁复输出关闭。</li>
@@ -344,7 +350,7 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 <p>例如：</p>
 <ul>
 <li>%setup -T -b 0        //解开第一个源程序文件。
--%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。<!-- raw HTML omitted --></li>
+-%setup -c -nnewdir    //创建目录newdir，并在此目录之下解开源程序。</li>
 </ul>
 <h3 id="宏patch">宏%patch</h3>
 <p>这个宏将头部定义的补丁应用于源代码。如果定义了多个补丁，它可以用一个数字的参数来指示应用哪个补丁文件。它也接受 -b extension 参数，指示 RPM 在打补丁之前，将文件备份为扩展名是 extension 的文件。</p>
@@ -356,15 +362,15 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 <li>-T        ：将所有打补丁时产生的输出文件删除</li>
 </ul>
 <h2 id="编译build">编译%build</h2>
-<p>定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。<!-- raw HTML omitted -->作用：<!-- raw HTML omitted -->在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。<!-- raw HTML omitted -->如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。<!-- raw HTML omitted -->如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。<!-- raw HTML omitted -->软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。<!-- raw HTML omitted -->环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：</p>
+<p>定义编译软件包所要执行的命令， 这一节一般由多个make命令组成。作用：在这个段落中，包含用来配置和编译已配置的软件的命令。与 Prep 段落一样，这些命令可以是 shell 命令，也可以是宏。如果要编译的宏使用了 autoconf，那么应当用 %configure 宏来配置软件。这个宏自动为 autoconf 指定了安装软件的正确选项，编译优化的软件。如果软件不是用 autoconf 配置的，那么使用合适的 shell 命令来配置它。软件配置之后，必须编译它。由于各个应用程序的编译方法都各自不同，没有用来编译的宏。只要写出要用来编译的 shell 命令就可以了。环境变量 $RPM_OPT_FLAGS 在编译软件时很常用。这个 shell 变量包含针对 gcc 编译器套件的正确的优化选项，使用这样的语法：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">makeCC</span><span class="o">=</span><span class="s2">&#34;gcc </span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
 </code></pre></div><p>或者</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">makeCFLAGS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
 </code></pre></div><p>就可以保证总是使用合适的优化选项。也可以使用其他编译器标志和选项。默认的 $RPM_OPT_FLAGS 是:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">-O2 -g-march<span class="o">=</span>i386 -mcpu<span class="o">=</span>i686
 </code></pre></div><h2 id="安装install">安装%install</h2>
-<p>定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。<!-- raw HTML omitted -->作用：<!-- raw HTML omitted -->这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。<!-- raw HTML omitted -->在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：<code>Buildroot:%{_tmppath}/%{name}-buildroot</code></p>
-<p>使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。<!-- raw HTML omitted -->在 spec 文件的其余部分可以用 shell 变量 <code>$RPM_BUILD_ROOT</code> 获取 Buildroot 的值。</p>
+<p>定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。作用：这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：<code>Buildroot:%{_tmppath}/%{name}-buildroot</code></p>
+<p>使用 RPM 内建的宏来指定 /var/tmp 目录中一个私用的目录。在 spec 文件的其余部分可以用 shell 变量 <code>$RPM_BUILD_ROOT</code> 获取 Buildroot 的值。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
 cp %<span class="o">{</span>SOURCE3<span class="o">}</span><span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
 </code></pre></div><p>Install 段落通常列出要将已编译的软件安装到 Buildroot 中的命令
@@ -380,7 +386,7 @@ rm-rf <span class="nv">$RPM_BUILD_ROOT</span>
 <p>这里会在虚拟根目录下进行，千万不要写绝对路径，而应用宏或变量表示相对路径。 如果描述为目录，表示目录中除%exclude外的所有文件。</p>
 <p>%defattr (-,root,root) 指定包装文件的属性，分别是(mode,owner,group)，-表示默认值，对文本文件是0644，可执行文件是0755</p>
 <h2 id="更新日志changelog">更新日志%changelog</h2>
-<p>每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。<!-- raw HTML omitted --></p>
+<p>每次软件的更新内容可以记录在此到这里，保存到发布的软件包中，以便查询之用。</p>
 <h1 id="更复杂的spec">更复杂的spec</h1>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Name:           oracle-agent
 Version:        1.0.1
