@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: http://xingyys.tech/sitemap.xml
+Sitemap: http://xingyys.tech/en/sitemap.xml
