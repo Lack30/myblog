@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  375 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  1884 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 375 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1884 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -134,6 +134,11 @@
         <li><a href="#11-信息就是位--上下文">1.1 信息就是位 + 上下文</a></li>
         <li><a href="#12-程序被其他程序翻译成不同的格式">1.2 程序被其他程序翻译成不同的格式</a></li>
         <li><a href="#13-了解编译系统如何工作是大有益处的">1.3 了解编译系统如何工作是大有益处的</a></li>
+        <li><a href="#14-处理器读并解释储存在内存中指令">1.4 处理器读并解释储存在内存中指令</a></li>
+        <li><a href="#15-高速缓存至关重要">1.5 高速缓存至关重要</a></li>
+        <li><a href="#16-存储设备形成层次结构">1.6 存储设备形成层次结构</a></li>
+        <li><a href="#17-操作系统管理硬件">1.7 操作系统管理硬件</a></li>
+        <li><a href="#18-系统之间利用网络通信">1.8 系统之间利用网络通信</a></li>
         <li><a href="#19-重要主题">1.9 重要主题</a></li>
       </ul>
     </li>
@@ -159,6 +164,91 @@
 <li>理解链接时出现的错误。</li>
 <li>避免安全漏洞。</li>
 </ul>
+<h3 id="14-处理器读并解释储存在内存中指令">1.4 处理器读并解释储存在内存中指令</h3>
+<p>系统硬件组成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901205400.png" /></p>
+<ol>
+<li>总线: 贯穿整个系统的一组电子管道，称作总线，他携带信息字节并负责在各个部件间传递。</li>
+<li>I/O设备: 系统与外部世界的联系通道。每个 I/O 设备都通过一个控制器或者适配器与 I/O 总线相连。控制器和适配器之间的区别主要在于它们的封装方式。控制器是 I/O 设备本身或者系统的主印制电路板上的芯片组。而适配器则是一块插在主板插槽上的卡。</li>
+<li>主存: 主存是一个临时存储设备，在处理执行程序时，用来存放程序和程序处理的数据。从物理上来说，主存是由一组动态随机存储存储器 (DRAM) 芯片组成的。从逻辑上来说，存储器是一个线性的字节数组，每个字节都有其唯一的地址(数组索引)，这些地址是从零开始的。</li>
+<li>处理器：中央处理单元 (CPU)，简称处理器，是解释(或)执行存储在主存中指令的引擎、处理器的核心是一个大小与一个字的存储设备(或寄存器)，称为程序计数器(PC)。在任何时刻，PC 都指向主存中的某条机器语言指令。</li>
+</ol>
+<p>系统执行一个 <code>Hello World</code> 程序时，硬件运行流程。</p>
+<ol>
+<li>键盘输入命令时，shell 程序将字符逐一读入寄存器，再存放到内存中。</li>
+<li>键入回车键后，shell 执行一系列指令来加载可执行的 hello 文件，将 hello 目标文件中的代码和数据从磁盘复制到内存。</li>
+<li>处理器开始执行 hello 程序 main 程序中的机器语言指令。</li>
+<li>这些指令将输出的字符串中的字节从主存复制到寄存器文件，再从寄存器文件中复制到显示设备，最终显示在屏幕上。</li>
+</ol>
+<h3 id="15-高速缓存至关重要">1.5 高速缓存至关重要</h3>
+<p>系统运行时会频繁的挪动信息，而不同存储设备之间的读写性能有严重偏差 (从寄存器中读取数据比从主存中读取快100被，从主存中读取又比磁盘中快 1000 万倍)。所以不同存储设备间需要高速缓存来提供系统运行速度。</p>
+<blockquote>
+<p>这里的高速缓存是相对概念。</p>
+</blockquote>
+<h3 id="16-存储设备形成层次结构">1.6 存储设备形成层次结构</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901212609.png" /></p>
+<h3 id="17-操作系统管理硬件">1.7 操作系统管理硬件</h3>
+<p>我们并不直接访问硬件，而是通过操作系统。所有应用程序对硬件的操作尝试都必须通过操作系统。</p>
+<p>操作系统有两个基本功能:</p>
+<ul>
+<li>防止硬件被失控的应用程序滥用。</li>
+<li>向应用程序提供简单一致的机制来控制复杂而又通常不大相同的低级硬件设备。</li>
+</ul>
+<p>操作系统通过几个基本抽象概念来实现这两个功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214102.png" /></p>
+<p>进程: 操作系统对一个正在运行的程序的一种抽象。</p>
+<p>上下文: 操作系统保持跟踪进程运行所需的所有状态信息，其中包含 PC 和寄存器文件的当前值，以及主存的内存。</p>
+<p>在任何一个时刻，单处理器系统都只能执行一个进程的代码。当操作系统决定要把控制权从当前进程转移到某个新进程时，就会进行上下文切换。这一过程有操作系统内核 (kernel) 管理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901213718.png" /></p>
+<p>线程: 现代操作系统中，一个进程实际上可以由多个称为线程的执行单元组成，每个线程都裕兴在进程的上下文中，并共享同样的代码和全局数据。</p>
+<p>虚拟机内存是一个抽象概念，它为每个进程提供一个假象，即每个进程都在独占地使用主存，每个进程看到的内存都是一致的，称为虚拟地址空间。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210901214306.png" /></p>
+<p>虚拟地址空间从下至上依次为:</p>
+<ul>
+<li>程序代码和数据。对所有的进程来说，代码是从同一固定地址开始，紧接着的是和 C 全局变量相对应的数据位置。代码和数据区是直接按照可执行目标文件的内容初始化的。</li>
+<li>堆。堆可以在运行时动态地扩展和收缩。</li>
+<li>共享库。存放 C 标准库和数学库这些共享库的代码和数据。</li>
+<li>栈。位于用户虚拟地址空间顶部，编译器用它来实现函数调用，它和堆一样在程序运行期间可以动态地扩展和收缩。每次调用一个函数时，栈就会增长，从一个函数返回时，栈就会收缩。</li>
+<li>内核虚拟内存。地址空间顶部的区域是为内核保留的。不允许应用程序读写这个区域的内容或者直接调用内核代码定义的函数。相反，他们必须调用内核来执行这些操作。</li>
+</ul>
+<p>文件就是字节序列！每个 I/O 设备，包括磁盘、键盘、显示器，甚至网络，都可以看成文件。</p>
+<h3 id="18-系统之间利用网络通信">1.8 系统之间利用网络通信</h3>
+<p>硬件和软件组合成一个系统，而通过网络间不同的主机连接成一个更广大的现代系统。</p>
 <h3 id="19-重要主题">1.9 重要主题</h3>
 <p>并发 (concurrency): 一个同时具有多个活动的系统。</p>
 <p>并行 (parallelism): 用并发来是一个系统运行得更快。</p>
