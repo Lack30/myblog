@@ -255,3 +255,23 @@ addq $8, %rsp     ; Increment stack pointer
 这些操作被分成四组: 加载有效地址、一元操作、二元操作和位移。
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210908213818.png) 
 
+加载有效地址(load effective address)指令 `leaq` 实际上是 `movq` 指令的变形。它的指令形式是从内存读数据到寄存器，但实际上它根本就没有引用内存。
+```c
+long scale(long x, long y, long z) {
+    long t = x + 4 * y + 12 * z;
+    return t;
+}
+```
+得到汇编命令:
+```asm
+_scale:                                 ## @scale
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	leaq	(%rdi,%rsi,4), %rax
+	leaq	(%rdx,%rdx,2), %rcx
+	leaq	(%rax,%rcx,4), %rax
+	popq	%rbp
+	retq
+```
