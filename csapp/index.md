@@ -142,7 +142,7 @@ C 语言数据类型在 x86-64 中的大小。在 64 为机器中，指针长 8 
 
 - movb: 传送字节
 - movw: 传送字
-- movw: 传送双字
+- movl: 传送双字
 - movq: 传送四字
 
 ### 3.4 访问信息
@@ -211,3 +211,47 @@ movq %rax, -12(%rbp)      ; Register -- Memory,    8 bytes
 `MOVS` 类中的指令通过符号扩展来填充，把源操作的最高为进行复制。
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210907212339.png)
+
+下面是一个数据传送示例:
+```c
+long exchange(long *xp, long y)
+{
+    long x = *xp;
+    *xp = y;
+    return x;
+}
+```
+执行命令 `gcc -Og -S main.c` 生成以下汇编内容:
+```asm
+exchange:
+        movq    (%rdi), %rax
+        movq    %rsi, (%rdi)
+        ret
+```
+可以看出: C 语言的 "指针" 其实就是地址。间接引用指针就是间该指针放在一个寄存器中，然后再内存引用中使用这个寄存器。
+
+最后的两个数据传送操作: 将数据压入程序栈中，从程序栈中弹出数据。
+
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210908212726.png)
+
+```asm
+pushq %rbp        ; 栈指针减8，然后将值写到新的栈顶地址。
+; 等同于
+subq $8, %rsp     ; Decrement stack pointer
+movq %rbp, (%rsp) ; Store %rbp on stack
+```
+操作示意图:
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210908213559.png)
+
+```asm
+popq %rbp         ; 弹出一个四字的操作包括从栈顶位置读出数据，然后减栈指针加8。
+; 等同于
+movq %rsp, (%rax) ; Read %rax from stack
+addq $8, %rsp     ; Increment stack pointer
+```
+### 3.5 算术和逻辑操作
+指令类 ADD 由四条加法指令组成: `addb` 字节加法、`addw` 字加法、`addl` 双字加法 和 `addq` 四字加法。
+
+这些操作被分成四组: 加载有效地址、一元操作、二元操作和位移。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210908213818.png) 
+
