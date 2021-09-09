@@ -263,7 +263,7 @@ addq $8, %rsp     ; Increment stack pointer
 ### 3.5 算术和逻辑操作
 指令类 ADD 由四条加法指令组成: `addb` 字节加法、`addw` 字加法、`addl` 双字加法 和 `addq` 四字加法。
 
-这些操作被分成四组: 加载有效地址、一元操作、二元操作和位移。
+这些操作被分成四组: 加载有效地址、一元操作、二元操作和移位。
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210908213818.png) 
 
 加载有效地址(load effective address)指令 `leaq` 实际上是 `movq` 指令的变形。它的指令形式是从内存读数据到寄存器，但实际上它根本就没有引用内存。
@@ -284,5 +284,53 @@ _scale:                                 ## @scale
 	leaq	(%rdx,%rdx,2), %rcx
 	leaq	(%rax,%rcx,4), %rax
 	popq	%rbp
+	retq
+```
+
+一元操作数只有一个操作数，既是源又是目的。如 `incq (%rsp)`。
+
+二元操作数，第二个操作数既是源又是目的。如 `subq %rax,%rdx`。
+
+移位操作，先给出移位量，然后第二项是要移位。可以进行算术和逻辑右移。位移量可以是一个立即数，或者放在单字节寄存器 %cl 中(移位操作指令只允许以这个特定的寄存器作为操作数)。
+
+特殊的算术操作
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909085314.png)
+
+以下的 C 代码:
+```C
+#include <inttypes.h>
+
+typedef unsigned __int128 uint128_t;
+
+void store_uprod(uint128_t *dest, uint64_t x, uint64_t y) {
+    *dest = x * (uint128_t) y;
+}
+
+void remdiv(long x, long y,
+            long *qp, long *rp) {
+    long q = x / y;
+    long r = x%y;
+    *qp = q;
+    *rp = r;
+}
+```
+生成汇编
+```asm
+store_uprod:
+	movq	%rsp, %rbp
+	movq	%rdx, %rax      ; Copy x to multiplicand
+	mulq	%rsi            ; Multiply by y
+	movq	%rdx, 8(%rdi)   ; Store upper 8 bytes at dest+8
+	movq	%rax, (%rdi)    ; Store lower 8 bytes at dest
+	retq
+
+remdiv:
+	movq	%rsp, %rbp
+	movq	%rdx, %r8       ; Copy qp
+	movq	%rdi, %rax      ; Move x to lower 8 bytes of dividend
+	cqto                  ; Sign-extend to upper 8 bytes of dividend
+	idivq	%rsi            ; Divide by y 
+	movq	%rax, (%r8)     ; Store remainder at rp
+	movq	%rdx, (%rcx)    ; Store quotient at qp
 	retq
 ```
