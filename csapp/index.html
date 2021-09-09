@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  3891 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  5010 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3891 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5010 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -149,6 +149,8 @@
         <li><a href="#33-数据格式">3.3 数据格式</a></li>
         <li><a href="#34-访问信息">3.4 访问信息</a></li>
         <li><a href="#35-算术和逻辑操作">3.5 算术和逻辑操作</a></li>
+        <li><a href="#36-控制">3.6 控制</a></li>
+        <li><a href="#37-过程">3.7 过程</a></li>
       </ul>
     </li>
   </ul>
@@ -597,8 +599,8 @@
 </div><p>一元操作数只有一个操作数，既是源又是目的。如 <code>incq (%rsp)</code>。</p>
 <p>二元操作数，第二个操作数既是源又是目的。如 <code>subq %rax,%rdx</code>。</p>
 <p>移位操作，先给出移位量，然后第二项是要移位。可以进行算术和逻辑右移。位移量可以是一个立即数，或者放在单字节寄存器 %cl 中(移位操作指令只允许以这个特定的寄存器作为操作数)。</p>
-<p>特殊的算术操作
-<img
+<p>特殊的算术操作</p>
+<p><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909085314.png"
@@ -684,7 +686,266 @@
 </span><span class="c"></span>	<span class="no">retq</span>
 </code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h3 id="36-控制">3.6 控制</h3>
+<p>CPU 还维护着一组单个位的条件码 (condition code) 寄存器，它们描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令。最常用的条件码有:</p>
+<ul>
+<li>CF: 进位标志。最近的操作使最高位产生了进位。可以来检查无符号操作的溢出。</li>
+<li>ZF: 零标志。最近的操作得出的结果为0。</li>
+<li>SF: 符号标志。最近的操作得到的结果为负数。</li>
+<li>OF: 溢出标志。最近的操作导致一个补码溢出 —— 正溢出或负溢出。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png" /></p>
+<p>条件码通常不会直接读取，常用的使用方法有三种:</p>
+<ul>
+<li>可以根据条件码的某种组合，将一个字节设置为 0 或者 1。</li>
+<li>可以条件跳转到程序的某个其他部分。</li>
+<li>可以有条件地创送数据。</li>
+</ul>
+<p><code>SET</code> 指令是根据条件码的某种组合，将一个字节设置为 0 或者 1的一整类指令。这些指令的后缀表示不同的条件而不是操作数的大小。如</p>
+<ul>
+<li><code>setl</code> 表示 “小于时设置 (set less)”。</li>
+<li><code>setb</code> 表示 “低于时设置 (set below)”。</li>
+</ul>
+<p>一条 <code>SET</code> 指令的目的操作数是低位单字节寄存器元素之一，或者是一个字节的内存位置，指令会将这个字节设置成 0 或者 1。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png" /></p>
+<p>跳转 (jump) 指令会导致执行切换到程序中一个全新的位置。在汇编代码中，这些跳转的目的地通常用一个标号 (label) 指明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">  <span class="nf">movq</span> <span class="no">$0</span><span class="p">,</span><span class="nv">%rax</span>        <span class="c">; Set %rax to 0
+</span><span class="c"></span>  <span class="no">jmp</span> <span class="no">.L1</span>             <span class="c">; Goto .L1
+</span><span class="c"></span>  <span class="no">movq</span> <span class="p">(</span><span class="nv">%rax</span><span class="p">),</span> <span class="nv">%rdx</span>   <span class="c">; Null pointer dereference (skipped)
+</span><span class="c"></span><span class="no">.L1</span><span class="p">:</span>
+  <span class="nf">popq</span> <span class="nv">%rdx</span>           <span class="c">; Jump target
+</span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png" /></p>
+<p>实现条件操作的传统方法是通过使用控制的条件转移。当条件满足时，程序沿着一条执行路径执行，而当条件不满足是，就走另一条路径。但这个方法在现代处理器上可能会非常低效。</p>
+<p>另一种策略是使用数据的条件转移。这个方法计算一个条件操作的两种结果，然后再根据条件是否满足从中选取一个。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png" /></p>
+<p>汇编中没有循环指令存在，可以用条件测试和跳转组合起来实现循环效果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">fact_do</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">*=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成汇编代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">_fact_do:</span>                               <span class="c">## @fact_do
+</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">movl</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+<span class="nl">LBB0_1:</span>                                 <span class="c">## =&gt;This Inner Loop Header: Depth=1
+</span><span class="c"></span>	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+	<span class="nf">decq</span>	<span class="nv">%rdi</span>
+	<span class="nf">cmpq</span>	<span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+	<span class="nf">jg</span>	<span class="no">LBB0_1</span>
+	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+	<span class="nf">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>switch 语句可以根据一个整数索引值进行多重分支 (multiway branching)。switch 会被转化成跳转表 (jump table)。跳转表示一个数组，表项 i 是一个代码段的地址，这个代码段实现当开关索引值等于 i 时程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标。和使用一组很长的 if-else 语句对比，使用跳转表的优点是执行开关语句的时间与开关情况的数量无关。</p>
+<p>C switch 代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">switch_eg</span><span class="p">(</span><span class="kt">long</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">n</span><span class="p">,</span>
+               <span class="kt">long</span> <span class="o">*</span><span class="n">dest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">val</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">100</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">*=</span> <span class="mi">13</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">102</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">103</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">+=</span> <span class="mi">11</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="mi">104</span><span class="o">:</span>
+        <span class="k">case</span> <span class="mi">106</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">*=</span> <span class="n">val</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>生成汇编:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">	<span class="na">.section</span>	<span class="no">__TEXT</span><span class="p">,</span><span class="no">__text</span><span class="p">,</span><span class="no">regular</span><span class="p">,</span><span class="no">pure_instructions</span>
+	<span class="na">.build_version</span> <span class="no">macos</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>	<span class="no">sdk_version</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">4</span>
+	<span class="na">.globl</span>	<span class="no">_switch_eg</span>              <span class="c">## -- Begin function switch_eg
+</span><span class="c"></span>	<span class="no">.p2align</span>	<span class="mi">4</span><span class="p">,</span> <span class="mi">0x90</span>
+<span class="nl">_switch_eg:</span>                             <span class="c">## @switch_eg
+</span><span class="c">## %bb.0:
+</span><span class="c"></span>	<span class="nf">pushq</span>	<span class="nv">%rbp</span>
+	<span class="nf">movq</span>	<span class="nv">%rsp</span><span class="p">,</span> <span class="nv">%rbp</span>
+	<span class="nf">xorl</span>	<span class="nv">%eax</span><span class="p">,</span> <span class="nv">%eax</span>
+	<span class="nf">addq</span>	<span class="no">$-100</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">cmpq</span>	<span class="no">$6</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">ja</span>	<span class="no">LBB0_7</span>
+<span class="c">## %bb.1:
+</span><span class="c"></span>	<span class="nf">leaq</span>	<span class="no">LJTI0_0</span><span class="p">(</span><span class="nv">%rip</span><span class="p">),</span> <span class="nv">%rcx</span>
+	<span class="nf">movslq</span>	<span class="p">(</span><span class="nv">%rcx</span><span class="p">,</span><span class="nv">%rsi</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rsi</span>
+	<span class="nf">addq</span>	<span class="nv">%rcx</span><span class="p">,</span> <span class="nv">%rsi</span>
+	<span class="nf">jmpq</span>	<span class="p">*</span><span class="nv">%rsi</span>
+<span class="nl">LBB0_5:</span>
+	<span class="nf">imulq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rdi</span>
+	<span class="nf">jmp</span>	<span class="no">LBB0_6</span>
+<span class="nl">LBB0_2:</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rdi</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">leaq</span>	<span class="p">(</span><span class="nv">%rdi</span><span class="p">,</span><span class="nv">%rax</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="nv">%rax</span>
+	<span class="nf">jmp</span>	<span class="no">LBB0_7</span>
+<span class="nl">LBB0_3:</span>
+	<span class="nf">addq</span>	<span class="no">$10</span><span class="p">,</span> <span class="nv">%rdi</span>
+<span class="nl">LBB0_4:</span>
+	<span class="nf">addq</span>	<span class="no">$11</span><span class="p">,</span> <span class="nv">%rdi</span>
+<span class="nl">LBB0_6:</span>
+	<span class="nf">movq</span>	<span class="nv">%rdi</span><span class="p">,</span> <span class="nv">%rax</span>
+<span class="nl">LBB0_7:</span>
+	<span class="nf">movq</span>	<span class="nv">%rax</span><span class="p">,</span> <span class="p">(</span><span class="nv">%rdx</span><span class="p">)</span>
+	<span class="nf">popq</span>	<span class="nv">%rbp</span>
+	<span class="nf">retq</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="37-过程">3.7 过程</h3>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

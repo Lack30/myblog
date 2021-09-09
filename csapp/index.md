@@ -283,6 +283,7 @@ _scale:                                 ## @scale
 移位操作，先给出移位量，然后第二项是要移位。可以进行算术和逻辑右移。位移量可以是一个立即数，或者放在单字节寄存器 %cl 中(移位操作指令只允许以这个特定的寄存器作为操作数)。
 
 特殊的算术操作
+
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909085314.png)
 
 以下的 C 代码:
@@ -323,3 +324,138 @@ remdiv:
 	movq	%rdx, (%rcx)    ; Store quotient at qp
 	retq
 ```
+
+### 3.6 控制
+CPU 还维护着一组单个位的条件码 (condition code) 寄存器，它们描述了最近的算术或逻辑操作的属性。可以检测这些寄存器来执行条件分支指令。最常用的条件码有:
+- CF: 进位标志。最近的操作使最高位产生了进位。可以来检查无符号操作的溢出。
+- ZF: 零标志。最近的操作得出的结果为0。
+- SF: 符号标志。最近的操作得到的结果为负数。
+- OF: 溢出标志。最近的操作导致一个补码溢出 —— 正溢出或负溢出。
+
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909124413.png)
+
+条件码通常不会直接读取，常用的使用方法有三种:
+- 可以根据条件码的某种组合，将一个字节设置为 0 或者 1。
+- 可以条件跳转到程序的某个其他部分。
+- 可以有条件地创送数据。
+
+`SET` 指令是根据条件码的某种组合，将一个字节设置为 0 或者 1的一整类指令。这些指令的后缀表示不同的条件而不是操作数的大小。如 
+- `setl` 表示 “小于时设置 (set less)”。
+- `setb` 表示 “低于时设置 (set below)”。
+
+一条 `SET` 指令的目的操作数是低位单字节寄存器元素之一，或者是一个字节的内存位置，指令会将这个字节设置成 0 或者 1。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909125357.png)
+
+跳转 (jump) 指令会导致执行切换到程序中一个全新的位置。在汇编代码中，这些跳转的目的地通常用一个标号 (label) 指明。
+```asm
+  movq $0,%rax        ; Set %rax to 0
+  jmp .L1             ; Goto .L1
+  movq (%rax), %rdx   ; Null pointer dereference (skipped)
+.L1:
+  popq %rdx           ; Jump target
+``` 
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909170813.png)
+
+实现条件操作的传统方法是通过使用控制的条件转移。当条件满足时，程序沿着一条执行路径执行，而当条件不满足是，就走另一条路径。但这个方法在现代处理器上可能会非常低效。
+
+另一种策略是使用数据的条件转移。这个方法计算一个条件操作的两种结果，然后再根据条件是否满足从中选取一个。
+
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210909190735.png)
+
+汇编中没有循环指令存在，可以用条件测试和跳转组合起来实现循环效果。
+```C
+long fact_do(long n) {
+    long result = 1;
+    do {
+        result *= n;
+        n = n - 1;
+    } while (n > 1);
+    return result;
+}
+```
+生成汇编代码:
+```asm
+_fact_do:                               ## @fact_do
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	$1, %eax
+LBB0_1:                                 ## =>This Inner Loop Header: Depth=1
+	imulq	%rdi, %rax
+	decq	%rdi
+	cmpq	$1, %rdi
+	jg	LBB0_1
+	popq	%rbp
+	retq
+```
+
+switch 语句可以根据一个整数索引值进行多重分支 (multiway branching)。switch 会被转化成跳转表 (jump table)。跳转表示一个数组，表项 i 是一个代码段的地址，这个代码段实现当开关索引值等于 i 时程序应该采取的动作。程序代码用开关索引值来执行一个跳转表内的数组引用，确定跳转指令的目标。和使用一组很长的 if-else 语句对比，使用跳转表的优点是执行开关语句的时间与开关情况的数量无关。
+
+C switch 代码:
+```C
+void switch_eg(long x, long n,
+               long *dest) {
+    long val = x;
+
+    switch (n) {
+        case 100:
+            val *= 13;
+            break;
+
+        case 102:
+            val += 10;
+
+        case 103:
+            val += 11;
+            break;
+
+        case 104:
+        case 106:
+            val *= val;
+            break;
+
+        default:
+            val = 0;
+    }
+    *dest = val;
+}
+```
+生成汇编:
+```asm
+	.section	__TEXT,__text,regular,pure_instructions
+	.build_version macos, 10, 15, 4	sdk_version 10, 15, 4
+	.globl	_switch_eg              ## -- Begin function switch_eg
+	.p2align	4, 0x90
+_switch_eg:                             ## @switch_eg
+## %bb.0:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	xorl	%eax, %eax
+	addq	$-100, %rsi
+	cmpq	$6, %rsi
+	ja	LBB0_7
+## %bb.1:
+	leaq	LJTI0_0(%rip), %rcx
+	movslq	(%rcx,%rsi,4), %rsi
+	addq	%rcx, %rsi
+	jmpq	*%rsi
+LBB0_5:
+	imulq	%rdi, %rdi
+	jmp	LBB0_6
+LBB0_2:
+	leaq	(%rdi,%rdi,2), %rax
+	leaq	(%rdi,%rax,4), %rax
+	jmp	LBB0_7
+LBB0_3:
+	addq	$10, %rdi
+LBB0_4:
+	addq	$11, %rdi
+LBB0_6:
+	movq	%rdi, %rax
+LBB0_7:
+	movq	%rax, (%rdx)
+	popq	%rbp
+	retq
+```
+
+### 3.7 过程
+
