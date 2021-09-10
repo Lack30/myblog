@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  6320 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  6626 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6320 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6626 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -157,6 +157,7 @@
             <li><a href="#373-数据创送">3.7.3 数据创送</a></li>
             <li><a href="#374-栈上的局部存储">3.7.4 栈上的局部存储</a></li>
             <li><a href="#375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</a></li>
+            <li><a href="#376-递归过程">3.7.6 递归过程</a></li>
           </ul>
         </li>
         <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a></li>
@@ -1076,9 +1077,68 @@
         title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210910092035.png" /></p>
 <h4 id="375-寄存器中的局部存储空间">3.7.5 寄存器中的局部存储空间</h4>
 <p>寄存器组是唯一被所有过程共享的资源，为了防止寄存器的值在被一个过程使用时，不被其他过程调用导致值被覆盖，<code>x86-64</code> 采用一组统一的寄存器使用惯例:</p>
-<blockquote>
-</blockquote>
-<h3 id="38-数组分配和访问">3.8 数组分配和访问</h3>
+<ul>
+<li>寄存器 %rbx、%rbp 和 %r12~%r15 被划分为被调用者寄存器，Q 过程必须保证寄存器值的安全。</li>
+<li>除了栈指针 %rsp, 都分类为调用者保存寄存器。</li>
+</ul>
+<h4 id="376-递归过程">3.7.6 递归过程</h4>
+<p>递归调用一个函数本身与调用其他函数时一样的。栈规则提供了一种机制，每次函数调用都有它自己私有的状态信息(保存的返回位置和被调用者保存寄存器的值)存储空间。如果需要，它还可以提供局部变量的存储。栈分配和释放的规则很自然就与函数调用-返回的循序匹配。这种实现函数调用和返回的方法甚至对更复杂的情况也适用，暴扣互相递归调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="kt">long</span> <span class="nf">rfact</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">long</span> <span class="n">result</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">rfact</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对应汇编代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">rfact:</span>
+    <span class="nf">pushq</span>   <span class="nv">%rbx</span>
+    <span class="nf">movq</span>    <span class="nv">%rdi</span><span class="p">,</span> <span class="no">rbx</span>
+    <span class="nf">movl</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%eax</span>
+    <span class="nf">cmpq</span>    <span class="no">$1</span><span class="p">,</span> <span class="nv">%rdi</span>
+    <span class="nf">jle</span>     <span class="no">.L35</span>
+    <span class="nf">leaq</span>    <span class="p">-</span><span class="mi">1</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">),</span> <span class="nv">%rdi</span>
+    <span class="nf">call</span>    <span class="no">rfact</span>
+    <span class="nf">imulq</span>   <span class="nv">%rbx</span><span class="p">,</span> <span class="nv">%rax</span>
+<span class="nl">.L35:</span>
+    <span class="nf">popq</span>    <span class="nv">%rbx</span>
+    <span class="nf">ret</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="38-数组分配和访问">3.8 数组分配和访问</h3>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
