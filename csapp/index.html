@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  7939 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  8519 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7939 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8519 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -173,6 +173,11 @@
             <li><a href="#391-结构">3.9.1 结构</a></li>
             <li><a href="#392-联合">3.9.2 联合</a></li>
             <li><a href="#393-数据对齐">3.9.3 数据对齐</a></li>
+          </ul>
+        </li>
+        <li><a href="#310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</a>
+          <ul>
+            <li><a href="#3101-理解指针">3.10.1 理解指针</a></li>
           </ul>
         </li>
       </ul>
@@ -1233,7 +1238,106 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这命令就保证了它后面的数据的开始地址是 8 的倍数。因为每个表项长 8 个字节，后面的元素都会遵守 8 字节对齐的限制。</p>
-</div><div class="post-footer" id="post-footer">
+<p>对于包含结构的代码，编译器可能需要在字段的分配中插入间隙，以保证每个结构元素都满足它的对齐要求。而结构本身对它的起始地址也有一些对齐要求。</p>
+<p>假设如下的结构声明:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">S1</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果编译器用最小的9字节分配，内存布局会是这样:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171439.png" /></p>
+<p>但是它不满足字段 i 和 j 的4字节对齐要求，所以编译器在字段 c 和 j 之间插入一个 3 字节的间隙:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911171552.png" /></p>
+<h3 id="310-在机器级程序中将控制与数据结合起来">3.10 在机器级程序中将控制与数据结合起来</h3>
+<h4 id="3101-理解指针">3.10.1 理解指针</h4>
+<p>一些指针和它们映射到机器代码的关键原则:</p>
+<ul>
+<li>每个指针都对应一个类型。这个类型表明该指针指向的是哪一类对象。</li>
+<li>每个指针都有一个值。这个值是某个指定类型的对象的地址。特殊的 NULL(0) 值表示该指针没有指向任何地方。</li>
+<li>指针用 &lsquo;&amp;&rsquo; 运算符创建。</li>
+<li>
+<ul>
+<li>操作符用于间接引用指针。其结果是一个值，它的类型与该指针的类型一致。间接引用是用内存来实现的，要么是存储到一个指定的地址，要么是从指定的地址读取。</li>
+</ul>
+</li>
+<li>数组与指针紧密联系。一个数组的名字可以像一个指针变量一样引用(但是不能修改)。</li>
+<li>将指针从一种类型强制转化成另一个类型，只改变它的类型，而不改变它的值。强制类型转换的一个效果是改变指针运算的伸缩。</li>
+<li>指针也可以指向函数。这提供了一个很强大的存储和向代码传递引用的功能，这个引用可以被程序的某个其他部分调用。</li>
+</ul>
+<p>函数指针:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="p">);</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">fun</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">fp</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
