@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  6626 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  7939 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6626 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7939 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -160,7 +160,21 @@
             <li><a href="#376-递归过程">3.7.6 递归过程</a></li>
           </ul>
         </li>
-        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a></li>
+        <li><a href="#38-数组分配和访问">3.8 数组分配和访问</a>
+          <ul>
+            <li><a href="#381-基本原则">3.8.1 基本原则</a></li>
+            <li><a href="#382-指针运算">3.8.2 指针运算</a></li>
+            <li><a href="#383-嵌套数组">3.8.3 嵌套数组</a></li>
+            <li><a href="#384-定长数组">3.8.4 定长数组</a></li>
+          </ul>
+        </li>
+        <li><a href="#39-异质的数据结构">3.9 异质的数据结构</a>
+          <ul>
+            <li><a href="#391-结构">3.9.1 结构</a></li>
+            <li><a href="#392-联合">3.9.2 联合</a></li>
+            <li><a href="#393-数据对齐">3.9.3 数据对齐</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1139,6 +1153,86 @@
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="38-数组分配和访问">3.8 数组分配和访问</h3>
+<p>C 语言的数组是一种将标量数据聚集成更大数据类型的方式。</p>
+<h4 id="381-基本原则">3.8.1 基本原则</h4>
+<p>对于数据类型 <em>T</em> 和整型常数 <em>N</em>，声明如下:</p>
+<p><em>T</em> A[<em>N</em>];</p>
+<p>起始位置表示为 $x_A$。这个声明有两个效果。首先，它在内存中分配一个 L·N 字节的连续区域。这里 L 是数据类型 <em>T</em> 的大小(单位为字节)。其次，它引入了标识符 A，可以用 A 来作为指向数组开头的指针，这个指针的值就是 $x_A$。可用用 0~N-1 的证书索引来访问该数组元素。数组元素 i 会被存放在地址为 $x_A$+L·i 的地方。</p>
+<h4 id="382-指针运算">3.8.2 指针运算</h4>
+<p>C 语言允许对指针进行运算，而计算出来的值会根据该指针引用的数据类型的大小进行伸缩。也就是说，如果 p 是一个指向类型为 <em>T</em> 的数据的指针，p 的值为 $x_p$，那么表达式 p+i 的值为 $x_p$+L·i，这里 <em>L</em> 是数据类型 <em>T</em> 的大小。</p>
+<p>单操作数操作符 &lsquo;$&rsquo; 和 &lsquo;* ' 可以产生指针和间接引用指针。对于一个表示某个对象的表达式 <code>Expr</code>，<code>&amp;Expr</code> 是该对象的一个指针。对于一个表示地址的表达式 <code>AExpr</code>, <code>*AExpr</code> 是该地址的值。因此，表达式 <code>Expr</code> 与 <code>* &amp;Expr</code> 是等价的。可以对数组和指针应用数组下标操作。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911092013.png" /></p>
+<h4 id="383-嵌套数组">3.8.3 嵌套数组</h4>
+<p>要访问多维数组的元素，编译器会以数组起始为基地址，偏移量为索引，产生计算期望的元素偏移量，然后使用某种 MOV 指令。</p>
+<p>通常来说，对于一个声明如下的数组: <code>T D[R][C]</code> 的元素 <code>D[i][j]</code> 的内存地址为 $$ D[i][j] = x_D+L(C·i+j) $$</p>
+<h4 id="384-定长数组">3.8.4 定长数组</h4>
+<p>C语言编译器能够优化定长多维数组上的操作代码</p>
+<h3 id="39-异质的数据结构">3.9 异质的数据结构</h3>
+<p>C 语言2提供了两种将不同类型的对象组合到一起创建数据类型的机制:</p>
+<ul>
+<li>结构 (structure)，关键字 struct，将多个对象集合到一个单位中。</li>
+<li>联合 (union)，用关键字 union 来声明，允许用几种不同的类型来引用一个对象。</li>
+</ul>
+<h4 id="391-结构">3.9.1 结构</h4>
+<p>C 语言的 struct 声明创建一个数据类型，将可能不同类型的对象聚合到一个对象中。用名字来引用结构的各个组成部分。类似于数组的实现，结构的所有组成部分都存放在内存中一段连续的区域内，而指向结构的指针就是结构第一个字节的地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">rect</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该结构在内存中的布局:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911111340.png" /></p>
+<h4 id="392-联合">3.9.2 联合</h4>
+<p>联合提供了一种方式，能够规避 C 语言的类型系统，允许以多种类型来引用一个对象。一个联合的总的大小等于它最大字段的大小。</p>
+<p>在一些上下文中，联合十分有用。但是，它也能引起一些讨厌的错误，因为他们绕过了 C 语言类型系统提供的安全措施。一种应用情况是，我们事先知道对一个数据结构中的两个不同字段的使用是互斥的，那么将这两个字段声明为联合的一部分，而不是结构的一部分，会减小分配空间的总量。</p>
+<h4 id="393-数据对齐">3.9.3 数据对齐</h4>
+<p>许多计算机系统对基本数据类型的合法地址做出了一些限制，要求某种类型对象的地址必须是某个值 <em>K</em> (通常是2、4或8)的倍数。这种对齐限制简化了形成处理器和内存系统之间接口的硬件设计。</p>
+<p>无论数据是否对齐，<code>x86-64</code> 硬件都能正确工作。不过，Intel 还是建议要对齐数据以提高内存系统的性能。对齐原则是任何 <em>K</em> 字节的基本对象的地址必须是 <em>K</em> 的倍数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210911130649.png" /></p>
+<p>确保每种数据类型都是按照指定方式来组织和分配，即每种类型的对象都满足它的对齐限制，就可保证实施对齐。编译器在汇编代码中放入命令，指明全局数据所需的对齐。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="na">.align</span> <span class="mi">8</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这命令就保证了它后面的数据的开始地址是 8 的倍数。因为每个表项长 8 个字节，后面的元素都会遵守 8 字节对齐的限制。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
