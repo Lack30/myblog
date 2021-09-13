@@ -4,9 +4,18 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 Aug 2021 18:27:27 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 12 Sep 2021 14:46:43 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Tokio 初尝试</title>
+    <link>http://xingyys.tech/tokio/</link>
+    <pubDate>Sun, 12 Sep 2021 14:46:43 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/tokio/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
+            </div>简介 Tokio is an asynchronous runtime for the Rust programming language. It provides the building blocks needed for writing networking applications. It gives the flexibility to target a wide range of systems, from large servers with dozens of cores to small embedded devices. Tokio 是 rust 实现的异步库，提供一个异步运行时。它具有以下的]]></description>
+</item><item>
     <title>深入理解计算机系统</title>
     <link>http://xingyys.tech/csapp/</link>
     <pubDate>Tue, 31 Aug 2021 18:27:27 &#43;0800</pubDate>
@@ -75,12 +84,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/centos7_install_qemu/</guid>
     <description><![CDATA[本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1]]></description>
-</item><item>
-    <title>Windows 上使用 Go 语言</title>
-    <link>http://xingyys.tech/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/</link>
-    <pubDate>Thu, 29 Oct 2020 16:44:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/windows%E4%B8%8A%E4%BD%BF%E7%94%A8go%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/</guid>
-    <description><![CDATA[在 Windows 使用 Go 开发项目是，为了实现统一的配置和格式管理，需要进行一下的配置。 开发环境选择 Go 语言的开发环境统一使用 Jetbrain 公司的 Goland。之后需要进]]></description>
 </item></channel>
 </rss>
