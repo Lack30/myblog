@@ -64,3 +64,137 @@ fn main() {
     })
 }
 ```
+
+## 并发
+```rust
+use tokio::net::{TcpListener, TcpStream};
+
+#[tokio::main]
+async fn main() {
+    let listener = TcpListener::bind("127.0.0.1:6379").await.unwrap();
+
+    loop {
+        let (socket, _) = listener.accept().await.unwrap();
+
+        // 每次都新启动 task 处理 tcp 连接
+        tokio::spawn(async move {
+            process(socket).await;
+        });
+    }
+}
+
+async fn process(_: TcpStream) {}
+```
+`tokio` task 是一个异步绿色线程。使用 `tokio::spawn` 创建异步块，返回类型为 `JoinHandle`。使用 `.await` 获取返回值。
+```rust
+#[tokio::main]
+async fn main() {
+    let handle = tokio::spawn(async move {
+        "return value"
+    });
+
+    let out = handle.await.unwrap();
+    println!("GOT {}", out);
+}
+```
+task 被 `tokio` 内部调度器使用， 请确认内部有事可做。同时它们会在不同线程将执行。
+
+`tokio` 中的任务非常轻量级。它们只需要一次分配和 64 字节的内存。应用程序可以随意产生数千甚至数百万个任务。
+
+### 'static
+task 的类型是 `'static` 的，这意味着任务内部的变量不能存在外部引用
+```rust
+use tokio::task;
+
+#[tokio::main]
+async fn main() {
+    let v = vec![1, 2, 3];
+
+    // v 变量转移到 task 内部
+    task::spawn(async move {
+        println!("Here's a vec: {:?}", v);
+    });
+}
+```
+
+### Send
+`tokio::spawn` 产生的任务必须实现 `Send`。这允许 `tokio` 运行时在线程之间移动任务，同时它们在 `.await` 处挂起。
+```rust
+use tokio::task::yield_now;
+use std::rc::Rc;
+
+#[tokio::main]
+async fn main() {
+    tokio::spawn(async {
+        // The scope forces `rc` to drop before `.await`.
+        {
+            let rc = Rc::new("hello");
+            println!("{}", rc);
+        }
+
+        // `rc` is no longer used. It is **not** persisted when
+        // the task yields to the scheduler
+        yield_now().await;
+    });
+}
+```
+
+## 共享状态
+在 `tokio` 中有几种不同的方式来共享状态。
+- 使用 Mutex 保护共享状态。
+- 生成一个任务来管理状态并使用消息传递对其进行操作。
+
+通常，对简单数据使用第一种方法，对需要异步工作的事物（例如 I/O 原语）使用第二种方法。
+
+```rust
+use std::{
+    collections::HashMap,
+    sync::{Arc, Mutex},
+};
+use tokio::net::{TcpListener, TcpStream};
+
+#[tokio::main]
+async fn main() {
+    let listener = TcpListener::bind("127.0.0.1:6379").await.unwrap();
+
+    println!("Listening");
+
+    let db = Arc::new(Mutex::new(HashMap::new()));
+
+    loop {
+        let (socket, _) = listener.accept().await.unwrap();
+
+        let db = db.clone();
+
+        println!("Accepted");
+        tokio::spawn(async move {
+            process(socket, db).await;
+        });
+    }
+}
+
+async fn process(_: TcpStream, _db: Arc<Mutex<HashMap<i32, i32>>>) {}
+```
+
+> 注意，使用 std::sync::Mutex 而不是 tokio::sync::Mutex 来保护 HashMap。一个常见的错误是在异步代码中无条件地使用 tokio::sync::Mutex。异步互斥锁是在调用 .await 时锁定的互斥锁。
+
+等待获取锁时，同步 mutex 将等待当前 `lock`。这反过来又会阻止其他任务的处理。但是，切换到 `tokio::sync::Mutex` 通常没有帮助，因为异步 mutex 在内部使用同步 mutex。根据经验，只要争用率保持在低位且未在 `.await` 中上锁，即可从异步 mutex 内使用同步 mutex 即可。此外，考虑使用 `parking_lot::Mutex` 作为 `std::sync::Mutex` 的更快的替代方法。
+
+使用 `tokio` 异步 mutex。
+```rust
+use tokio::sync::Mutex;
+
+async fn increment_and_do_stuff(mutex: &Mutex<i32>) {
+    let mut lock = mutex.lock().await;
+    *lock += 1;
+}
+
+#[tokio::main]
+async fn main() {
+    let m = Mutex::new(1);
+    increment_and_do_stuff(&m).await;
+    println!("GOT {:?}", m);
+}
+```
+
+## Channels
