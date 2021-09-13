@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/csapp\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  8648 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "计算机","wordcount":  9670 ,
         "url": "http:\/\/xingyys.tech\/csapp\/","datePublished": "2021-08-31T18:27:27+08:00","dateModified": "2021-08-31T18:27:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">深入理解计算机系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8648 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-08-31">2021-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 9670 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -180,7 +180,13 @@
             <li><a href="#3101-理解指针">3.10.1 理解指针</a></li>
           </ul>
         </li>
-        <li><a href="#311-浮点代码">3.11 浮点代码</a></li>
+        <li><a href="#311-浮点代码">3.11 浮点代码</a>
+          <ul>
+            <li><a href="#3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</a></li>
+            <li><a href="#3112-过程中的浮点代码">3.11.2 过程中的浮点代码</a></li>
+            <li><a href="#3113-浮点运算操作">3.11.3 浮点运算操作</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1342,6 +1348,88 @@
 <li>向函数传递浮点数参数和从函数返回浮点数结构的规则。</li>
 <li>函数调用过程中保存寄存器的规则。</li>
 </ul>
+<p><code>x86-64</code> 浮点体系结构的历史:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png" /></p>
+<p>如图所示，AVX 浮点体系结构允许数据存储在 16 个 YMM 寄存器中，名字是 <code>%ymm0~%ymm15</code>。每个 YMM 寄存器都是 256(32 字节)。当对标量数据操作时，这些寄存器值保存浮点数，而且只使用低 32 位(对于 float) 或 64 位(对于 double)。汇编代码用寄存器的 SSE XMM 寄存器名字 <code>%xmm0~%xmm15</code> 来引用它们，每个 XMM 寄存器都是对应的 YMM 寄存器的低 128 位(16字节)。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png" /></p>
+<h4 id="3111-浮点传送和转化操作">3.11.1 浮点传送和转化操作</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png" /></p>
+<p><code>GCC</code> 只用标量传送操作从内存传送数据到 XMM 寄存器或从 XMM 寄存器传送数据到内存。对于在两个 XMM 寄存器之间传送数据，<code>GCC</code> 会使用两种指令之一，即用 <code>vmpovaps</code> 传送单精度数，用 <code>vmovapd</code> 传送双精度数。对于这些情况，程序复制整个寄存器还是只复制低位值。既不会影响程序功能，也不会影响执行速度，所以使用这些指令还是针对标量数据的人指令没有实质上的差别。指令名字中的字母 &lsquo;a&rsquo; 表示 &ldquo;aligned(对齐的)&quot;。当用于读写内存是，如果地址不满足16字节对齐，它们会导致异常。在两个寄存器之间传送数据，绝不会出现错误对齐的状况。</p>
+<p>浮点数和整数数据类型之间以及不同浮点格式之间进行转换的指令集合。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png" /></p>
+<p>把一个从 XMM 寄存器或内存中读出的浮点值进行转换，并将结果写入一个通用寄存器。把浮点值转换成整数时，指令会执行截断(truncation)，把值向 0 进行舍入。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png" /></p>
+<h4 id="3112-过程中的浮点代码">3.11.2 过程中的浮点代码</h4>
+<p>在 <code>x86-64</code> 中，XMM 寄存器用来向函数传递浮点参数，以及从函数返回浮点值。具有以下规则:</p>
+<ul>
+<li>XMM 寄存器 <code>%xmm0~%xmm7</code> 最多可以传递 8 个浮点参数。按照参数列出的顺序使用这些寄存器。可以通过栈传递额外的浮点参数。</li>
+<li>函数使用寄存器 %xmm0 来返回浮点值。</li>
+<li>所有的 XMM 寄存器都是调用者保存的。被调用者可以不同保存就覆盖这些寄存器中任意一个。</li>
+</ul>
+<p>当函数包含指针、整数和浮点数混合的参数时，指针和整数通过通用寄存器传递，而浮点值通过 XMM 寄存器传递。也就是说，参数到寄存器的映射取决于它们的类型和排列的顺序。例如:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="c1">// 这个函数会把 x 存放在 %edi 中，y 放在 %xmm0 中，z 放在 %rsi 中。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+<span class="c1">// 这个函数的寄存器分配与函数 f1 相同。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f2</span><span class="p">(</span><span class="kt">double</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">long</span> <span class="n">z</span><span class="p">);</span>
+<span class="c1">// 这个函数会将 x 放在 %xmm0 中，y 放在 %rdi 中，z 放在 %rsi 中。
+</span><span class="c1"></span><span class="kt">double</span> <span class="nf">f1</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">z</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3113-浮点运算操作">3.11.3 浮点运算操作</h4>
+<p>下图描述了一组执行算术运算的标量 AVX2 浮点指令。每条指令有一个($S_1$)或两个($S_1, S_2$)，和一个目的操作数 <em>D</em>。第一个源操作数 $S_1$ 可以是一个 XMM 寄存器或一个内存位置。第二个源操作数和目的操作数都必须是 XMM 寄存器。每个操作多有一条针对当精度的指令和一条针对双精度的指令。结果存放在目的寄存器中。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png" /></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

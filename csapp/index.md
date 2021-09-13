@@ -682,3 +682,42 @@ int fun(int x, int *p) {
 - 对浮点数据操作的指令。
 - 向函数传递浮点数参数和从函数返回浮点数结构的规则。
 - 函数调用过程中保存寄存器的规则。
+
+`x86-64` 浮点体系结构的历史:
+
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085103.png)
+
+如图所示，AVX 浮点体系结构允许数据存储在 16 个 YMM 寄存器中，名字是 `%ymm0~%ymm15`。每个 YMM 寄存器都是 256(32 字节)。当对标量数据操作时，这些寄存器值保存浮点数，而且只使用低 32 位(对于 float) 或 64 位(对于 double)。汇编代码用寄存器的 SSE XMM 寄存器名字 `%xmm0~%xmm15` 来引用它们，每个 XMM 寄存器都是对应的 YMM 寄存器的低 128 位(16字节)。
+
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913085612.png)
+
+#### 3.11.1 浮点传送和转化操作
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913090024.png)
+
+`GCC` 只用标量传送操作从内存传送数据到 XMM 寄存器或从 XMM 寄存器传送数据到内存。对于在两个 XMM 寄存器之间传送数据，`GCC` 会使用两种指令之一，即用 `vmpovaps` 传送单精度数，用 `vmovapd` 传送双精度数。对于这些情况，程序复制整个寄存器还是只复制低位值。既不会影响程序功能，也不会影响执行速度，所以使用这些指令还是针对标量数据的人指令没有实质上的差别。指令名字中的字母 'a' 表示 "aligned(对齐的)"。当用于读写内存是，如果地址不满足16字节对齐，它们会导致异常。在两个寄存器之间传送数据，绝不会出现错误对齐的状况。
+
+浮点数和整数数据类型之间以及不同浮点格式之间进行转换的指令集合。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091445.png)
+
+把一个从 XMM 寄存器或内存中读出的浮点值进行转换，并将结果写入一个通用寄存器。把浮点值转换成整数时，指令会执行截断(truncation)，把值向 0 进行舍入。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913091717.png)
+
+#### 3.11.2 过程中的浮点代码
+在 `x86-64` 中，XMM 寄存器用来向函数传递浮点参数，以及从函数返回浮点值。具有以下规则:
+- XMM 寄存器 `%xmm0~%xmm7` 最多可以传递 8 个浮点参数。按照参数列出的顺序使用这些寄存器。可以通过栈传递额外的浮点参数。
+- 函数使用寄存器 %xmm0 来返回浮点值。
+- 所有的 XMM 寄存器都是调用者保存的。被调用者可以不同保存就覆盖这些寄存器中任意一个。
+
+当函数包含指针、整数和浮点数混合的参数时，指针和整数通过通用寄存器传递，而浮点值通过 XMM 寄存器传递。也就是说，参数到寄存器的映射取决于它们的类型和排列的顺序。例如:
+```C
+// 这个函数会把 x 存放在 %edi 中，y 放在 %xmm0 中，z 放在 %rsi 中。
+double f1(int x, double y, long z);
+// 这个函数的寄存器分配与函数 f1 相同。
+double f2(double y, int x, long z);
+// 这个函数会将 x 放在 %xmm0 中，y 放在 %rdi 中，z 放在 %rsi 中。
+double f1(float x, double *y, long *z);
+```
+
+#### 3.11.3 浮点运算操作
+下图描述了一组执行算术运算的标量 AVX2 浮点指令。每条指令有一个($S_1$)或两个($S_1, S_2$)，和一个目的操作数 *D*。第一个源操作数 $S_1$ 可以是一个 XMM 寄存器或一个内存位置。第二个源操作数和目的操作数都必须是 XMM 寄存器。每个操作多有一条针对当精度的指令和一条针对双精度的指令。结果存放在目的寄存器中。
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210913093055.png)
