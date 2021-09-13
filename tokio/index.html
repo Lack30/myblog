@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/tokio\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "rust","wordcount":  295 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "rust","wordcount":  980 ,
         "url": "http:\/\/xingyys.tech\/tokio\/","datePublished": "2021-09-12T14:46:43+08:00","dateModified": "2021-09-12T14:46:43+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Tokio 初尝试</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BC%80%E5%8F%91/"><i class="far fa-folder fa-fw"></i>开发</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-12">2021-09-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 295 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-09-12">2021-09-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 980 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -131,6 +131,14 @@
   <ul>
     <li><a href="#简介">简介</a></li>
     <li><a href="#安装">安装</a></li>
+    <li><a href="#并发">并发</a>
+      <ul>
+        <li><a href="#static">&lsquo;static</a></li>
+        <li><a href="#send">Send</a></li>
+      </ul>
+    </li>
+    <li><a href="#共享状态">共享状态</a></li>
+    <li><a href="#channels">Channels</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="简介">简介</h2>
@@ -228,7 +236,252 @@
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><h2 id="并发">并发</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">net</span>::<span class="p">{</span><span class="n">TcpListener</span><span class="p">,</span><span class="w"> </span><span class="n">TcpStream</span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">listener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TcpListener</span>::<span class="n">bind</span><span class="p">(</span><span class="s">&#34;127.0.0.1:6379&#34;</span><span class="p">).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listener</span><span class="p">.</span><span class="n">accept</span><span class="p">().</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="c1">// 每次都新启动 task 处理 tcp 连接
+</span><span class="c1"></span><span class="w">        </span><span class="n">tokio</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">process</span><span class="p">(</span><span class="n">socket</span><span class="p">).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="p">});</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">process</span><span class="p">(</span><span class="n">_</span>: <span class="nc">TcpStream</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>tokio</code> task 是一个异步绿色线程。使用 <code>tokio::spawn</code> 创建异步块，返回类型为 <code>JoinHandle</code>。使用 <code>.await</code> 获取返回值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="s">&#34;return value&#34;</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;GOT {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>task 被 <code>tokio</code> 内部调度器使用， 请确认内部有事可做。同时它们会在不同线程将执行。</p>
+<p><code>tokio</code> 中的任务非常轻量级。它们只需要一次分配和 64 字节的内存。应用程序可以随意产生数千甚至数百万个任务。</p>
+<h3 id="static">&lsquo;static</h3>
+<p>task 的类型是 <code>'static</code> 的，这意味着任务内部的变量不能存在外部引用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">task</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// v 变量转移到 task 内部
+</span><span class="c1"></span><span class="w">    </span><span class="n">task</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;Here&#39;s a vec: {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="send">Send</h3>
+<p><code>tokio::spawn</code> 产生的任务必须实现 <code>Send</code>。这允许 <code>tokio</code> 运行时在线程之间移动任务，同时它们在 <code>.await</code> 处挂起。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">task</span>::<span class="n">yield_now</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">rc</span>::<span class="n">Rc</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">tokio</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="c1">// The scope forces `rc` to drop before `.await`.
+</span><span class="c1"></span><span class="w">        </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rc</span>::<span class="n">new</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">            </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">rc</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="c1">// `rc` is no longer used. It is **not** persisted when
+</span><span class="c1"></span><span class="w">        </span><span class="c1">// the task yields to the scheduler
+</span><span class="c1"></span><span class="w">        </span><span class="n">yield_now</span><span class="p">().</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="共享状态">共享状态</h2>
+<p>在 <code>tokio</code> 中有几种不同的方式来共享状态。</p>
+<ul>
+<li>使用 Mutex 保护共享状态。</li>
+<li>生成一个任务来管理状态并使用消息传递对其进行操作。</li>
+</ul>
+<p>通常，对简单数据使用第一种方法，对需要异步工作的事物（例如 I/O 原语）使用第二种方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">collections</span>::<span class="n">HashMap</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sync</span>::<span class="p">{</span><span class="n">Arc</span><span class="p">,</span><span class="w"> </span><span class="n">Mutex</span><span class="p">},</span><span class="w">
+</span><span class="w"></span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">net</span>::<span class="p">{</span><span class="n">TcpListener</span><span class="p">,</span><span class="w"> </span><span class="n">TcpStream</span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">listener</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TcpListener</span>::<span class="n">bind</span><span class="p">(</span><span class="s">&#34;127.0.0.1:6379&#34;</span><span class="p">).</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;Listening&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span>::<span class="n">new</span><span class="p">(</span><span class="n">Mutex</span>::<span class="n">new</span><span class="p">(</span><span class="n">HashMap</span>::<span class="n">new</span><span class="p">()));</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listener</span><span class="p">.</span><span class="n">accept</span><span class="p">().</span><span class="k">await</span><span class="p">.</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;Accepted&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">tokio</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">process</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">db</span><span class="p">).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="p">});</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">process</span><span class="p">(</span><span class="n">_</span>: <span class="nc">TcpStream</span><span class="p">,</span><span class="w"> </span><span class="n">_db</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&lt;</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;&gt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意，使用 std::sync::Mutex 而不是 tokio::sync::Mutex 来保护 HashMap。一个常见的错误是在异步代码中无条件地使用 tokio::sync::Mutex。异步互斥锁是在调用 .await 时锁定的互斥锁。</p>
+</blockquote>
+<p>等待获取锁时，同步 mutex 将等待当前 <code>lock</code>。这反过来又会阻止其他任务的处理。但是，切换到 <code>tokio::sync::Mutex</code> 通常没有帮助，因为异步 mutex 在内部使用同步 mutex。根据经验，只要争用率保持在低位且未在 <code>.await</code> 中上锁，即可从异步 mutex 内使用同步 mutex 即可。此外，考虑使用 <code>parking_lot::Mutex</code> 作为 <code>std::sync::Mutex</code> 的更快的替代方法。</p>
+<p>使用 <code>tokio</code> 异步 mutex。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">tokio</span>::<span class="n">sync</span>::<span class="n">Mutex</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">increment_and_do_stuff</span><span class="p">(</span><span class="n">mutex</span>: <span class="kp">&amp;</span><span class="nc">Mutex</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="o">*</span><span class="n">lock</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[tokio::main]</span><span class="w">
+</span><span class="w"></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Mutex</span>::<span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">increment_and_do_stuff</span><span class="p">(</span><span class="o">&amp;</span><span class="n">m</span><span class="p">).</span><span class="k">await</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;GOT {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="channels">Channels</h2>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
