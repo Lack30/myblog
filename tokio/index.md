@@ -184,4 +184,225 @@ async fn main() {
 ```
 
 ## Channels
+`tokio` 提供以下几种 channels 类型:
+- [mpsc](https://docs.rs/tokio/1/tokio/sync/mpsc/index.html): 多生产者，单消费者。
+- [oneshot](https://docs.rs/tokio/1/tokio/sync/oneshot/index.html): 单生产者，单消费者。
+- [broadcast](https://docs.rs/tokio/1/tokio/sync/broadcast/index.html): 多生产者，多消费者。
+- [watch](https://docs.rs/tokio/1/tokio/sync/watch/index.html): 单生产者，多消费者。
 
+### mpsc
+`tokio::spawn` 中使用 *Sender* 会转移生命周期时，需要调用 `clone()` 克隆一份。
+```rust
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(32);
+    let tx2 = tx.clone();
+
+    tokio::spawn(async move {
+        let _ = tx.send("sending from first handle").await;
+    });
+
+    tokio::spawn(async move {
+        let _ = tx2.send("sending from second handle").await;
+    });
+
+    if let Some(message) = rx.recv().await {
+        println!("GOT = {}", message);
+    }
+}
+```
+*Receiver* 在作用域结束时，调用 close() 方法。
+
+### oneshot
+```rust
+use tokio::sync::oneshot;
+
+#[tokio::main]
+async fn main() {
+    let (tx, rx) = oneshot::channel::<i32>();
+
+    tokio::spawn(async move {
+        if !tx.is_closed() {
+            let _ = tx.send(3);
+        }
+    });
+
+    match rx.await {
+        Ok(v) => println!("got = {:?}", v),
+        Err(e) => println!("the sender dropped: {}", e),
+    }
+}
+```
+### broadcast
+```rust
+use tokio::sync::broadcast;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx1) = broadcast::channel(16);
+    let mut rx2 = tx.subscribe();
+
+    tokio::spawn(async move {
+        assert_eq!(rx1.recv().await.unwrap(), 10);
+        assert_eq!(rx1.recv().await.unwrap(), 20);
+    });
+
+    tokio::spawn(async move {
+        assert_eq!(rx2.recv().await.unwrap(), 10);
+        assert_eq!(rx2.recv().await.unwrap(), 20);
+    });
+
+    tx.send(10).unwrap();
+    tx.clone().send(20).unwrap();
+}
+```
+### watch
+```rust
+use tokio::sync::watch;
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = watch::channel("");
+
+    tokio::spawn(async move {
+        tx.send("world").unwrap();
+    });
+
+    while rx.changed().await.is_ok() {
+        println!("received = {:?}", *rx.borrow());
+    }
+}
+```
+## I/O
+`tokio` 中的 I/O 操作和标准库中一致，只是异步化了。它内部提供一个读特性([AsyncRead](https://docs.rs/tokio/1/tokio/io/trait.AsyncRead.html))和一个写特性([AsyncWrite](https://docs.rs/tokio/1/tokio/io/trait.AsyncWrite.html))。并提供实现这个特性的结构([TcpStream](https://docs.rs/tokio/1/tokio/net/struct.TcpStream.html), [File](https://docs.rs/tokio/1/tokio/fs/struct.File.html), [Stdout](https://docs.rs/tokio/1/tokio/io/struct.Stdout.html))。
+
+### 异步读写
+这两个特征提供了异步读取和写字节流的设施。这些特征上的方法通常不是直接调用的。相反，您将通过 `AsyncReadExt` 和 `AsyncWriteExt` 提供的实用方法使用它们。
+
+> 当 `read()` 返回 `Ok(0)` 时，这意味着流已关闭。任何进一步的调用 `read()` 将立即返回 `Ok(0)`。对于 TcpStream 连接，这意味着读取 socket 已关闭。
+
+```rust
+use std::str;
+use tokio::fs::File;
+use tokio::io::{self, AsyncReadExt, AsyncWriteExt};
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    {
+        let mut ff = File::create("foo.txt").await?;
+        ff.write_all(b"hello world").await?;
+    }
+
+    let mut f = File::open("foo.txt").await?;
+    let mut buffer = [0; 20];
+
+    // read up to 10 bytes
+    let n = f.read(&mut buffer[..]).await?;
+
+    println!("The bytes: {:?}", str::from_utf8(&buffer[..n]).unwrap());
+    Ok(())
+}
+```
+`AsyncReadExt::read_to_end` 将中流中读取所有字节直到 `EOF` (文件结尾标识符)。
+```rust
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let mut f = File::open("foo.txt").await?;
+    let mut buffer = Vec::new();
+
+    // read the whole file
+    f.read_to_end(&mut buffer).await?;
+    Ok(())
+}
+```
+### io::copy
+`tokio` 提供 `tokoio::io` 模块，其中包含了一系列有用的方法。例如 `tokio::io::copy` 异步版本的 io 复制。
+```rust
+use tokio::fs::File;
+use tokio::io;
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let mut reader: &[u8] = b"hello";
+    let mut file = File::create("foo.txt").await?;
+
+    io::copy(&mut reader, &mut file).await?;
+    Ok(())
+}
+``` 
+> 使用字节数组也要实现 AsyncRead。
+
+### io::split
+`io::split` 能够从拆分 *reader* 和 *writer*  类型
+```rust
+use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::TcpStream};
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let socket = TcpStream::connect("127.0.0.1:6142").await?;
+    let (mut rd, mut wr) = io::split(socket);
+
+    let write_task = tokio::spawn(async move {
+        wr.write_all(b"hello\r\n").await?;
+        wr.write_all(b"world\r\n").await?;
+
+        Ok::<_, io::Error>(())
+    });
+
+    let mut buf = vec![0; 128];
+
+    loop {
+        let n = rd.read(&mut buf).await?;
+
+        if n == 0 {
+            break;
+        }
+
+        println!("GOT {:?}", &buf[..n]);
+    }
+
+    Ok(())
+}
+```
+### 手动 coping
+使用 `AsyncReadExt::read` 和 `AsyncWriteExt::write_all` 实现数据拷贝:
+```rust
+use tokio::{
+    io::{self, AsyncReadExt, AsyncWriteExt},
+    net::TcpListener,
+};
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let listener = TcpListener::bind("127.0.0.1:6142").await?;
+
+    loop {
+        let (mut socket, _) = listener.accept().await?;
+
+        tokio::spawn(async move {
+            let mut buf = vec![0; 1024];
+
+            loop {
+                match socket.read(&mut buf).await {
+                    // 返回 Ok(0) 表示 socket 连接已断开
+                    Ok(0) => return,
+                    Ok(n) => {
+                        // 数据写入
+                        if socket.write_all(&buf[..n]).await.is_err() {
+                            // 错误返回
+                            return;
+                        }
+                    }
+                    Err(_) => {
+                        // 处理错误
+                        return;
+                    }
+                }
+            }
+        });
+    }
+}
+```
+忘记从读取循环中 `break` 通常会导致 100% CPU 无限循环情况。当 socket 关闭时，`socket.read()` 会直接返回。循环然后永远重复。
