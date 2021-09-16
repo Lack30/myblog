@@ -197,7 +197,7 @@ async fn main() {
 }
 ```
 
-## Channels
+## sync
 `tokio` 提供以下几种 channels 类型:
 - [mpsc](https://docs.rs/tokio/1/tokio/sync/mpsc/index.html): 多生产者，单消费者。
 - [oneshot](https://docs.rs/tokio/1/tokio/sync/oneshot/index.html): 单生产者，单消费者。
