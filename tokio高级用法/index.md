@@ -298,3 +298,252 @@ select! 宏能够处理两个以上的分支，事实上当前的分支限制数
 ```rust
 <pattern> = <async experssion> => <handler>
 ```
+它的语法类似与 Go 语言中的 `select` 关键字。它有以下特点:
+- 在多个 <async expression> 中选择一个执行，而选择是随机的，<handler> 可以访问 <pattern> 得到的绑定数据。
+- 支持返回值。
+- 支持任意的异步表达式。
+
+使用 `oneshot::Channel` 的输出结果及 TCP 连接的创建作为 `select!` 的表达式:
+```rust
+use tokio::{net::TcpStream, sync::oneshot};
+
+#[tokio::main]
+async fn main() {
+    let (tx, rx) = oneshot::channel();
+
+    tokio::spawn(async move {
+        let _ = tx.send("done");
+    });
+
+    tokio::select! {
+      socket = TcpStream::connect("localhost:3456") => {
+        println!("Socket connected: {:?}", socket);
+      }
+      msg = rx => {
+        println!("received message first {:?}", msg);
+      }
+    }
+}
+```
+或者启动 TcpListener 接收连接的循环
+```rust
+use std::io;
+
+use tokio::{net::TcpListener, sync::oneshot};
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let (tx, rx) = oneshot::channel();
+
+    tokio::spawn(async move {
+        let _ = tx.send("done");
+    });
+
+    let mut listener = TcpListener::bind("localhost:3456").await?;
+
+    tokio::select! {
+      _ = async {
+        loop {
+            let (socket, _) = listener.accept().await?;
+            tokio::spawn(async move {process(socket)});
+        }
+        Ok::<_, io::Error>(())
+      } => {}
+      msg = rx => {
+        println!("received message first {:?}", msg);
+      }
+    }
+
+    Ok(())
+}
+```
+
+### 获取返回值
+```rust
+async fn computation1() -> String {
+  String::from("channel1")
+}
+
+async fn computation2() -> String {
+  String::from("channel2")
+}
+
+#[tokio::main]
+async fn main() {
+  let out = tokio::select! {
+    res1 = computation1() => res1,
+    res2 = computation2() => res2,
+  };
+
+  println!("Got = {}", out);
+}
+```
+### 错误处理
+在 <handler> 块中使用 `?` 语句能够让错误传播出 `select!` 表达式。
+```rust
+use std::io;
+use tokio::net::TcpListener;
+use tokio::sync::oneshot;
+
+#[tokio::main]
+async fn main() -> io::Result<()> {
+    let (tx, rx) = oneshot::channel();
+
+    let listener = TcpListener::bind("localhost:3465").await?;
+
+    tokio::select! {
+      res = async {
+        loop {
+          let (socket, _) = listener.accept().await?;
+          tokio::spawn(async move { process(sokcet) });
+        }
+
+        Ok::<_, io::Error>(())
+      } => {
+        res?;
+      }
+      _ = rx => {
+        println!("terminating accept loop");
+      }
+    }
+
+    Ok(())
+}
+```
+
+### else
+`select!` 表达式包含了一个 else 分支，因为需要对 `select!` 表达式进行求值，但是在使用模式匹配时可能所有的模式都匹配不上，在这种情况下我们就需要使用 else 分支来帮助 `select!` 求值。
+```rust
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx1, mut rx1) = mpsc::channel(32);
+    let (tx2, mut rx2) = mpsc::channel(32);
+
+    tokio::spawn(async move {
+        // Send values on `tx1` and `tx2`.
+        let _ = tx1.send("tx1").await;
+    });
+
+    tokio::spawn(async move {
+        // Send values on `tx1` and `tx2`.
+        let _ = tx2.send("tx2").await;
+    });
+
+    tokio::select! {
+        Some(v) = rx1.recv() => {
+           println!("Got {:?} from rx1", v);
+        }
+        Some(v) = rx2.recv() => {
+            println!("Got {:?} from rx2", v);
+        }
+        else => {
+          println!("Bot channels closed");
+        }
+    }
+}
+```
+> 在我们创建任务时，所创建任务的异步代码块必须持有他使用的数据，但 select! 并没有这个限制，每个分支的表达式可以对数据进行借用以及并发的进行操作，在 Rust 的借用规则中，多个异步表达式能够借用同一个不可变引用，或者一个一步表达式能够借用一个可变引用。
+
+### Loops
+`select!` 可以和 `loop` 配合使用:
+```rust
+use tokio::sync::mpsc;
+
+#[tokio::main]
+async fn main() {
+    let (tx1, mut rx1) = mpsc::channel(128);
+    let (tx2, mut rx2) = mpsc::channel(128);
+    let (tx3, mut rx3) = mpsc::channel(128);
+
+    tokio::spawn(async move {
+        tx1.send("tx1").await;
+    });
+
+    tokio::spawn(async move {
+        tx2.send("tx2").await;
+    });
+    
+    tokio::spawn(async move {
+        tx3.send("tx3").await;
+    });
+
+    loop {
+        let msg = tokio::select! {
+            Some(msg) = rx1.recv() => msg,
+            Some(msg) = rx2.recv() => msg,
+            Some(msg) = rx3.recv() => msg,
+            else => { break; }
+        };
+
+        println!("Got {}", msg);
+    }
+
+    println!("All channels have been closed.");
+}
+```
+`select!` 宏会随机的选择可读的分支，在上例中当多个 Channel 中都有可读的数据时，将随机选择一个 Channel 来读取。这个实现是为了处理循环中消费消息的能力落后于生产消息这个场景所带来的问题，这个场景意味着 Channel 总会被填满，如果 `select!` 没有随机的选取分支，将导致循环中的 rx1 永远是第一个检查是否有数据可读的分支，如果 rx1 一直都有新的消息要处理，那其他分支中的 Channel 将永远不会被消费。
+
+> 如果 select! 被求值时，其中的多个 Channel 都存在排队中的消息，只有一个 Channel 的消息会被消费，其他所有的 Channel 都不会进行任何检查，他们的消息会被一直存在 Channel 中，直到循环的下一轮迭代，这些消息并不会丢失。
+
+### pin!
+```rust
+use tokio::sync::mpsc;
+
+async fn action() -> String {
+    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+    String::from("aa")
+}
+
+#[tokio::main]
+async fn main() {
+    let (tx, mut rx) = mpsc::channel(128);
+
+    let operation = action();
+    tokio::pin!(operation);
+
+    tokio::spawn(async move {
+        let _ = tx.send(2).await;
+    });
+
+    loop {
+        tokio::select! {
+            v = &mut operation => {
+                println!("GOT {:?}", v);
+                break;
+            },
+            Some(v) = rx.recv() => {
+                println!("{:?}", v);
+                if v % 2 == 0 {
+                    // break;
+                }
+            }
+        }
+    }
+}
+```
+在 `select!` 循环中，我们使用了 &mut operation 而不是直接使用 operation。这个 operation 变量在整个异步的操作中都存在，每次循环的迭代都会使用同一个 operation 而不是每次都调用一次 `action()`。
+
+## Streams
+Stream 表示一个异步的数据序列，我们用 Stream Trait 来表示跟标准库的 `std::iter::Iterator` 类似的概念。
+
+Tokio 提供的 Stream 支持是通过一个独立的包来实现的，他就是 tokio-stream
+```rust
+tokio-stream = "0.1"
+```
+
+```rust
+use tokio_stream::StreamExt;
+
+#[tokio::main]
+async fn main() {
+    let stream = tokio_stream::iter(&[1, 2, 3, 4, 5]);
+
+    let mut stream = stream.take(3);
+
+    while let Some(v) = &stream.next().await {
+        println!("GOT = {:?}", v)
+    }
+}
+```
