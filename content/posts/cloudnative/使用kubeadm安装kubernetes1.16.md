@@ -6,7 +6,7 @@ draft: false
 keywords: []
 description: ""
 tags: ["k8s"]
-categories: ["云计算"]
+categories: ["云原生"]
 author: "Lack"
 ---
 
