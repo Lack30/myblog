@@ -4,16 +4,7 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 26 Sep 2021 19:43:53 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>云原生架构演进之路</title>
-    <link>http://xingyys.tech/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF/</link>
-    <pubDate>Sun, 26 Sep 2021 19:43:53 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png" referrerpolicy="no-referrer">
-            </div>架构的演进 单体 -&gt; 分布式 -&gt; 微服务 -&gt; 云原生 单体架构 优点: 所有的功能集成在一个项目工程中。 通过部署应用集群和数据库集群来提高系统的性能。 优点: 项目]]></description>
-</item><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 14 Sep 2021 13:03:07 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
     <title>tokio 高级用法</title>
     <link>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
     <pubDate>Tue, 14 Sep 2021 13:03:07 &#43;0800</pubDate>
@@ -84,5 +75,14 @@
     <author>作者</author>
     <guid>http://xingyys.tech/kvm_vm/</guid>
     <description><![CDATA[本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命]]></description>
+</item><item>
+    <title>KVM介绍</title>
+    <link>http://xingyys.tech/kvm_detail/</link>
+    <pubDate>Mon, 04 Jan 2021 22:45:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/kvm_detail/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png" referrerpolicy="no-referrer">
+            </div>KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu]]></description>
 </item></channel>
 </rss>
