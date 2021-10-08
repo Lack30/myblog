@@ -73,7 +73,7 @@ NM_CONTROLLED=yes
 BOOTPROTO=none
 BRIDGE=br0
 ```
-编译br0
+编辑br0
 ```bash
 DEVICE=br0
 #HWADDR=00:0C:29:55:A7:0A
