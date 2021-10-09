@@ -104,6 +104,25 @@
         alt="/images/avatar1.jpeg"
         title="/images/avatar1.jpeg" /></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/kvm_vm/">KVM之虚拟机管理</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-01-06">2021-01-06</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"><i class="far fa-folder fa-fw"></i>虚拟化</a></span></div><div class="content">本篇文章介绍 KVM 虚拟机的管理，包括虚拟机的创建、修改、启动、删除等内容 安装虚拟机 使用 virt-install 安装 virt-install 是一个命令行工具，专门用于安装 kvm 虚拟机。执行以下命</div><div class="post-footer">
+        <a href="/kvm_vm/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+            <a href="/kvm_detail/"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210104230407.png" /></a>
+        </div><h1 class="single-title" itemprop="name headline">
+        <a href="/kvm_detail/">KVM介绍</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-01-04">2021-01-04</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"><i class="far fa-folder fa-fw"></i>虚拟化</a></span></div><div class="content">KVM 概述 KVM (Kernal-base Virtual Machine) 基于内核的虚拟机。是一种通过修改 linux 内核实现虚拟化功能的半虚拟化技术。由于是在内核基础上运行，所有具有接近物理机的高性能。 KVM 和 Qemu</div><div class="post-footer">
+        <a href="/kvm_detail/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/centos7_install_qemu/">CentOS7 安装 qemu-5.2.0</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-12-27">2020-12-27</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"><i class="far fa-folder fa-fw"></i>虚拟化</a></span></div><div class="content">本文介绍在 CentOS7.9 上编译安装 qemu-5.2.0 安装 Python3 编译安装 qemu-5.2.0 依赖 Python3.6 及以上的版本。所以首先安装 Python3.6。这里选择编译安装。 下载 Python3.6.12 从 Python 官网下载 Python3.6.12 源码包： 1</div><div class="post-footer">
         <a href="/centos7_install_qemu/">阅读全文</a><div class="post-tags">
@@ -143,16 +162,6 @@
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-09">2020-04-09</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</div><div class="post-footer">
         <a href="/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/iscsi/">iscsi</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">Scst 安装和使用</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-08">2020-04-08</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</div><div class="post-footer">
-        <a href="/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/iscsi/">iscsi</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/%E5%AE%89%E8%A3%85oh-my-zsh/">linux 安装 oh-my-zsh</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-02-09">2020-02-09</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%85%B6%E4%BB%96/"><i class="far fa-folder fa-fw"></i>其他</a></span></div><div class="content">一、介绍 oh-my-zsh 是一款命令行工具，在zsh的基础上添加了许多的新功能。接下来就来安装并使用他。 二、安装 oh-my-zsh oh-my-zsh 是在 zsh 的基础上使用的，所以要就安装zsh</div><div class="post-footer">
-        <a href="/%E5%AE%89%E8%A3%85oh-my-zsh/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">linux</a>,&nbsp;<a href="/tags/%E7%BB%88%E7%AB%AF/">终端</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
