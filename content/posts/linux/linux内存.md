@@ -2,7 +2,7 @@
 title: "Linux内存"
 date: 2021-10-10T23:54:28+08:00
 lastmod: 2021-10-10T23:54:28+08:00
-draft: true
+draft: false
 tags: 
  - linux
 categories: 
