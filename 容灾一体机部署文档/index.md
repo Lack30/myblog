@@ -262,34 +262,6 @@ sed -i 's!#LIBVIRTD_ARGS="--listen"!LIBVIRTD_ARGS="--listen"!g' /etc/sysconfig/l
 systemctl restart libvirtd
 ```
 
-修改 grub
-
-确认 `ttyS0` 存在在 `/etc/securetty` 文件中，没有就执行以下命令:
-
-```b ash
-echo "ttyS0" >> /etc/securetty
-```
-
-修改 `/etc/default/grub` 文件：
-
-```bash
-# GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet” # 改成 
-GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet net.ifnames=0 console=ttyS0,115200" 
-```
-
-重新生成 grub 文件：
-
-```bash
-grub2-mkconfig -o /boot/grub2/grub.cfg
-```
-
-启动 serial-getty 服务:
-
-```bash
-systemctl start serial-getty@ttyS0.service 
-systemctl enable serial-getty@ttyS0.service
-```
-
 ## 2.3 安装 qemu
 
 > 需要相关软件包: ninja-linux.zip, Python-3.6.12.tar.gz, qemu-5.2.0.tar.gz
@@ -359,7 +331,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 安装依赖
 
 ```bash
-yum install -y pkgconfig-devel glib2-devel pixman-devel libcap-ng-devel libcap-devel libattr-devel
+yum install -y pkgconfig-devel glib2-devel pixman-devel libcap-ng-devel libcap-devel libattr-devel librbd1 librdb1-devel libxml2 libxml2-devel glusterfs-api-devel numactl-devel libiscsi-devel libnfs-devel
+```
+
+```bash
+rpm ivh libnfs*
 ```
 
 编译安装
@@ -367,7 +343,7 @@ yum install -y pkgconfig-devel glib2-devel pixman-devel libcap-ng-devel libcap-d
 ```bash
 tar -xvf qemu-5.2.0.tar.xz
 cd qemu-5.2.0
-./configure --enable-debug --target-list=x86_64-softmmu --enable-kvm --enable-virtfs
+./configure --enable-debug --target-list=x86_64-softmmu --enable-kvm --enable-virtfs --enable-numa --enable-libudev --enable-libxml2 --enable-libnfs --enable-libiscsi --enable-glusterfs --enable-rbd
 make && make install
 ```
 
@@ -432,8 +408,8 @@ postgres=# create database dr encoding 'UTF-8';
 解压软件包
 
 ```
-tar -xvf dr-linux-amd64-v1.0.1-tar.gz
-cd dr
+tar -xvf dradm-linux-amd64-v1.0.1-tar.gz
+cd dradm
 ./dradm init --advertise-address=$IP --postgres-dns="host=localhost,user=postgres,password=$PWD,dbname=dr,port=5432"
 ```
 
@@ -449,6 +425,12 @@ cd dr
 > 根据 uuid 获取证书
 
 浏览器访问: `http://$ip:8000`
+
+开机启动 gpmd
+
+```bash
+systemctl enable gpmd
+```
 
 ## 2.6 安装存储组件
 
@@ -469,17 +451,25 @@ cd dr
 ### 3.2.1 linux 安装
 
 ```bash
+tar -xvf dradm-linux-amd64-v1.0.1-tar.gz
+cd dradm
 ./dradm join virt --server-address=$sip
 ```
 
 > $sip 为服务端ip地址
 
-### 3.2.2 windows 安装
-
-解压 `dr-windows-amd64-v1.0.1.zip`
+开机启动 gpmd
 
 ```bash
-.\dradm join agent --server-address=$sip
+systemctl enable gpmd
+```
+
+### 3.2.2 windows 安装
+
+解压 `dradm-windows-amd64-v1.0.1.zip`
+
+```bash
+.\dradm.exe join agent --server-address=$sip
 ```
 
 > $sip 为服务端ip地址

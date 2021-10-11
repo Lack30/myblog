@@ -104,6 +104,11 @@
         alt="/images/avatar1.jpeg"
         title="/images/avatar1.jpeg" /></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">Scst在线扩容</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-09">2020-04-09</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">SCST 共享的磁盘支持在线扩容。操作如下： scst 服务端 首先有一块 zfs 存储卷，现在将其容量从 15G 扩展到 20G。 1 zfs set volsize=20G tank/vol 修改 scst 中 device 的 size 属性 1 scstadmin -set_dev_attr device1 -attributes size=21474836480 -noprompt iscsi 客</div><div class="post-footer">
+        <a href="/scst%E5%9C%A8%E7%BA%BF%E6%89%A9%E5%AE%B9/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/iscsi/">iscsi</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">Scst 安装和使用</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-04-08">2020-04-08</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a></span></div><div class="content">安装 scst 安装 scst 1 2 3 4 wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2 yum install bzip2 bunzip2 scst-3.2.0.7058.tar.bz2 tar xf scst-3.2.0.7058.tar 编译安装scst 1 2 3 4 5 6 7 make 2perf make scst make scst_install make iscsi make iscsi_install make scstadm make scstadm_install 查看是否被加载到内核了 1 lsmod |grep scst modinfo scst 启动 scst 1</div><div class="post-footer">
         <a href="/scst%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">阅读全文</a><div class="post-tags">
@@ -148,11 +153,6 @@
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-18">2019-08-18</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">在spring cloud 2.x以后,由于zuul一直停滞在1.x版本,所以spring官方就自己开发了一个项目 Spring Cloud Gateway.作为spring c</div><div class="post-footer">
         <a href="/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E4%B8%83/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">java</a>,&nbsp;<a href="/tags/spring/">spring</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/">Spring Cloud微服务实践六</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2019-08-16">2019-08-16</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"><i class="far fa-folder fa-fw"></i>微服务</a></span></div><div class="content">本篇我们就来认识下spring cloud中的zuul组件. 注:这一个系列的开发环境版本为 java1.8, spring boot2.x, spring cloud Greenwich.SR2, IDE为 Intelli IDEA zuul简介 关于zuul 其实</div><div class="post-footer">
-        <a href="/spring-cloud%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E8%B7%B5%E5%85%AD/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/java/">java</a>,&nbsp;<a href="/tags/spring/">spring</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -172,6 +172,10 @@
                 </li><li class="page-item ">
                     <span class="page-link">
                         <a href="/page/5/">5</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/6/">6</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">

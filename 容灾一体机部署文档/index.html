@@ -18,7 +18,7 @@
 <meta name="application-name" content="DoIt">
 <meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/" /><link rel="prev" href="http://xingyys.tech/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/" /><link rel="prev" href="http://xingyys.tech/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" /><link rel="next" href="http://xingyys.tech/linux%E5%86%85%E5%AD%98/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2067 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2028 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/","datePublished": "2021-10-08T17:30:22+08:00","dateModified": "2021-10-08T17:30:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">容灾一体机部署文档</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B7%A5%E4%BD%9C/"><i class="far fa-folder fa-fw"></i>工作</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2067 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2028 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -674,47 +674,6 @@ sed -i <span class="s1">&#39;s!#max_client_requests = .*!max_client_requests = 2
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl restart libvirtd
 </code></pre></td></tr></table>
 </div>
-</div><p>修改 grub</p>
-<p>确认 <code>ttyS0</code> 存在在 <code>/etc/securetty</code> 文件中，没有就执行以下命令:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-b" data-lang="b"><span class="c">echo &#34;ttyS0&#34; </span><span class="nv">&gt;&gt;</span><span class="c"> /etc/securetty
-</span></code></pre></td></tr></table>
-</div>
-</div><p>修改 <code>/etc/default/grub</code> 文件：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># GRUB_CMDLINE_LINUX=&#34;crashkernel=auto rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet” # 改成 </span>
-<span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&#34;crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet net.ifnames=0 console=ttyS0,115200&#34;</span> 
-</code></pre></td></tr></table>
-</div>
-</div><p>重新生成 grub 文件：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">grub2-mkconfig -o /boot/grub2/grub.cfg
-</code></pre></td></tr></table>
-</div>
-</div><p>启动 serial-getty 服务:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl start serial-getty@ttyS0.service 
-systemctl <span class="nb">enable</span> serial-getty@ttyS0.service
-</code></pre></td></tr></table>
-</div>
 </div><h2 id="23-安装-qemu">2.3 安装 qemu</h2>
 <blockquote>
 <p>需要相关软件包: ninja-linux.zip, Python-3.6.12.tar.gz, qemu-5.2.0.tar.gz</p>
@@ -810,7 +769,15 @@ Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y pkgconfig-devel glib2-devel pixman-devel libcap-ng-devel libcap-devel libattr-devel
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y pkgconfig-devel glib2-devel pixman-devel libcap-ng-devel libcap-devel libattr-devel librbd1 librdb1-devel libxml2 libxml2-devel glusterfs-api-devel numactl-devel libiscsi-devel libnfs-devel
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rpm ivh libnfs*
 </code></pre></td></tr></table>
 </div>
 </div><p>编译安装</p>
@@ -824,7 +791,7 @@ Type <span class="s2">&#34;help&#34;</span>, <span class="s2">&#34;copyright&#34
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -xvf qemu-5.2.0.tar.xz
 <span class="nb">cd</span> qemu-5.2.0
-./configure --enable-debug --target-list<span class="o">=</span>x86_64-softmmu --enable-kvm --enable-virtfs
+./configure --enable-debug --target-list<span class="o">=</span>x86_64-softmmu --enable-kvm --enable-virtfs --enable-numa --enable-libudev --enable-libxml2 --enable-libnfs --enable-libiscsi --enable-glusterfs --enable-rbd
 make <span class="o">&amp;&amp;</span> make install
 </code></pre></td></tr></table>
 </div>
@@ -928,8 +895,8 @@ systemctl <span class="nb">enable</span> postgresql-13
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar -xvf dr-linux-amd64-v1.0.1-tar.gz
-cd dr
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">tar -xvf dradm-linux-amd64-v1.0.1-tar.gz
+cd dradm
 ./dradm init --advertise-address=$IP --postgres-dns=&#34;host=localhost,user=postgres,password=$PWD,dbname=dr,port=5432&#34;
 </code></pre></td></tr></table>
 </div>
@@ -951,7 +918,16 @@ cd dr
 <p>根据 uuid 获取证书</p>
 </blockquote>
 <p>浏览器访问: <code>http://$ip:8000</code></p>
-<h2 id="26-安装存储组件">2.6 安装存储组件</h2>
+<p>开机启动 gpmd</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> gpmd
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="26-安装存储组件">2.6 安装存储组件</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -971,22 +947,35 @@ cd dr
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">./dradm join virt --server-address<span class="o">=</span><span class="nv">$sip</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">tar -xvf dradm-linux-amd64-v1.0.1-tar.gz
+<span class="nb">cd</span> dradm
+./dradm join virt --server-address<span class="o">=</span><span class="nv">$sip</span>
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>$sip 为服务端ip地址</p>
 </blockquote>
-<h3 id="322-windows-安装">3.2.2 windows 安装</h3>
-<p>解压 <code>dr-windows-amd64-v1.0.1.zip</code></p>
+<p>开机启动 gpmd</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">.<span class="se">\d</span>radm join agent --server-address<span class="o">=</span><span class="nv">$sip</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> gpmd
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="322-windows-安装">3.2.2 windows 安装</h3>
+<p>解压 <code>dradm-windows-amd64-v1.0.1.zip</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">.<span class="se">\d</span>radm.exe join agent --server-address<span class="o">=</span><span class="nv">$sip</span>
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -1017,7 +1006,8 @@ cd dr
         </section>
     </div>
 
-    <div class="post-nav"><a href="/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" class="prev" rel="prev" title="Docker容器和网络架构设计"><i class="fas fa-angle-left fa-fw"></i>Docker容器和网络架构设计</a></div>
+    <div class="post-nav"><a href="/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" class="prev" rel="prev" title="Docker容器和网络架构设计"><i class="fas fa-angle-left fa-fw"></i>Docker容器和网络架构设计</a>
+            <a href="/linux%E5%86%85%E5%AD%98/" class="next" rel="next" title="Linux内存">Linux内存<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
