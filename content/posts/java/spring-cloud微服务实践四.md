@@ -8,36 +8,6 @@ description: ""
 tags: ["java", "spring"]
 categories: ["微服务"]
 author: "Lack"
-
-# You can also close(false) or open(true) something for this content.
-# P.S. comment can only be closed
-comment: true
-toc: true
-autoCollapseToc: true
-postMetaInFooter: false
-hiddenFromHomePage: false
-# You can also define another contentCopyright. e.g. contentCopyright: "This is another copyright."
-contentCopyright: false
-reward: false
-mathjax: false
-mathjaxEnableSingleDollar: false
-mathjaxEnableAutoNumber: false
-
-# You unlisted posts you might want not want the header or footer to show
-hideHeaderAndFooter: false
-
-# You can enable or disable out-of-date content warning for individual post.
-# Comment this out to use the global config.
-#enableOutdatedInfoWarning: false
-
-flowchartDiagrams:
-  enable: false
-  options: ""
-
-sequenceDiagrams: 
-  enable: false
-  options: ""
-
 ---
 
 spring cloud的hystrix还有一个配搭的库hystrix-dashboard,它是hystrix的一款监控工具,能直观的显示hystrix响应信息,请求成功率等.但是hystrix-dashboard只能查看单机和集群的信息,如果需要将多台的信息汇总起来的话就需要使用turbine.
