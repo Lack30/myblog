@@ -81,3 +81,45 @@ x86微处理器的三种不同地址:
 在多处理器系统中，所有 CPU 都共享同一内存。RAM芯片上的读和写操作必须串行执行，因此内存仲裁器(memory arbiter)的硬件电路插在总线和每个 RAM 芯片之间。其作用就是如果某个 RAM 芯片空闲，就准予一个 CPU 访问，如果该芯片忙于为另一个处理器提出的请求服务，就延迟这个 CPU 的访问。
 
 ## 硬件中的分段
+80206 开始，Intel 微处理器具有两种方式执行地址转换：
+- 实模式(real mode)。
+- 保护模式(protected mode)。
+
+实模式存在是处于兼容性考虑，主要还是保护模式。
+
+### 段选择符和段寄存器
+一个逻辑地址由两部分组成：一个段标识符和一个指定段内相对地址的偏移量。段标识符是一个 16 位长的字段，称为段选择符(Segment Selector)。偏移量是一个 32 位长的字段。
+
+![图2-2: 段描述符](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png)
+
+专门存放段选择符的寄存器: cs, ss, ds, es, fs 和 gs。其中3个有专门的用途:
+- cs 代码段寄存器，指向包含程序指令的段。
+- ss 栈段寄存器，指向包含当前程序栈的段。
+- ds 数据段寄存器，指向包含静态数据或者全局数据段。
+
+其他3个段寄存器作一般用途，可以指向任意的数据段。
+
+cs 寄存器还有一个很重要的功能: 它含有一个两位的字段，用以指明 CPU 的当前特权级 (Current Privilege Level, CPL)。值为0代表最高优先级，为值为3代表最低优先级。Linux 只用0级和3级，分别称之为内核态和用户态。
+
+### 段描述符
+每个段由一个8字节的段描述符(Segment Descriptor)表示，它描述了段的特征。段描述符放在全局描述符表(Global Descriptor Table, GDT)或局部描述符表(Local Descriptor Table, LDT)中。
+
+GDT 通常只有一个，在主存中的地址和大小存放在 gdtr 控制寄存器中，当前正被使用的 LDT 地址和大小放在 ldtr 控制寄存器中。
+
+段描述符字段:
+- Base
+- G
+- Limit
+- S
+- Type
+- DPL
+- P
+- D 或 B
+- AVL 标志
+
+![2-3: 段描述符格式](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png)
+
+段选择符字段: 
+- index     指定了放在 GDT 或 LDT 中的相应段描述符的入口。
+- TI        TI ((Table Indicator)标志：指明段描述符是在 GDT 中 (TI=0) 或在 LDT 中(TI=1))。
+- RPL       请求者特权级：当相应的段选择符装入到 cs 寄存器中时，指示出 CPU 当前的特权级；它还可以用于在访问数据段时有选择地削弱处理器的特权级。
