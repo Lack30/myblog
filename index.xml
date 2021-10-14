@@ -19,7 +19,7 @@
     <pubDate>Fri, 08 Oct 2021 17:30:22 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.x CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR的压缩包和相关的依赖工]]></description>
+    <description><![CDATA[一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR]]></description>
 </item><item>
     <title>Docker容器和网络架构设计</title>
     <link>http://xingyys.tech/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</link>

@@ -5,7 +5,7 @@
 ## 1.1 环境要求
 | 主机类型 | 操作系统 | 硬件要求 |
 | --- | --- | --- |
-| 服务端 | linux CentOS7.x | CPU 8核，内存32G，200G硬盘 |
+| 服务端 | linux CentOS7.8及以上 | CPU 8核，内存32G，200G硬盘 |
 | 客户端 | CentOS oracle 或 Sqlserver 2012 |  |
 
 > 备注：
@@ -234,10 +234,10 @@ modprobe kvm-intel
 ```bash
 sed -i 's!#listen_tls = 0!listen_tls = 0!g' /etc/libvirt/libvirtd.conf
 sed -i 's!#listen_tcp = 1!listen_tcp = 1!g' /etc/libvirt/libvirtd.conf
-sed 's!#tcp_port = "16509"!tcp_port = "16509"!g' /etc/libvirt/libvirtd.conf
-sed 's!#listen_addr = "0.0.0.0"!listen_addr = "0.0.0.0"!g' /etc/libvirt/libvirtd.conf
-sed -i 's!#user = "root"!user = "root"!g' /etc/libvirt/libvirtd.conf
-sed -i 's!#group = "root"!group = "root"!g' /etc/libvirt/libvirtd.conf
+sed -i 's!#tcp_port = "16509"!tcp_port = "16509"!g' /etc/libvirt/libvirtd.conf
+sed -i 's!#listen_addr = "0.0.0.0"!listen_addr = "0.0.0.0"!g' /etc/libvirt/libvirtd.conf
+sed -i 's!#user = "root"!user = "root"!g' /etc/libvirt/qemu.conf
+sed -i 's!#group = "root"!group = "root"!g' /etc/libvirt/qemu.conf
 sed -i 's!#unix_sock_group = "libvirtd"!unix_sock_group = "libvirtd"!g' /etc/libvirt/libvirtd.conf
 sed -i 's!#unix_sock_rw_perms = "0770"!unix_sock_rw_perms = "0770"!g' /etc/libvirt/libvirtd.conf
 sed -i 's!#auth_unix_ro = "none"!auth_unix_ro = "none"!g' /etc/libvirt/libvirtd.conf
@@ -303,7 +303,8 @@ yum install -y openssl openssl-devel zlib-devel bzip2-devel bzip2
 编译安装
 
 ```bash
-cd Python-3.6.12 ./configure --prefix=/usr/local/python3 --enable-optimizations 
+cd Python-3.6.12 
+./configure --prefix=/usr/local/python3 --enable-optimizations 
 make -j8 build_all && make -j8 install
 ```
 

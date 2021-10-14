@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/linux%E5%86%85%E5%AD%98\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux","wordcount":  2239 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux","wordcount":  2929 ,
         "url": "http:\/\/xingyys.tech\/linux%E5%86%85%E5%AD%98\/","datePublished": "2021-10-10T23:54:28+08:00","dateModified": "2021-10-10T23:54:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux内存</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2239 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2929 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -132,7 +132,12 @@
       </ul>
     </li>
     <li><a href="#内存地址">内存地址</a></li>
-    <li><a href="#硬件中的分段">硬件中的分段</a></li>
+    <li><a href="#硬件中的分段">硬件中的分段</a>
+      <ul>
+        <li><a href="#段选择符和段寄存器">段选择符和段寄存器</a></li>
+        <li><a href="#段描述符">段描述符</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="内存概论">内存概论</h2>
@@ -201,6 +206,59 @@
 <p>内存控制单元(MMU)通过分段单元(segmentation unit)的硬件电路把一个逻辑地址转换成线性地址。通过分页单元(paging unit)的硬件电路把线性地址转化成物理地址。</p>
 <p>在多处理器系统中，所有 CPU 都共享同一内存。RAM芯片上的读和写操作必须串行执行，因此内存仲裁器(memory arbiter)的硬件电路插在总线和每个 RAM 芯片之间。其作用就是如果某个 RAM 芯片空闲，就准予一个 CPU 访问，如果该芯片忙于为另一个处理器提出的请求服务，就延迟这个 CPU 的访问。</p>
 <h2 id="硬件中的分段">硬件中的分段</h2>
+<p>80206 开始，Intel 微处理器具有两种方式执行地址转换：</p>
+<ul>
+<li>实模式(real mode)。</li>
+<li>保护模式(protected mode)。</li>
+</ul>
+<p>实模式存在是处于兼容性考虑，主要还是保护模式。</p>
+<h3 id="段选择符和段寄存器">段选择符和段寄存器</h3>
+<p>一个逻辑地址由两部分组成：一个段标识符和一个指定段内相对地址的偏移量。段标识符是一个 16 位长的字段，称为段选择符(Segment Selector)。偏移量是一个 32 位长的字段。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211012090918.png"
+        title="图2-2: 段描述符" /></p>
+<p>专门存放段选择符的寄存器: cs, ss, ds, es, fs 和 gs。其中3个有专门的用途:</p>
+<ul>
+<li>cs 代码段寄存器，指向包含程序指令的段。</li>
+<li>ss 栈段寄存器，指向包含当前程序栈的段。</li>
+<li>ds 数据段寄存器，指向包含静态数据或者全局数据段。</li>
+</ul>
+<p>其他3个段寄存器作一般用途，可以指向任意的数据段。</p>
+<p>cs 寄存器还有一个很重要的功能: 它含有一个两位的字段，用以指明 CPU 的当前特权级 (Current Privilege Level, CPL)。值为0代表最高优先级，为值为3代表最低优先级。Linux 只用0级和3级，分别称之为内核态和用户态。</p>
+<h3 id="段描述符">段描述符</h3>
+<p>每个段由一个8字节的段描述符(Segment Descriptor)表示，它描述了段的特征。段描述符放在全局描述符表(Global Descriptor Table, GDT)或局部描述符表(Local Descriptor Table, LDT)中。</p>
+<p>GDT 通常只有一个，在主存中的地址和大小存放在 gdtr 控制寄存器中，当前正被使用的 LDT 地址和大小放在 ldtr 控制寄存器中。</p>
+<p>段描述符字段:</p>
+<ul>
+<li>Base</li>
+<li>G</li>
+<li>Limit</li>
+<li>S</li>
+<li>Type</li>
+<li>DPL</li>
+<li>P</li>
+<li>D 或 B</li>
+<li>AVL 标志</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png"
+        title="2-3: 段描述符格式" /></p>
+<p>段选择符字段:</p>
+<ul>
+<li>index     指定了放在 GDT 或 LDT 中的相应段描述符的入口。</li>
+<li>TI        TI ((Table Indicator)标志：指明段描述符是在 GDT 中 (TI=0) 或在 LDT 中(TI=1))。</li>
+<li>RPL       请求者特权级：当相应的段选择符装入到 cs 寄存器中时，指示出 CPU 当前的特权级；它还可以用于在访问数据段时有选择地削弱处理器的特权级。</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

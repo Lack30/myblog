@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>容灾一体机部署文档 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="容灾一体机部署文档" />
-<meta property="og:description" content="一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.x CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR的压缩包和相关的依赖工" />
+<meta property="og:description" content="一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-10-08T17:30:22+08:00" />
@@ -14,7 +14,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="容灾一体机部署文档"/>
-<meta name="twitter:description" content="一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.x CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR的压缩包和相关的依赖工"/>
+<meta name="twitter:description" content="一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR"/>
 <meta name="application-name" content="DoIt">
 <meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2028 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2042 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/","datePublished": "2021-10-08T17:30:22+08:00","dateModified": "2021-10-08T17:30:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">容灾一体机部署文档</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B7%A5%E4%BD%9C/"><i class="far fa-folder fa-fw"></i>工作</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2028 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2042 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -177,7 +177,7 @@
 <tbody>
 <tr>
 <td>服务端</td>
-<td>linux CentOS7.x</td>
+<td>linux CentOS7.8及以上</td>
 <td>CPU 8核，内存32G，200G硬盘</td>
 </tr>
 <tr>
@@ -640,10 +640,10 @@ kvm                   <span class="m">337772</span>  <span class="m">1</span> kv
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -i <span class="s1">&#39;s!#listen_tls = 0!listen_tls = 0!g&#39;</span> /etc/libvirt/libvirtd.conf
 sed -i <span class="s1">&#39;s!#listen_tcp = 1!listen_tcp = 1!g&#39;</span> /etc/libvirt/libvirtd.conf
-sed <span class="s1">&#39;s!#tcp_port = &#34;16509&#34;!tcp_port = &#34;16509&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
-sed <span class="s1">&#39;s!#listen_addr = &#34;0.0.0.0&#34;!listen_addr = &#34;0.0.0.0&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
-sed -i <span class="s1">&#39;s!#user = &#34;root&#34;!user = &#34;root&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
-sed -i <span class="s1">&#39;s!#group = &#34;root&#34;!group = &#34;root&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
+sed -i <span class="s1">&#39;s!#tcp_port = &#34;16509&#34;!tcp_port = &#34;16509&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
+sed -i <span class="s1">&#39;s!#listen_addr = &#34;0.0.0.0&#34;!listen_addr = &#34;0.0.0.0&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
+sed -i <span class="s1">&#39;s!#user = &#34;root&#34;!user = &#34;root&#34;!g&#39;</span> /etc/libvirt/qemu.conf
+sed -i <span class="s1">&#39;s!#group = &#34;root&#34;!group = &#34;root&#34;!g&#39;</span> /etc/libvirt/qemu.conf
 sed -i <span class="s1">&#39;s!#unix_sock_group = &#34;libvirtd&#34;!unix_sock_group = &#34;libvirtd&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
 sed -i <span class="s1">&#39;s!#unix_sock_rw_perms = &#34;0770&#34;!unix_sock_rw_perms = &#34;0770&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
 sed -i <span class="s1">&#39;s!#auth_unix_ro = &#34;none&#34;!auth_unix_ro = &#34;none&#34;!g&#39;</span> /etc/libvirt/libvirtd.conf
@@ -727,9 +727,11 @@ unzip ninja-linux.zip <span class="o">&amp;&amp;</span> mv ninja /usr/sbin/ninja
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> Python-3.6.12 ./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations 
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> Python-3.6.12 
+./configure --prefix<span class="o">=</span>/usr/local/python3 --enable-optimizations 
 make -j8 build_all <span class="o">&amp;&amp;</span> make -j8 install
 </code></pre></td></tr></table>
 </div>
