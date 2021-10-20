@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/linux%E5%86%85%E5%AD%98\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux","wordcount":  2929 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "linux","wordcount":  6425 ,
         "url": "http:\/\/xingyys.tech\/linux%E5%86%85%E5%AD%98\/","datePublished": "2021-10-10T23:54:28+08:00","dateModified": "2021-10-10T23:54:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux内存</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2929 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 6425 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -136,8 +136,22 @@
       <ul>
         <li><a href="#段选择符和段寄存器">段选择符和段寄存器</a></li>
         <li><a href="#段描述符">段描述符</a></li>
+        <li><a href="#分段单元">分段单元</a></li>
       </ul>
     </li>
+    <li><a href="#linux-中的分段">Linux 中的分段。</a>
+      <ul>
+        <li><a href="#linux-gdt">Linux GDT</a></li>
+        <li><a href="#linux-ldt">Linux LDT</a></li>
+      </ul>
+    </li>
+    <li><a href="#硬件中的分页">硬件中的分页</a>
+      <ul>
+        <li><a href="#常规分页">常规分页</a></li>
+        <li><a href="#硬件高速缓存">硬件高速缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux-中的分页">Linux 中的分页</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="内存概论">内存概论</h2>
@@ -233,17 +247,58 @@
 <h3 id="段描述符">段描述符</h3>
 <p>每个段由一个8字节的段描述符(Segment Descriptor)表示，它描述了段的特征。段描述符放在全局描述符表(Global Descriptor Table, GDT)或局部描述符表(Local Descriptor Table, LDT)中。</p>
 <p>GDT 通常只有一个，在主存中的地址和大小存放在 gdtr 控制寄存器中，当前正被使用的 LDT 地址和大小放在 ldtr 控制寄存器中。</p>
-<p>段描述符字段:</p>
+<p>段描述符字段</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base</td>
+<td>包含段的首字节的线性地址</td>
+</tr>
+<tr>
+<td>G</td>
+<td>粒度标志：如果改位清0，则大小以字节为单位，否则以4096字节的倍数计。</td>
+</tr>
+<tr>
+<td>Limit</td>
+<td>存放段中最后一个内存单元的偏移量，从而决定段的长度。如果 G 被置为0，则一个段的大小在1个字节到1MB之间变化；否则，将在 4KB 到 4GB 之间变化。</td>
+</tr>
+<tr>
+<td>S</td>
+<td>系统标志：如果它被清0，则这是一个系统段，存储诸如 LDT 这种关键的数据结构，否则它是一个普通的代码段或数据段。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>描述了段的类型特征和它的存取权限。</td>
+</tr>
+<tr>
+<td>DPL</td>
+<td>描述符特权级(Descriptor Privilege Level)字段：用于限制对这个段的存取。它表示为访问这个段而要求的CPU最小的优先级。因此，DPL设为0的段只能当 CPL 为0时(即在内核态)才是可访问的，而DPL设为3的段对任何CPL值都是可访问的</td>
+</tr>
+<tr>
+<td>P</td>
+<td>Segment-Present标志：等于0表示段当前不在主存中。Linux总是把这个表示(第47位)设为1，因为它从来不把整个daunt交换到磁盘上去。</td>
+</tr>
+<tr>
+<td>D 或 B</td>
+<td>称为D或B的标志，取决于代码段还是数据段。D或B的含义在两种情况中有所区别，但是如果段偏移量的地址是32位长，就基本上把它置为1，如果这个偏移量是16位长，它被清0。</td>
+</tr>
+<tr>
+<td>AVL 标志</td>
+<td>可以由操作系统使用，但是被 Linux 忽略。</td>
+</tr>
+</tbody>
+</table>
+<p>Linux 中被广泛采用的类型:</p>
 <ul>
-<li>Base</li>
-<li>G</li>
-<li>Limit</li>
-<li>S</li>
-<li>Type</li>
-<li>DPL</li>
-<li>P</li>
-<li>D 或 B</li>
-<li>AVL 标志</li>
+<li>代码段描述符</li>
+<li>数据段描述符</li>
+<li>任务状态段描述符</li>
 </ul>
 <p><img
         class="lazyload"
@@ -254,11 +309,152 @@
         alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211013084126.png"
         title="2-3: 段描述符格式" /></p>
 <p>段选择符字段:</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>指定了放在 GDT 或 LDT 中的相应段描述符的入口。</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>TI ((Table Indicator)标志：指明段描述符是在 GDT 中 (TI=0) 或在 LDT 中(TI=1))。</td>
+</tr>
+<tr>
+<td>RPL</td>
+<td>请求者特权级：当相应的段选择符装入到 cs 寄存器中时，指示出 CPU 当前的特权级；它还可以用于在访问数据段时有选择地削弱处理器的特权级。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>为了加速逻辑地址到线性地址的转换，80x86处理器提供一种附加的非编程的寄存器，供6个可编程的段寄存器使用。现在，针对那个段的逻辑地址转化就可以不访问主存中的 GDT 或 LDT，处理器只需直接引用存放段描述符的CPU寄存器即可。</p>
+</blockquote>
+<h3 id="分段单元">分段单元</h3>
+<p>分段单元(segmentation unit)执行以下操作，将一个逻辑地址转换成相应的线性地址。</p>
 <ul>
-<li>index     指定了放在 GDT 或 LDT 中的相应段描述符的入口。</li>
-<li>TI        TI ((Table Indicator)标志：指明段描述符是在 GDT 中 (TI=0) 或在 LDT 中(TI=1))。</li>
-<li>RPL       请求者特权级：当相应的段选择符装入到 cs 寄存器中时，指示出 CPU 当前的特权级；它还可以用于在访问数据段时有选择地削弱处理器的特权级。</li>
+<li>先检查段选择符的TI字段，以决定段描述符保存在哪一个描述表中。TI字段指明描述符是在GDT中(在这种情况下，分段单元从gdtr寄存器中得到GDT的线性基地址)还是在激活的LDT中(在这种情况下，分段单元从ldtr寄存器中得到LDT的线性基地址)。</li>
+<li>从段选择符的 index 字段计算段描述符的地址，index字段的值乘以8(一个段描述符的大小)，这个结果与gdtr或ldtr寄存器中的内存相加。</li>
+<li>把逻辑地址的偏移量与段描述符 Base 字段的值相加就得到了线性地址。</li>
 </ul>
+<h2 id="linux-中的分段">Linux 中的分段。</h2>
+<p>Linux 中使用分段的方式十分有限。分段可以给每个进程分配不同的线性地址空间，而分页可以把同一线性地址空间映射到不同的物理空间。与分段相比，Linux 中倾向采用分页方式，因为:</p>
+<ul>
+<li>当所有的进程使用相同的段寄存器值时，内存管理变得更简单，也就是说它们能共享同样的一组线性地址。</li>
+<li>Linux 设计目标之一是可以把它移植到绝大多数流行的处理器平台上。然而，RISC体系结构对分段的支持很有限。</li>
+</ul>
+<blockquote>
+<p>2.6 版的 Linux 只有在 80x86 结构下才需要使用分段。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014090014.png"
+        title="表2-3: 四个主要的 Linux 段的段描述符字段的值" /></p>
+<p>相应的段选择符由宏 __USER_CS, __USER_DS, __KERNEL_CS 和 __KERNEL_DS 分别定义。例如，为了对内存代码段寻址，内核只需要把 __KERNEL_CS 宏产生的值装进 cs 段寄存器即可。</p>
+<p>所有段都从 0x00000000 开始，这可以得出另一个重要的结论，就是在 Linux 下逻辑地址与线性地址是一致的，机逻辑地址的偏移量字段的值与相应的线性地址的值总是一致的。</p>
+<h3 id="linux-gdt">Linux GDT</h3>
+<p>在单处理器系统中只有一个 GDT，而在多处理器系统中每个 CPU 对应一个 GDT。所有的 GDT 都存放在 <code>cpu_gdt_table</code> 数组中。以下是 GDT 的布局示意图。每个 GDT 包含 18 个段描述符合 14 个空的，未使用的，或保留的项。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211014091048.png"
+        title="图2-6: 全局描述符表" /></p>
+<p>每一个 GDT 中包含 18 个段描述符指向下列的段:</p>
+<ul>
+<li>用户态和内核态下的代码段和数据段共 4 个。</li>
+<li>任务状态段 (TSS)，每个处理器有 1 个。</li>
+<li>1 个包括缺省局部描述符表的段。</li>
+<li>3 个局部线程存储。</li>
+<li>与高级电源管理 (AMP) 相关的 3 个段。</li>
+<li>与支持即插即用 (PnP) 功能的 BIOS 服务程序相关的 5 个段。</li>
+<li>被内核用来处理“双重错误”(处理一个异常是可能引发另一个异常，在这个情况下产生的双重错误)异常的特殊 TSS 段。</li>
+</ul>
+<h3 id="linux-ldt">Linux LDT</h3>
+<p>大多数用户态下的 Linux 程序不使用局部描述符表，这样内核就定义了一个缺省的 LDT 供大多数进程共享。缺省的局部描述符表存放在 <code>default_ldt</code> 数组中。</p>
+<p>在某些情况下，进程仍然需要创建自己的局部描述符表，这对有些应用程序很有用，如 <code>Wine</code> 程序。</p>
+<h2 id="硬件中的分页">硬件中的分页</h2>
+<p>分页单元(paging unit)把线性地址转换成物理地址。线性地址被分成以固定长度为单位的组，称为页(page)。页内部连续的线性地址被映射到连续的物理地址中。</p>
+<p>分页单元把所有的 RAM 分成固定长度的页框 (page frame) (有时叫做物理页)。每一个页框包含一个页 (page)，页就是说一个页框的长度与一个页的长度一致。</p>
+<p>把线性地址映射到物理地址的数据结构称为页表 (page table)。页表放在主存中，并在启用分页单元之前必须由内核对页表进行适当的初始化。</p>
+<p>从 80386 开始，所有的 80x86 处理器都支持分页，它通过设置 cr0 寄存器的 PG 标志启用。 当 PG=0 时，线性地址就被解释成物理地址。</p>
+<h3 id="常规分页">常规分页</h3>
+<p>从 80386 起，Intel 处理器的分页单元处理 4K 的页。
+32 位的线性地址被分成 3 个域:</p>
+<ul>
+<li>Directory (目录) 最高 10 位。</li>
+<li>Table (页表) 中间 10 位。</li>
+<li>Offset (偏移量) 最低 12 位。</li>
+</ul>
+<p>线性地址的转换分两步完成，每一步都基于一种转化表，第一种转换表称为页目录表 (page directory)，第二种转换表称为页表 (page table)。</p>
+<p>正在使用的页目录的物理地址存放在控制寄存器 cr0 中。线性地址内的 Directory 字段决定目录中的目录项，而目录项指向适当的页表。地址的 Table 字段依次又决定页表中的表项，而表项含有页所在页框的物理地址。Offset 字段决定页框也的相对位置。由于它是 12 长，故每一页含有 4096 字节的数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211015090255.png"
+        title="图2-7: 80x86 处理器的分页" /></p>
+<p>假设进程需要读线性地址 0x20021406 中的字节。这个地址由分页单元按下面的方法处理:</p>
+<ul>
+<li>Directory 字段的 0x80 用于选择页目录的第 0x80 目录项，此目录项指向和该进程的页相关的页表。</li>
+<li>Table 字段 0x21 用于选择页表的第 0x21 表项，此表项指向包含所需页的页框。</li>
+<li>最后，Offset 字段 0x406 用于在目标页框中读偏移量为 0x406 中的字节。</li>
+</ul>
+<h3 id="硬件高速缓存">硬件高速缓存</h3>
+<p>当今的微处理器时钟频率接近几个 GHz，而动态 RAM 芯片的存取时间是时钟周期的数百倍。这意味着，当从 RAM 中取操作数或向 RAM 中存放结果这样的指令执行时，CPU 可能登台很长时间。</p>
+<p>为了缩小 CPU 和 RAM 之间的速度不匹配，引入了硬件高速缓存内存(hardware cache memory)。硬件高速缓存基于著名的局部性原理(locality principle)，该原理既适用程序结构也适用数据结构。</p>
+<p>80x86 体系结构中引入了一个叫行 (line) 的新单位。行由几十个连续的字节组成，它们以脉冲突发模式 (burst mode) 在慢速 DRAM 和快速的用来实现高速缓存的片上静态 RAM (SRAM) 之间传送，用来实现高速缓存。</p>
+<p>如图，高速缓存单元插在分页单元和主内存之间。它包含一个硬件高速缓存内存 (hardware cache memory) 和一个高速缓存控制器 (cache controller)。高速缓存内存存放内存中真正的行。高速缓存控制器存放一个表项数组，每个表项对应高速缓存内存中的一个行。每个表项有一个标签(tag)和描述高速缓存行状态的几个标志(flag)。这种内存物理地址通常分为3组：最高几位对应标签，中间几位对应高速缓存控制器的子集索引，最低几位对应行内的偏移量。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211018093652.png"
+        title="图2-10: 处理器硬件高速缓存" /></p>
+<p>当访问一个 RAM 存储单元时，CPU 从物理地址中提取出子集的索引号并把子集中所有行的标签与物理地址的高几位相比较。如果发现某一个行的标签与这个物理地址的高位相同，则 CPU 命中一个高速缓存 (cache hit)；否则，高速缓存没有命中 (cache miss)。</p>
+<p>对于读操作，控制器从高速缓存行中选择数据并送到 CPU 寄存器。对于写操作，控制器可能采用以下两个基本策略之一:</p>
+<ul>
+<li>通写(write-through): 控制器总是既写 RAM 也写高速缓存行，为了提高写操作的效率关闭高速缓存。</li>
+<li>回写(write-back): 只更新高速缓存行，不改变 RAM 的内存，提供了更快的效率。</li>
+</ul>
+<p>处理器的 cr0 寄存器的 CD 标志位用来启用或禁用高速缓存电路。这个寄存器中的 NW 标志指明高速缓存是使用通写还是回写策略。</p>
+<h2 id="linux-中的分页">Linux 中的分页</h2>
+<p>Linux 采用了一种同时适用于32位和64位的普通分页模型。在 2.6.10 版本之前，Linux 采用三级分页的模型。从 2.6.11 版本开始，采用了四级分页模型:</p>
+<ul>
+<li>页全局目录 (Page Global Directory)</li>
+<li>页上级目录 (Page Upper Directory)</li>
+<li>页中间目录 (Page Middle Directory)</li>
+<li>页表 (Page Table)</li>
+</ul>
+<p>页全局目录包含若干页上级目录的地址，页上级目录有一次包含若干页中间目录的地址，而页中间目录又包含若干页表的地址。每一个页表项指向一个页框。线性地址因此被分成五个部分。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211020091014.png"
+        title="图2-12: Linux 分页模式" /></p>
+<p>Linux 的进程处理很大程度上依赖于分页。事实上，线性地址到物理地址的自动转换使下面的设计目标变得可行:</p>
+<ul>
+<li>给每一个进程分配一块不同的物理地址空间，这确保了可以有效地防止寻址错误。</li>
+<li>区别页(即一组数据)和页框(即主存中的物理地址)的不同。这就允许存放在某个页框中的一个页，然后保存到磁盘上，以后重新装入这同一页是又可以被装载不同的页框中。这就是虚拟内存机制的基本要素。</li>
+</ul>
+<p>每一个进程有它自己的页全局目录和自己的页表集。当发生进程切换时，Linux 把 cr3 控制寄存器的内存保存在前一个执行进程的描述符中，然后把下一个要执行进程的描述符的值装入 cr3 寄存器中。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

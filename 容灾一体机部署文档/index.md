@@ -411,7 +411,7 @@ postgres=# create database dr encoding 'UTF-8';
 ```
 tar -xvf dradm-linux-amd64-v1.0.1-tar.gz
 cd dradm
-./dradm init --advertise-address=$IP --postgres-dns="host=localhost,user=postgres,password=$PWD,dbname=dr,port=5432"
+./dradm init --advertise-address=$IP --postgres-dns="host=localhost,user=postgres,password=$PWD,port=5432"
 ```
 
 > $IP 为服务端ip地址，$PWD 为 pgsql postgres 用户的登录密码
