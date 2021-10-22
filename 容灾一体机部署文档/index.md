@@ -156,7 +156,43 @@ yum -y install rpcbind nfs-utils
 systemctl enable nfs
 systemctl start nfs
 ```
+### 安装 samba
+
+```bash
+yum install -y samba samba-client
+```
+
+修改配置文件
+
+```bash
+[global]
+    log file = /var/log/samba/log.%m
+    max log size = 5000
+    security = user
+    guest account = root
+    map to guest = Bad User
+    load printers = yes
+    cups options = raw
+
+[share]
+    comment = share directory目录
+    path = /opt/smb/
+    directory mask = 0755
+    create mask = 0755
+    guest ok = yes
+    writable = yes
+```
+
+启动服务
+
+```
+mkdir /opt/smb
+systemctl start smb
+systemctl enable smb
+```
+
 ## 2.2 安装虚拟化
+
 检测系统是否支持虚拟化
 ```bash
 grep -Ei 'vmx|svm' /proc/cpuinfo 
