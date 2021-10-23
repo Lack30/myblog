@@ -165,6 +165,7 @@ yum install -y samba samba-client
 修改配置文件
 
 ```bash
+cat << EOF > /etc/samba/smb.conf 
 [global]
     log file = /var/log/samba/log.%m
     max log size = 5000
@@ -181,6 +182,7 @@ yum install -y samba samba-client
     create mask = 0755
     guest ok = yes
     writable = yes
+EOF
 ```
 
 启动服务

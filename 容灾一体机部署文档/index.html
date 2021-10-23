@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2152 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2160 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/","datePublished": "2021-10-08T17:30:22+08:00","dateModified": "2021-10-08T17:30:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">容灾一体机部署文档</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B7%A5%E4%BD%9C/"><i class="far fa-folder fa-fw"></i>工作</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2152 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2160 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -518,24 +518,28 @@ systemctl start nfs
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>global<span class="o">]</span>
-    log <span class="nv">file</span> <span class="o">=</span> /var/log/samba/log.%m
-    max log <span class="nv">size</span> <span class="o">=</span> <span class="m">5000</span>
-    <span class="nv">security</span> <span class="o">=</span> user
-    guest <span class="nv">account</span> <span class="o">=</span> root
-    map to <span class="nv">guest</span> <span class="o">=</span> Bad User
-    load <span class="nv">printers</span> <span class="o">=</span> yes
-    cups <span class="nv">options</span> <span class="o">=</span> raw
-
-<span class="o">[</span>share<span class="o">]</span>
-    <span class="nv">comment</span> <span class="o">=</span> share directory目录
-    <span class="nv">path</span> <span class="o">=</span> /opt/smb/
-    directory <span class="nv">mask</span> <span class="o">=</span> <span class="m">0755</span>
-    create <span class="nv">mask</span> <span class="o">=</span> <span class="m">0755</span>
-    guest <span class="nv">ok</span> <span class="o">=</span> yes
-    <span class="nv">writable</span> <span class="o">=</span> yes
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF &gt; /etc/samba/smb.conf 
+</span><span class="s">[global]
+</span><span class="s">    log file = /var/log/samba/log.%m
+</span><span class="s">    max log size = 5000
+</span><span class="s">    security = user
+</span><span class="s">    guest account = root
+</span><span class="s">    map to guest = Bad User
+</span><span class="s">    load printers = yes
+</span><span class="s">    cups options = raw
+</span><span class="s">
+</span><span class="s">[share]
+</span><span class="s">    comment = share directory目录
+</span><span class="s">    path = /opt/smb/
+</span><span class="s">    directory mask = 0755
+</span><span class="s">    create mask = 0755
+</span><span class="s">    guest ok = yes
+</span><span class="s">    writable = yes
+</span><span class="s">EOF</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>启动服务</p>
