@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2160 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2179 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3\/","datePublished": "2021-10-08T17:30:22+08:00","dateModified": "2021-10-08T17:30:22+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">容灾一体机部署文档</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B7%A5%E4%BD%9C/"><i class="far fa-folder fa-fw"></i>工作</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2160 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-08">2021-10-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2179 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -553,6 +553,17 @@ systemctl start nfs
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir /opt/smb
 systemctl start smb
 systemctl enable smb
+</code></pre></td></tr></table>
+</div>
+</div><p>添加windows PE 镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /opt/smb
+mv windowspe.iso /opt/smb/windowspe.iso
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="22-安装虚拟化">2.2 安装虚拟化</h2>

@@ -4,7 +4,14 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 10 Oct 2021 23:54:28 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux进程</title>
+    <link>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</link>
+    <pubDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</guid>
+    <description><![CDATA[进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(th]]></description>
+</item><item>
     <title>Linux内存</title>
     <link>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</link>
     <pubDate>Sun, 10 Oct 2021 23:54:28 &#43;0800</pubDate>
@@ -77,12 +84,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致]]></description>
-</item><item>
-    <title>分布式的工作流实现</title>
-    <link>http://xingyys.tech/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</link>
-    <pubDate>Sun, 10 Jan 2021 14:34:22 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</guid>
-    <description><![CDATA[本篇提供一个实现分布式工作流的思路。 系统组成部分： api (网关接口) : 为用户提供工作流的api接口 discovery (服务发现) : 用于服务的注册和发现 scheduler (调度中]]></description>
 </item></channel>
 </rss>
