@@ -4,7 +4,14 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 28 Oct 2021 08:28:44 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux中断和异常</title>
+    <link>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</link>
+    <pubDate>Thu, 28 Oct 2021 08:28:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</guid>
+    <description><![CDATA[中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。 中断]]></description>
+</item><item>
     <title>Linux进程</title>
     <link>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</link>
     <pubDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</pubDate>
@@ -18,22 +25,6 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</guid>
     <description><![CDATA[内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管]]></description>
-</item><item>
-    <title>容灾一体机部署文档</title>
-    <link>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Fri, 08 Oct 2021 17:30:22 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR]]></description>
-</item><item>
-    <title>Docker容器和网络架构设计</title>
-    <link>http://xingyys.tech/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</link>
-    <pubDate>Tue, 28 Sep 2021 20:15:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/docker%E5%AE%B9%E5%99%A8%E5%92%8C%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png" referrerpolicy="no-referrer">
-            </div>常用的容器化技术 Chroot 特点: 改变正在运行的进程和它的子进程根目录。 经chroot设置根目录的程序，不能够对这个指定根目录之外的文件进行访问和读取]]></description>
 </item><item>
     <title>tokio 高级用法</title>
     <link>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
@@ -84,5 +75,12 @@
     <author>作者</author>
     <guid>http://xingyys.tech/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致]]></description>
+</item><item>
+    <title>分布式的工作流实现</title>
+    <link>http://xingyys.tech/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sun, 10 Jan 2021 14:34:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[本篇提供一个实现分布式工作流的思路。 系统组成部分： api (网关接口) : 为用户提供工作流的api接口 discovery (服务发现) : 用于服务的注册和发现 scheduler (调度中]]></description>
 </item></channel>
 </rss>
