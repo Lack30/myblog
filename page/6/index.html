@@ -104,6 +104,11 @@
         alt="/images/avatar1.jpeg"
         title="/images/avatar1.jpeg" /></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/python%E8%A3%85%E9%A5%B0%E5%99%A8/">python装饰器</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2018-03-31">2018-03-31</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div><div class="content">简单的装饰器函数： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import time from functools import wraps def timethis(func): &#34;&#34;&#34; Decorator that reports the execution time. &#34;&#34;&#34; @wraps(func) def wrapper(*args, **kwargs): start = time.time() result = func(*args, **kwargs) end = time.time() print(func.__name__, end-start) return result return wrapper 函数的功能很简单，就</div><div class="post-footer">
+        <a href="/python%E8%A3%85%E9%A5%B0%E5%99%A8/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/python/">python</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">Flask与Vue的token认证</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2017-09-20">2017-09-20</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BB%A3%E7%A0%81/"><i class="far fa-folder fa-fw"></i>代码</a></span></div><div class="content">后端使用flask设计基于token认证方式的restful接口，前端使用vue.js全家桶，利用axios通讯。 感谢两篇文章的作者： http://www.cnblogs.com/vovlie/p/4182814.html https://segmentfault.com/a/1190000008383094?_ea=1639495 源</div><div class="post-footer">
         <a href="/flask%E4%B8%8Evue%E7%9A%84token%E8%AE%A4%E8%AF%81/">阅读全文</a><div class="post-tags">
