@@ -93,3 +93,101 @@ ociHook: 启动一个 oci 钩子
 	}
 ...
 ```
+再来看 `server.New`，它创建 containerd 服务:
+```go
+func New(ctx context.Context, config *srvconfig.Config) (*Server, error) {
+	... 
+    // 从配置文件中加载插件
+    plugins, err := LoadPlugins(ctx, config)
+	if err != nil {
+		return nil, err
+	}
+
+    ...
+    // 循环确认插件类型，并解析。
+    for _, p := range plugins {
+		id := p.URI()
+		reqID := id
+		if config.GetVersion() == 1 {
+			reqID = p.ID
+		}
+		log.G(ctx).WithField("type", p.Type).Infof("loading plugin %q...", id)
+
+		initContext := plugin.NewContext(
+			ctx,
+			p,
+			initialized,
+			config.Root,
+			config.State,
+		)
+		initContext.Events = s.events
+		initContext.Address = config.GRPC.Address
+		initContext.TTRPCAddress = config.TTRPC.Address
+
+		// load the plugin specific configuration if it is provided
+		if p.Config != nil {
+			pc, err := config.Decode(p)
+			if err != nil {
+				return nil, err
+			}
+			initContext.Config = pc
+		}
+		result := p.Init(initContext)
+		if err := initialized.Add(result); err != nil {
+			return nil, errors.Wrapf(err, "could not add plugin result to plugin set")
+		}
+
+		instance, err := result.Instance()
+		if err != nil {
+			if plugin.IsSkipPlugin(err) {
+				log.G(ctx).WithError(err).WithField("type", p.Type).Infof("skip loading plugin %q...", id)
+			} else {
+				log.G(ctx).WithError(err).Warnf("failed to load plugin %s", id)
+			}
+			if _, ok := required[reqID]; ok {
+				return nil, errors.Wrapf(err, "load required plugin %s", id)
+			}
+			continue
+		}
+
+		delete(required, reqID)
+		// check for grpc services that should be registered with the server
+		if src, ok := instance.(plugin.Service); ok {
+			grpcServices = append(grpcServices, src)
+		}
+		if src, ok := instance.(plugin.TTRPCService); ok {
+			ttrpcServices = append(ttrpcServices, src)
+		}
+		if service, ok := instance.(plugin.TCPService); ok {
+			tcpServices = append(tcpServices, service)
+		}
+
+		s.plugins = append(s.plugins, result)
+	}
+
+    // 注册服务
+	// register services after all plugins have been initialized
+	for _, service := range grpcServices {
+		if err := service.Register(grpcServer); err != nil {
+			return nil, err
+		}
+	}
+	for _, service := range ttrpcServices {
+		if err := service.RegisterTTRPC(ttrpcServer); err != nil {
+			return nil, err
+		}
+	}
+	for _, service := range tcpServices {
+		if err := service.RegisterTCP(tcpServer); err != nil {
+			return nil, err
+		}
+	}
+	return s, nil
+}
+```
+由此可知，containerd 中的服务都是通过插件加载的，其中包含以下几种服务:
+- images
+- diff
+- container
+- task
+- event
