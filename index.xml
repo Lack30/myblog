@@ -4,9 +4,18 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 29 Oct 2021 08:29:15 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Nov 2021 23:17:49 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Containerd源码分析</title>
+    <link>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 16 Nov 2021 23:17:49 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png" referrerpolicy="no-referrer">
+            </div>从 Kubernetes 1.22 开始，k8s 的容器运行是默认替换成 containerd。有必要深入了解 containerd 的内部实现原理。本篇通过分析 containerd 的代码深入理解其内部原理。 使用的]]></description>
+</item><item>
     <title>Linux内核同步</title>
     <link>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</link>
     <pubDate>Fri, 29 Oct 2021 08:29:15 &#43;0800</pubDate>
@@ -77,12 +86,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/libguestfs/</guid>
     <description><![CDATA[简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安装 libguestfs : 1 yum install -y libguestfs-tool libguestfs-devel 默认不支持修改 windows 镜像]]></description>
-</item><item>
-    <title>qemu-img命令使用</title>
-    <link>http://xingyys.tech/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</link>
-    <pubDate>Sun, 17 Jan 2021 22:35:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/qemu-img%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</guid>
-    <description><![CDATA[qemu-img 是 QEMU 的磁盘管理工具，它允许用户创建、转化、修改 QEMU 磁盘。 注：qemu-img 操作磁盘时需要关闭 kvm 虚拟机，直接在虚拟机运行时修改磁盘可能会导致]]></description>
 </item></channel>
 </rss>
