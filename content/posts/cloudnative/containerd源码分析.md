@@ -2,7 +2,7 @@
 title: "Containerd源码分析"
 date: 2021-11-16T23:17:49+08:00
 lastmod: 2021-11-16T23:17:49+08:00
-draft: true
+draft: false
 featuredImage: "https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png"
 tags: 
  - 源码分析
@@ -185,9 +185,442 @@ func New(ctx context.Context, config *srvconfig.Config) (*Server, error) {
 	return s, nil
 }
 ```
-由此可知，containerd 中的服务都是通过插件加载的，其中包含以下几种服务:
-- images
-- diff
+由此可知，containerd 中的服务都是通过插件加载的，插件的加载代码统一存放在 `cmd/containerd/containerd` 目录下的 `builtins*.go` 文件中。
+
+其中包含以下几种服务:
 - container
-- task
-- event
+- content
+- diff
+- images
+- events
+- introspection
+- leases
+- namespaces
+- snapshots
+- tasks
+- ttrpc
+- version
+
+具体的代码存放在 services 目录下，接下来我们来看 images 和 container 这两个最重要的服务。
+
+## 镜像操作
+containerd 作为 docker 的替代者，理所当然的需要实现 docker 的核心功能 OCI。images 服务包含:
+- Get      : 通过名称获取单个镜像
+- List     : 获取镜像列表
+- Create   : 创建一个镜像
+- Update   : 更新镜像
+- Delete   : 通过名称删除镜像
+
+具体代码请看 `services/images/local.go`:
+```go
+// 初始化，注册成插件
+func init() {
+	plugin.Register(&plugin.Registration{
+		Type: plugin.ServicePlugin,     // 插件类型
+		ID:   services.ImagesService,   // 插件名称
+		Requires: []plugin.Type{     
+			plugin.MetadataPlugin,      // 依赖的插件
+			plugin.GCPlugin,
+		},
+		InitFn: func(ic *plugin.InitContext) (interface{}, error) { // 初始化方法
+			m, err := ic.Get(plugin.MetadataPlugin)    // 获取 plugin.MetadataPlugin 插件，作为存储，内部使用 bblot 实现
+			if err != nil {
+				return nil, err
+			}
+			g, err := ic.Get(plugin.GCPlugin)     // GC 插件，用于资源回收
+			if err != nil {
+				return nil, err
+			}
+
+			return &local{
+				store:     metadata.NewImageStore(m.(*metadata.DB)),
+				publisher: ic.Events,             // 内部的订阅发布模型
+				gc:        g.(gcScheduler),       // gc 调度器
+			}, nil
+		},
+	})
+}
+
+// images 服务的具体实现
+type local struct {
+	store     images.Store    // 内部存储器
+	gc        gcScheduler     // gc 调度器
+	publisher events.Publisher // 内部的订阅发布模型
+}
+
+var _ imagesapi.ImagesClient = &local{}
+...
+```
+这里我们可以把 images 的操作分为读取和修改两组。`Get` 和 `List` 为读取操作，就是从数据库中读取相关记录。
+```go
+...
+func (l *local) Get(ctx context.Context, req *imagesapi.GetImageRequest, _ ...grpc.CallOption) (*imagesapi.GetImageResponse, error) {
+	image, err := l.store.Get(ctx, req.Name)
+	if err != nil {
+		return nil, errdefs.ToGRPC(err)
+	}
+
+	imagepb := imageToProto(&image)
+	return &imagesapi.GetImageResponse{
+		Image: &imagepb,
+	}, nil
+}
+
+func (l *local) List(ctx context.Context, req *imagesapi.ListImagesRequest, _ ...grpc.CallOption) (*imagesapi.ListImagesResponse, error) {
+	images, err := l.store.List(ctx, req.Filters...)
+	if err != nil {
+		return nil, errdefs.ToGRPC(err)
+	}
+
+	return &imagesapi.ListImagesResponse{
+		Images: imagesToProto(images),
+	}, nil
+}
+...
+```
+`Create`、`Update` 和 `Delete` 是修改操作，核心是通过 `events.Publisher` 发布事件对应的事件
+```go
+// services/images/local.go
+func (l *local) Create(ctx context.Context, req *imagesapi.CreateImageRequest, _ ...grpc.CallOption) (*imagesapi.CreateImageResponse, error) {
+	...
+
+	if err := l.publisher.Publish(ctx, "/images/create", &eventstypes.ImageCreate{
+		Name:   resp.Image.Name,
+		Labels: resp.Image.Labels,
+	}); err != nil {
+		return nil, err
+	}
+
+	...
+
+	return &resp, nil
+
+}
+
+```
+而真正处理该事件的订阅者则是 containerd 实现的 CRI 接口服务 。
+```go
+// pkg/cri/server/service.go
+...
+// criService implements CRIService.
+type criService struct {
+	...
+}
+...
+```
+cri 启动时，订阅 containerd 事件，并启动事件处理协程:
+```go
+// pkg/cri/server/service.go
+// Run starts the CRI service.
+func (c *criService) Run() error {
+	logrus.Info("Start subscribing containerd event")
+	c.eventMonitor.subscribe(c.client)
+	...
+	// Start event handler.
+	logrus.Info("Start event monitor")
+	eventMonitorErrCh := c.eventMonitor.start()
+	...
+}
+```
+eventMonitor.start() 内部处理逻辑如下:
+```go
+func (em *eventMonitor) start() <-chan error {
+	...
+	go func() {
+		defer close(errCh)
+		for {
+			select {
+			case e := <-em.ch:
+				logrus.Debugf("Received containerd event timestamp - %v, namespace - %q, topic - %q", e.Timestamp, e.Namespace, e.Topic)
+				if e.Namespace != constants.K8sContainerdNamespace {
+					logrus.Debugf("Ignoring events in namespace - %q", e.Namespace)
+					break
+				}
+				id, evt, err := convertEvent(e.Event)
+				if err != nil {
+					logrus.WithError(err).Errorf("Failed to convert event %+v", e)
+					break
+				}
+				if em.backOff.isInBackOff(id) {
+					logrus.Infof("Events for %q is in backoff, enqueue event %+v", id, evt)
+					em.backOff.enBackOff(id, evt)
+					break
+				}
+				if err := em.handleEvent(evt); err != nil {
+					logrus.WithError(err).Errorf("Failed to handle event %+v for %s", evt, id)
+					em.backOff.enBackOff(id, evt)
+				}
+			case err := <-em.errCh:
+				...
+			case <-backOffCheckCh:
+				...
+			}
+		}
+	}()
+	return errCh
+}
+```
+namespace 不为 k8s.io 时事件都会被忽略。
+
+criService 一共处理五类事件:
+- TaskExit
+- TaskOOM
+- ImageCreate
+- ImageUpdate
+- ImageDelete
+
+```go
+// pkg/cri/server/event.go
+
+// handleEvent handles a containerd event.
+func (em *eventMonitor) handleEvent(any interface{}) error {
+	...
+	switch e := any.(type) {
+	case *eventtypes.TaskExit:
+		...
+	case *eventtypes.TaskOOM:
+		...
+	case *eventtypes.ImageCreate:
+		logrus.Infof("ImageCreate event %+v", e)
+		return em.c.updateImage(ctx, e.Name)
+	case *eventtypes.ImageUpdate:
+		logrus.Infof("ImageUpdate event %+v", e)
+		return em.c.updateImage(ctx, e.Name)
+	case *eventtypes.ImageDelete:
+		logrus.Infof("ImageDelete event %+v", e)
+		return em.c.updateImage(ctx, e.Name)
+	}
+
+	return nil
+}
+```
+由此可知，Images 的后台操作都是调用一个处理方法 `updateImage`。
+
+containerd 镜像完整的下载流程如下:
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20211125160350.png)
+
+## 容器操作
+介绍完镜像操作后，接下来就是关于容器部分的操作。以下我们通过一段代码来探究 containerd 内部的容器管理方式:
+```go
+package main
+
+import (
+	"context"
+	"log"
+	"syscall"
+
+	"github.com/containerd/containerd"
+	"github.com/containerd/containerd/cio"
+	"github.com/containerd/containerd/namespaces"
+	"github.com/containerd/containerd/oci"
+)
+
+func main() {
+	client, err := containerd.New("/run/containerd/containerd.sock", containerd.WithDefaultNamespace("default"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer client.Close()
+
+	ctx := context.Background()
+
+	log.Println("get image")
+	img, err := client.GetImage(ctx, "docker.io/library/redis:alpine3.14")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("new container")
+	ctx = namespaces.WithNamespace(ctx, "default")
+
+	c, err := client.NewContainer(ctx, "redis",
+		containerd.WithNewSnapshot("redis-rootfs", img),
+		containerd.WithNewSpec(oci.WithImageConfig(img)),
+	)
+	if err != nil {
+		log.Fatalf("new container: %v", err)
+	}
+	defer c.Delete(ctx)
+
+	log.Println("new task")
+	task, err := c.NewTask(ctx, cio.NewCreator(cio.WithStdio))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	pid := task.Pid()
+	log.Printf("redis running in pid=%d\n", pid)
+
+	err = task.Start(ctx)
+	if err != nil {
+		log.Fatalf("start task: %v", err)
+	}
+
+	err = task.Kill(ctx, syscall.SIGINT)
+	if err != nil {
+		log.Fatalf("kill task: %v", err)
+	}
+
+	for {
+		status, _ := task.Status(ctx)
+		if status.Status == containerd.Stopped {
+			break
+		}
+	}
+
+	_, err = task.Delete(ctx)
+	if err != nil {
+		log.Fatalf("delete task: %v", err)
+	}
+}
+```
+containerd 中创建一个容器之后，如果要运行这个容器，就需要创建一个 task 用来管理容器的生命周期。可以理解为 task 就是 containerd 的运行时。
+
+### 创建
+创建容器如下:
+```go
+// services/containers/local.go
+
+func (l *local) Create(ctx context.Context, req *api.CreateContainerRequest, _ ...grpc.CallOption) (*api.CreateContainerResponse, error) {
+	var resp api.CreateContainerResponse
+
+	if err := l.withStoreUpdate(ctx, func(ctx context.Context) error {
+		container := containerFromProto(&req.Container)
+
+		created, err := l.Store.Create(ctx, container)
+		if err != nil {
+			return err
+		}
+
+		resp.Container = containerToProto(&created)
+
+		return nil
+	}); err != nil {
+		return &resp, errdefs.ToGRPC(err)
+	}
+	if err := l.publisher.Publish(ctx, "/containers/create", &eventstypes.ContainerCreate{
+		ID:    resp.Container.ID,
+		Image: resp.Container.Image,
+		Runtime: &eventstypes.ContainerCreate_Runtime{
+			Name:    resp.Container.Runtime.Name,
+			Options: resp.Container.Runtime.Options,
+		},
+	}); err != nil {
+		return &resp, err
+	}
+
+	return &resp, nil
+}
+```
+逻辑很简单，就是保存数据到内部存储中，再发布创建容器的事件。
+
+### 启动
+启动容器需要先创建一个 task，使用 task 来管理容器
+```go
+// services/tasks/local.go
+...
+func (l *local) Create(ctx context.Context, r *api.CreateTaskRequest, _ ...grpc.CallOption) (*api.CreateTaskResponse, error) {
+	...
+	// 创建容器运行时
+	c, err := rtime.Create(ctx, r.ContainerID, opts)
+	if err != nil {
+		return nil, errdefs.ToGRPC(err)
+	}
+	if err := l.monitor.Monitor(c); err != nil {
+		return nil, errors.Wrap(err, "monitor task")
+	}
+	return &api.CreateTaskResponse{
+		ContainerID: r.ContainerID,
+		Pid:         c.PID(),
+	}, nil
+}
+
+// runtime/v2/manager.go
+// Create a new task
+func (m *TaskManager) Create(ctx context.Context, id string, opts runtime.CreateOpts) (_ runtime.Task, retErr error) {
+	// 在磁盘上新建一个约束目录
+	bundle, err := NewBundle(ctx, m.root, m.state, id, opts.Spec.Value)
+	...
+
+	// 创建启动一个 containerd-shim-runc-v2 管理容器运行时
+	shim, err := m.startShim(ctx, bundle, id, opts)
+	...
+	// 创建一个 task
+	t, err := shim.Create(ctx, opts)
+	...
+	// 添加 task
+	if err := m.tasks.Add(ctx, t); err != nil {
+		return nil, errors.Wrap(err, "failed to add task")
+	}
+
+	return t, nil
+}
+```
+内部维护一个 TaskManager 来管理 tasks
+```go
+// runtime/v2/manager.go
+
+// TaskManager manages v2 shim's and their tasks
+type TaskManager struct {
+	root                   string
+	state                  string
+	containerdAddress      string
+	containerdTTRPCAddress string
+
+	tasks      *runtime.TaskList
+	events     *exchange.Exchange
+	containers containers.Store
+}
+```
+containerd 服务和 containerd-shim-runc-v2 使用 ttrpc 通讯。
+
+### 停止
+如何停止一个容器呢?
+```go
+// services/tasks/local.go
+func (l *local) Kill(ctx context.Context, r *api.KillRequest, _ ...grpc.CallOption) (*ptypes.Empty, error) {
+	t, err := l.getTask(ctx, r.ContainerID)
+	if err != nil {
+		return nil, err
+	}
+	p := runtime.Process(t)
+	if r.ExecID != "" {
+		if p, err = t.Process(ctx, r.ExecID); err != nil {
+			return nil, errdefs.ToGRPC(err)
+		}
+	}
+	if err := p.Kill(ctx, r.Signal, r.All); err != nil {
+		return nil, errdefs.ToGRPC(err)
+	}
+	return empty, nil
+}
+
+// runtime/v2/shim.go
+func (s *shim) Kill(ctx context.Context, signal uint32, all bool) error {
+	if _, err := s.task.Kill(ctx, &task.KillRequest{
+		ID:     s.ID(),
+		Signal: signal,
+		All:    all,
+	}); err != nil {
+		return errdefs.FromGRPC(err)
+	}
+	return nil
+}
+```
+从 containerd tasks 服务中获取 tasks 信息，然后通过 ttrpc 连接 containerd-shim-runc-v2 并杀死进程。 
+
+containerd-shim-runc-v2 支持以下接口
+- Create
+- Delete
+- Exec
+- State
+- Pause
+- Resume
+- Kill
+- Pids
+- CloseIO
+- CheckPoint
+- Update
+- ResizePty
+
+## container 插件机制
