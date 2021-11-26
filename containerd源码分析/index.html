@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "源码分析, golang","wordcount":  3036 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "源码分析, golang","wordcount":  3930 ,
         "url": "http:\/\/xingyys.tech\/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90\/","datePublished": "2021-11-16T23:17:49+08:00","dateModified": "2021-11-16T23:17:49+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,8 +113,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Containerd源码分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-16">2021-11-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3036 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-16">2021-11-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3930 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -144,7 +144,7 @@
         <li><a href="#停止">停止</a></li>
       </ul>
     </li>
-    <li><a href="#container-插件机制">container 插件机制</a></li>
+    <li><a href="#插件机制">插件机制</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>从 Kubernetes 1.22 开始，k8s 的容器运行是默认替换成 containerd。有必要深入了解 containerd 的内部实现原理。本篇通过分析 containerd 的代码深入理解其内部原理。</p>
@@ -1307,7 +1307,330 @@ ociHook: 启动一个 oci 钩子</p>
 <li>Update</li>
 <li>ResizePty</li>
 </ul>
-<h2 id="container-插件机制">container 插件机制</h2>
+<h2 id="插件机制">插件机制</h2>
+<p>containerd 内部服务都是通过插件方式注册。注册插件代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// services/server/tasks/local.go
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">plugin</span><span class="p">.</span><span class="nf">Register</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">Registration</span><span class="p">{</span>
+		<span class="nx">Type</span><span class="p">:</span>     <span class="nx">plugin</span><span class="p">.</span><span class="nx">ServicePlugin</span><span class="p">,</span>
+		<span class="nx">ID</span><span class="p">:</span>       <span class="nx">services</span><span class="p">.</span><span class="nx">TasksService</span><span class="p">,</span>
+		<span class="nx">Requires</span><span class="p">:</span> <span class="nx">tasksServiceRequires</span><span class="p">,</span>
+		<span class="nx">InitFn</span><span class="p">:</span>   <span class="nx">initFunc</span><span class="p">,</span>
+	<span class="p">})</span>
+
+	<span class="nx">timeout</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="nx">stateTimeout</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>containerd 内部维护一个全局插件列表:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// plugin/plugin.go
+</span><span class="c1"></span>
+<span class="kd">var</span> <span class="nx">register</span> <span class="p">=</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+	<span class="nx">r</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Registration</span>
+<span class="p">}{}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对外提供三种方法:</p>
+<ul>
+<li>Load : 通过路径加载插件</li>
+<li>Register : 注册插件</li>
+<li>Graph : 遍历插件列表</li>
+</ul>
+<p>注册的插件在 containerd 服务启动时初始化:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// services/server/server.go
+</span><span class="c1"></span>
+<span class="c1">// New creates and initializes a new containerd server
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">config</span> <span class="o">*</span><span class="nx">srvconfig</span><span class="p">.</span><span class="nx">Config</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">Server</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="o">...</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">plugins</span> <span class="p">{</span>
+		<span class="nx">id</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nf">URI</span><span class="p">()</span>
+		<span class="nx">reqID</span> <span class="o">:=</span> <span class="nx">id</span>
+		<span class="k">if</span> <span class="nx">config</span><span class="p">.</span><span class="nf">GetVersion</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+			<span class="nx">reqID</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">ID</span>
+		<span class="p">}</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">G</span><span class="p">(</span><span class="nx">ctx</span><span class="p">).</span><span class="nf">WithField</span><span class="p">(</span><span class="s">&#34;type&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Type</span><span class="p">).</span><span class="nf">Infof</span><span class="p">(</span><span class="s">&#34;loading plugin %q...&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+
+		<span class="c1">// 新建插件上下文结构体
+</span><span class="c1"></span>		<span class="nx">initContext</span> <span class="o">:=</span> <span class="nx">plugin</span><span class="p">.</span><span class="nf">NewContext</span><span class="p">(</span>
+			<span class="nx">ctx</span><span class="p">,</span>
+			<span class="nx">p</span><span class="p">,</span>
+			<span class="nx">initialized</span><span class="p">,</span>
+			<span class="nx">config</span><span class="p">.</span><span class="nx">Root</span><span class="p">,</span>
+			<span class="nx">config</span><span class="p">.</span><span class="nx">State</span><span class="p">,</span>
+		<span class="p">)</span>
+		<span class="nx">initContext</span><span class="p">.</span><span class="nx">Events</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">events</span>
+		<span class="nx">initContext</span><span class="p">.</span><span class="nx">Address</span> <span class="p">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">GRPC</span><span class="p">.</span><span class="nx">Address</span>
+		<span class="nx">initContext</span><span class="p">.</span><span class="nx">TTRPCAddress</span> <span class="p">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">TTRPC</span><span class="p">.</span><span class="nx">Address</span>
+
+		<span class="c1">// 加载配置参数
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Config</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">pc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">Decode</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+			<span class="p">}</span>
+			<span class="nx">initContext</span><span class="p">.</span><span class="nx">Config</span> <span class="p">=</span> <span class="nx">pc</span>
+		<span class="p">}</span>
+		<span class="c1">// 插件初始化
+</span><span class="c1"></span>		<span class="nx">result</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="nx">initContext</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">initialized</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Wrapf</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;could not add plugin result to plugin set&#34;</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 获取插件实例
+</span><span class="c1"></span>		<span class="nx">instance</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">result</span><span class="p">.</span><span class="nf">Instance</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">plugin</span><span class="p">.</span><span class="nf">IsSkipPlugin</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">log</span><span class="p">.</span><span class="nf">G</span><span class="p">(</span><span class="nx">ctx</span><span class="p">).</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">).</span><span class="nf">WithField</span><span class="p">(</span><span class="s">&#34;type&#34;</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Type</span><span class="p">).</span><span class="nf">Infof</span><span class="p">(</span><span class="s">&#34;skip loading plugin %q...&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="nx">log</span><span class="p">.</span><span class="nf">G</span><span class="p">(</span><span class="nx">ctx</span><span class="p">).</span><span class="nf">WithError</span><span class="p">(</span><span class="nx">err</span><span class="p">).</span><span class="nf">Warnf</span><span class="p">(</span><span class="s">&#34;failed to load plugin %s&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">required</span><span class="p">[</span><span class="nx">reqID</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">Wrapf</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;load required plugin %s&#34;</span><span class="p">,</span> <span class="nx">id</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="k">continue</span>
+		<span class="p">}</span>
+
+		<span class="nb">delete</span><span class="p">(</span><span class="nx">required</span><span class="p">,</span> <span class="nx">reqID</span><span class="p">)</span>
+		<span class="c1">// 根据插件类型，加载成不同的服务
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">instance</span><span class="p">.(</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">Service</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="nx">grpcServices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">grpcServices</span><span class="p">,</span> <span class="nx">src</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">instance</span><span class="p">.(</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">TTRPCService</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="nx">ttrpcServices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">ttrpcServices</span><span class="p">,</span> <span class="nx">src</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">service</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">instance</span><span class="p">.(</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">TCPService</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="nx">tcpServices</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">tcpServices</span><span class="p">,</span> <span class="nx">service</span><span class="p">)</span>
+		<span class="p">}</span>
+
+		<span class="nx">s</span><span class="p">.</span><span class="nx">plugins</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">plugins</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="o">...</span>
+	<span class="k">return</span> <span class="nx">s</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>插件初始化函数需要 <code>InitContext</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// InitContext is used for plugin inititalization
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">InitContext</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Context</span>      <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+	<span class="nx">Root</span>         <span class="kt">string</span>
+	<span class="nx">State</span>        <span class="kt">string</span>
+	<span class="nx">Config</span>       <span class="kd">interface</span><span class="p">{}</span>
+	<span class="nx">Address</span>      <span class="kt">string</span>
+	<span class="nx">TTRPCAddress</span> <span class="kt">string</span>
+	<span class="nx">Events</span>       <span class="o">*</span><span class="nx">exchange</span><span class="p">.</span><span class="nx">Exchange</span>
+
+	<span class="nx">Meta</span> <span class="o">*</span><span class="nx">Meta</span> <span class="c1">// plugins can fill in metadata at init.
+</span><span class="c1"></span>
+	<span class="nx">plugins</span> <span class="o">*</span><span class="nx">Set</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>InitContext</code> 中携带的 <code>plugins</code> 变量指向全局插件集合。结构体中保存插件初始化所需的参数，包括</p>
+<ul>
+<li>Root : containerd 项目的根目录，从配置文件中获取。（默认为 /var/lib/containerd）</li>
+<li>State : containerd 运行过程中数据的存放目录，从配置文件中获取，(默认为 /run/containerd)</li>
+<li>Config : 配置文件</li>
+<li>Address : gRPC 地址</li>
+<li>TTRPCAddress: ttrpc 地址</li>
+<li>Events: 全局的订阅发布模型</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// plugin/context.go
+</span><span class="c1"></span>
+<span class="c1">// Plugin represents an initialized plugin, used with an init context.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Plugin</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Registration</span> <span class="o">*</span><span class="nx">Registration</span> <span class="c1">// registration, as initialized
+</span><span class="c1"></span>	<span class="nx">Config</span>       <span class="kd">interface</span><span class="p">{}</span>   <span class="c1">// config, as initialized
+</span><span class="c1"></span>	<span class="nx">Meta</span>         <span class="o">*</span><span class="nx">Meta</span>
+
+	<span class="nx">instance</span> <span class="kd">interface</span><span class="p">{}</span>
+	<span class="nx">err</span>      <span class="kt">error</span> <span class="c1">// will be set if there was an error initializing the plugin
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>每个服务使用 Plugin 封装，插件的信息保存到 Registration 中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// plugin/plugin.go
+</span><span class="c1"></span>
+<span class="c1">// Registration contains information for registering a plugin
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Registration</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// Type of the plugin
+</span><span class="c1"></span>	<span class="nx">Type</span> <span class="nx">Type</span>
+	<span class="c1">// ID of the plugin
+</span><span class="c1"></span>	<span class="nx">ID</span> <span class="kt">string</span>
+	<span class="c1">// Config specific to the plugin
+</span><span class="c1"></span>	<span class="nx">Config</span> <span class="kd">interface</span><span class="p">{}</span>
+	<span class="c1">// Requires is a list of plugins that the registered plugin requires to be available
+</span><span class="c1"></span>	<span class="nx">Requires</span> <span class="p">[]</span><span class="nx">Type</span>
+
+	<span class="c1">// InitFn is called when initializing a plugin. The registration and
+</span><span class="c1"></span>	<span class="c1">// context are passed in. The init function may modify the registration to
+</span><span class="c1"></span>	<span class="c1">// add exports, capabilities and platform support declarations.
+</span><span class="c1"></span>	<span class="nx">InitFn</span> <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">InitContext</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+	<span class="c1">// Disable the plugin from loading
+</span><span class="c1"></span>	<span class="nx">Disable</span> <span class="kt">bool</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Registration 包含插件类型，插件ID，配置参数，依赖的其他插件类型，初始化函数。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
