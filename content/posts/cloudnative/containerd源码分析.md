@@ -623,4 +623,168 @@ containerd-shim-runc-v2 支持以下接口
 - Update
 - ResizePty
 
-## container 插件机制
+## 插件机制
+containerd 内部服务都是通过插件方式注册。注册插件代码如下:
+```go
+// services/server/tasks/local.go
+
+func init() {
+	plugin.Register(&plugin.Registration{
+		Type:     plugin.ServicePlugin,
+		ID:       services.TasksService,
+		Requires: tasksServiceRequires,
+		InitFn:   initFunc,
+	})
+
+	timeout.Set(stateTimeout, 2*time.Second)
+}
+```
+containerd 内部维护一个全局插件列表:
+```go
+// plugin/plugin.go
+
+var register = struct {
+	sync.RWMutex
+	r []*Registration
+}{}
+```
+对外提供三种方法:
+- Load : 通过路径加载插件
+- Register : 注册插件
+- Graph : 遍历插件列表
+
+注册的插件在 containerd 服务启动时初始化:
+```go
+// services/server/server.go
+
+// New creates and initializes a new containerd server
+func New(ctx context.Context, config *srvconfig.Config) (*Server, error) {
+	...
+	for _, p := range plugins {
+		id := p.URI()
+		reqID := id
+		if config.GetVersion() == 1 {
+			reqID = p.ID
+		}
+		log.G(ctx).WithField("type", p.Type).Infof("loading plugin %q...", id)
+
+		// 新建插件上下文结构体
+		initContext := plugin.NewContext(
+			ctx,
+			p,
+			initialized,
+			config.Root,
+			config.State,
+		)
+		initContext.Events = s.events
+		initContext.Address = config.GRPC.Address
+		initContext.TTRPCAddress = config.TTRPC.Address
+
+		// 加载配置参数
+		if p.Config != nil {
+			pc, err := config.Decode(p)
+			if err != nil {
+				return nil, err
+			}
+			initContext.Config = pc
+		}
+		// 插件初始化
+		result := p.Init(initContext)
+		if err := initialized.Add(result); err != nil {
+			return nil, errors.Wrapf(err, "could not add plugin result to plugin set")
+		}
+
+		// 获取插件实例
+		instance, err := result.Instance()
+		if err != nil {
+			if plugin.IsSkipPlugin(err) {
+				log.G(ctx).WithError(err).WithField("type", p.Type).Infof("skip loading plugin %q...", id)
+			} else {
+				log.G(ctx).WithError(err).Warnf("failed to load plugin %s", id)
+			}
+			if _, ok := required[reqID]; ok {
+				return nil, errors.Wrapf(err, "load required plugin %s", id)
+			}
+			continue
+		}
+
+		delete(required, reqID)
+		// 根据插件类型，加载成不同的服务
+		if src, ok := instance.(plugin.Service); ok {
+			grpcServices = append(grpcServices, src)
+		}
+		if src, ok := instance.(plugin.TTRPCService); ok {
+			ttrpcServices = append(ttrpcServices, src)
+		}
+		if service, ok := instance.(plugin.TCPService); ok {
+			tcpServices = append(tcpServices, service)
+		}
+
+		s.plugins = append(s.plugins, result)
+	}
+	...
+	return s, nil
+}
+```
+插件初始化函数需要 `InitContext`。
+```go
+// InitContext is used for plugin inititalization
+type InitContext struct {
+	Context      context.Context
+	Root         string
+	State        string
+	Config       interface{}
+	Address      string
+	TTRPCAddress string
+	Events       *exchange.Exchange
+
+	Meta *Meta // plugins can fill in metadata at init.
+
+	plugins *Set
+}
+```
+`InitContext` 中携带的 `plugins` 变量指向全局插件集合。结构体中保存插件初始化所需的参数，包括
+- Root : containerd 项目的根目录，从配置文件中获取。（默认为 /var/lib/containerd）
+- State : containerd 运行过程中数据的存放目录，从配置文件中获取，(默认为 /run/containerd)
+- Config : 配置文件
+- Address : gRPC 地址
+- TTRPCAddress: ttrpc 地址
+- Events: 全局的订阅发布模型
+```go
+// plugin/context.go
+
+// Plugin represents an initialized plugin, used with an init context.
+type Plugin struct {
+	Registration *Registration // registration, as initialized
+	Config       interface{}   // config, as initialized
+	Meta         *Meta
+
+	instance interface{}
+	err      error // will be set if there was an error initializing the plugin
+}
+```
+每个服务使用 Plugin 封装，插件的信息保存到 Registration 中:
+```go
+// plugin/plugin.go
+
+// Registration contains information for registering a plugin
+type Registration struct {
+	// Type of the plugin
+	Type Type
+	// ID of the plugin
+	ID string
+	// Config specific to the plugin
+	Config interface{}
+	// Requires is a list of plugins that the registered plugin requires to be available
+	Requires []Type
+
+	// InitFn is called when initializing a plugin. The registration and
+	// context are passed in. The init function may modify the registration to
+	// add exports, capabilities and platform support declarations.
+	InitFn func(*InitContext) (interface{}, error)
+	// Disable the plugin from loading
+	Disable bool
+}
+```
+Registration 包含插件类型，插件ID，配置参数，依赖的其他插件类型，初始化函数。
+
