@@ -14,13 +14,6 @@
     <guid>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</guid>
     <description><![CDATA[本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配]]></description>
 </item><item>
-    <title>cdm部署文档</title>
-    <link>http://xingyys.tech/cdm%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Fri, 31 Dec 2021 15:33:20 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/cdm%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[CDM 相关的依赖保存在解压后的 module 目录下 0.1 配置本地 yum 源 yum安装依赖包之前，请⾃⾏配置好yum本地源，以下为示例操作： 1 2 3 4 5 6 7 8 9 10 11 12 13 14]]></description>
-</item><item>
     <title>Containerd源码分析</title>
     <link>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
     <pubDate>Tue, 16 Nov 2021 23:17:49 &#43;0800</pubDate>
@@ -82,5 +75,14 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
             </div>简介 Tokio is an asynchronous runtime for the Rust programming language. It provides the building blocks needed for writing networking applications. It gives the flexibility to target a wide range of systems, from large servers with dozens of cores to small embedded devices. Tokio 是 rust 实现的异步库，提供一个异步运行时。它具有以下的]]></description>
+</item><item>
+    <title>深入理解计算机系统</title>
+    <link>http://xingyys.tech/csapp/</link>
+    <pubDate>Tue, 31 Aug 2021 18:27:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/csapp/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/featured-image.png" referrerpolicy="no-referrer">
+            </div>一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 + 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中存放的用户数据以及]]></description>
 </item></channel>
 </rss>
