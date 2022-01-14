@@ -2,7 +2,7 @@
 title: "cdm部署文档"
 date: 2021-12-31T15:33:20+08:00
 lastmod: 2021-12-31T15:33:20+08:00
-draft: false
+draft: true
 categories: 
  - 工作
 author: "Lack"
@@ -10,7 +10,7 @@ author: "Lack"
 
 > - CDM 相关的依赖保存在解压后的 module 目录下
 
-# 0.1 配置本地 yum 源
+## 0.1 配置本地 yum 源
 
 yum安装依赖包之前，请⾃⾏配置好yum本地源，以下为示例操作：
 
@@ -43,9 +43,9 @@ yum clean all
 yum makecache
 ```
 
-#  一、安装存储组件
+##  一、安装存储组件
 
-## 1.1 安装 zfs
+### 1.1 安装 zfs
 
 编译安装 zfs
 
@@ -148,7 +148,7 @@ icp 288913 1 zfs
 spl 104299 5 icp,zfs,zavl,zcommon,znvpair
 ```
 
-## 1.2 安装 scst
+### 1.2 安装 scst
 
 编译安装
 
@@ -210,7 +210,7 @@ libcrc32c 12644 3 xfs,iscsi_scst,scst_vdisk
 crc_t10dif 12912 3 scst,target_core_mod,sd_mod
 ```
 
-## 1.3 安装 nfs (可选)
+### 1.3 安装 nfs (可选)
 
 ```bash
 yum -y install rpcbind nfs-utils
@@ -220,7 +220,7 @@ systemctl enable nfs
 systemctl start nfs
 ```
 
-## 1.4 添加 VDDK 的库文件
+### 1.4 添加 VDDK 的库文件
 
 ```bash
 #### 解压库⽂件，移动到对应⽬录下
@@ -233,7 +233,7 @@ echo "/usr/lib/vmware-vix-disklib/lib64" > /etc/ld.so.conf.d/vmware-vixdisklib.c
 ldconfig
 ```
 
-## 1.5 安装 lb-storage
+### 1.5 安装 lb-storage
 
 ```bash
 # 建⽴相关路径， 解压安装包
@@ -259,9 +259,9 @@ SERVER_ADDRESS=$IP
 STORE_DIR=/opt/howlink/cdm/storage
 ```
 
-# 二、安装服务端组件
+## 二、安装服务端组件
 
-## 2.1 安装 postgres
+### 2.1 安装 postgres
 
 ```bash
 # 在线安装
@@ -308,7 +308,7 @@ cd /opt/howlink/cdm
 tar -xvf server-linux_amd64.tar.gz 
 ```
 
-## 2.2 安装 etcd
+### 2.2 安装 etcd
 
 ```bash
 # 创建⽬录
@@ -342,7 +342,7 @@ systemctl start etcd
 systemctl enable etcd
 ```
 
-## 2.3 安装 lb-admin
+### 2.3 安装 lb-admin
 
 ```bash
 # 创建⽂件
@@ -392,7 +392,7 @@ name=豪联科技内⽹
 systemctl enable lb-admin
 ```
 
-## 2.4 安装 gateway
+### 2.4 安装 gateway
 
 ```bash
 # 复制lb-storage启动脚本
@@ -413,7 +413,7 @@ systemctl enable lb-gateway
 # 将前端编译包解压到 /opt/howlink/cdm/static ⽬录
 ```
 
-## 2.5 安装 workflow
+### 2.5 安装 workflow
 
 ```bash
 # 创建⽂件
@@ -441,7 +441,7 @@ bind.address = $IP:8081
 systemctl enable lb-workflow
 ```
 
-## 2.6 安装 connector
+### 2.6 安装 connector
 
 ```bash
 # 复制lb-storage启动脚本
@@ -461,7 +461,7 @@ data = /opt/howlink/cdm/data
 systemctl enable lb-connector
 ```
 
-## 2.7 启动服务
+### 2.7 启动服务
 
 ```bash
 systemctl start etcd
@@ -473,9 +473,9 @@ systemctl start lb-connector
 
 > 注: 将修改后的 config.ini ⽂件复制到 /root/.howlink/cdm/ 下，防⽌组件更新覆盖配置⽂件
 
-# 三、安装客户端
+## 三、安装客户端
 
-## 3.1 Linux 下部署
+### 3.1 Linux 下部署
 
 ```bash
 上传安装包到服务器后，在指定路径解压
@@ -485,7 +485,7 @@ cd /opt/howlink
 unzip lblet-linux_amd64.zip -d /opt/howlink/cdm 
 ```
 
-### 3.1.1 安装 iscsiadm
+#### 3.1.1 安装 iscsiadm
 
 当前版本的lblet，依赖于iSCSI客户端（即将⽀持FC），在启动lblet之前，需要安装iSCSI客户端。安装可以通过直接上传rpm包安装，也可以挂载系统镜像使⽤yum本地源安装。
 公司NAS上提供了 Linux 6 和 Linux 7 版本的rpm包，两个版本安装过程有所区别：
@@ -500,7 +500,7 @@ rpm -ivh iscsi-initiator-utils-iscsiuio-6.2.0.874-11.el7.x86_64.rpm
 rpm -ivh iscsi-initiator-utils-6.2.0.874-11.el7.x86_64.rpm
 ```
 
-### 3.1.2 修改lblet的配置⽂件
+#### 3.1.2 修改lblet的配置⽂件
 
 以下是 /opt/howlink/cdm/config/config.ini 内容：
 
@@ -525,7 +525,7 @@ cdm-disk=/opt/howlink/cdm/bin/cdm-disk
 
 > 注：配置文件请直接在 linux 上修改，因为 windows 上修改的文件会改变文件的字符集格式，使得 linux 程序识别出错。
 
-### 3.1.3 设置启动脚本
+#### 3.1.3 设置启动脚本
 
 Linux 6使⽤service进⾏服务管理，到了Linux 7，则使⽤systemctl来进⾏服务管理，systemctl向下兼容service命令。所以，根据lblet所在的操作系统版本，启动脚本的部署⽅式也有所区别：
 
@@ -546,7 +546,7 @@ cp systemed/lblet.service /usr/lib/systemed/system/lblet.service
 systemctl enable lblet
 ```
 
-### 3.1.4 启动 lblet
+#### 3.1.4 启动 lblet
 
 由于服务管理⽅式不同，启动⽅式也有所区别：
 
@@ -558,26 +558,26 @@ service lblet start
 systemctl lblet start
 ```
 
-## 3.2 windows 下部署
+### 3.2 windows 下部署
 
 将压缩包上传⾄服务器，创建⽬录 C:\howlink，将压缩包解压⾄该⽬录下
 
-### 3.2.1 启动iSCSI服务
+#### 3.2.1 启动iSCSI服务
 
 与Linux的相同，当前版本的lblet，依赖于iSCSI客户端（即将⽀持FC），在启动lblet之前，需要先启动iSCSI服务。打开“iSCSI发起程序”，如果提示服务尚未运⾏，请单击“是"以启动该服务。
 
-### 3.2.2 同意协议
+#### 3.2.2 同意协议
 
 由于SQLServer和MySQL会调⽤sync.exe，该程序⾸次运⾏需要同意协议，故这两种备份需要同意程序的使⽤协议：双击运⾏C:\howlink\cdm\scripts\sync.exe，点击“同意”按钮即可。
 
-### 3.2.3 测试VSS
+#### 3.2.3 测试VSS
 
 由于SQLServer和MySQL的备份需要调⽤VSS（卷影复制），故使⽤lblet之前需要测试VSS能否正常运⾏。
 在CMD窗⼝或PowerShell下运⾏此命令：
 如果返回值报错，缺少依赖等，请按照提示安装依赖，依赖包已放置于公司NAS指定位置。
 依赖中包括.NET4.5和VC++运⾏库。如果返回值最后⼀⾏为“True”，则继续执⾏，成功执⾏将会返回“True”
 
-### 3.2.4 修改配置⽂件
+#### 3.2.4 修改配置⽂件
 
 修改lblet的配置⽂件，以下是 config/config.ini 内容：
 
@@ -611,13 +611,13 @@ C:\howlink\cdm\bin\lblet.exe
 
 > 注：PowerShell 必须以管理员方式启动
 
-## 3.3 更新 lblet
+### 3.3 更新 lblet
 
 CDM3.1 ⽀持lblet启动更新，解压 cdm.tar.gz 包获取 lblet 的上传到指定⻚⾯：
 
 <img src="image-20211231162116591.png" alt="image-20211231162116591" style="zoom:200%;" />
 
-# 四、使用 cdm-dp 部署
+## 四、使用 cdm-dp 部署
 
 cdm-dp 工具是 cdm 项目的部署工具、可以帮助用户快速部署 cdm 的各种组件。
 
@@ -645,7 +645,7 @@ drwxr-xr-x. 3 root root       143 12月 30 14:41 module
 tar -xvf dp-linux_amd64.tar.gz
 ```
 
-## 4.1 安装 lb-storage 组件
+### 4.1 安装 lb-storage 组件
 
 > 注：lb-storage 推荐安装在 CentOS7 发行版上， 需要配置网络或本地 yum 源码，后者可以参考 0.1 节的文档。
 
@@ -664,7 +664,7 @@ tar -xvf dp-linux_amd64.tar.gz
 
 执行完成后会依次安装 zfs、scst、nfs、lb-storage。
 
-## 4.2 安装服务端组件
+### 4.2 安装服务端组件
 
 > 注：服务端组件推荐安装在 CentOS7 发行版上， 需要配置网络或本地 yum 源码，后者可以参考 0.1 节的文档。
 
@@ -683,9 +683,9 @@ tar -xvf dp-linux_amd64.tar.gz
 
 安装完成后可以通过浏览器访问 http://$IP:9090 来验证。
 
-## 4.3 安装客户端
+### 4.3 安装客户端
 
-### 4.3.1 linux 
+#### 4.3.1 linux 
 
 复制 cdm.tar.gz 到待安装 lblet 的主机，解压 cdm.tar.gz 和 dp-linux_amd64.tar.gz
 
@@ -709,7 +709,7 @@ tar -xvf dp-linux_amd64.tar.gz
 
 > 注：安装前确认服务端和lblet节点的网络连接情况。
 
-### 4.3.2 windows
+#### 4.3.2 windows
 
 解压 cdm 下的 dp-windows_amd64.zip 文件，将 dist/cdm-dp.exe 和 lblets 复制到待安装节点的 C:\howlink 下。
 

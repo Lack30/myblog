@@ -12,9 +12,9 @@ author: "Lack"
 
 本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。
 
-# 一、准备
+## 一、准备
 
-## 1.1 系统环境
+### 1.1 系统环境
 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下:
 ```bash
 172.16.219.100 k8s-master
@@ -22,7 +22,7 @@ author: "Lack"
 172.16.219.102 k8s-slave2
 ```
 
-## 1.2 配置防火墙
+### 1.2 配置防火墙
 关闭Linux的防火墙
 ```bash
 systemctl stop firewalld
@@ -36,7 +36,7 @@ setenforce 0
 vim /etc/selinux/config
 SELINUX=disabled
 ```
-## 1.3 关闭 swap 分区
+### 1.3 关闭 swap 分区
 Kubernetes 1.8开始要求关闭系统的Swap，如果不关闭，默认配置下kubelet将无法启动。 关闭系统的Swap方法如下:
 ```bash
 swapoff -a
@@ -45,7 +45,7 @@ swapoff -a
 ```bash
 #UUID=7f0f3bd8-3605-4ad7-81b0-1a91c735969f swap                    swap    defaults        0 0
 ```
-## 1.4 部署 containerd
+### 1.4 部署 containerd
 kubernetes 1.22 版本之后，默认的容器运行时变成 containerd。所以在安装 k8s 之前先安装 containerd。
 
 配置 overlay
@@ -139,9 +139,9 @@ RuntimeVersion:  v1.5.8
 RuntimeApiVersion:  v1alpha2
 ```
 
-# 二、部署 Kubernetes
+## 二、部署 Kubernetes
 
-## 2.1 安装 kubeadm
+### 2.1 安装 kubeadm
 环境都准备完成后，开始证实安装 k8s。在每个节点上安装 kubeadm 和 kubelet，先配置 yum 源
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -164,7 +164,7 @@ yum install kubelet kubeadm kubectl
 ```bash
 systemctl enable kubelet
 ```
-## 2.2 初始化集群
+### 2.2 初始化集群
 使用 `kubeadm config print init-defaults --component-configs KubeletConfiguration` 可以打印集群初始化默认的使用的配置：
 ```bash
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -312,7 +312,7 @@ etcd-0               Healthy   {"health":"true","reason":""}
 ```
 > 注意：如果集群初始化中出现问题，可以使用 `kubeadm reset` 命令清除安装的内容，再重新安装。
 
-## 2.3 安装 helm 包管理器
+### 2.3 安装 helm 包管理器
 helm 是开源的 k8s 包管理工具，可以简化 k8s 服务的安装步骤。安装命令如下:
 ```bash
 wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
@@ -321,7 +321,7 @@ mv linux-amd64/helm  /usr/local/bin/
 ```
 使用命令 `helm list` 检查。
 
-## 2.4 安装 Calico 
+### 2.4 安装 Calico 
 使用 Calico 作为 k8s 的 CNI。这里使用 helm 安装。
 下载 `tigera-openrator` 的 helm chart：
 ```bash
@@ -419,7 +419,7 @@ Name:      kubernetes.default
 Address 1: 10.96.0.1 kubernetes.default.svc.cluster.local
 ```
 
-## 2.5 添加工作节点
+### 2.5 添加工作节点
 将 k8s-slave1 和 k8s-slave2 节点添加到集群中。
 ```bash
 kubeadm join 172.16.219.100:6443 --token rdm2to.z9n608f4ix4lnik8 --discovery-token-ca-cert-hash sha256:047a21a7d519b87e594d36a6fdbfadc86557cd602ee58bda8f7fc97f38cba4d9`
@@ -433,9 +433,9 @@ k8s-slave1   Ready    <none>                      9h    v1.23.1
 k8s-slave2   Ready    <none>                      9h    v1.23.1
 ```
 
-# 三、Kubernetes 常用组件
+## 三、Kubernetes 常用组件
 
-## 3.1 部署 ingress-nginx
+### 3.1 部署 ingress-nginx
 k8s 提供 ingress，可以间集群的服务提供给外部进行访问。Nginx Ingress Controller被部署在Kubernetes的边缘节点上。
 
 这里将node1(172.168.219.101)作为边缘节点，打上Label：
@@ -500,7 +500,7 @@ helm install ingress-nginx ingress-nginx-4.0.13.tgz --create-namespace -n ingres
 ```
 通过访问 `http://172.16.219.101` 测试，返回 404 表示安装成功。
 
-## 3.2 部署 metrics-server
+### 3.2 部署 metrics-server
 下载描述文件
 ```bash
 wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml
@@ -534,7 +534,7 @@ kubernetes-dashboard-79f67c7494-pb6rq   1m           38Mi
 metrics-server-74689dcfd-c9fqn          5m           33Mi
 ```
 
-## 3.3 部署 dashboard
+### 3.3 部署 dashboard
 使用helm部署k8s的dashboard，添加chart repo:
 ```bash
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
