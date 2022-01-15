@@ -57,7 +57,8 @@ EOF
 ```
 加载内核配置
 ```bash
-sysctl -p /etc/modules-load.d/containerd.conf
+modprobe overlay
+modprobe br_netfilter
 ```
 修改网络相关的内核参数
 ```bash
@@ -71,7 +72,7 @@ EOF
 ```
 加载内核配置
 ```bash
-sysctl -p /etc/modules-load.d/containerd.conf
+sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 ```
 现在 kube-proxy 可以使用 ipvs 来代替原来的 iptables。配置 ipvs:
 ```bash
@@ -129,6 +130,7 @@ containerd config default > /etc/containerd/config.toml
 配置 containerd 开机自启
 ```bash
 systemctl enable containerd
+systemctl start containerd
 ```
 执行 crictl 命令测试
 ```bash
@@ -362,7 +364,7 @@ calicoctl:
 ```
 使用 helm 安装 calico
 ```bash
-helm install calico tigera-operator-v3.21.2-1.tgz -f values.yaml
+helm install calico tigera-operator-v3.21.2-1.tgz -f calico.yaml
 ```
 等待所有 Pod 安装完成
 ```bash
@@ -565,7 +567,7 @@ metricsScraper:
 ```
 生成个人证书：
 ```bash
-mkdir /etc/k8s/ssl/
+mkdir -p /etc/k8s/ssl/
 cd /etc/k8s/ssl
 openssl genrsa -out dashboard.key 2048
 openssl req -new -x509 -key dashboard.key -out dashboard.crt -subj "/O=dashboard/CN=k8s.example.com"
