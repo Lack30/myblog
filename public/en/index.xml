@@ -1,0 +1,10 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>lack 的个人博客</title>
+        <link>http://xingyys.tech/en/</link>
+        <description>About DoIt Theme</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+            <atom:link href="http://xingyys.tech/en/index.xml" rel="self" type="application/rss+xml" />
+        </channel>
+</rss>

@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>lack 的个人博客</title>
+        <link>http://xingyys.tech/</link>
+        <description>关于 DoIt 主题</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 13 Jan 2022 18:44:33 &#43;0800</lastBuildDate>
+            <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>安装kubernetes1.23</title>
+    <link>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</link>
+    <pubDate>Thu, 13 Jan 2022 18:44:33 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</guid>
+    <description><![CDATA[本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配]]></description>
+</item><item>
+    <title>Containerd源码分析</title>
+    <link>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+    <pubDate>Tue, 16 Nov 2021 23:17:49 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png" referrerpolicy="no-referrer">
+            </div>从 Kubernetes 1.22 开始，k8s 的容器运行是默认替换成 containerd。有必要深入了解 containerd 的内部实现原理。本篇通过分析 containerd 的代码深入理解其内部原理。 使用的]]></description>
+</item><item>
+    <title>Linux内核同步</title>
+    <link>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</link>
+    <pubDate>Fri, 29 Oct 2021 08:29:15 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</guid>
+    <description><![CDATA[内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢占内核的区别: 在进]]></description>
+</item><item>
+    <title>Linux中断和异常</title>
+    <link>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</link>
+    <pubDate>Thu, 28 Oct 2021 08:28:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</guid>
+    <description><![CDATA[中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。 中断]]></description>
+</item><item>
+    <title>Linux进程</title>
+    <link>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</link>
+    <pubDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</guid>
+    <description><![CDATA[进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(th]]></description>
+</item><item>
+    <title>Linux内存</title>
+    <link>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</link>
+    <pubDate>Sun, 10 Oct 2021 23:54:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</guid>
+    <description><![CDATA[内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管]]></description>
+</item><item>
+    <title>容灾一体机部署文档</title>
+    <link>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
+    <pubDate>Fri, 08 Oct 2021 17:30:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
+    <description><![CDATA[一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR]]></description>
+</item><item>
+    <title>tokio 高级用法</title>
+    <link>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
+    <pubDate>Tue, 14 Sep 2021 13:03:07 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
+            </div>上一篇了解了 tokio 的基本用法，接下来我们继续深入 tokio 的详细用法。 深入 async rust 从 1.36 版本开始引入 async/await 作为支持异步相关的关键字。其内部是实现了 std::future::Future 这个特性。 Future std::future::Future]]></description>
+</item><item>
+    <title>Tokio 初尝试</title>
+    <link>http://xingyys.tech/tokio%E5%88%9D%E5%B0%9D%E8%AF%95/</link>
+    <pubDate>Sun, 12 Sep 2021 14:46:43 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/tokio%E5%88%9D%E5%B0%9D%E8%AF%95/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
+            </div>简介 Tokio is an asynchronous runtime for the Rust programming language. It provides the building blocks needed for writing networking applications. It gives the flexibility to target a wide range of systems, from large servers with dozens of cores to small embedded devices. Tokio 是 rust 实现的异步库，提供一个异步运行时。它具有以下的]]></description>
+</item><item>
+    <title>深入理解计算机系统</title>
+    <link>http://xingyys.tech/csapp/</link>
+    <pubDate>Tue, 31 Aug 2021 18:27:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/csapp/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/featured-image.png" referrerpolicy="no-referrer">
+            </div>一、计算机系统漫游 计算机系统是由硬件和软件组成。 1.1 信息就是位 + 上下文 系统中所有的信息——包括磁盘文件、内存中的程序、内存中存放的用户数据以及]]></description>
+</item></channel>
+</rss>
