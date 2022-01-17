@@ -23,6 +23,7 @@ systemctl disable firewalld
 ```bash
 setenforce 0
 ```
+
 ```bash
 vim /etc/selinux/config
 SELINUX=disabled
