@@ -60,6 +60,7 @@ EOF
 modprobe overlay
 modprobe br_netfilter
 ```
+
 修改网络相关的内核参数
 ```bash
 cat << EOF > /etc/sysctl.d/99-kubernetes-cri.conf
