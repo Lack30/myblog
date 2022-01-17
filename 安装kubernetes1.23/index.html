@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%89%E8%A3%85kubernetes1.23\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  3848 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  3855 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%89%E8%A3%85kubernetes1.23\/","datePublished": "2022-01-13T18:44:33+08:00","dateModified": "2022-01-13T18:44:33+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">安装kubernetes1.23</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-13">2022-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3848 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-13">2022-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3855 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -235,9 +235,11 @@ systemctl disable firewalld
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sysctl -p /etc/modules-load.d/containerd.conf
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">modprobe overlay
+modprobe br_netfilter
 </code></pre></td></tr></table>
 </div>
 </div><p>修改网络相关的内核参数</p>
@@ -267,7 +269,7 @@ systemctl disable firewalld
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sysctl -p /etc/modules-load.d/containerd.conf
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 </code></pre></td></tr></table>
 </div>
 </div><p>现在 kube-proxy 可以使用 ipvs 来代替原来的 iptables。配置 ipvs:</p>
@@ -383,9 +385,11 @@ containerd config default &gt; /etc/containerd/config.toml
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl <span class="nb">enable</span> containerd
+systemctl start containerd
 </code></pre></td></tr></table>
 </div>
 </div><p>执行 crictl 命令测试</p>
@@ -845,7 +849,7 @@ calicoctl:
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">helm install calico tigera-operator-v3.21.2-1.tgz -f values.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">helm install calico tigera-operator-v3.21.2-1.tgz -f calico.yaml
 </code></pre></td></tr></table>
 </div>
 </div><p>等待所有 Pod 安装完成</p>
@@ -1252,7 +1256,7 @@ metricsScraper:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /etc/k8s/ssl/
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p /etc/k8s/ssl/
 <span class="nb">cd</span> /etc/k8s/ssl
 openssl genrsa -out dashboard.key <span class="m">2048</span>
 openssl req -new -x509 -key dashboard.key -out dashboard.crt -subj <span class="s2">&#34;/O=dashboard/CN=k8s.example.com&#34;</span>
