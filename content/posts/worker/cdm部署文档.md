@@ -175,7 +175,7 @@ make -j $(nproc) all && make install
 修改启动文件
 
 ```bash
-sed -i 's/SCST_MODULES="scst"/SCST_MODULES="scst scst_vdisk iscsi_scst"/g' /etc/rc.d/init.d/scst
+sed -i 's/SCST_MODULES="scst"/SCST_MODULES="scst scst_vdisk scst_disk scst_user scst_processor scst_cdrom iscsi_scst"/g' /etc/rc.d/init.d/scst
 ```
 
 设置开机自启
