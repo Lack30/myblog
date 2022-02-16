@@ -8,11 +8,11 @@
 
 在 mac 上新建一个 mac 项目
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216163516.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216163516.png)
 
 添加远程工具链 toolchains: settings --> Build --> toolchains
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216164638.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216164638.png)
 
 Clion 默认项目默认的 cmake 最小版本为 3.21。本地升级 cmake
 ```bash
@@ -45,22 +45,22 @@ dnf install -y make clang gdb gdb-gdbsever
 ```
 调整 Clion 的 cmake 配置： settings --> Build --> Cmake
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216165622.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216165622.png)
 
 添加 Debug Configuration:
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216170245.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216170245.png)
 
 配置远程 linux 连接: settings --> Deployment
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216171652.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171652.png)
 
 调整远程目录的映射关系
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216171706.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171706.png)
 
 最终样式
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220216171750.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171750.png)
 
 有了以上配置的环境，就可以大大提高C的开发效率了。

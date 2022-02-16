@@ -648,4 +648,4 @@ BinaryData
 ====
 ```
 使用上面的token登录k8s dashboard。
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220113203555.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220113203555.png)
