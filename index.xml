@@ -4,9 +4,16 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 16 Feb 2022 16:28:46 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 16 Feb 2022 17:29:27 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>配置CentOS8的yum源</title>
+    <link>http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/</link>
+    <pubDate>Wed, 16 Feb 2022 17:29:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/</guid>
+    <description><![CDATA[简介 如果更换 CentOS8 的 yum 源成国内源。 内容 备份老的 *.repo 文件 1 2 3 cd /etc/yum.repo.d/ mkdir bak mv *.repo ./bak 添加新的 CentOS-Base.repo 文件 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]]></description>
+</item><item>
     <title>Clion远程调试c代码</title>
     <link>http://xingyys.tech/clion%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95c%E4%BB%A3%E7%A0%81/</link>
     <pubDate>Wed, 16 Feb 2022 16:28:46 &#43;0800</pubDate>
@@ -73,14 +80,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
             </div>上一篇了解了 tokio 的基本用法，接下来我们继续深入 tokio 的详细用法。 深入 async rust 从 1.36 版本开始引入 async/await 作为支持异步相关的关键字。其内部是实现了 std::future::Future 这个特性。 Future std::future::Future]]></description>
-</item><item>
-    <title>Tokio 初尝试</title>
-    <link>http://xingyys.tech/tokio%E5%88%9D%E5%B0%9D%E8%AF%95/</link>
-    <pubDate>Sun, 12 Sep 2021 14:46:43 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/tokio%E5%88%9D%E5%B0%9D%E8%AF%95/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
-            </div>简介 Tokio is an asynchronous runtime for the Rust programming language. It provides the building blocks needed for writing networking applications. It gives the flexibility to target a wide range of systems, from large servers with dozens of cores to small embedded devices. Tokio 是 rust 实现的异步库，提供一个异步运行时。它具有以下的]]></description>
 </item></channel>
 </rss>
