@@ -3,7 +3,8 @@
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
             <loc>http://xingyys.tech/about/</loc><lastmod>2017-08-28T21:41:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://xingyys.tech/categories/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>http://xingyys.tech/tags/c/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/categories/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="http://xingyys.tech/en/categories/"
@@ -12,8 +13,9 @@
                     hreflang="zh-cn"
                     href="http://xingyys.tech/categories/"
                     /></url><url>
-            <loc>http://xingyys.tech/tags/k8s/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://xingyys.tech/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>http://xingyys.tech/tags/clion/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/clion%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95c%E4%BB%A3%E7%A0%81/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="http://xingyys.tech/en/"
@@ -22,8 +24,9 @@
                     hreflang="zh-cn"
                     href="http://xingyys.tech/"
                     /></url><url>
-            <loc>http://xingyys.tech/posts/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://xingyys.tech/tags/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>http://xingyys.tech/tags/linux/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/posts/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/tags/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="http://xingyys.tech/en/tags/"
@@ -32,12 +35,13 @@
                     hreflang="zh-cn"
                     href="http://xingyys.tech/tags/"
                     /></url><url>
+            <loc>http://xingyys.tech/categories/%E5%BC%80%E5%8F%91/</loc><lastmod>2022-02-16T16:28:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://xingyys.tech/tags/k8s/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>http://xingyys.tech/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</loc><lastmod>2022-01-13T18:44:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc><lastmod>2021-11-16T23:17:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tags/golang/</loc><lastmod>2021-11-16T23:17:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</loc><lastmod>2021-11-16T23:17:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://xingyys.tech/tags/linux/</loc><lastmod>2021-10-29T08:29:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</loc><lastmod>2021-10-29T08:29:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/categories/%E7%AC%94%E8%AE%B0/</loc><lastmod>2021-10-29T08:29:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</loc><lastmod>2021-10-28T08:28:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -47,7 +51,6 @@
             <loc>http://xingyys.tech/categories/%E5%B7%A5%E4%BD%9C/</loc><lastmod>2021-10-08T17:30:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tags/rust/</loc><lastmod>2021-09-14T13:03:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</loc><lastmod>2021-09-14T13:03:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://xingyys.tech/categories/%E5%BC%80%E5%8F%91/</loc><lastmod>2021-09-14T13:03:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tokio%E5%88%9D%E5%B0%9D%E8%AF%95/</loc><lastmod>2021-09-12T14:46:43&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/csapp/</loc><lastmod>2021-08-31T18:27:27&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://xingyys.tech/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc><lastmod>2021-08-31T18:27:27&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

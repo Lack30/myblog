@@ -639,7 +639,7 @@ var register = struct {
 ```
 对外提供三种方法:
 - Load : 通过路径加载插件
-- Register : 注册插件
+- Register : 注册新的插件
 - Graph : 遍历插件列表
 
 注册的插件在 containerd 服务启动时初始化:
@@ -776,5 +776,4 @@ type Registration struct {
 }
 ```
 Registration 包含插件类型，插件ID，配置参数，依赖的其他插件类型，初始化函数。
-
 
