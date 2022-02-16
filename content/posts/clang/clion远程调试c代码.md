@@ -75,4 +75,4 @@ dnf install -y make clang gdb gdb-gdbsever
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171750.png)
 
-有了以上配置的环境，就可以大大提高C的开发效率了。
+以上就是本篇的全部内容了，有了以上配置的环境，就可以大大提高C的开发效率了。
