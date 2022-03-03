@@ -232,7 +232,7 @@ static long ctrl_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
 ## 命令解析
 
 ### setup-snapshot
-`dbdctl setup-snapshot` 命令的作用是为一个块文件创建一个镜像。这个创建必须是已挂载的，同时 cow_file 存储增量信息的文件必须保存在块文件内部。 
+`dbdctl setup-snapshot` 命令的作用是为一个块文件创建一个镜像。这个块文件必须是已挂载的，同时 cow_file 存储增量信息的文件必须保存在块文件内部。 
 ```bash
 dbdctl setup-snapshot /dev/sda1 /boot/.datto 0
 ```
@@ -590,6 +590,7 @@ error:
 	return ret;
 }
 ```
+主要功能是设置 `dev->sd_queue` 请求队列和队列的 `make_request_fn`，新增 `gendisk` 结构体指向块文件并注册到 /dev 下，启动 `make_request_fn` 为内核线程。
 
 *5. setup the cow thread and run it* 
 ```C
@@ -619,6 +620,8 @@ error:
 // 后台执行 sd_cow_thread
 wake_up_process(dev->sd_cow_thread);
 ```
+后台执行 `snap_cow_thread` 函数，主要是处理 `bio`。
+
 *6. inject the tracing function* 
 ```C
 static int __tracer_setup_tracing(struct snap_device *dev, unsigned int minor){
@@ -644,4 +647,49 @@ error:
 	minor_range_recalculate();
 	return ret;
 }
+```
+将原来块文件的 `make_request_fn` 替换成 tracing_mrf。
+
+```C
+static MRF_RETURN_TYPE tracing_mrf(struct request_queue *q, struct bio *bio){
+	int i, ret = 0;
+	struct snap_device *dev;
+	make_request_fn *orig_mrf = NULL;
+
+	MAYBE_UNUSED(ret);
+
+	smp_rmb();
+	tracer_for_each(dev, i){
+		if(!dev || test_bit(UNVERIFIED, &dev->sd_state) || !tracer_queue_matches_bio(dev, bio)) continue;
+
+		orig_mrf = dev->sd_orig_mrf;
+		if(dattobd_bio_op_flagged(bio, DATTOBD_PASSTHROUGH)){
+			dattobd_bio_op_clear_flag(bio, DATTOBD_PASSTHROUGH);
+			goto call_orig;
+		}
+
+		if(tracer_should_trace_bio(dev, bio)){
+			if(test_bit(SNAPSHOT, &dev->sd_state)) {
+                ret = snap_trace_bio(dev, bio);
+            } else {
+                ret = inc_trace_bio(dev, bio);
+            }
+			goto out;
+		}
+	}
+
+call_orig:
+	if(orig_mrf) ret = dattobd_call_mrf(orig_mrf, q, bio);
+	else LOG_ERROR(-EFAULT, "error finding original_mrf");
+
+out:
+	MRF_RETURN(ret);
+}
+```
+
+执行完这个命令后，系统后台会新增两个 datto 相关的进程:
+```bash
+ps aux|grep datto
+root       6821  0.0  0.0      0     0 ?        S<   09:16   0:00 [datto_snap_mrf0]
+root       6823  0.0  0.0      0     0 ?        S<   09:16   0:00 [datto_snap_cow0]
 ```
