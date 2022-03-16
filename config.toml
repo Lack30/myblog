@@ -281,14 +281,14 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
         url = "/categories/"
         title = ""
         weight = 3
-      [[languages.zh-cn.menu.main]]
-        identifier = "series"
-        pre = ""
-        post = ""
-        name = "系列"
-        url = "/series/"
-        title = ""
-        weight = 4
+      # [[languages.zh-cn.menu.main]]
+      #   identifier = "series"
+      #   pre = ""
+      #   post = ""
+      #   name = "系列"
+      #   url = "/series/"
+      #   title = ""
+      #   weight = 4
       [[languages.zh-cn.menu.main]]
         identifier = "authors"
         pre = ""
@@ -297,13 +297,13 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
         url = "/authors/"
         title = ""
         weight = 5
-      [[languages.zh-cn.menu.main]]
-        identifier = "documentation"
-        pre = ""
-        name = "文档"
-        url = "/categories/documentation/"
-        title = ""
-        weight = 6
+      # [[languages.zh-cn.menu.main]]
+      #   identifier = "documentation"
+      #   pre = ""
+      #   name = "文档"
+      #   url = "/categories/documentation/"
+      #   title = ""
+      #   weight = 6
       # [[languages.zh-cn.menu.main]]
       #   identifier = "about"
       #   pre = ""
@@ -1000,6 +1000,15 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
   [mediaTypes."text/plain"]
     suffixes = ["md"]
 
+# Options to make hugo output files
+# 用于 Hugo 输出文档的设置
+[outputs]
+  home = ["HTML", "RSS", "JSON", "Algolia"]
+  page = ["HTML", "MarkDown"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
+
 # Options to make output .md files
 # 用于输出 Markdown 格式文档的设置
 [outputFormats.MarkDown]
@@ -1007,14 +1016,16 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
   isPlainText = true
   isHTML = false
 
-# Options to make hugo output files
-# 用于 Hugo 输出文档的设置
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-  page = ["HTML", "MarkDown"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
-  taxonomyTerm = ["HTML"]
+[outputFormats.Algolia]
+  baseName = "algolia"
+  isPlainText = true
+  mediaType = "application/json"
+  notAlternative = true
+
+[params.algolia]
+  index = "zh_cn_index"
+  appID = "2F98FFY5I5"
+  searchKey = "b00eb2b5541b2ebb14e1d581011b4daf"
 
 # Options for taxonomies
 # 用于分类的设置

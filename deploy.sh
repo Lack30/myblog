@@ -6,7 +6,10 @@ set -e
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
 # Build the project.
-hugo -t LoveIt 
+hugo -t LoveIt
+
+# upload algolia file
+atomic-algolia
 
 # Go To Public folder
 cd public
