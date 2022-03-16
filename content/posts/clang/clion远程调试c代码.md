@@ -13,7 +13,7 @@ categories:
 author: "Lack"
 ---
 
-本篇主要介绍如何使用 Clion 远程调整 C 语言代码。所需环境如下:
+本篇主要介绍如何使用 Clion 来远程调整 C 语言代码。所需环境如下:
 - Mac 主机
 - Clion 2021.3.3
 - CentOS8 远程开发机

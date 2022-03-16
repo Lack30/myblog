@@ -717,8 +717,7 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
         admin = ["lack-io"]
         clientId = "e0b00024a2e428bbbcba"
         clientSecret = "3aa82dd31f80aace3a4ee39da331ebc5cab55c79"
-        proxy = 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
-        perPage = 10
+        proxy = "https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"
       # Valine comment config (https://github.com/xCss/Valine)
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
