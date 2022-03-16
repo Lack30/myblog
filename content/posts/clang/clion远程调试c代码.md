@@ -71,7 +71,7 @@ dnf install -y make clang gdb gdb-gdbsever
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171706.png)
 
-最终样式
+以下为最终样式
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220216171750.png)
 

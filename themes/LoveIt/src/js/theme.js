@@ -593,8 +593,8 @@ class Theme {
         if (this.config.comment) {
             if (this.config.comment.gitalk) {
                 this.config.comment.gitalk.body = decodeURI(window.location.href);
-                const gitalk = new Gitalk(this.config.comment.gitalk);
                 console.log(this.config.comment.gitalk);
+                const gitalk = new Gitalk(this.config.comment.gitalk);
                 gitalk.render('gitalk');
             }
             if (this.config.comment.valine) new Valine(this.config.comment.valine);
