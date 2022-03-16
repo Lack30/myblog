@@ -713,7 +713,8 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
       [params.page.comment.gitalk]
         enable = true
         owner = "lack-io"
-        repo = "https://github.com/lack-io/blog_comment"
+        repo = "blog_comment"
+        admin = ["lack-io"]
         clientId = "e0b00024a2e428bbbcba"
         clientSecret = "3aa82dd31f80aace3a4ee39da331ebc5cab55c79"
       # Valine comment config (https://github.com/xCss/Valine)
