@@ -356,8 +356,8 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
         absoluteURL = false
         [languages.zh-cn.params.search.algolia]
           index = "zh_cn_index"
-          appID = "5YGRNRQK1G"
-          searchKey = "0ff6874805de24b84aa1d5ebccad56cd"
+          appID = "2F98FFY5I5"
+          searchKey = "b00eb2b5541b2ebb14e1d581011b4daf"
         [languages.zh-cn.params.search.fuse]
           # https://fusejs.io/api/options.html
           isCaseSensitive = false
@@ -717,6 +717,8 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
         admin = ["lack-io"]
         clientId = "e0b00024a2e428bbbcba"
         clientSecret = "3aa82dd31f80aace3a4ee39da331ebc5cab55c79"
+        proxy = 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token'
+        perPage = 10
       # Valine comment config (https://github.com/xCss/Valine)
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
