@@ -711,11 +711,11 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
       # Gitalk comment config (https://github.com/gitalk/gitalk)
       # Gitalk 评论系统设置 (https://github.com/gitalk/gitalk)
       [params.page.comment.gitalk]
-        enable = false
-        owner = ""
-        repo = ""
-        clientId = ""
-        clientSecret = ""
+        enable = true
+        owner = "lack-io"
+        repo = "https://github.com/lack-io/blog_comment"
+        clientId = "e0b00024a2e428bbbcba"
+        clientSecret = "3aa82dd31f80aace3a4ee39da331ebc5cab55c79"
       # Valine comment config (https://github.com/xCss/Valine)
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
