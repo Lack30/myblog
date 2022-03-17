@@ -70,11 +70,13 @@
     <guid>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</guid>
     <description><![CDATA[内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管]]></description>
 </item><item>
-    <title>容灾一体机部署文档</title>
-    <link>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Fri, 08 Oct 2021 17:30:22 &#43;0800</pubDate>
+    <title>tokio 高级用法</title>
+    <link>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
+    <pubDate>Tue, 14 Sep 2021 13:03:07 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://xingyys.tech/%E5%AE%B9%E7%81%BE%E4%B8%80%E4%BD%93%E6%9C%BA%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[一、准备工作 1.1 环境要求 主机类型 操作系统 硬件要求 服务端 linux CentOS7.8及以上 CPU 8核，内存32G，200G硬盘 客户端 CentOS oracle 或 Sqlserver 2012 备注： 1、DR]]></description>
+    <guid>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
+            </div>上一篇了解了 tokio 的基本用法，接下来我们继续深入 tokio 的详细用法。 深入 async rust 从 1.36 版本开始引入 async/await 作为支持异步相关的关键字。其内部是实现了 std::future::Future 这个特性。 Future std::future::Future]]></description>
 </item></channel>
 </rss>
