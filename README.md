@@ -17,6 +17,6 @@ hugo new post/<post_name>.md
 
 更新博客
 ```bash
-./deploy.sh
+make 
 ```
 

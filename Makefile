@@ -3,7 +3,7 @@ pwd=$(shell pwd)
 msg="rebuilding site $(shell date)"
 
 .PHONY: all
-all: build deploy
+all: build deploy install
 
 .PHONY: install
 install:
@@ -14,7 +14,7 @@ build:
 	hugo -t LoveIt
 
 .PHONY: deploy
-deploy: build
+deploy:
 	cd $(pwd)/public && \
 	git pull && \
 	git add . && \
@@ -26,4 +26,6 @@ deploy: build
     git add . && \
     git commit -m $(msg) && \
     git push -u origin gh-pages && \
-    atomic-algolia
+
+index:
+	atomic-algolia
