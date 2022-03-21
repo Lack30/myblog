@@ -144,8 +144,8 @@ cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 name=Kubernetes
 baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
 enabled=1
-gpgcheck=1
-repo_gpgcheck=1
+gpgcheck=0
+repo_gpgcheck=0
 gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
         http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
 EOF
@@ -153,7 +153,7 @@ EOF
 更新缓存
 ```bash
 yum makecache fast
-yum install kubelet kubeadm kubectl
+yum install -y kubelet kubeadm kubectl
 ```
 开机启动 kubelet 服务
 ```bash
