@@ -25,7 +25,7 @@ deploy:
 	git pull && \
     git add . && \
     git commit -m $(msg) && \
-    git push -u origin gh-pages && \
+    git push -u origin gh-pages 
 
 index:
 	atomic-algolia
