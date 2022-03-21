@@ -63,7 +63,7 @@ user.max_user_namespaces=28633
 vm.swappiness=0
 EOF
 ```
-加载内核配置
+加载配置
 ```bash
 sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf
 ```
