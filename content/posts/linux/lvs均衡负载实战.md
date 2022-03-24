@@ -18,7 +18,9 @@ Linux Virtual Server 项目的目标 ：使用集群技术和 Linux 操作系统
 
 目前，LVS 项目已提供了一个实现可伸缩网络服务的 Linux Virtual Server 框架，如图 3 所示。在 LVS 框架中，提供了含有三种 IP 负载均衡技术的 IP 虚拟服务器软件 IPVS、基于内容请求分发的内核 Layer-7 交 换机 KTCPVS 和集群管理软件。可以利用 LVS 框架实现高可伸缩的、高可用的 Web、Cache、Mail 和 Media 等网络服务；在此基础上，可以开 发支持庞大用户数的、高可伸缩的、高可用的电子商务应用。
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220323172921.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220323172921.png)
+
+![](20220324155733.png)
 
 更加具体的信息可以参考[官方文档](http://www.linuxvirtualserver.org/zh/lvs1.html)
 
@@ -110,7 +112,7 @@ C:\\devcon.exe /r install C:\\windows\\inf\\netloop.inf *msloop
 ```
 
 执行成功后会创建一个新的回环设备，命令 `ipconfig /all` 效果如下
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/../images/20220324144735.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220324144735.png)
 
 > 注: 创建的回环设备的 mac 地址都是: 02-00-3C-4F-4F-50
 
