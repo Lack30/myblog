@@ -20,8 +20,6 @@ Linux Virtual Server 项目的目标 ：使用集群技术和 Linux 操作系统
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220323172921.png)
 
-![](20220324155733.png)
-
 更加具体的信息可以参考[官方文档](http://www.linuxvirtualserver.org/zh/lvs1.html)
 
 # 环境说明
