@@ -27,7 +27,7 @@ Linux Virtual Server 项目的目标 ：使用集群技术和 Linux 操作系统
 
 ## director 配置
 
-director 最为负载均衡的服务端，提供入口。首先安装 `ipvsadm` 工具
+director 作为负载均衡的服务端，提供入口。首先安装 `ipvsadm` 工具
 
 ```bash
 yum install -y ipvsadm
