@@ -154,13 +154,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 工作单元的接口
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">WorkUnit</span> <span class="kd">interface</span> <span class="p">{</span>
-  <span class="nf">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="kt">error</span>
-  <span class="nf">Undo</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="kt">error</span>
-  <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 工作单元的接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">WorkUnit</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">Do</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">Undo</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -197,38 +197,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">workflow</span> <span class="kd">struct</span><span class="p">{</span>
-  <span class="nx">units</span> <span class="p">[]</span><span class="nx">WorkUnit</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">Builder</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">*</span><span class="nx">workflow</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&amp;</span><span class="nx">workflow</span><span class="p">{}</span>
-<span class="p">}</span> 
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">workflow</span><span class="p">)</span> <span class="nf">Execute</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-  <span class="nx">undos</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-  <span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
-  <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// 发生错误则逐个回滚
-</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">undo</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">undos</span> <span class="p">{</span>
-        <span class="nf">undo</span><span class="p">()</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">unit</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">w</span><span class="p">.</span><span class="nx">units</span> <span class="p">{</span>
-    <span class="nx">err</span> <span class="p">=</span> <span class="nx">unit</span><span class="p">.</span><span class="nf">Do</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="c1">// 中间某步错误就结束
-</span><span class="c1"></span>      <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="c1">// 回滚操作入栈
-</span><span class="c1"></span>    <span class="nx">undos</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">undos</span><span class="p">,</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">Undo</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">workflow</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">units</span> <span class="p">[]</span><span class="nx">WorkUnit</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Builder</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">*</span><span class="nx">workflow</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="o">&amp;</span><span class="nx">workflow</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="o">*</span><span class="nx">workflow</span><span class="p">)</span> <span class="nf">Execute</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">undos</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">  <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 发生错误则逐个回滚
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">undo</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">undos</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">undo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">unit</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">w</span><span class="p">.</span><span class="nx">units</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">err</span> <span class="p">=</span> <span class="nx">unit</span><span class="p">.</span><span class="nf">Do</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 中间某步错误就结束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 回滚操作入栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">undos</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">undos</span><span class="p">,</span> <span class="nx">unit</span><span class="p">.</span><span class="nx">Undo</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -262,7 +262,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

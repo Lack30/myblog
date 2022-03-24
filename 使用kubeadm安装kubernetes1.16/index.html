@@ -182,8 +182,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"> yum install -y wget vim net-tools epel-release
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> yum install -y wget vim net-tools epel-release
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>关闭防火墙</p>
 <div class="highlight"><div class="chroma">
@@ -192,9 +192,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">systemctl disable firewalld
-systemctl stop firewalld
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl disable firewalld
+</span></span><span class="line"><span class="cl">systemctl stop firewalld
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>关闭selinux</p>
 <div class="highlight"><div class="chroma">
@@ -206,12 +206,12 @@ systemctl stop firewalld
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 临时禁用selinux</span>
-setenforce <span class="m">0</span>
-<span class="c1"># 永久关闭 修改/etc/sysconfig/selinux文件设置</span>
-sed -i <span class="s1">&#39;s/SELINUX=permissive/SELINUX=disabled/&#39;</span> /etc/sysconfig/selinux
-sed -i <span class="s2">&#34;s/SELINUX=enforcing/SELINUX=disabled/g&#34;</span> /etc/selinux/config
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 临时禁用selinux</span>
+</span></span><span class="line"><span class="cl">setenforce <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 永久关闭 修改/etc/sysconfig/selinux文件设置</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/SELINUX=permissive/SELINUX=disabled/&#39;</span> /etc/sysconfig/selinux
+</span></span><span class="line"><span class="cl">sed -i <span class="s2">&#34;s/SELINUX=enforcing/SELINUX=disabled/g&#34;</span> /etc/selinux/config
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>禁用交换分区</p>
 <div class="highlight"><div class="chroma">
@@ -222,11 +222,11 @@ sed -i <span class="s2">&#34;s/SELINUX=enforcing/SELINUX=disabled/g&#34;</span> 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">swapoff -a
-
-<span class="c1"># 永久禁用，打开/etc/fstab注释掉swap那一行。</span>
-sed -i <span class="s1">&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">swapoff -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 永久禁用，打开/etc/fstab注释掉swap那一行。</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改 /etc/hosts</p>
 <div class="highlight"><div class="chroma">
@@ -239,13 +239,13 @@ sed -i <span class="s1">&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt;EOF &gt;&gt; /etc/host
-</span><span class="s">
-</span><span class="s">192.168.10.20 k8s-master
-</span><span class="s">192.168.10.21 k8s-node1
-</span><span class="s">192.168.10.22 k8s-node2
-</span><span class="s">EOF</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt;&gt; /etc/host
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">192.168.10.20 k8s-master
+</span></span></span><span class="line"><span class="cl"><span class="s">192.168.10.21 k8s-node1
+</span></span></span><span class="line"><span class="cl"><span class="s">192.168.10.22 k8s-node2
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改内核参数</p>
 <div class="highlight"><div class="chroma">
@@ -257,12 +257,12 @@ sed -i <span class="s1">&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
-</span><span class="s">net.bridge.bridge-nf-call-ip6tables = 1
-</span><span class="s">net.bridge.bridge-nf-call-iptables = 1
-</span><span class="s">EOF</span>
-sysctl --system
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">net.bridge.bridge-nf-call-ip6tables = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">net.bridge.bridge-nf-call-iptables = 1
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">sysctl --system
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="安装docker1809">安装docker18.09</h1>
 <h2 id="配置yum源">配置yum源</h2>
@@ -293,30 +293,30 @@ sysctl --system
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">## 配置默认源</span>
-<span class="c1">## 备份</span>
-mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-
-<span class="c1">## 下载阿里源</span>
-wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-
-<span class="c1">## 刷新</span>
-yum makecache fast
-
-<span class="c1">## 配置k8s源</span>
-cat <span class="s">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
-</span><span class="s">[kubernetes]
-</span><span class="s">name=Kubernetes
-</span><span class="s">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-</span><span class="s">enabled=1
-</span><span class="s">gpgcheck=0
-</span><span class="s">EOF</span>
-
-<span class="c1">## 重建yum缓存</span>
-yum clean all
-yum makecache fast
-yum -y update
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 配置默认源</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 备份</span>
+</span></span><span class="line"><span class="cl">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 下载阿里源</span>
+</span></span><span class="line"><span class="cl">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 刷新</span>
+</span></span><span class="line"><span class="cl">yum makecache fast
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 配置k8s源</span>
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+</span></span></span><span class="line"><span class="cl"><span class="s">[kubernetes]
+</span></span></span><span class="line"><span class="cl"><span class="s">name=Kubernetes
+</span></span></span><span class="line"><span class="cl"><span class="s">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+</span></span></span><span class="line"><span class="cl"><span class="s">enabled=1
+</span></span></span><span class="line"><span class="cl"><span class="s">gpgcheck=0
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 重建yum缓存</span>
+</span></span><span class="line"><span class="cl">yum clean all
+</span></span><span class="line"><span class="cl">yum makecache fast
+</span></span><span class="line"><span class="cl">yum -y update
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装docker">安装docker</h2>
 <p>下载docker的yum源文件</p>
@@ -326,9 +326,9 @@ yum -y update
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum -y install yum-utils device-mapper-persistent-data lvm2
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum -y install yum-utils device-mapper-persistent-data lvm2
+</span></span><span class="line"><span class="cl">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里指定docker版本，可以先查看支持的版本</p>
 <div class="highlight"><div class="chroma">
@@ -347,19 +347,19 @@ yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/d
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># yum list docker-ce --showduplicates |sort -r               </span>
- * updates: mirrors.aliyun.com
-Loading mirror speeds from cached hostfile
-Loaded plugins: fastestmirror
- * extras: mirrors.aliyun.com
- * epel: hkg.mirror.rackspace.com
-docker-ce.x86_64            3:19.03.2-3.el7                     docker-ce-stable
-docker-ce.x86_64            3:19.03.1-3.el7                     docker-ce-stable
-docker-ce.x86_64            3:19.03.0-3.el7                     docker-ce-stable
-docker-ce.x86_64            3:18.09.9-3.el7                     docker-ce-stable
-...
- * base: mirrors.aliyun.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost ~<span class="o">]</span><span class="c1"># yum list docker-ce --showduplicates |sort -r               </span>
+</span></span><span class="line"><span class="cl"> * updates: mirrors.aliyun.com
+</span></span><span class="line"><span class="cl">Loading mirror speeds from cached hostfile
+</span></span><span class="line"><span class="cl">Loaded plugins: fastestmirror
+</span></span><span class="line"><span class="cl"> * extras: mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"> * epel: hkg.mirror.rackspace.com
+</span></span><span class="line"><span class="cl">docker-ce.x86_64            3:19.03.2-3.el7                     docker-ce-stable
+</span></span><span class="line"><span class="cl">docker-ce.x86_64            3:19.03.1-3.el7                     docker-ce-stable
+</span></span><span class="line"><span class="cl">docker-ce.x86_64            3:19.03.0-3.el7                     docker-ce-stable
+</span></span><span class="line"><span class="cl">docker-ce.x86_64            3:18.09.9-3.el7                     docker-ce-stable
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"> * base: mirrors.aliyun.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>目前最新版本为19.03，指定下载18.09</p>
 <div class="highlight"><div class="chroma">
@@ -369,10 +369,10 @@ docker-ce.x86_64            3:18.09.9-3.el7                     docker-ce-stable
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y docker-ce-18.09.9-3.el7
-systemctl <span class="nb">enable</span> docker
-systemctl start docker
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y docker-ce-18.09.9-3.el7
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> docker
+</span></span><span class="line"><span class="cl">systemctl start docker
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改docker的启动参数">修改docker的启动参数</h2>
 <div class="highlight"><div class="chroma">
@@ -395,23 +395,23 @@ systemctl start docker
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/docker/daemon.json <span class="s">&lt;&lt;EOF
-</span><span class="s">{
-</span><span class="s">  &#34;registry-mirrors&#34;: [&#34;https://xxxx.mirror.aliyuncs.com&#34;],
-</span><span class="s">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
-</span><span class="s">  &#34;log-driver&#34;: &#34;json-file&#34;,
-</span><span class="s">  &#34;log-opts&#34;: {
-</span><span class="s">    &#34;max-size&#34;: &#34;100m&#34;
-</span><span class="s">  },
-</span><span class="s">  &#34;storage-driver&#34;: &#34;overlay2&#34;,
-</span><span class="s">  &#34;storage-opts&#34;: [
-</span><span class="s">    &#34;overlay2.override_kernel_check=true&#34;
-</span><span class="s">  ]
-</span><span class="s">}
-</span><span class="s">EOF</span>
-
-systemctl restart docker
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/docker/daemon.json <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">{
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;registry-mirrors&#34;: [&#34;https://xxxx.mirror.aliyuncs.com&#34;],
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;exec-opts&#34;: [&#34;native.cgroupdriver=systemd&#34;],
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;log-driver&#34;: &#34;json-file&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;log-opts&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;max-size&#34;: &#34;100m&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  },
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;storage-driver&#34;: &#34;overlay2&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">  &#34;storage-opts&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;overlay2.override_kernel_check=true&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  ]
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">systemctl restart docker
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="安装k8s">安装k8s</h1>
 <h2 id="管理节点配置">管理节点配置</h2>
@@ -422,8 +422,8 @@ systemctl restart docker
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y kubeadm kubelet
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y kubeadm kubelet
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="初始化kubeadm">初始化kubeadm</h3>
 <p>这里不直接初始化，因为国内用户不能直接拉取相关的镜像，所以这里想查看需要的镜像版本</p>
@@ -439,15 +439,15 @@ systemctl restart docker
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubeadm config images list</span>
-k8s.gcr.io/kube-apiserver:v1.16.0
-k8s.gcr.io/kube-controller-manager:v1.16.0
-k8s.gcr.io/kube-scheduler:v1.16.0
-k8s.gcr.io/kube-proxy:v1.16.0
-k8s.gcr.io/pause:3.1
-k8s.gcr.io/etcd:3.3.15-0
-k8s.gcr.io/coredns:1.6.2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubeadm config images list</span>
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-apiserver:v1.16.0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-controller-manager:v1.16.0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-scheduler:v1.16.0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/kube-proxy:v1.16.0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/pause:3.1
+</span></span><span class="line"><span class="cl">k8s.gcr.io/etcd:3.3.15-0
+</span></span><span class="line"><span class="cl">k8s.gcr.io/coredns:1.6.2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>根据需要的版本，直接拉取国内镜像，并修改tag</p>
 <div class="highlight"><div class="chroma">
@@ -482,35 +482,35 @@ k8s.gcr.io/coredns:1.6.2
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim kubeadm.sh</span>
-
-<span class="c1">#!/bin/bash</span>
-
-<span class="c1">## 使用如下脚本下载国内镜像，并修改tag为google的tag</span>
-<span class="nb">set</span> -e
-
-<span class="nv">KUBE_VERSION</span><span class="o">=</span>v1.16.0
-<span class="nv">KUBE_PAUSE_VERSION</span><span class="o">=</span>3.1
-<span class="nv">ETCD_VERSION</span><span class="o">=</span>3.3.15-0
-<span class="nv">CORE_DNS_VERSION</span><span class="o">=</span>1.6.2
-
-<span class="nv">GCR_URL</span><span class="o">=</span>k8s.gcr.io
-<span class="nv">ALIYUN_URL</span><span class="o">=</span>registry.cn-hangzhou.aliyuncs.com/google_containers
-
-<span class="nv">images</span><span class="o">=(</span>kube-proxy:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
-kube-scheduler:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
-kube-controller-manager:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
-kube-apiserver:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
-pause:<span class="si">${</span><span class="nv">KUBE_PAUSE_VERSION</span><span class="si">}</span>
-etcd:<span class="si">${</span><span class="nv">ETCD_VERSION</span><span class="si">}</span>
-coredns:<span class="si">${</span><span class="nv">CORE_DNS_VERSION</span><span class="si">}</span><span class="o">)</span>
-
-<span class="k">for</span> imageName in <span class="si">${</span><span class="nv">images</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
-  docker pull <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span>
-  docker tag  <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span> <span class="nv">$GCR_URL</span>/<span class="nv">$imageName</span>
-  docker rmi <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim kubeadm.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 使用如下脚本下载国内镜像，并修改tag为google的tag</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">KUBE_VERSION</span><span class="o">=</span>v1.16.0
+</span></span><span class="line"><span class="cl"><span class="nv">KUBE_PAUSE_VERSION</span><span class="o">=</span>3.1
+</span></span><span class="line"><span class="cl"><span class="nv">ETCD_VERSION</span><span class="o">=</span>3.3.15-0
+</span></span><span class="line"><span class="cl"><span class="nv">CORE_DNS_VERSION</span><span class="o">=</span>1.6.2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">GCR_URL</span><span class="o">=</span>k8s.gcr.io
+</span></span><span class="line"><span class="cl"><span class="nv">ALIYUN_URL</span><span class="o">=</span>registry.cn-hangzhou.aliyuncs.com/google_containers
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">images</span><span class="o">=(</span>kube-proxy:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">kube-scheduler:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">kube-controller-manager:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">kube-apiserver:<span class="si">${</span><span class="nv">KUBE_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">pause:<span class="si">${</span><span class="nv">KUBE_PAUSE_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">etcd:<span class="si">${</span><span class="nv">ETCD_VERSION</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">coredns:<span class="si">${</span><span class="nv">CORE_DNS_VERSION</span><span class="si">}</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> imageName in <span class="si">${</span><span class="nv">images</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  docker pull <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">  docker tag  <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span> <span class="nv">$GCR_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">  docker rmi <span class="nv">$ALIYUN_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行脚本，拉取镜像</p>
 <div class="highlight"><div class="chroma">
@@ -518,8 +518,8 @@ coredns:<span class="si">${</span><span class="nv">CORE_DNS_VERSION</span><span 
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sh ./kubeadm.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sh ./kubeadm.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>master节点执行</p>
 <div class="highlight"><div class="chroma">
@@ -530,11 +530,11 @@ coredns:<span class="si">${</span><span class="nv">CORE_DNS_VERSION</span><span 
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo kubeadm init <span class="se">\
-</span><span class="se"></span> --apiserver-advertise-address 192.168.10.20 <span class="se">\
-</span><span class="se"></span> --kubernetes-version<span class="o">=</span>v1.16.0 <span class="se">\
-</span><span class="se"></span> --pod-network-cidr<span class="o">=</span>10.244.0.0/16
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo kubeadm init <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> --apiserver-advertise-address 192.168.10.20 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> --kubernetes-version<span class="o">=</span>v1.16.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> --pod-network-cidr<span class="o">=</span>10.244.0.0/16
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注：这里的pod-network-cidr，最好不要改动，和以下的步骤是关联的。</p>
@@ -556,19 +556,19 @@ coredns:<span class="si">${</span><span class="nv">CORE_DNS_VERSION</span><span 
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">...
-...
-
-mkdir -p <span class="nv">$HOME</span>/.kube
-sudo cp -i /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
-sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
-...
-
-<span class="c1">## 添加节点需要执行以下命令，可以使用命令 kubeadm token create --print-join-command 来获取 </span>
- 
-kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se">\
-</span><span class="se"></span>    --discovery-token-ca-cert-hash sha256:c3f92a6ed9149ead327342f48a545e7e127a455d5b338129feac85893d918a55 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/.kube
+</span></span><span class="line"><span class="cl">sudo cp -i /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
+</span></span><span class="line"><span class="cl">sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## 添加节点需要执行以下命令，可以使用命令 kubeadm token create --print-join-command 来获取 </span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --discovery-token-ca-cert-hash sha256:c3f92a6ed9149ead327342f48a545e7e127a455d5b338129feac85893d918a55 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果是要安装多个master节点，则初始化命令使用</p>
 <div class="highlight"><div class="chroma">
@@ -576,8 +576,8 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubeadm init  --apiserver-advertise-address 192.168.10.20 --control-plane-endpoint 192.168.10.20  --kubernetes-version<span class="o">=</span>v1.16.0  --pod-network-cidr<span class="o">=</span>10.244.0.0/16  --upload-certs
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm init  --apiserver-advertise-address 192.168.10.20 --control-plane-endpoint 192.168.10.20  --kubernetes-version<span class="o">=</span>v1.16.0  --pod-network-cidr<span class="o">=</span>10.244.0.0/16  --upload-certs
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加master节点使用命令:</p>
 <div class="highlight"><div class="chroma">
@@ -585,8 +585,8 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubeadm join 192.168.10.20:6443 --token z34zii.ur84appk8h9r3yik --discovery-token-ca-cert-hash sha256:dae426820f2c6073763a3697abeb14d8418c9268288e37b8fc25674153702801     --control-plane --certificate-key 1b9b0f1fdc0959a9decef7d812a2f606faf69ca44ca24d2e557b3ea81f415afe
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm join 192.168.10.20:6443 --token z34zii.ur84appk8h9r3yik --discovery-token-ca-cert-hash sha256:dae426820f2c6073763a3697abeb14d8418c9268288e37b8fc25674153702801     --control-plane --certificate-key 1b9b0f1fdc0959a9decef7d812a2f606faf69ca44ca24d2e557b3ea81f415afe
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注：这里的token会不同，不要直接复制。kubeadm init成功后会输出添加master节点的命令</p>
@@ -599,8 +599,8 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yum install -y kubeadm kubelet
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y kubeadm kubelet
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="添加节点">添加节点</h3>
 <p>三台节点都要运行，这里先忽略错误</p>
@@ -611,10 +611,10 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se">\
-</span><span class="se"></span>    --discovery-token-ca-cert-hash sha256:c3f92a6ed9149ead327342f48a545e7e127a455d5b338129feac85893d918a55 <span class="se">\
-</span><span class="se"></span>   --ignore-preflight-errors<span class="o">=</span>all 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --discovery-token-ca-cert-hash sha256:c3f92a6ed9149ead327342f48a545e7e127a455d5b338129feac85893d918a55 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --ignore-preflight-errors<span class="o">=</span>all 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果添加节点失败，或是想重新添加，可以使用命令</p>
 <div class="highlight"><div class="chroma">
@@ -622,8 +622,8 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubeadm reset
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm reset
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注：不要在轻易master上使用，它会删除所有kubeadm配置
@@ -638,12 +638,12 @@ kubeadm join 192.168.10.20:6443 --token lixsl8.v1auqmf91ty0xl0k <span class="se"
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl get nodes</span>
-NAME         STATUS     ROLES    AGE   VERSION
-k8s-master   NotReady   master   45m   v1.16.0
-k8s-node1    NotReady   &lt;none&gt;   26s   v1.16.0
-k8s-node2    NotReady   &lt;none&gt;   12s   v1.16.0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl get nodes</span>
+</span></span><span class="line"><span class="cl">NAME         STATUS     ROLES    AGE   VERSION
+</span></span><span class="line"><span class="cl">k8s-master   NotReady   master   45m   v1.16.0
+</span></span><span class="line"><span class="cl">k8s-node1    NotReady   &lt;none&gt;   26s   v1.16.0
+</span></span><span class="line"><span class="cl">k8s-node2    NotReady   &lt;none&gt;   12s   v1.16.0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>但节点的状态就是 <code>NotReady</code>，还需要一些操作</p>
 <h3 id="安装flanneld">安装flanneld</h3>
@@ -655,10 +655,10 @@ k8s-node2    NotReady   &lt;none&gt;   12s   v1.16.0
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p <span class="nv">$HOME</span>/.kube
-sudo cp -i /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
-sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/.kube
+</span></span><span class="line"><span class="cl">sudo cp -i /etc/kubernetes/admin.conf <span class="nv">$HOME</span>/.kube/config
+</span></span><span class="line"><span class="cl">sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k">$(</span>id -g<span class="k">)</span> <span class="nv">$HOME</span>/.kube/config
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>下载flannel配置文件</p>
 <div class="highlight"><div class="chroma">
@@ -666,8 +666,8 @@ sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>因为kube-flannel.yml文件中使用的镜像为quay.io的，国内无法拉取，所以同样的先从国内源上下载，再修改tag，脚本如下</p>
 <div class="highlight"><div class="chroma">
@@ -697,30 +697,30 @@ sudo chown <span class="k">$(</span>id -u<span class="k">)</span>:<span class="k
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># vim flanneld.sh</span>
-
-<span class="c1">#!/bin/bash</span>
-
-<span class="nb">set</span> -e
-
-<span class="nv">FLANNEL_VERSION</span><span class="o">=</span>v0.11.0
-
-<span class="c1"># 在这里修改源</span>
-<span class="nv">QUAY_URL</span><span class="o">=</span>quay.io/coreos
-<span class="nv">QINIU_URL</span><span class="o">=</span>quay-mirror.qiniu.com/coreos
-
-<span class="nv">images</span><span class="o">=(</span>flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-amd64
-flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-arm64
-flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-arm
-flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-ppc64le
-flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-s390x<span class="o">)</span>
-
-<span class="k">for</span> imageName in <span class="si">${</span><span class="nv">images</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
-  docker pull <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span>
-  docker tag  <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span> <span class="nv">$QUAY_URL</span>/<span class="nv">$imageName</span>
-  docker rmi <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim flanneld.sh</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#!/bin/bash</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">FLANNEL_VERSION</span><span class="o">=</span>v0.11.0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在这里修改源</span>
+</span></span><span class="line"><span class="cl"><span class="nv">QUAY_URL</span><span class="o">=</span>quay.io/coreos
+</span></span><span class="line"><span class="cl"><span class="nv">QINIU_URL</span><span class="o">=</span>quay-mirror.qiniu.com/coreos
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">images</span><span class="o">=(</span>flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-amd64
+</span></span><span class="line"><span class="cl">flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-arm64
+</span></span><span class="line"><span class="cl">flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-arm
+</span></span><span class="line"><span class="cl">flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-ppc64le
+</span></span><span class="line"><span class="cl">flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span class="si">}</span>-s390x<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> imageName in <span class="si">${</span><span class="nv">images</span><span class="p">[@]</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  docker pull <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">  docker tag  <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span> <span class="nv">$QUAY_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl">  docker rmi <span class="nv">$QINIU_URL</span>/<span class="nv">$imageName</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>运行脚本，这个脚本需要在每个节点上执行</p>
 <div class="highlight"><div class="chroma">
@@ -728,8 +728,8 @@ flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span c
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sh flanneld.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sh flanneld.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装flanneld</p>
 <div class="highlight"><div class="chroma">
@@ -737,8 +737,8 @@ flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span c
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl apply -f kube-flanneld.yaml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f kube-flanneld.yaml
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>flanneld默认安装在kube-system Namespace中，使用以下命令查看:</p>
 <div class="highlight"><div class="chroma">
@@ -760,22 +760,22 @@ flannel:<span class="si">${</span><span class="nv">FLANNEL_VERSION</span><span c
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># kubectl -n kube-system get pods</span>
-NAME                                 READY   STATUS         RESTARTS   AGE
-coredns-5644d7b6d9-h9bxt             0/1     Pending        <span class="m">0</span>          57m
-coredns-5644d7b6d9-pkhls             0/1     Pending        <span class="m">0</span>          57m
-etcd-k8s-master                      1/1     Running        <span class="m">0</span>          57m
-kube-apiserver-k8s-master            1/1     Running        <span class="m">0</span>          57m
-kube-controller-manager-k8s-master   1/1     Running        <span class="m">0</span>          57m
-kube-flannel-ds-amd64-c4hnf          1/1     Running        <span class="m">1</span>          38s
-kube-flannel-ds-amd64-djzmx          1/1     Running        <span class="m">0</span>          38s
-kube-flannel-ds-amd64-mdg8b          1/1     Running        <span class="m">1</span>          38s
-kube-flannel-ds-amd64-tjxql          0/1     Terminating    <span class="m">0</span>          5m34s
-kube-proxy-4n5dr                     0/1     ErrImagePull   <span class="m">0</span>          13m
-kube-proxy-dc68d                     1/1     Running        <span class="m">0</span>          57m
-kube-proxy-zplgt                     0/1     ErrImagePull   <span class="m">0</span>          13m
-kube-scheduler-k8s-master            1/1     Running        <span class="m">0</span>          57m
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kubectl -n kube-system get pods</span>
+</span></span><span class="line"><span class="cl">NAME                                 READY   STATUS         RESTARTS   AGE
+</span></span><span class="line"><span class="cl">coredns-5644d7b6d9-h9bxt             0/1     Pending        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">coredns-5644d7b6d9-pkhls             0/1     Pending        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">etcd-k8s-master                      1/1     Running        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">kube-apiserver-k8s-master            1/1     Running        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">kube-controller-manager-k8s-master   1/1     Running        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">kube-flannel-ds-amd64-c4hnf          1/1     Running        <span class="m">1</span>          38s
+</span></span><span class="line"><span class="cl">kube-flannel-ds-amd64-djzmx          1/1     Running        <span class="m">0</span>          38s
+</span></span><span class="line"><span class="cl">kube-flannel-ds-amd64-mdg8b          1/1     Running        <span class="m">1</span>          38s
+</span></span><span class="line"><span class="cl">kube-flannel-ds-amd64-tjxql          0/1     Terminating    <span class="m">0</span>          5m34s
+</span></span><span class="line"><span class="cl">kube-proxy-4n5dr                     0/1     ErrImagePull   <span class="m">0</span>          13m
+</span></span><span class="line"><span class="cl">kube-proxy-dc68d                     1/1     Running        <span class="m">0</span>          57m
+</span></span><span class="line"><span class="cl">kube-proxy-zplgt                     0/1     ErrImagePull   <span class="m">0</span>          13m
+</span></span><span class="line"><span class="cl">kube-scheduler-k8s-master            1/1     Running        <span class="m">0</span>          57m
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>出现错误，原因是两个工作节点不能拉取pause和kube-proxy镜像，可以直接从master上打包，在node上使用</p>
 <div class="highlight"><div class="chroma">
@@ -789,14 +789,14 @@ kube-scheduler-k8s-master            1/1     Running        <span class="m">0</s
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">## master上执行</span>
-docker save -o pause.tar k8s.gcr.io/pause:3.1
-docker save -o kube-proxy.tar k8s.gcr.io/kube-proxy
-
-<span class="c1">## node上执行</span>
-docker load -i pause.tar 
-docker load -i kube-proxy.tar 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## master上执行</span>
+</span></span><span class="line"><span class="cl">docker save -o pause.tar k8s.gcr.io/pause:3.1
+</span></span><span class="line"><span class="cl">docker save -o kube-proxy.tar k8s.gcr.io/kube-proxy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## node上执行</span>
+</span></span><span class="line"><span class="cl">docker load -i pause.tar 
+</span></span><span class="line"><span class="cl">docker load -i kube-proxy.tar 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重新安装flanneld</p>
 <div class="highlight"><div class="chroma">
@@ -805,9 +805,9 @@ docker load -i kube-proxy.tar
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"> kubectl delete -f kube-flannel.yml 
- kubectl create -f kube-flannel.yml 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> kubectl delete -f kube-flannel.yml 
+</span></span><span class="line"><span class="cl"> kubectl create -f kube-flannel.yml 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="修改kubelet">修改kubelet</h3>
 <p>使用kubeadm添加node后，节点一直处于<code>NotReady</code>状态，报错信息为：</p>
@@ -816,8 +816,8 @@ docker load -i kube-proxy.tar
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">runtime network not ready: <span class="nv">NetworkReady</span><span class="o">=</span><span class="nb">false</span> reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized Addresses:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">runtime network not ready: <span class="nv">NetworkReady</span><span class="o">=</span><span class="nb">false</span> reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized Addresses:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>解决方式是修改/var/lib/kubelet/kubeadm-flags.env文件，删除参数 <code>--network-plugin=cni</code></p>
 <div class="highlight"><div class="chroma">
@@ -829,12 +829,12 @@ docker load -i kube-proxy.tar
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF &gt; /var/lib/kubelet/kubeadm-flags.env
-</span><span class="s">KUBELET_KUBEADM_ARGS=&#34;--cgroup-driver=systemd --pod-infra-container-image=k8s.gcr.io/pause:3.1&#34;
-</span><span class="s">EOF</span>
-
-systemctl restart kubelet
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; /var/lib/kubelet/kubeadm-flags.env
+</span></span></span><span class="line"><span class="cl"><span class="s">KUBELET_KUBEADM_ARGS=&#34;--cgroup-driver=systemd --pod-infra-container-image=k8s.gcr.io/pause:3.1&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">systemctl restart kubelet
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -845,12 +845,12 @@ systemctl restart kubelet
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl get nodes</span>
-NAME         STATUS   ROLES    AGE   VERSION
-k8s-master   Ready    master   79m   v1.16.0
-k8s-node1    Ready    &lt;none&gt;   34m   v1.16.0
-k8s-node2    Ready    &lt;none&gt;   34m   v1.16.0
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@k8s-master ~<span class="o">]</span><span class="c1"># kubectl get nodes</span>
+</span></span><span class="line"><span class="cl">NAME         STATUS   ROLES    AGE   VERSION
+</span></span><span class="line"><span class="cl">k8s-master   Ready    master   79m   v1.16.0
+</span></span><span class="line"><span class="cl">k8s-node1    Ready    &lt;none&gt;   34m   v1.16.0
+</span></span><span class="line"><span class="cl">k8s-node2    Ready    &lt;none&gt;   34m   v1.16.0
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="错误解决">错误解决</h1>
 <p>关于错误<code>cni config uninitialized Addresses</code>，这里之前是直接删除参数<code>--network-plugin=cni</code>，但这样只能让节点状态修改为 ready，但是在Pod之间网络依然不可用。</p>
@@ -865,13 +865,13 @@ k8s-node2    Ready    &lt;none&gt;   34m   v1.16.0
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vim kube-flanneld.yaml
-
-<span class="o">{</span>
-      <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;cbr0&#34;</span>,
-      <span class="s2">&#34;cniVersion&#34;</span>: <span class="s2">&#34;0.3.1&#34;</span>,
-      ....
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim kube-flanneld.yaml
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;name&#34;</span>: <span class="s2">&#34;cbr0&#34;</span>,
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;cniVersion&#34;</span>: <span class="s2">&#34;0.3.1&#34;</span>,
+</span></span><span class="line"><span class="cl">      ....
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装flannel</p>
 <div class="highlight"><div class="chroma">
@@ -882,11 +882,11 @@ k8s-node2    Ready    &lt;none&gt;   34m   v1.16.0
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">## 如果之前安装了，先删除</span>
-<span class="c1">## kubectl delete -f kube-flannel.yaml</span>
-
-kubectl apply -f kube-flannel.yaml
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">## 如果之前安装了，先删除</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## kubectl delete -f kube-flannel.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl apply -f kube-flannel.yaml
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -920,7 +920,7 @@ kubectl apply -f kube-flannel.yaml
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -170,26 +170,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="需改启动类">需改启动类</h2>
 <div class="highlight"><div class="chroma">
@@ -209,20 +209,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="nd">@EnableDiscoveryClient</span>
-<span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.xingyys.hystrix.remote&#34;</span><span class="o">)</span>
-<span class="c1">// 添加以下注解
-</span><span class="c1"></span><span class="nd">@EnableHystrixDashboard</span>
-<span class="nd">@EnableCircuitBreaker</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixApplication</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">HystrixApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableDiscoveryClient</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.xingyys.hystrix.remote&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 添加以下注解
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@EnableHystrixDashboard</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableCircuitBreaker</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">HystrixApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改配置文件">修改配置文件</h2>
 <p>spring cloud 2.x版本和1.x版本不同,需要修改配置文件</p>
@@ -234,11 +234,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># ......
-# application.properties
-management.endpoints.web.exposure.include=hystrix.stream
-management.endpoints.web.base-path=/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># ......
+</span></span><span class="line"><span class="cl"># application.properties
+</span></span><span class="line"><span class="cl">management.endpoints.web.exposure.include=hystrix.stream
+</span></span><span class="line"><span class="cl">management.endpoints.web.base-path=/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试">测试</h2>
 <p>重新编译后开始测试
@@ -261,12 +261,12 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ping: 
-
-data: {...}
-
-data: {...}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ping: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">data: {...}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">data: {...}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>同时在<code>http://192.168.1.13:9002/hystrix</code>页面中检测<code>http://127.0.0.1:9002/hystrix.stream </code>,点击<code>monitor stream</code>跳转页面:
 <img
@@ -349,56 +349,56 @@ hystrix-dashboard显示的各项信息含义:
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    &lt;properties&gt;
-        &lt;java.version&gt;1.8&lt;/java.version&gt;
-        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-netflix-turbine&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    &lt;properties&gt;
+</span></span><span class="line"><span class="cl">        &lt;java.version&gt;1.8&lt;/java.version&gt;
+</span></span><span class="line"><span class="cl">        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
+</span></span><span class="line"><span class="cl">    &lt;/properties&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-netflix-turbine&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">            &lt;scope&gt;test&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencyManagement&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">            &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">                &lt;type&gt;pom&lt;/type&gt;
+</span></span><span class="line"><span class="cl">                &lt;scope&gt;import&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">            &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencyManagement&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置文件">配置文件</h2>
 <p>修改配置文件application.propertoes</p>
@@ -426,27 +426,27 @@ hystrix-dashboard显示的各项信息含义:
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.application.name=turbine
-
-server.port=8081
-# 配置Eureka中的serviceId列表，表明监控哪些服务
-
-turbine.app-config=node01,node02
-# 指定聚合哪些集群，多个使用”,”分割，默认为default。可使用http://.../turbine.stream?cluster={clusterConfig之一}访问
-
-turbine.aggregator.cluster-config=default
-# 1. clusterNameExpression指定集群名称，默认表达式appName；此时：turbine.aggregator.clusterConfig需要配置想要监控的应用名称；
-# 2. 当clusterNameExpression: default时，turbine.aggregator.clusterConfig可以不写，因为默认就是default；
-# 3. 当clusterNameExpression: metadata[‘cluster’]时，假设想要监控的应用配置了eureka.instance.metadata-map.cluster: ABC，
-# 则需要配置，同时turbine.aggregator.clusterConfig: ABC
-turbine.cluster-name-expression=new String(&#34;default&#34;)
-
-eureka.client.service-url.defaultZone=http://localhost:8000/eureka
-
-# spring cloud 2.x版本需要作的改动
-management.endpoints.web.exposure.include=turbine.stream
-management.endpoints.web.base-path=/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.application.name=turbine
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server.port=8081
+</span></span><span class="line"><span class="cl"># 配置Eureka中的serviceId列表，表明监控哪些服务
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">turbine.app-config=node01,node02
+</span></span><span class="line"><span class="cl"># 指定聚合哪些集群，多个使用”,”分割，默认为default。可使用http://.../turbine.stream?cluster={clusterConfig之一}访问
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">turbine.aggregator.cluster-config=default
+</span></span><span class="line"><span class="cl"># 1. clusterNameExpression指定集群名称，默认表达式appName；此时：turbine.aggregator.clusterConfig需要配置想要监控的应用名称；
+</span></span><span class="line"><span class="cl"># 2. 当clusterNameExpression: default时，turbine.aggregator.clusterConfig可以不写，因为默认就是default；
+</span></span><span class="line"><span class="cl"># 3. 当clusterNameExpression: metadata[‘cluster’]时，假设想要监控的应用配置了eureka.instance.metadata-map.cluster: ABC，
+</span></span><span class="line"><span class="cl"># 则需要配置，同时turbine.aggregator.clusterConfig: ABC
+</span></span><span class="line"><span class="cl">turbine.cluster-name-expression=new String(&#34;default&#34;)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eureka.client.service-url.defaultZone=http://localhost:8000/eureka
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># spring cloud 2.x版本需要作的改动
+</span></span><span class="line"><span class="cl">management.endpoints.web.exposure.include=turbine.stream
+</span></span><span class="line"><span class="cl">management.endpoints.web.base-path=/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="启动类">启动类</h2>
 <div class="highlight"><div class="chroma">
@@ -464,18 +464,18 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="nd">@EnableHystrixDashboard</span>
-<span class="c1">// 激活对turbine的支持
-</span><span class="c1"></span><span class="nd">@EnableTurbine</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TurbineApplication</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">TurbineApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableHystrixDashboard</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 激活对turbine的支持
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@EnableTurbine</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TurbineApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">TurbineApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试-1">测试</h2>
 <p>开始测试前,需要对<code>hystrix</code>应用做修改,添加两个配置文件<code>application-node01.properites</code>和<code>application-node02.properties</code>.</p>
@@ -494,17 +494,17 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.application.name=node01
-
-server.port=9003
-# 其他和consumer相同,主要是hystrix的配置
-feign.hystrix.enabled=true
-
-eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
-
-management.endpoints.web.exposure.include=hystrix.stream
-management.endpoints.web.base-path=/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.application.name=node01
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server.port=9003
+</span></span><span class="line"><span class="cl"># 其他和consumer相同,主要是hystrix的配置
+</span></span><span class="line"><span class="cl">feign.hystrix.enabled=true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">management.endpoints.web.exposure.include=hystrix.stream
+</span></span><span class="line"><span class="cl">management.endpoints.web.base-path=/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="application-node02properites">application-node02.properites</h2>
 <div class="highlight"><div class="chroma">
@@ -521,17 +521,17 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.application.name=node02
-
-server.port=9004
-# 其他和consumer相同,主要是hystrix的配置
-feign.hystrix.enabled=true
-
-eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
-
-management.endpoints.web.exposure.include=hystrix.stream
-management.endpoints.web.base-path=/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.application.name=node02
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server.port=9004
+</span></span><span class="line"><span class="cl"># 其他和consumer相同,主要是hystrix的配置
+</span></span><span class="line"><span class="cl">feign.hystrix.enabled=true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">management.endpoints.web.exposure.include=hystrix.stream
+</span></span><span class="line"><span class="cl">management.endpoints.web.base-path=/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hystrix启动类">hystrix启动类</h2>
 <div class="highlight"><div class="chroma">
@@ -560,29 +560,29 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="nd">@EnableDiscoveryClient</span>
-<span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.xingyys.hystrix.remote&#34;</span><span class="o">)</span>
-<span class="nd">@EnableHystrixDashboard</span>
-<span class="nd">@EnableCircuitBreaker</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixApplication</span> <span class="o">{</span>
-    <span class="c1">// spring cloud 2.x需要自己指定
-</span><span class="c1"></span>    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;HystrixMetricsStreamServlet&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ServletRegistrationBean</span> <span class="nf">getServlet</span><span class="o">(){</span>
-        <span class="n">HystrixMetricsStreamServlet</span> <span class="n">streamServlet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HystrixMetricsStreamServlet</span><span class="o">();</span>
-        <span class="n">ServletRegistrationBean</span> <span class="n">registrationBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServletRegistrationBean</span><span class="o">(</span><span class="n">streamServlet</span><span class="o">);</span>
-        <span class="n">registrationBean</span><span class="o">.</span><span class="na">setLoadOnStartup</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-        <span class="n">registrationBean</span><span class="o">.</span><span class="na">addUrlMappings</span><span class="o">(</span><span class="s">&#34;/actuator/hystrix.stream&#34;</span><span class="o">);</span>
-        <span class="n">registrationBean</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;HystrixMetricsStreamServlet&#34;</span><span class="o">);</span>
-        <span class="k">return</span> <span class="n">registrationBean</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">HystrixApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableDiscoveryClient</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.xingyys.hystrix.remote&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableHystrixDashboard</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableCircuitBreaker</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// spring cloud 2.x需要自己指定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;HystrixMetricsStreamServlet&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ServletRegistrationBean</span> <span class="nf">getServlet</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">HystrixMetricsStreamServlet</span> <span class="n">streamServlet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HystrixMetricsStreamServlet</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ServletRegistrationBean</span> <span class="n">registrationBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServletRegistrationBean</span><span class="o">(</span><span class="n">streamServlet</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registrationBean</span><span class="o">.</span><span class="na">setLoadOnStartup</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registrationBean</span><span class="o">.</span><span class="na">addUrlMappings</span><span class="o">(</span><span class="s">&#34;/actuator/hystrix.stream&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">registrationBean</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;HystrixMetricsStreamServlet&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">registrationBean</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">HystrixApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以此启动应用:</p>
 <div class="highlight"><div class="chroma">
@@ -593,11 +593,11 @@ management.endpoints.web.base-path=/
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">java -jar target/discovery-0.0.1-SNAPSHOT.jar
-java -jar target/hystrix-0.0.1-SNAPSHOT.jar --spring.profiles.active<span class="o">=</span>node01
-java -jar target/hystrix-0.0.1-SNAPSHOT.jar --spring.profiles.active<span class="o">=</span>node02
-java -jar target/turbine-0.0.1-SNAPSHOT.jar
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -jar target/discovery-0.0.1-SNAPSHOT.jar
+</span></span><span class="line"><span class="cl">java -jar target/hystrix-0.0.1-SNAPSHOT.jar --spring.profiles.active<span class="o">=</span>node01
+</span></span><span class="line"><span class="cl">java -jar target/hystrix-0.0.1-SNAPSHOT.jar --spring.profiles.active<span class="o">=</span>node02
+</span></span><span class="line"><span class="cl">java -jar target/turbine-0.0.1-SNAPSHOT.jar
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://127.0.0.1:8081/turbine.stream</code>,返回</p>
 <div class="highlight"><div class="chroma">
@@ -607,10 +607,10 @@ java -jar target/turbine-0.0.1-SNAPSHOT.jar
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">: ping
-
-: ping
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">: ping
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">: ping
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>访问<code>http://127.0.0.1:8081/hystrix</code>并填写表单,出现以下页面:
 <img
@@ -656,7 +656,7 @@ java -jar target/turbine-0.0.1-SNAPSHOT.jar
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

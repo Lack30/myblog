@@ -4,9 +4,16 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Mar 2022 10:13:28 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Mar 2022 17:24:13 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Lvs 负载均衡实战</title>
+    <link>http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/</link>
+    <pubDate>Wed, 23 Mar 2022 17:24:13 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/</guid>
+    <description><![CDATA[由于在项目中有负载均衡需求，所以就想到几年前学过的 lvs。本文记录下 lvs 在 linux 和 windows 两个平台下部署方式。 lvs 简介 Linux Virtual Server 项目的目标 ：使用集群技术和 Linux 操]]></description>
+</item><item>
     <title>下载oreilly电子书</title>
     <link>http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/</link>
     <pubDate>Tue, 08 Mar 2022 10:13:28 &#43;0800</pubDate>
@@ -71,14 +78,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</guid>
     <description><![CDATA[内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管]]></description>
-</item><item>
-    <title>tokio 高级用法</title>
-    <link>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
-    <pubDate>Tue, 14 Sep 2021 13:03:07 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/tokio%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
-            </div>上一篇了解了 tokio 的基本用法，接下来我们继续深入 tokio 的详细用法。 深入 async rust 从 1.36 版本开始引入 async/await 作为支持异步相关的关键字。其内部是实现了 std::future::Future 这个特性。 Future std::future::Future]]></description>
 </item></channel>
 </rss>

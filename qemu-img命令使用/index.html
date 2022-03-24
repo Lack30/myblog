@@ -156,10 +156,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img check -f qcow2 sdb.qcow2</span>
-No errors were found on the image.
-Image end offset: <span class="m">524288</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img check -f qcow2 sdb.qcow2</span>
+</span></span><span class="line"><span class="cl">No errors were found on the image.
+</span></span><span class="line"><span class="cl">Image end offset: <span class="m">524288</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="create">create</h2>
 <p>语法: <code>create [-f fmt] [-o options] filename [size]</code></p>
@@ -176,13 +176,13 @@ Image end offset: <span class="m">524288</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img create -f qcow2 -o backing_file=sdb.qcow2 sdc.qcow2 10G</span>
-qemu-img: warning: Deprecated use of backing file without explicit backing format <span class="o">(</span>detected format of qcow2<span class="o">)</span>
-Formatting <span class="s1">&#39;sdc.qcow2&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>qcow2 <span class="nv">cluster_size</span><span class="o">=</span><span class="m">65536</span> <span class="nv">extended_l2</span><span class="o">=</span>off <span class="nv">compression_type</span><span class="o">=</span>zlib <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span> <span class="nv">backing_file</span><span class="o">=</span>sdb.qcow2 <span class="nv">backing_fmt</span><span class="o">=</span>qcow2 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span><span class="m">16</span>
-
-<span class="c1"># qemu-img create -f raw sdd.raw 10G</span>
-Formatting <span class="s1">&#39;sdd.raw&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>raw <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img create -f qcow2 -o backing_file=sdb.qcow2 sdc.qcow2 10G</span>
+</span></span><span class="line"><span class="cl">qemu-img: warning: Deprecated use of backing file without explicit backing format <span class="o">(</span>detected format of qcow2<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Formatting <span class="s1">&#39;sdc.qcow2&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>qcow2 <span class="nv">cluster_size</span><span class="o">=</span><span class="m">65536</span> <span class="nv">extended_l2</span><span class="o">=</span>off <span class="nv">compression_type</span><span class="o">=</span>zlib <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span> <span class="nv">backing_file</span><span class="o">=</span>sdb.qcow2 <span class="nv">backing_fmt</span><span class="o">=</span>qcow2 <span class="nv">lazy_refcounts</span><span class="o">=</span>off <span class="nv">refcount_bits</span><span class="o">=</span><span class="m">16</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img create -f raw sdd.raw 10G</span>
+</span></span><span class="line"><span class="cl">Formatting <span class="s1">&#39;sdd.raw&#39;</span>, <span class="nv">fmt</span><span class="o">=</span>raw <span class="nv">size</span><span class="o">=</span><span class="m">10737418240</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="commit">commit</h2>
 <p>语法: <code>[-f fmt] [-t cache] filename</code></p>
@@ -193,9 +193,9 @@ Formatting <span class="s1">&#39;sdd.raw&#39;</span>, <span class="nv">fmt</span
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img commit sdc.qcow2</span>
-Image committed.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img commit sdc.qcow2</span>
+</span></span><span class="line"><span class="cl">Image committed.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="convert">convert</h2>
 <p>语法: <code>convert [-c] [-p] [-f fmt] [-t cache] [-O output_fmt] [-o options] [-s snapshot_name] [-S sparse_size] filename [filename2 [...]] output_filename</code></p>
@@ -211,12 +211,12 @@ Image committed.
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img convert -p -f qcow2 -O raw sdc.qcow2 sdc.raw</span>
-    <span class="o">(</span>100.00/100%<span class="o">)</span>
-
-<span class="c1"># qemu-img convert -c -p -f raw -O qcow2 sdc.raw sdcc.qcow2</span>
-    <span class="o">(</span>100.00/100%<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img convert -p -f qcow2 -O raw sdc.qcow2 sdc.raw</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>100.00/100%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img convert -c -p -f raw -O qcow2 sdc.raw sdcc.qcow2</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>100.00/100%<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="info">info</h2>
 <p>语法: <code>[-f fmt] filename</code></p>
@@ -240,22 +240,22 @@ Image committed.
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img info sdc.qcow2</span>
-image: sdc.qcow2
-file format: qcow2
-virtual size: <span class="m">10</span> GiB <span class="o">(</span><span class="m">10737418240</span> bytes<span class="o">)</span>
-disk size: <span class="m">256</span> KiB
-cluster_size: <span class="m">65536</span>
-backing file: sdb.qcow2
-backing file format: qcow2
-Format specific information:
-    compat: 1.1
-    compression type: zlib
-    lazy refcounts: <span class="nb">false</span>
-    refcount bits: <span class="m">16</span>
-    corrupt: <span class="nb">false</span>
-    extended l2: <span class="nb">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img info sdc.qcow2</span>
+</span></span><span class="line"><span class="cl">image: sdc.qcow2
+</span></span><span class="line"><span class="cl">file format: qcow2
+</span></span><span class="line"><span class="cl">virtual size: <span class="m">10</span> GiB <span class="o">(</span><span class="m">10737418240</span> bytes<span class="o">)</span>
+</span></span><span class="line"><span class="cl">disk size: <span class="m">256</span> KiB
+</span></span><span class="line"><span class="cl">cluster_size: <span class="m">65536</span>
+</span></span><span class="line"><span class="cl">backing file: sdb.qcow2
+</span></span><span class="line"><span class="cl">backing file format: qcow2
+</span></span><span class="line"><span class="cl">Format specific information:
+</span></span><span class="line"><span class="cl">    compat: 1.1
+</span></span><span class="line"><span class="cl">    compression type: zlib
+</span></span><span class="line"><span class="cl">    lazy refcounts: <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">    refcount bits: <span class="m">16</span>
+</span></span><span class="line"><span class="cl">    corrupt: <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">    extended l2: <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="snapshot">snapshot</h2>
 <p>语法: <code>snapshot [-l | -a snapshot | -c snapshot | -d snapshot] filename</code></p>
@@ -292,30 +292,30 @@ Format specific information:
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
-Snapshot list:
-ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
-<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
-<span class="c1"># qemu-img snapshot -c sdb-ss2 sdb.qcow2</span>
-<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
-Snapshot list:
-ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
-<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
-<span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
-<span class="c1"># qemu-img snapshot -c sdb-ss3 sdb.qcow2</span>
-<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
-Snapshot list:
-ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
-<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
-<span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
-<span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
-<span class="c1"># qemu-img snapshot -d sdb-ss2 sdb.qcow2</span>
-<span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
-Snapshot list:
-ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
-<span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
-<span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+</span></span><span class="line"><span class="cl">Snapshot list:
+</span></span><span class="line"><span class="cl">ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+</span></span><span class="line"><span class="cl"><span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -c sdb-ss2 sdb.qcow2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+</span></span><span class="line"><span class="cl">Snapshot list:
+</span></span><span class="line"><span class="cl">ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+</span></span><span class="line"><span class="cl"><span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -c sdb-ss3 sdb.qcow2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+</span></span><span class="line"><span class="cl">Snapshot list:
+</span></span><span class="line"><span class="cl">ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+</span></span><span class="line"><span class="cl"><span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="m">2</span>         sdb-ss2               <span class="m">0</span> B 2021-01-17 09:15:11 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -d sdb-ss2 sdb.qcow2</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># qemu-img snapshot -l sdb.qcow2</span>
+</span></span><span class="line"><span class="cl">Snapshot list:
+</span></span><span class="line"><span class="cl">ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
+</span></span><span class="line"><span class="cl"><span class="m">1</span>         sdb-ss1               <span class="m">0</span> B 2021-01-17 09:14:46 00:00:00.000          <span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="m">3</span>         sdb-ss3               <span class="m">0</span> B 2021-01-17 09:15:21 00:00:00.000          <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="rebase">rebase</h2>
 <p>语法: <code>rebase [-f fmt] [-t cache] [-p] [-u] -b backing_file [-F backing_fmt] filename</code></p>
@@ -328,10 +328,10 @@ ID        TAG               VM SIZE                DATE     VM CLOCK     ICOUNT
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img rebase -f qcow2 -p -b sdc.qcow2 sdd.qcow2</span>
-qemu-img: warning: Deprecated use of backing file without explicit backing format, use of this image requires potentially unsafe format probing
-    <span class="o">(</span>100.00/100%<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img rebase -f qcow2 -p -b sdc.qcow2 sdd.qcow2</span>
+</span></span><span class="line"><span class="cl">qemu-img: warning: Deprecated use of backing file without explicit backing format, use of this image requires potentially unsafe format probing
+</span></span><span class="line"><span class="cl">    <span class="o">(</span>100.00/100%<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="resize">resize</h2>
 <p>语法: <code>resize filename [+ | -]size</code></p>
@@ -342,9 +342,9 @@ qemu-img: warning: Deprecated use of backing file without explicit backing forma
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># qemu-img resize sdd.qcow2 +2G</span>
-Image resized.
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># qemu-img resize sdd.qcow2 +2G</span>
+</span></span><span class="line"><span class="cl">Image resized.
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="qemu-img-支持格式">qemu-img 支​持​格​式​</h1>
 <h2 id="raw">raw</h2>
@@ -391,7 +391,7 @@ Image resized.
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

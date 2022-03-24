@@ -216,51 +216,51 @@
 </span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;properties&gt;
-        &lt;java.version&gt;1.8&lt;/java.version&gt;
-        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;properties&gt;
+</span></span><span class="line"><span class="cl">        &lt;java.version&gt;1.8&lt;/java.version&gt;
+</span></span><span class="line"><span class="cl">        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
+</span></span><span class="line"><span class="cl">    &lt;/properties&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">            &lt;scope&gt;test&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencyManagement&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">            &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">                &lt;type&gt;pom&lt;/type&gt;
+</span></span><span class="line"><span class="cl">                &lt;scope&gt;import&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">            &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencyManagement&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置文件">配置文件</h2>
 <p>修改配置文件 application.properties</p>
@@ -275,14 +275,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.application.name=hystrix
-
-server.port=9002
-# 其他和consumer相同,主要是hystrix的配置
-feign.hystrix.enabled=true
-
-eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.application.name=hystrix
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">server.port=9002
+</span></span><span class="line"><span class="cl"># 其他和consumer相同,主要是hystrix的配置
+</span></span><span class="line"><span class="cl">feign.hystrix.enabled=true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="远程调用">远程调用</h2>
 <div class="highlight"><div class="chroma">
@@ -296,14 +296,14 @@ eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// com/xingyys/hystrix/remote/HelloRemote.java
-</span><span class="c1">// 指定fallback属性
-</span><span class="c1"></span><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;producer&#34;</span><span class="o">,</span> <span class="n">fallback</span> <span class="o">=</span> <span class="n">HelloRemoteHystrix</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloRemote</span> <span class="o">{</span>
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;name&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// com/xingyys/hystrix/remote/HelloRemote.java
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 指定fallback属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;producer&#34;</span><span class="o">,</span> <span class="n">fallback</span> <span class="o">=</span> <span class="n">HelloRemoteHystrix</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HelloRemote</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;name&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hystrix熔断器">hystrix熔断器</h2>
 <div class="highlight"><div class="chroma">
@@ -318,15 +318,15 @@ eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// com/xingyys/hystrix/remote/HelloRemoteHystrix
-</span><span class="c1"></span><span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloRemoteHystrix</span> <span class="kd">implements</span> <span class="n">HelloRemote</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="s">&#34;hello &#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34; failed!&#34;</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// com/xingyys/hystrix/remote/HelloRemoteHystrix
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloRemoteHystrix</span> <span class="kd">implements</span> <span class="n">HelloRemote</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;hello &#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34; failed!&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="控制器">控制器</h2>
 <div class="highlight"><div class="chroma">
@@ -346,20 +346,20 @@ eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// com/xingyys/hystrix/controller/HystrixController.java
-</span><span class="c1"></span><span class="nd">@RestController</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixController</span> <span class="o">{</span>
-
-    <span class="c1">// @Autowired 也可以, 因为idea的问题, 会显示红色
-</span><span class="c1"></span>    <span class="nd">@Resource</span>
-    <span class="n">HelloRemote</span> <span class="n">helloRemote</span><span class="o">;</span>
-
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello/{name}&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">helloRemote</span><span class="o">.</span><span class="na">hello</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// com/xingyys/hystrix/controller/HystrixController.java
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HystrixController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// @Autowired 也可以, 因为idea的问题, 会显示红色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Resource</span>
+</span></span><span class="line"><span class="cl">    <span class="n">HelloRemote</span> <span class="n">helloRemote</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello/{name}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">helloRemote</span><span class="o">.</span><span class="na">hello</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="启动类">启动类</h2>
 <div class="highlight"><div class="chroma">
@@ -376,17 +376,17 @@ eureka.client.service-url.defaultZone=http://localhost:8000/eureka/
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@SpringBootApplication
-@EnableDiscoveryClient
-@EnableFeignClients(basePackages = &#34;com.xingyys.hystrix.remote&#34;)
-public class HystrixApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(HystrixApplication.class, args);
-    }
-
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@SpringBootApplication
+</span></span><span class="line"><span class="cl">@EnableDiscoveryClient
+</span></span><span class="line"><span class="cl">@EnableFeignClients(basePackages = &#34;com.xingyys.hystrix.remote&#34;)
+</span></span><span class="line"><span class="cl">public class HystrixApplication {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void main(String[] args) {
+</span></span><span class="line"><span class="cl">        SpringApplication.run(HystrixApplication.class, args);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="编译打包启动">编译,打包,启动</h2>
 <div class="highlight"><div class="chroma">
@@ -396,10 +396,10 @@ public class HystrixApplication {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> hystrix
-mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span>
-java -jar target/hystrix-0.0.1-SNAPSHOT.jar
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> hystrix
+</span></span><span class="line"><span class="cl">mvn clean package -Dmaven.test.skip<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">java -jar target/hystrix-0.0.1-SNAPSHOT.jar
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="测试">测试</h1>
 <p>依次启动discovery,producer,consumer和hystrix
@@ -439,7 +439,7 @@ java -jar target/hystrix-0.0.1-SNAPSHOT.jar
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

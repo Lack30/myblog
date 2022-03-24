@@ -183,13 +183,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 提交时转换为LF，检出时转换为CRLF</span>
-git config --global core.autocrlf <span class="nb">true</span>
-<span class="c1"># 提交时转换为LF，检出时不转换</span>
-git config --global core.autocrlf input
-<span class="c1"># 提交检出均不转换</span>
-git config --global core.autocrlf <span class="nb">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 提交时转换为LF，检出时转换为CRLF</span>
+</span></span><span class="line"><span class="cl">git config --global core.autocrlf <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交时转换为LF，检出时不转换</span>
+</span></span><span class="line"><span class="cl">git config --global core.autocrlf input
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交检出均不转换</span>
+</span></span><span class="line"><span class="cl">git config --global core.autocrlf <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果把 autocrlf 设置为 false 时，那另一个配置项 safecrlf 最好设置为 ture。该选项用于检查文件是否包含混合换行符，其有三个可选项：</p>
 <ul>
@@ -208,13 +208,13 @@ git config --global core.autocrlf <span class="nb">false</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 拒绝提交包含混合换行符的文件</span>
-git config --global core.safecrlf <span class="nb">true</span>
-<span class="c1"># 允许提交包含混合换行符的文件</span>
-git config --global core.safecrlf <span class="nb">false</span>
-<span class="c1"># 提交包含混合换行符的文件时给出警告</span>
-git config --global core.safecrlf warn
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 拒绝提交包含混合换行符的文件</span>
+</span></span><span class="line"><span class="cl">git config --global core.safecrlf <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 允许提交包含混合换行符的文件</span>
+</span></span><span class="line"><span class="cl">git config --global core.safecrlf <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交包含混合换行符的文件时给出警告</span>
+</span></span><span class="line"><span class="cl">git config --global core.safecrlf warn
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>为了防止混乱，直接使用以下配置。</p>
 <div class="highlight"><div class="chroma">
@@ -223,9 +223,9 @@ git config --global core.safecrlf warn
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git config --global core.autocrlf <span class="nb">false</span>
-$ git config --global core.safecrlf <span class="nb">false</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git config --global core.autocrlf <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">$ git config --global core.safecrlf <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>以上配置需要注意: *.bat、*.ps 的换行修改为 CRLF；*.sh 文件修改为 LF，其他的所有文件统一为 LF。</code> </p>
 </div><div class="post-footer" id="post-footer">
@@ -260,7 +260,7 @@ $ git config --global core.safecrlf <span class="nb">false</span>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

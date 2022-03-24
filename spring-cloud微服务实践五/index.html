@@ -199,10 +199,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">neo-config-dev.properties
-neo-config-pro.properties
-neo-config-test.properties
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">neo-config-dev.properties
+</span></span><span class="line"><span class="cl">neo-config-pro.properties
+</span></span><span class="line"><span class="cl">neo-config-test.properties
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>里面的配置分别为neo.hello=hello in dev/pro/test
 并将目录保存到gitlee/github上.</p>
@@ -245,36 +245,36 @@ neo-config-test.properties
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;properties&gt;
-        &lt;java.version&gt;1.8&lt;/java.version&gt;
-        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;properties&gt;
+</span></span><span class="line"><span class="cl">        &lt;java.version&gt;1.8&lt;/java.version&gt;
+</span></span><span class="line"><span class="cl">        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
+</span></span><span class="line"><span class="cl">    &lt;/properties&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">            &lt;scope&gt;test&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencyManagement&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">            &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">                &lt;type&gt;pom&lt;/type&gt;
+</span></span><span class="line"><span class="cl">                &lt;scope&gt;import&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">            &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencyManagement&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置文件">配置文件</h3>
 <div class="highlight"><div class="chroma">
@@ -297,23 +297,23 @@ neo-config-test.properties
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server:
-  port: 8001
-spring:
-  application:
-    name: config-server
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://gitee.com/xingyys/config-repo
-           # 配置文件保存的目录,用,分隔
-          search-paths: config-repo
-          username: username
-          password: password
-         # 忽略ssl, 或者自行配置秘钥
-          skip-ssl-validation: true
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  port: 8001
+</span></span><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  application:
+</span></span><span class="line"><span class="cl">    name: config-server
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    config:
+</span></span><span class="line"><span class="cl">      server:
+</span></span><span class="line"><span class="cl">        git:
+</span></span><span class="line"><span class="cl">          uri: https://gitee.com/xingyys/config-repo
+</span></span><span class="line"><span class="cl">           # 配置文件保存的目录,用,分隔
+</span></span><span class="line"><span class="cl">          search-paths: config-repo
+</span></span><span class="line"><span class="cl">          username: username
+</span></span><span class="line"><span class="cl">          password: password
+</span></span><span class="line"><span class="cl">         # 忽略ssl, 或者自行配置秘钥
+</span></span><span class="line"><span class="cl">          skip-ssl-validation: true
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Spring Cloud Config也提供本地存储配置的方式。我们只需要设置属性<code>spring.profiles.active=native</code>，Config Server会默认从应用的<code>src/main/resource</code>目录下检索配置文件。也可以通过<code>spring.cloud.config.server.native.searchLocations=file:E:/properties/</code>属性来指定配置文件的位置。虽然Spring Cloud Config提供了这样的功能，但是为了支持更好的管理内容和版本控制的功能，还是推荐使用git的方式。</p>
 <h3 id="启动类">启动类</h3>
@@ -331,16 +331,16 @@ spring:
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="nd">@EnableConfigServer</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigServerApplication</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ConfigServerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableConfigServer</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigServerApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ConfigServerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="测试">测试</h3>
 <p>直接编译打包就可以测试了,直接访问<code>http://localhost:8001/neo-config/dev</code>返回:</p>
@@ -365,24 +365,24 @@ spring:
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{
-    &#34;name&#34;: &#34;neo-config&#34;, 
-    &#34;profiles&#34;: [
-        &#34;dev&#34;
-    ], 
-    &#34;label&#34;: null, 
-    &#34;version&#34;: null, 
-    &#34;state&#34;: null, 
-    &#34;propertySources&#34;: [
-        {
-            &#34;name&#34;: &#34;https://gitee.com/xingyys/config-repo/config-repo/neo-config-dev.properties&#34;, 
-            &#34;source&#34;: {
-                &#34;neo.hello&#34;: &#34;hello im dev&#34;
-            }
-        }
-    ]
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">    &#34;name&#34;: &#34;neo-config&#34;, 
+</span></span><span class="line"><span class="cl">    &#34;profiles&#34;: [
+</span></span><span class="line"><span class="cl">        &#34;dev&#34;
+</span></span><span class="line"><span class="cl">    ], 
+</span></span><span class="line"><span class="cl">    &#34;label&#34;: null, 
+</span></span><span class="line"><span class="cl">    &#34;version&#34;: null, 
+</span></span><span class="line"><span class="cl">    &#34;state&#34;: null, 
+</span></span><span class="line"><span class="cl">    &#34;propertySources&#34;: [
+</span></span><span class="line"><span class="cl">        {
+</span></span><span class="line"><span class="cl">            &#34;name&#34;: &#34;https://gitee.com/xingyys/config-repo/config-repo/neo-config-dev.properties&#34;, 
+</span></span><span class="line"><span class="cl">            &#34;source&#34;: {
+</span></span><span class="line"><span class="cl">                &#34;neo.hello&#34;: &#34;hello im dev&#34;
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    ]
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述的返回的信息包含了配置文件的位置、版本、配置文件的名称以及配置文件中的具体内容，说明server端已经成功获取了git仓库的配置信息。</p>
 <p>仓库中的配置文件会被转换成web接口，访问可以参照以下的规则：</p>
@@ -435,41 +435,41 @@ spring:
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    &lt;properties&gt;
-        &lt;java.version&gt;1.8&lt;/java.version&gt;
-        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    &lt;properties&gt;
+</span></span><span class="line"><span class="cl">        &lt;java.version&gt;1.8&lt;/java.version&gt;
+</span></span><span class="line"><span class="cl">        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
+</span></span><span class="line"><span class="cl">    &lt;/properties&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">            &lt;scope&gt;test&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencyManagement&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">            &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">                &lt;type&gt;pom&lt;/type&gt;
+</span></span><span class="line"><span class="cl">                &lt;scope&gt;import&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">            &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencyManagement&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置文件-1">配置文件</h3>
 <p>config client的配置文件为 bootstrap.properties</p>
@@ -484,14 +484,14 @@ spring:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.cloud.config.name=neo-config
-spring.cloud.config.profile=dev
-spring.cloud.config.uri=http://localhost:8001/
-spring.cloud.config.label=master
-
-spring.application.name=config-client
-server.port=8002
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.cloud.config.name=neo-config
+</span></span><span class="line"><span class="cl">spring.cloud.config.profile=dev
+</span></span><span class="line"><span class="cl">spring.cloud.config.uri=http://localhost:8001/
+</span></span><span class="line"><span class="cl">spring.cloud.config.label=master
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">spring.application.name=config-client
+</span></span><span class="line"><span class="cl">server.port=8002
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>spring.application.name：对应{application}部分</li>
@@ -516,15 +516,15 @@ server.port=8002
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigClientApplication</span> <span class="o">{</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ConfigClientApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigClientApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ConfigClientApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="接口类">接口类</h3>
 <div class="highlight"><div class="chroma">
@@ -541,17 +541,17 @@ server.port=8002
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
-    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${neo.hello}&#34;</span><span class="o">)</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">hello</span><span class="o">;</span>
-
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">from</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">hello</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestController</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Value</span><span class="o">(</span><span class="s">&#34;${neo.hello}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">hello</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">from</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">hello</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="测试-1">测试</h3>
 <p>编译启动config client, 访问<code>http://192.168.1.13:8002/hello</code>返回: <code>hello im dev</code> 配置成功!</p>
@@ -571,13 +571,13 @@ server.port=8002
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="修改配置文件">修改配置文件</h3>
 <div class="highlight"><div class="chroma">
@@ -590,13 +590,13 @@ server.port=8002
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8000/eureka/
-...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">eureka:
+</span></span><span class="line"><span class="cl">  client:
+</span></span><span class="line"><span class="cl">    service-url:
+</span></span><span class="line"><span class="cl">      defaultZone: http://localhost:8000/eureka/
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="启动类-2">启动类</h3>
 <p>添加注解<code>@EnableDiscoveryClient</code>:</p>
@@ -614,17 +614,17 @@ eureka:
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@SpringBootApplication
-@EnableConfigServer
-@EnableDiscoveryClient
-public class ConfigServerApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ConfigServerApplication.class, args);
-    }
-
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@SpringBootApplication
+</span></span><span class="line"><span class="cl">@EnableConfigServer
+</span></span><span class="line"><span class="cl">@EnableDiscoveryClient
+</span></span><span class="line"><span class="cl">public class ConfigServerApplication {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void main(String[] args) {
+</span></span><span class="line"><span class="cl">        SpringApplication.run(ConfigServerApplication.class, args);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>记得重新编译,启动</p>
@@ -641,13 +641,13 @@ public class ConfigServerApplication {
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="修改配置文件-1">修改配置文件</h2>
 <p>同样是 bootstrap.properties</p>
@@ -665,17 +665,17 @@ public class ConfigServerApplication {
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring.cloud.config.name=neo-config
-spring.cloud.config.profile=dev
-spring.cloud.config.label=master
-spring.cloud.config.discovery.enabled=true
-spring.cloud.config.discovery.serviceId=config-server
-
-eureka.client.serviceUrl.defaultZone=http://localhost:8000/eureka/
-
-spring.application.name=config-client
-server.port=8002
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring.cloud.config.name=neo-config
+</span></span><span class="line"><span class="cl">spring.cloud.config.profile=dev
+</span></span><span class="line"><span class="cl">spring.cloud.config.label=master
+</span></span><span class="line"><span class="cl">spring.cloud.config.discovery.enabled=true
+</span></span><span class="line"><span class="cl">spring.cloud.config.discovery.serviceId=config-server
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">eureka.client.serviceUrl.defaultZone=http://localhost:8000/eureka/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">spring.application.name=config-client
+</span></span><span class="line"><span class="cl">server.port=8002
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>主要是去掉了spring.cloud.config.uri直接指向server端地址的配置，增加了最后的三个配置：</p>
 <ul>
@@ -697,16 +697,16 @@ server.port=8002
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@SpringBootApplication
-@EnableDiscoveryClient
-public class ConfigClientApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(ConfigClientApplication.class, args);
-    }
-
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@SpringBootApplication
+</span></span><span class="line"><span class="cl">@EnableDiscoveryClient
+</span></span><span class="line"><span class="cl">public class ConfigClientApplication {
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    public static void main(String[] args) {
+</span></span><span class="line"><span class="cl">        SpringApplication.run(ConfigClientApplication.class, args);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="测试-2">测试</h2>
 <p>一次启动 discovery, config-server和config-client, 访问<code>http://127.0.0.1:8000/</code>
@@ -733,11 +733,11 @@ spring cloud中可以和rabbitmq结合实现.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 拉取rabbitmq镜像
-docker pull rabbitmq:management
-#  启动镜像
-docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 拉取rabbitmq镜像
+</span></span><span class="line"><span class="cl">docker pull rabbitmq:management
+</span></span><span class="line"><span class="cl">#  启动镜像
+</span></span><span class="line"><span class="cl">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行成功后登录rabbitmq, <code>http://192.168.1.10/15672</code>, 用户名/密码为 <code>guest/guest</code>.</p>
 <h2 id="client-端的改造-1">client 端的改造</h2>
@@ -753,13 +753,13 @@ docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-...
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置文件-2">配置文件</h3>
 <div class="highlight"><div class="chroma">
@@ -778,19 +778,19 @@ docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">...
-## 添加配置刷新的接口url
-management.endpoints.web.exposure.include=bus-refresh
-
-## 开启消息跟踪
-spring.cloud.bus.trace.enabled=true
-
-spring.rabbitmq.host=192.168.1.10
-## rabbitmq登录使用5672, 15672是web端口,别搞错了!
-spring.rabbitmq.port=5672
-spring.rabbitmq.username=guest
-spring.rabbitmq.password=guest
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">## 添加配置刷新的接口url
+</span></span><span class="line"><span class="cl">management.endpoints.web.exposure.include=bus-refresh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## 开启消息跟踪
+</span></span><span class="line"><span class="cl">spring.cloud.bus.trace.enabled=true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">spring.rabbitmq.host=192.168.1.10
+</span></span><span class="line"><span class="cl">## rabbitmq登录使用5672, 15672是web端口,别搞错了!
+</span></span><span class="line"><span class="cl">spring.rabbitmq.port=5672
+</span></span><span class="line"><span class="cl">spring.rabbitmq.username=guest
+</span></span><span class="line"><span class="cl">spring.rabbitmq.password=guest
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="接口">接口</h3>
 <p>修改接口HelloController, 添加注解<code>@RefreshScope</code></p>
@@ -809,18 +809,18 @@ spring.rabbitmq.password=guest
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@RestController
-@RefreshScope
-public class HelloController {
-    @Value(&#34;${neo.hello}&#34;)
-    private String hello;
-
-    @RequestMapping(&#34;/hello&#34;)
-    public String from() {
-        return this.hello;
-    }
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@RestController
+</span></span><span class="line"><span class="cl">@RefreshScope
+</span></span><span class="line"><span class="cl">public class HelloController {
+</span></span><span class="line"><span class="cl">    @Value(&#34;${neo.hello}&#34;)
+</span></span><span class="line"><span class="cl">    private String hello;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    @RequestMapping(&#34;/hello&#34;)
+</span></span><span class="line"><span class="cl">    public String from() {
+</span></span><span class="line"><span class="cl">        return this.hello;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="测试-3">测试</h3>
 <p>修改配置文件,使用命令<code>curl -X POST http://localhost:8002/actuator/bus-refresh</code>更新,在访问<code>http://localhost:8002/hello</code></p>
@@ -846,11 +846,11 @@ public class HelloController {
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置文件-3">配置文件</h3>
 <div class="highlight"><div class="chroma">
@@ -891,41 +891,41 @@ public class HelloController {
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server:
-  port: 8001
-spring:
-  application:
-    name: config-server
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://gitee.com/xingyys/config-repo
-          search-paths: config-repo
-          username: username
-          password: password
-          skip-ssl-validation: true
-    bus:
-      trace:
-        enabled: true
-
-  rabbitmq:
-    host: 192.168.1.10
-    port: 5672
-    username: guest
-    password: guest
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: bus-refresh
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8000/eureka/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  port: 8001
+</span></span><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  application:
+</span></span><span class="line"><span class="cl">    name: config-server
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    config:
+</span></span><span class="line"><span class="cl">      server:
+</span></span><span class="line"><span class="cl">        git:
+</span></span><span class="line"><span class="cl">          uri: https://gitee.com/xingyys/config-repo
+</span></span><span class="line"><span class="cl">          search-paths: config-repo
+</span></span><span class="line"><span class="cl">          username: username
+</span></span><span class="line"><span class="cl">          password: password
+</span></span><span class="line"><span class="cl">          skip-ssl-validation: true
+</span></span><span class="line"><span class="cl">    bus:
+</span></span><span class="line"><span class="cl">      trace:
+</span></span><span class="line"><span class="cl">        enabled: true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  rabbitmq:
+</span></span><span class="line"><span class="cl">    host: 192.168.1.10
+</span></span><span class="line"><span class="cl">    port: 5672
+</span></span><span class="line"><span class="cl">    username: guest
+</span></span><span class="line"><span class="cl">    password: guest
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">management:
+</span></span><span class="line"><span class="cl">  endpoints:
+</span></span><span class="line"><span class="cl">    web:
+</span></span><span class="line"><span class="cl">      exposure:
+</span></span><span class="line"><span class="cl">        include: bus-refresh
+</span></span><span class="line"><span class="cl">eureka:
+</span></span><span class="line"><span class="cl">  client:
+</span></span><span class="line"><span class="cl">    service-url:
+</span></span><span class="line"><span class="cl">      defaultZone: http://localhost:8000/eureka/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="测试-4">测试</h3>
 <p>修改配置文件,执行命令<code> curl -X POST http://localhost:8001/actuator/bus-refresh</code>.</p>
@@ -961,7 +961,7 @@ eureka:
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

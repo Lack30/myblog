@@ -131,11 +131,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2
-yum install bzip2 
-bunzip2 scst-3.2.0.7058.tar.bz2 
-tar xf scst-3.2.0.7058.tar 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://ncu.dl.sourceforge.net/project/scst/scst-3.2.0.7058.tar.bz2
+</span></span><span class="line"><span class="cl">yum install bzip2 
+</span></span><span class="line"><span class="cl">bunzip2 scst-3.2.0.7058.tar.bz2 
+</span></span><span class="line"><span class="cl">tar xf scst-3.2.0.7058.tar 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>编译安装scst</p>
 <div class="highlight"><div class="chroma">
@@ -149,14 +149,14 @@ tar xf scst-3.2.0.7058.tar
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">make 2perf 
-make scst 
-make scst_install 
-make iscsi 
-make iscsi_install 
-make scstadm 
-make scstadm_install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make 2perf 
+</span></span><span class="line"><span class="cl">make scst 
+</span></span><span class="line"><span class="cl">make scst_install 
+</span></span><span class="line"><span class="cl">make iscsi 
+</span></span><span class="line"><span class="cl">make iscsi_install 
+</span></span><span class="line"><span class="cl">make scstadm 
+</span></span><span class="line"><span class="cl">make scstadm_install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看是否被加载到内核了</p>
 <div class="highlight"><div class="chroma">
@@ -164,8 +164,8 @@ make scstadm_install
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">lsmod <span class="p">|</span>grep scst modinfo scst 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsmod <span class="p">|</span>grep scst modinfo scst 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动 scst</p>
 <div class="highlight"><div class="chroma">
@@ -184,19 +184,19 @@ make scstadm_install
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">modprobe scst 
-modprobe scst_vdisk 
-modprobe scst_disk 
-modprobe scst_user 
-modprobe scst_modisk 
-modprobe scst_processor 
-modprobe scst_raid 
-modprobe scst_tape 
-modprobe scst_cdrom 
-modprobe scst_changer 
-modprobe iscsi-scst 
-iscsi-scstd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modprobe scst 
+</span></span><span class="line"><span class="cl">modprobe scst_vdisk 
+</span></span><span class="line"><span class="cl">modprobe scst_disk 
+</span></span><span class="line"><span class="cl">modprobe scst_user 
+</span></span><span class="line"><span class="cl">modprobe scst_modisk 
+</span></span><span class="line"><span class="cl">modprobe scst_processor 
+</span></span><span class="line"><span class="cl">modprobe scst_raid 
+</span></span><span class="line"><span class="cl">modprobe scst_tape 
+</span></span><span class="line"><span class="cl">modprobe scst_cdrom 
+</span></span><span class="line"><span class="cl">modprobe scst_changer 
+</span></span><span class="line"><span class="cl">modprobe iscsi-scst 
+</span></span><span class="line"><span class="cl">iscsi-scstd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="创建流程">创建流程</h1>
 <p>创建 target</p>
@@ -205,8 +205,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_target iqn.1994-05.com.redhat:pv -driver iscsi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_target iqn.1994-05.com.redhat:pv -driver iscsi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 block</p>
 <div class="highlight"><div class="chroma">
@@ -214,8 +214,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -open_dev pv -handler vdisk_blockio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/zvol/tank/pv
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -open_dev pv -handler vdisk_blockio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/zvol/tank/pv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 group 做访问控制</p>
 <div class="highlight"><div class="chroma">
@@ -223,8 +223,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_group pv -driver iscsi -target iqn.1994-05.com.redhat:pv
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_group pv -driver iscsi -target iqn.1994-05.com.redhat:pv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加客户端</p>
 <div class="highlight"><div class="chroma">
@@ -232,8 +232,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_init iqn.1994-05.com.redhat:48d51365d2b -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_init iqn.1994-05.com.redhat:48d51365d2b -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加 lun</p>
 <div class="highlight"><div class="chroma">
@@ -241,8 +241,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_lun <span class="m">0</span> -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv -device pv
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_lun <span class="m">0</span> -driver iscsi -target iqn.1994-05.com.redhat:pv -group pv -device pv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启用 target</p>
 <div class="highlight"><div class="chroma">
@@ -250,8 +250,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -enable_target iqn.1994-05.com.redhat:pv -driver iscsi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 iscsi driver</p>
 <div class="highlight"><div class="chroma">
@@ -259,8 +259,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -set_drv_attr iscsi -attributes <span class="nv">enabled</span><span class="o">=</span><span class="m">1</span> -noprompt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -set_drv_attr iscsi -attributes <span class="nv">enabled</span><span class="o">=</span><span class="m">1</span> -noprompt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>写入到配置文件</p>
 <div class="highlight"><div class="chroma">
@@ -268,8 +268,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -write_config /etc/scst.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -write_config /etc/scst.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="删除流程">删除流程</h1>
 <p>禁用 target</p>
@@ -278,8 +278,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -disable_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -disable_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>删除 target</p>
 <div class="highlight"><div class="chroma">
@@ -287,8 +287,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -rem_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -rem_target iqn.1994-05.com.redhat:pv -driver iscsi -noprompt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>删除 block</p>
 <div class="highlight"><div class="chroma">
@@ -296,8 +296,8 @@ iscsi-scstd
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -close_dev pv -handler vdisk_blockio -noprompt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -close_dev pv -handler vdisk_blockio -noprompt
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -331,7 +331,7 @@ iscsi-scstd
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

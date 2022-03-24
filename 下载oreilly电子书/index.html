@@ -18,7 +18,7 @@
 <meta name="application-name" content="DoIt">
 <meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/" /><link rel="prev" href="http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/" /><link rel="prev" href="http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/" /><link rel="next" href="http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -138,16 +138,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/lorenzodifuccia/safaribooks.git
-Cloning into <span class="s1">&#39;safaribooks&#39;</span>...
-
-$ <span class="nb">cd</span> safaribooks/
-$ pip3 install -r requirements.txt
-
-OR
-
-$ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone https://github.com/lorenzodifuccia/safaribooks.git
+</span></span><span class="line"><span class="cl">Cloning into <span class="s1">&#39;safaribooks&#39;</span>...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> safaribooks/
+</span></span><span class="line"><span class="cl">$ pip3 install -r requirements.txt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">OR
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>本机需要安装 Python3 环境。</p>
 <p>safaribooks 的使用命令如下：</p>
@@ -156,8 +156,8 @@ $ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python3 safaribooks.py --cred <span class="s2">&#34;account_mail@mail.com:password01&#34;</span> XXXXXXXXXXXXX
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python3 safaribooks.py --cred <span class="s2">&#34;account_mail@mail.com:password01&#34;</span> XXXXXXXXXXXXX
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中 <code>XXXXXXXXXXXXX</code> 表示电子书的 ID。例如电子书页面 <code>https://learning.oreilly.com/videos/python-fundamentals/9780135917411/</code> 的 ID 就是 <code>9780135917411</code>。</p>
 <p>因为作者的 O&rsquo;Reilly 账号为 ACM 关联账号，无法通过直接使用账号密码方式登录下载。所以选择第二种方式：本地 cookies.json 文件。</p>
@@ -168,8 +168,8 @@ $ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">javascript</span><span class="o">:</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="p">{};</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s*;\s*/</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">pair</span><span class="p">)</span> <span class="p">{</span><span class="nx">pair</span> <span class="o">=</span> <span class="nx">pair</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s*=\s*/</span><span class="p">);</span><span class="nx">output</span><span class="p">[</span><span class="nx">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span><span class="nx">pair</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);});</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">output</span><span class="p">));})();</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">javascript</span><span class="o">:</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="p">{};</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s*;\s*/</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">pair</span><span class="p">)</span> <span class="p">{</span><span class="nx">pair</span> <span class="o">=</span> <span class="nx">pair</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\s*=\s*/</span><span class="p">);</span><span class="nx">output</span><span class="p">[</span><span class="nx">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span><span class="nx">pair</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);});</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">output</span><span class="p">));})();</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>将输出的信息保存到 <code>safaribooks</code> 目录下的 <code>cookies.json</code> 文件中。</p>
 <p>执行以下命令下载电子书：</p>
@@ -178,8 +178,8 @@ $ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python3 safaribooks.py  XXXXXXXXXXXXX
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python3 safaribooks.py  XXXXXXXXXXXXX
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输出结果为:</p>
 <div class="highlight"><div class="chroma">
@@ -224,45 +224,45 @@ $ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">
- ██████╗     ██████╗ ██╗  ██╗   ██╗██████╗
-██╔═══██╗    ██╔══██╗██║  ╚██╗ ██╔╝╚════██╗
-██║   ██║    ██████╔╝██║   ╚████╔╝   ▄███╔╝
-██║   ██║    ██╔══██╗██║    ╚██╔╝    ▀▀══╝
-╚██████╔╝    ██║  ██║███████╗██║     ██╗
- ╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<span class="o">[</span>-<span class="o">]</span> Successfully authenticated.
-<span class="o">[</span>*<span class="o">]</span> Retrieving book info...
-<span class="o">[</span>-<span class="o">]</span> Title: Linux Kernel Programming
-<span class="o">[</span>-<span class="o">]</span> Authors: Kaiwan N Billimoria
-<span class="o">[</span>-<span class="o">]</span> Identifier: <span class="m">9781789953435</span>
-<span class="o">[</span>-<span class="o">]</span> ISBN: <span class="m">9781789953435</span>
-<span class="o">[</span>-<span class="o">]</span> Publishers: Packt Publishing
-<span class="o">[</span>-<span class="o">]</span> Rights:
-<span class="o">[</span>-<span class="o">]</span> Description: Learn how to write high-quality kernel module code, solve common Linux kernel programming issues, and understand the fundamentals of Linux kernel internalsKey FeaturesDiscover how to write kernel code using the Loadable Kernel Module frameworkExplore industry-grade techniques to perform efficient memory allocation and data synchronization within the kernelUnderstand the essentials of key internals topics such as kernel architecture, memory management, CPU scheduling, and kernel synchronizationBo...
-<span class="o">[</span>-<span class="o">]</span> Release Date: 2021-03-19
-<span class="o">[</span>-<span class="o">]</span> URL: https://learning.oreilly.com/library/view/linux-kernel-programming/9781789953435/
-<span class="o">[</span>*<span class="o">]</span> Retrieving book chapters...
-<span class="o">[</span>*<span class="o">]</span> Output directory:
-    /Users/xingyys/project/python3/safaribooks/Books/Linux Kernel Programming <span class="o">(</span>9781789953435<span class="o">)</span>
-<span class="o">[</span>-<span class="o">]</span> Downloading book contents... <span class="o">(</span><span class="m">25</span> chapters<span class="o">)</span>
-    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
-<span class="o">[</span>-<span class="o">]</span> Downloading book CSSs... <span class="o">(</span><span class="m">2</span> files<span class="o">)</span>
-    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
-<span class="o">[</span>-<span class="o">]</span> Downloading book images... <span class="o">(</span><span class="m">145</span> files<span class="o">)</span>
-    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
-<span class="o">[</span>-<span class="o">]</span> Creating EPUB file...
-<span class="o">[</span>*<span class="o">]</span> Done: /Users/xingyys/project/python3/safaribooks/Books/Linux Kernel Programming <span class="o">(</span>9781789953435<span class="o">)</span>/9781789953435.epub
-
-    If you like it, please * this project on GitHub to make it known:
-        https://github.com/lorenzodifuccia/safaribooks
-    e don<span class="err">&#39;</span>t forget to renew your Safari Books Online subscription:
-        https://learning.oreilly.com
-
-<span class="o">[</span>!<span class="o">]</span> Bye!!
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> ██████╗     ██████╗ ██╗  ██╗   ██╗██████╗
+</span></span><span class="line"><span class="cl">██╔═══██╗    ██╔══██╗██║  ╚██╗ ██╔╝╚════██╗
+</span></span><span class="line"><span class="cl">██║   ██║    ██████╔╝██║   ╚████╔╝   ▄███╔╝
+</span></span><span class="line"><span class="cl">██║   ██║    ██╔══██╗██║    ╚██╔╝    ▀▀══╝
+</span></span><span class="line"><span class="cl">╚██████╔╝    ██║  ██║███████╗██║     ██╗
+</span></span><span class="line"><span class="cl"> ╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Successfully authenticated.
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Retrieving book info...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Title: Linux Kernel Programming
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Authors: Kaiwan N Billimoria
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Identifier: <span class="m">9781789953435</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> ISBN: <span class="m">9781789953435</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Publishers: Packt Publishing
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Rights:
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Description: Learn how to write high-quality kernel module code, solve common Linux kernel programming issues, and understand the fundamentals of Linux kernel internalsKey FeaturesDiscover how to write kernel code using the Loadable Kernel Module frameworkExplore industry-grade techniques to perform efficient memory allocation and data synchronization within the kernelUnderstand the essentials of key internals topics such as kernel architecture, memory management, CPU scheduling, and kernel synchronizationBo...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Release Date: 2021-03-19
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> URL: https://learning.oreilly.com/library/view/linux-kernel-programming/9781789953435/
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Retrieving book chapters...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Output directory:
+</span></span><span class="line"><span class="cl">    /Users/xingyys/project/python3/safaribooks/Books/Linux Kernel Programming <span class="o">(</span>9781789953435<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Downloading book contents... <span class="o">(</span><span class="m">25</span> chapters<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Downloading book CSSs... <span class="o">(</span><span class="m">2</span> files<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Downloading book images... <span class="o">(</span><span class="m">145</span> files<span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span><span class="c1">###################################################################################################################################################################################################] 100%</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>-<span class="o">]</span> Creating EPUB file...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Done: /Users/xingyys/project/python3/safaribooks/Books/Linux Kernel Programming <span class="o">(</span>9781789953435<span class="o">)</span>/9781789953435.epub
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    If you like it, please * this project on GitHub to make it known:
+</span></span><span class="line"><span class="cl">        https://github.com/lorenzodifuccia/safaribooks
+</span></span><span class="line"><span class="cl">    e don<span class="err">&#39;</span>t forget to renew your Safari Books Online subscription:
+</span></span><span class="line"><span class="cl">        https://learning.oreilly.com
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>!<span class="o">]</span> Bye!!
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="格式转化">格式转化</h1>
 <p>下载的电子书为 <code>epub</code> 格式，如果需要其他格式时，可以借用 <a href="https://calibre-ebook.com/download" target="_blank" rel="noopener noreffer">calibre</a> 工具来转化。</p>
@@ -291,13 +291,14 @@ $ pipenv install <span class="o">&amp;&amp;</span> pipenv shell
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/" class="prev" rel="prev" title="配置CentOS8的yum源"><i class="fas fa-angle-left fa-fw"></i>配置CentOS8的yum源</a></div>
+    <div class="post-nav"><a href="/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/" class="prev" rel="prev" title="配置CentOS8的yum源"><i class="fas fa-angle-left fa-fw"></i>配置CentOS8的yum源</a>
+            <a href="/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/" class="next" rel="next" title="Lvs 负载均衡实战">Lvs 负载均衡实战<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

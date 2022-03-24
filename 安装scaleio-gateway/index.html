@@ -134,13 +134,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 先配置gateway admin用户的密码</span>
-<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># export GATEWAY_ADMIN_PASSWORD=Scale10 </span>
-<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm </span>
-<span class="c1"># 安装成功后服务默认启动，绑定在端口80</span>
-<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># netstat -tnlp | grep 80 </span>
-tcp6       <span class="m">0</span>      <span class="m">0</span> :::80                   :::*                    LISTEN      4225/java
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 先配置gateway admin用户的密码</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># export GATEWAY_ADMIN_PASSWORD=Scale10 </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># rpm -ivh /tmp/EMC-ScaleIO-gateway-2.6-11000.113.x86_64.rpm </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装成功后服务默认启动，绑定在端口80</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># netstat -tnlp | grep 80 </span>
+</span></span><span class="line"><span class="cl">tcp6       <span class="m">0</span>      <span class="m">0</span> :::80                   :::*                    LISTEN      4225/java
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="二配置">二、配置</h1>
 <p>安装完gateway还需要配置，gateway的配置有两种方式。</p>
@@ -189,17 +189,17 @@ tcp6       <span class="m">0</span>      <span class="m">0</span> :::80         
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties </span>
-// 修改以下字段
-// scaleio管理的ip地址，使用,或<span class="p">;</span>隔开
-mdm.ip.addresses<span class="o">=</span>192.168.3.200<span class="p">;</span>192.168.3.201
-// 允许非加密的通讯
-gateway-security.allow_non_secure_communication<span class="o">=</span><span class="nb">true</span>
-// 防止主从切换中gateway错误
-security.bypass_certificate_check<span class="o">=</span><span class="nb">true</span>
-// 记得重启gateway服务
-<span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># /etc/init.d/scaleio-gateway restart</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># vim /opt/emc/scaleio/gateway/webapps/ROOT/WEB-INF/classes/gatewayUser.properties </span>
+</span></span><span class="line"><span class="cl">// 修改以下字段
+</span></span><span class="line"><span class="cl">// scaleio管理的ip地址，使用,或<span class="p">;</span>隔开
+</span></span><span class="line"><span class="cl">mdm.ip.addresses<span class="o">=</span>192.168.3.200<span class="p">;</span>192.168.3.201
+</span></span><span class="line"><span class="cl">// 允许非加密的通讯
+</span></span><span class="line"><span class="cl">gateway-security.allow_non_secure_communication<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">// 防止主从切换中gateway错误
+</span></span><span class="line"><span class="cl">security.bypass_certificate_check<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">// 记得重启gateway服务
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># /etc/init.d/scaleio-gateway restart</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="三验证">三、验证</h1>
 <p>使用浏览器登陆 https://&lt;主机ip&gt;/api/login 验证curl命令验证验证：</p>
@@ -209,9 +209,9 @@ security.bypass_certificate_check<span class="o">=</span><span class="nb">true</
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># curl -k --user admin:Scale10 https://192.168.3.107/api/login</span>
-<span class="s2">&#34;YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@localhost  ~<span class="o">]</span><span class="c1"># curl -k --user admin:Scale10 https://192.168.3.107/api/login</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;YWRtaW46MTU1ODA5ODgyNjQyODozMDVjYWQ3NjljNWFlNWU4ZWI2MDcxZGNiNmI4MmMzMA&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -245,7 +245,7 @@ security.bypass_certificate_check<span class="o">=</span><span class="nb">true</
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -132,10 +132,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /etc/yum.repo.d/
-mkdir bak
-mv *.repo ./bak
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/yum.repo.d/
+</span></span><span class="line"><span class="cl">mkdir bak
+</span></span><span class="line"><span class="cl">mv *.repo ./bak
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>添加新的 CentOS-Base.repo 文件</p>
 <div class="highlight"><div class="chroma">
@@ -205,70 +205,70 @@ mv *.repo ./bak
 </span><span class="lnt">63
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">vi CentOS-Base.repo
-
-<span class="c1"># CentOS-Base.repo</span>
-<span class="c1">#</span>
-<span class="c1"># The mirror system uses the connecting IP address of the client and the</span>
-<span class="c1"># update status of each mirror to pick mirrors that are updated to and</span>
-<span class="c1"># geographically close to the client.  You should use this for CentOS updates</span>
-<span class="c1"># unless you are manually picking other mirrors.</span>
-<span class="c1">#</span>
-<span class="c1"># If the mirrorlist= does not work for you, as a fall back you can try the</span>
-<span class="c1"># remarked out baseurl= line instead.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-
-<span class="o">[</span>base<span class="o">]</span>
-<span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Base - mirrors.aliyun.com
-<span class="c1">#failovermethod=priority</span>
-<span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
-        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
-        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
-<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
-
-<span class="c1">#additional packages that may be useful</span>
-<span class="o">[</span>extras<span class="o">]</span>
-<span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Extras - mirrors.aliyun.com
-<span class="c1">#failovermethod=priority</span>
-<span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
-        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
-        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
-<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
-
-<span class="c1">#additional packages that extend functionality of existing packages</span>
-<span class="o">[</span>centos-vaultplus<span class="o">]</span>
-<span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Plus - mirrors.aliyun.com
-<span class="c1">#failovermethod=priority</span>
-<span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
-        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
-        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
-<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
-<span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
-
-<span class="o">[</span>PowerTools<span class="o">]</span>
-<span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - PowerTools - mirrors.aliyun.com
-<span class="c1">#failovermethod=priority</span>
-<span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
-        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
-        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
-<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
-<span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
-
-
-<span class="o">[</span>AppStream<span class="o">]</span>
-<span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - AppStream - mirrors.aliyun.com
-<span class="c1">#failovermethod=priority</span>
-<span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
-        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
-        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
-<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi CentOS-Base.repo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS-Base.repo</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The mirror system uses the connecting IP address of the client and the</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># update status of each mirror to pick mirrors that are updated to and</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># geographically close to the client.  You should use this for CentOS updates</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># unless you are manually picking other mirrors.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># If the mirrorlist= does not work for you, as a fall back you can try the</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># remarked out baseurl= line instead.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>base<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Base - mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"><span class="c1">#failovermethod=priority</span>
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/BaseOS/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl"><span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#additional packages that may be useful</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>extras<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Extras - mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"><span class="c1">#failovermethod=priority</span>
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/extras/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl"><span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#additional packages that extend functionality of existing packages</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>centos-vaultplus<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - Plus - mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"><span class="c1">#failovermethod=priority</span>
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/centos-vaultplus/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl"><span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>PowerTools<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - PowerTools - mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"><span class="c1">#failovermethod=priority</span>
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/PowerTools/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl"><span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>AppStream<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">name</span><span class="o">=</span>CentOS-8.5.2111 - AppStream - mirrors.aliyun.com
+</span></span><span class="line"><span class="cl"><span class="c1">#failovermethod=priority</span>
+</span></span><span class="line"><span class="cl"><span class="nv">baseurl</span><span class="o">=</span>https://mirrors.aliyun.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.aliyuncs.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl">        http://mirrors.cloud.aliyuncs.com/centos-vault/8.5.2111/AppStream/<span class="nv">$basearch</span>/os/
+</span></span><span class="line"><span class="cl"><span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">gpgkey</span><span class="o">=</span>https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>直接使用国内镜像站上下载的源文件会报错，原因是 CentOS 社区的新规导致原来的路径都 404 错误。</p>
 <p>更新缓存</p>
@@ -277,8 +277,8 @@ mv *.repo ./bak
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">dnf makecache
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dnf makecache
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注: CentOS8 中使用 dnf 来替换原来的 yum 工具。它们的用法一致</p>
@@ -315,7 +315,7 @@ mv *.repo ./bak
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -166,8 +166,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># yum install -y rpm-build</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># yum install -y rpm-build</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行了以上的命令后我们就这里使用rpmbuild这个命令了。</p>
 <h2 id="创建rpmbuild">创建rpmbuild</h2>
@@ -183,22 +183,22 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rpmbuild/
-├── BUILD         // 在编译的过程中，有些缓存的数据都会放置在这个目录当中；
-├── BUILDROOT     // 编译后生成的软件临时安装目录
-├── RPMS          // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。
-├── SOURCES       // 这个目录当中放置的是该软件的原始档 <span class="o">(</span>*.tar.gz 的文件<span class="o">)</span> 以及 config 这个配置档；
-├── SPECS         // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里；
-└── SRPMS         // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpmbuild/
+</span></span><span class="line"><span class="cl">├── BUILD         // 在编译的过程中，有些缓存的数据都会放置在这个目录当中；
+</span></span><span class="line"><span class="cl">├── BUILDROOT     // 编译后生成的软件临时安装目录
+</span></span><span class="line"><span class="cl">├── RPMS          // 经过编译之后，并且顺利的编译成功之后，将打包完成的文件放置在这个目录当中。里头有包含了 i386, i586, i686, noarch.... 等等的次目录。
+</span></span><span class="line"><span class="cl">├── SOURCES       // 这个目录当中放置的是该软件的原始档 <span class="o">(</span>*.tar.gz 的文件<span class="o">)</span> 以及 config 这个配置档；
+</span></span><span class="line"><span class="cl">├── SPECS         // 这个目录当中放置的是该软件的配置档，例如这个软件的资讯参数、配置项目等等都放置在这里；
+</span></span><span class="line"><span class="cl">└── SRPMS         // 与 RPMS 内相似的，这里放置的就是 SRPM 封装的文件罗！有时候你想要将你的软件用 SRPM 的方式释出时， 你的 SRPM 文件就会放置在这个目录中了。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个目录就是我们要制作rpm包的相关目录，它里面保存我们需要的各种文件。</p>
 <h2 id="创建helloworldspec文件">创建helloworld.spec文件</h2>
@@ -232,32 +232,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># vim rpmbuild/SPCES/helloworld.spec </span>
-Name:           helloworld
-Version:        1.0.0
-Release:        1%<span class="o">{</span>?dist<span class="o">}</span>
-Summary:        helloworld
-Group:          Development/Tools
-License:        GPL
-<span class="c1">#URL:</span>
-Source0:        %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
-<span class="c1">#BuildRequires:</span>
-<span class="c1">#Requires:</span>
-%description
-%prep
-%setup -q
-%build
-%install
-mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/usr/bin
-cp <span class="nv">$RPM_BUILD_DIR</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>/helloworld <span class="nv">$RPM_BUILD_ROOT</span>/usr/bin/
-%clean
-rm -rf <span class="nv">$RPM_BUILD_ROOT</span>
-%files
-%defattr<span class="o">(</span>-,root,root,-<span class="o">)</span>
-%doc
-/usr/bin/helloworld
-%changelog
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># vim rpmbuild/SPCES/helloworld.spec </span>
+</span></span><span class="line"><span class="cl">Name:           helloworld
+</span></span><span class="line"><span class="cl">Version:        1.0.0
+</span></span><span class="line"><span class="cl">Release:        1%<span class="o">{</span>?dist<span class="o">}</span>
+</span></span><span class="line"><span class="cl">Summary:        helloworld
+</span></span><span class="line"><span class="cl">Group:          Development/Tools
+</span></span><span class="line"><span class="cl">License:        GPL
+</span></span><span class="line"><span class="cl"><span class="c1">#URL:</span>
+</span></span><span class="line"><span class="cl">Source0:        %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
+</span></span><span class="line"><span class="cl"><span class="c1">#BuildRequires:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#Requires:</span>
+</span></span><span class="line"><span class="cl">%description
+</span></span><span class="line"><span class="cl">%prep
+</span></span><span class="line"><span class="cl">%setup -q
+</span></span><span class="line"><span class="cl">%build
+</span></span><span class="line"><span class="cl">%install
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/usr/bin
+</span></span><span class="line"><span class="cl">cp <span class="nv">$RPM_BUILD_DIR</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>/helloworld <span class="nv">$RPM_BUILD_ROOT</span>/usr/bin/
+</span></span><span class="line"><span class="cl">%clean
+</span></span><span class="line"><span class="cl">rm -rf <span class="nv">$RPM_BUILD_ROOT</span>
+</span></span><span class="line"><span class="cl">%files
+</span></span><span class="line"><span class="cl">%defattr<span class="o">(</span>-,root,root,-<span class="o">)</span>
+</span></span><span class="line"><span class="cl">%doc
+</span></span><span class="line"><span class="cl">/usr/bin/helloworld
+</span></span><span class="line"><span class="cl">%changelog
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>*.spec</code> 文件的内容等下再讲，保存好 helloworld.spec 文件后，还需要再 rpmbuild/SOURCES 目录下添加对应的软件包，软件包的名字和SOURCE0字段对应</p>
 <div class="highlight"><div class="chroma">
@@ -269,12 +269,12 @@ rm -rf <span class="nv">$RPM_BUILD_ROOT</span>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># echo &#34;#! /bin/bash&#34; &gt; rpmbuild/SOURCES/helloworld-1.0.0/helloworld </span>
-<span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># echo &#34;echo &#39;Hello World&#39;&#34; &gt;&gt; rpmbuild/SOURCES/helloworld-1.0.0/helloworld </span>
-<span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># tar -cvf rpmbuild/SOURCES/helloworld-1.0.0.tar.gz rpmbuild/SOURCES/helloworld-1.0.0 </span>
-rpmbuild/SOURCES/helloworld-1.0.0/
-rpmbuild/SOURCES/helloworld-1.0.0/helloworld
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># echo &#34;#! /bin/bash&#34; &gt; rpmbuild/SOURCES/helloworld-1.0.0/helloworld </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># echo &#34;echo &#39;Hello World&#39;&#34; &gt;&gt; rpmbuild/SOURCES/helloworld-1.0.0/helloworld </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># tar -cvf rpmbuild/SOURCES/helloworld-1.0.0.tar.gz rpmbuild/SOURCES/helloworld-1.0.0 </span>
+</span></span><span class="line"><span class="cl">rpmbuild/SOURCES/helloworld-1.0.0/
+</span></span><span class="line"><span class="cl">rpmbuild/SOURCES/helloworld-1.0.0/helloworld
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="制作rpm包">制作rpm包</h2>
 <p>需要的文件都准备好了，就可以制作文件包了。</p>
@@ -285,10 +285,10 @@ rpmbuild/SOURCES/helloworld-1.0.0/helloworld
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># rpmbuild -bb rpmbuild/SPECS/helloworld.spec </span>
-<span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># ls rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm </span>
-rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># rpmbuild -bb rpmbuild/SPECS/helloworld.spec </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@CentOS1  ~<span class="o">]</span><span class="c1"># ls rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm </span>
+</span></span><span class="line"><span class="cl">rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成的rpm包就可以使用 rpm -ivh 命令安装了</p>
 <h1 id="spec文件说明">spec文件说明</h1>
@@ -302,11 +302,11 @@ rpmbuild/RPMS/x86_64/helloworld-1.0.0-1.el7.x86_64.rpm
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件包的名称，后面可使用%<span class="o">{</span>name<span class="o">}</span>的方式引用
-格式：
-Name:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件包的名称，后面可使用%<span class="o">{</span>name<span class="o">}</span>的方式引用
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Name:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="version">Version</h2>
 <div class="highlight"><div class="chroma">
@@ -317,11 +317,11 @@ Name:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件包的名称，后面可使用%<span class="o">{</span>name<span class="o">}</span>的方式引用软件包版本号，后面可使用%<span class="o">{</span>version<span class="o">}</span>引用
-格式：
-Version:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件包的名称，后面可使用%<span class="o">{</span>name<span class="o">}</span>的方式引用软件包版本号，后面可使用%<span class="o">{</span>version<span class="o">}</span>引用
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Version:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="release">Release</h2>
 <div class="highlight"><div class="chroma">
@@ -332,11 +332,11 @@ Version:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件包的发行号，后面可使用%<span class="o">{</span>release<span class="o">}</span>引用
-格式：
-Release:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件包的发行号，后面可使用%<span class="o">{</span>release<span class="o">}</span>引用
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Release:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="packager">Packager</h2>
 <div class="highlight"><div class="chroma">
@@ -347,11 +347,11 @@ Release:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-打包的人（一般喜欢写个人邮箱）
-格式：
-Packager:          youner_liucn@126.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">打包的人（一般喜欢写个人邮箱）
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Packager:          youner_liucn@126.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="license">License</h2>
 <div class="highlight"><div class="chroma">
@@ -362,11 +362,11 @@ Packager:          youner_liucn@126.com
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件授权方式，通常是GPL（自由软件）或GPLv2,BSD
-格式：
-License:          GPL
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件授权方式，通常是GPL（自由软件）或GPLv2,BSD
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">License:          GPL
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="summary">Summary</h2>
 <div class="highlight"><div class="chroma">
@@ -377,11 +377,11 @@ License:          GPL
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件摘要信息
-格式：
-Summary:          
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件摘要信息
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Summary:          
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="group">Group</h2>
 <div class="highlight"><div class="chroma">
@@ -422,41 +422,41 @@ Summary:
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件包所属类别
-格式：
-Group:       Applications/Multimedia
-具体类别：
-Amusements/Games（娱乐/游戏）
-Amusements/Graphics（娱乐/图形）
-Applications/Archiving（应用/文档）
-Applications/Communications（应用/通讯）
-Applications/Databases（应用/数据库）
-Applications/Editors（应用/编辑器）
-Applications/Emulators（应用/仿真器）
-Applications/Engineering（应用/工程）
-Applications/File（应用/文件）
-Applications/Internet（应用/因特网）
-Applications/Multimedia（应用/多媒体）
-Applications/Productivity（应用/产品）
-Applications/Publishing（应用/印刷）
-Applications/System（应用/系统）
-Applications/Text（应用/文本）
-Development/Debuggers（开发/调试器）
-Development/Languages（开发/语言）
-Development/Libraries（开发/函数库）
-Development/System（开发/系统）
-Development/Tools（开发/工具）
-Documentation （文档）
-SystemEnvironment/Base（系统环境/基础）
-SystemEnvironment/Daemons （系统环境/守护）
-SystemEnvironment/Kernel （系统环境/内核）
-SystemEnvironment/Libraries （系统环境/函数库）
-SystemEnvironment/Shells （系统环境/接口）
-UserInterface/Desktops（用户界面/桌面）
-User Interface/X（用户界面/X窗口）
-User Interface/XHardware Support （用户界面/X硬件支持）
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件包所属类别
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Group:       Applications/Multimedia
+</span></span><span class="line"><span class="cl">具体类别：
+</span></span><span class="line"><span class="cl">Amusements/Games（娱乐/游戏）
+</span></span><span class="line"><span class="cl">Amusements/Graphics（娱乐/图形）
+</span></span><span class="line"><span class="cl">Applications/Archiving（应用/文档）
+</span></span><span class="line"><span class="cl">Applications/Communications（应用/通讯）
+</span></span><span class="line"><span class="cl">Applications/Databases（应用/数据库）
+</span></span><span class="line"><span class="cl">Applications/Editors（应用/编辑器）
+</span></span><span class="line"><span class="cl">Applications/Emulators（应用/仿真器）
+</span></span><span class="line"><span class="cl">Applications/Engineering（应用/工程）
+</span></span><span class="line"><span class="cl">Applications/File（应用/文件）
+</span></span><span class="line"><span class="cl">Applications/Internet（应用/因特网）
+</span></span><span class="line"><span class="cl">Applications/Multimedia（应用/多媒体）
+</span></span><span class="line"><span class="cl">Applications/Productivity（应用/产品）
+</span></span><span class="line"><span class="cl">Applications/Publishing（应用/印刷）
+</span></span><span class="line"><span class="cl">Applications/System（应用/系统）
+</span></span><span class="line"><span class="cl">Applications/Text（应用/文本）
+</span></span><span class="line"><span class="cl">Development/Debuggers（开发/调试器）
+</span></span><span class="line"><span class="cl">Development/Languages（开发/语言）
+</span></span><span class="line"><span class="cl">Development/Libraries（开发/函数库）
+</span></span><span class="line"><span class="cl">Development/System（开发/系统）
+</span></span><span class="line"><span class="cl">Development/Tools（开发/工具）
+</span></span><span class="line"><span class="cl">Documentation （文档）
+</span></span><span class="line"><span class="cl">SystemEnvironment/Base（系统环境/基础）
+</span></span><span class="line"><span class="cl">SystemEnvironment/Daemons （系统环境/守护）
+</span></span><span class="line"><span class="cl">SystemEnvironment/Kernel （系统环境/内核）
+</span></span><span class="line"><span class="cl">SystemEnvironment/Libraries （系统环境/函数库）
+</span></span><span class="line"><span class="cl">SystemEnvironment/Shells （系统环境/接口）
+</span></span><span class="line"><span class="cl">UserInterface/Desktops（用户界面/桌面）
+</span></span><span class="line"><span class="cl">User Interface/X（用户界面/X窗口）
+</span></span><span class="line"><span class="cl">User Interface/XHardware Support （用户界面/X硬件支持）
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="source0">Source0</h2>
 <div class="highlight"><div class="chroma">
@@ -467,11 +467,11 @@ User Interface/XHardware Support （用户界面/X硬件支持）
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-源代码包的名字
-格式：
-Source0:       %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">源代码包的名字
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Source0:       %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="buildroot">BuildRoot</h2>
 <div class="highlight"><div class="chroma">
@@ -484,13 +484,13 @@ Source0:       %<span class="o">{</span>name<span class="o">}</span>-%<span clas
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-编译的路径。是安装或编译时使用的“虚拟目录”，考虑到多用户的环境，一般定义为：
-该参数非常重要，因为在生成rpm的过程中，执行make install时就会把软件安装到上述的路径中，在打包的时候，同样依赖“虚拟目录”为“根目录”进行操作<span class="o">(</span>即%files段<span class="o">)</span>。
-后面可使用<span class="nv">$RPM_BUILD_ROOT</span> 方式引用。
-格式：
-BuildRoot：%<span class="o">{</span>_tmppath<span class="o">}</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>-%<span class="o">{</span>release<span class="o">}</span>-buildroot
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">编译的路径。是安装或编译时使用的“虚拟目录”，考虑到多用户的环境，一般定义为：
+</span></span><span class="line"><span class="cl">该参数非常重要，因为在生成rpm的过程中，执行make install时就会把软件安装到上述的路径中，在打包的时候，同样依赖“虚拟目录”为“根目录”进行操作<span class="o">(</span>即%files段<span class="o">)</span>。
+</span></span><span class="line"><span class="cl">后面可使用<span class="nv">$RPM_BUILD_ROOT</span> 方式引用。
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">BuildRoot：%<span class="o">{</span>_tmppath<span class="o">}</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>-%<span class="o">{</span>release<span class="o">}</span>-buildroot
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="url">URL</h2>
 <div class="highlight"><div class="chroma">
@@ -501,11 +501,11 @@ BuildRoot：%<span class="o">{</span>_tmppath<span class="o">}</span>/%<span cla
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-软件的主页
-格式：
-URL:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">软件的主页
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">URL:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="vendor">Vendor</h2>
 <div class="highlight"><div class="chroma">
@@ -516,11 +516,11 @@ URL:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-发行商或打包组织的信息，例如RedFlagCo,Ltd
-格式：
-Vendor: &lt;RedFlag Co,Ltd&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">发行商或打包组织的信息，例如RedFlagCo,Ltd
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Vendor: &lt;RedFlag Co,Ltd&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="provides">Provides</h2>
 <div class="highlight"><div class="chroma">
@@ -531,11 +531,11 @@ Vendor: &lt;RedFlag Co,Ltd&gt;
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-指明本软件一些特定的功能，以便其他rpm识别
-格式：
-Provides:
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">指明本软件一些特定的功能，以便其他rpm识别
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Provides:
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>描述：指明本软件一些特定的功能，以便其他rpm识别格式：Provides:</p>
 <h2 id="依赖关系">依赖关系</h2>
@@ -572,19 +572,19 @@ Provides:
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-所依赖的软件包名称, 可以用&gt;<span class="o">=</span>或&lt;<span class="o">=</span>表示大于或小于某一特定版本。 “&gt;<span class="o">=</span>”号两边需用空格隔开，而不同软件名称也用空格分开。
-格式：
-Requires:       libpng-devel &gt;<span class="o">=</span> 1.0.20 zlib
-其它写法例如：
-Requires: <span class="nv">bzip2</span> <span class="o">=</span> %<span class="o">{</span>version<span class="o">}</span>, bzip2-libs <span class="o">=</span>%<span class="o">{</span>version<span class="o">}</span>
-或
-Requires: perl<span class="o">(</span>Carp<span class="o">)</span>&gt;<span class="o">=</span>3.2         <span class="c1"># 需要perl模块Carp</span>
-还有例如PreReq、Requires<span class="o">(</span>pre<span class="o">)</span>、Requires<span class="o">(</span>post<span class="o">)</span>、Requires<span class="o">(</span>preun<span class="o">)</span>、Requires<span class="o">(</span>postun<span class="o">)</span>、BuildRequires等都是针对不同阶段的依赖指定。
-例如：
-PreReq: capability&gt;<span class="o">=</span>version      <span class="c1"># capability包必须先安装</span>
-Conflicts:bash&gt;<span class="o">=</span>2.0              <span class="c1"># 该包和所有不小于2.0的bash包有冲突</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">所依赖的软件包名称, 可以用&gt;<span class="o">=</span>或&lt;<span class="o">=</span>表示大于或小于某一特定版本。 “&gt;<span class="o">=</span>”号两边需用空格隔开，而不同软件名称也用空格分开。
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">Requires:       libpng-devel &gt;<span class="o">=</span> 1.0.20 zlib
+</span></span><span class="line"><span class="cl">其它写法例如：
+</span></span><span class="line"><span class="cl">Requires: <span class="nv">bzip2</span> <span class="o">=</span> %<span class="o">{</span>version<span class="o">}</span>, bzip2-libs <span class="o">=</span>%<span class="o">{</span>version<span class="o">}</span>
+</span></span><span class="line"><span class="cl">或
+</span></span><span class="line"><span class="cl">Requires: perl<span class="o">(</span>Carp<span class="o">)</span>&gt;<span class="o">=</span>3.2         <span class="c1"># 需要perl模块Carp</span>
+</span></span><span class="line"><span class="cl">还有例如PreReq、Requires<span class="o">(</span>pre<span class="o">)</span>、Requires<span class="o">(</span>post<span class="o">)</span>、Requires<span class="o">(</span>preun<span class="o">)</span>、Requires<span class="o">(</span>postun<span class="o">)</span>、BuildRequires等都是针对不同阶段的依赖指定。
+</span></span><span class="line"><span class="cl">例如：
+</span></span><span class="line"><span class="cl">PreReq: capability&gt;<span class="o">=</span>version      <span class="c1"># capability包必须先安装</span>
+</span></span><span class="line"><span class="cl">Conflicts:bash&gt;<span class="o">=</span>2.0              <span class="c1"># 该包和所有不小于2.0的bash包有冲突</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="buildrequires">BuildRequires</h2>
 <div class="highlight"><div class="chroma">
@@ -596,12 +596,12 @@ Conflicts:bash&gt;<span class="o">=</span>2.0              <span class="c1"># �
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">描述：
-编译时的包依赖
-格式：
-BuildRequires: zlib-devel
-依赖包格式：
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">描述：
+</span></span><span class="line"><span class="cl">编译时的包依赖
+</span></span><span class="line"><span class="cl">格式：
+</span></span><span class="line"><span class="cl">BuildRequires: zlib-devel
+</span></span><span class="line"><span class="cl">依赖包格式：
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="说明description">说明%description</h2>
 <div class="highlight"><div class="chroma">
@@ -611,10 +611,10 @@ BuildRequires: zlib-devel
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">软件包详细说明，可写在多个行上。
-%description
-Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">软件包详细说明，可写在多个行上。
+</span></span><span class="line"><span class="cl">%description
+</span></span><span class="line"><span class="cl">Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="预处理prep">预处理%prep</h2>
 <p>预处理通常用来执行一些解开源程序包的命令，为下一步的编译安装作准备。%prep和下面的%build，%install段一样，除了可以执行RPM所定义的宏命令（以%开头）以外，还可以执行SHELL命令。功能上类似于./configure。作用：用来准备要编译的软件。通常，这一段落将归档中的源代码解压，并应用补丁。这些可以用标准的 shell 命令完成，但是更多地使用预定义的宏。检查标签语法是否正确，删除旧的软件源程序，对包含源程序的tar文件进行解码。如果包含补丁（patch）文件，将补丁文件应用到解开的源码中。它一般包含%setup与%patch两个命令。%setup用于将软件包打开，执行%patch可将补丁文件加入解开的源程序中。</p>
@@ -649,8 +649,8 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">makeCC</span><span class="o">=</span><span class="s2">&#34;gcc </span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">makeCC</span><span class="o">=</span><span class="s2">&#34;gcc </span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者</p>
 <div class="highlight"><div class="chroma">
@@ -658,8 +658,8 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">makeCFLAGS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">makeCFLAGS</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$RPM_OPT_FLAGS</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>就可以保证总是使用合适的优化选项。也可以使用其他编译器标志和选项。默认的 $RPM_OPT_FLAGS 是:</p>
 <div class="highlight"><div class="chroma">
@@ -667,8 +667,8 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">-O2 -g-march<span class="o">=</span>i386 -mcpu<span class="o">=</span>i686
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">-O2 -g-march<span class="o">=</span>i386 -mcpu<span class="o">=</span>i686
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="安装install">安装%install</h2>
 <p>定义在安装软件包时将执行命令，类似于make install命令。有些spec文件还有%post-install段，用于定义在软件安装完成后的所需执行的配置工作。作用：这个段落用于将已编译的软件安装到虚拟的目录结构中，从而可以打包成一个 RPM。在 Header 段落，可以定义 Buildroot，它定义了虚拟目录树的位置，软件将安装到那里。通常，它是这样的：<code>Buildroot:%{_tmppath}/%{name}-buildroot</code></p>
@@ -679,9 +679,9 @@ Consul feature - Service Discovery, HealthChecking, KV, Multi Datacenter
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
-cp %<span class="o">{</span>SOURCE3<span class="o">}</span><span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
+</span></span><span class="line"><span class="cl">cp %<span class="o">{</span>SOURCE3<span class="o">}</span><span class="nv">$RPM_BUILD_ROOT</span>/usr/share/icons/
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Install 段落通常列出要将已编译的软件安装到 Buildroot 中的命令
 宏 %makeinstall 可以用于安装支持 autoconf 的软件。这个软件自动地将软件安装到 $RPM_BUILD_ROOT 下的正确的子目录中。
@@ -691,8 +691,8 @@ cp %<span class="o">{</span>SOURCE3<span class="o">}</span><span class="nv">$RPM
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm -rf<span class="nv">$RPM_BUILD_ROOT</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf<span class="nv">$RPM_BUILD_ROOT</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果有的话，在制作了在 Install 段落中安装的文件的打包之后，将运行 %clean，保证下次构建之前 Buildroot 被清空。</p>
 <h2 id="清理clean">清理%clean</h2>
@@ -702,9 +702,9 @@ cp %<span class="o">{</span>SOURCE3<span class="o">}</span><span class="nv">$RPM
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">%clean
-rm-rf <span class="nv">$RPM_BUILD_ROOT</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">%clean
+</span></span><span class="line"><span class="cl">rm-rf <span class="nv">$RPM_BUILD_ROOT</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="文件files">文件%files</h2>
 <p>定义软件包所包含的文件，分为三类：说明文档（doc），配置文件（config）及执行程序，还可定义文件存取权限，拥有者及组别。</p>
@@ -770,60 +770,60 @@ rm-rf <span class="nv">$RPM_BUILD_ROOT</span>
 </span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">Name:           oracle-agent
-Version:        1.0.1
-Release:        1%<span class="o">{</span>?dist<span class="o">}</span>
-Summary:        oracle agent
-Group:          Development/Tools
-License:        GPL
-
-<span class="c1">#URL:</span>
-Source0:        %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
-
-<span class="c1">#BuildRequires:</span>
-<span class="c1">#Requires:</span>
-%define __debug_install_post 
-
-%<span class="o">{</span>rpmconfigdir<span class="o">}</span>/find-debuginfo.sh %<span class="o">{</span>?find_debuginfo_opts<span class="o">}</span> <span class="s2">&#34;%{_builddir}/%{?buildsubdir}&#34;</span>
-
-%<span class="o">{</span>nil<span class="o">}</span>
-
-%description
-
-%pre
-
-%setup -q
-
-%build
-
-%install
-<span class="nv">$RPM_BUILD_ROOT</span> <span class="c1"># 对应文件系统的根目录，需要的路径要先创建</span>
-<span class="nv">$RPM_BUILD_DIR</span> <span class="c1"># 对应tar解压后的文件目录</span>
-mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/
-mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent
-cp -r <span class="nv">$RPM_BUILD_DIR</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>/* <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/
-rm -fr <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/debug*.list
-rm -fr <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/elfbins.list
-cp <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/oracle-agent-default.sh <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/oracle-agent
-chmod <span class="m">755</span> <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/oracle-agent
-%post
-systemctl daemon-reload
-systemctl start oracle-agent
-%clean
-
-<span class="c1"># 这里清理要注意</span>
-rm -rf <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent
-%files
-
-<span class="c1"># 生成的文件要这里添加</span>
-%defattr<span class="o">(</span>-,root,root,-<span class="o">)</span>
-%doc
-/opt/howlink/oracle-agent
-/etc/init.d/oracle-agent
-%preun
-systemctl stop oracle-agent
-%changelog
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Name:           oracle-agent
+</span></span><span class="line"><span class="cl">Version:        1.0.1
+</span></span><span class="line"><span class="cl">Release:        1%<span class="o">{</span>?dist<span class="o">}</span>
+</span></span><span class="line"><span class="cl">Summary:        oracle agent
+</span></span><span class="line"><span class="cl">Group:          Development/Tools
+</span></span><span class="line"><span class="cl">License:        GPL
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#URL:</span>
+</span></span><span class="line"><span class="cl">Source0:        %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#BuildRequires:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#Requires:</span>
+</span></span><span class="line"><span class="cl">%define __debug_install_post 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%<span class="o">{</span>rpmconfigdir<span class="o">}</span>/find-debuginfo.sh %<span class="o">{</span>?find_debuginfo_opts<span class="o">}</span> <span class="s2">&#34;%{_builddir}/%{?buildsubdir}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%<span class="o">{</span>nil<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%description
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%pre
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%setup -q
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">%install
+</span></span><span class="line"><span class="cl"><span class="nv">$RPM_BUILD_ROOT</span> <span class="c1"># 对应文件系统的根目录，需要的路径要先创建</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$RPM_BUILD_DIR</span> <span class="c1"># 对应tar解压后的文件目录</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent
+</span></span><span class="line"><span class="cl">cp -r <span class="nv">$RPM_BUILD_DIR</span>/%<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>version<span class="o">}</span>/* <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/
+</span></span><span class="line"><span class="cl">rm -fr <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/debug*.list
+</span></span><span class="line"><span class="cl">rm -fr <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/elfbins.list
+</span></span><span class="line"><span class="cl">cp <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent/oracle-agent-default.sh <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/oracle-agent
+</span></span><span class="line"><span class="cl">chmod <span class="m">755</span> <span class="nv">$RPM_BUILD_ROOT</span>/etc/init.d/oracle-agent
+</span></span><span class="line"><span class="cl">%post
+</span></span><span class="line"><span class="cl">systemctl daemon-reload
+</span></span><span class="line"><span class="cl">systemctl start oracle-agent
+</span></span><span class="line"><span class="cl">%clean
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里清理要注意</span>
+</span></span><span class="line"><span class="cl">rm -rf <span class="nv">$RPM_BUILD_ROOT</span>/opt/howlink/oracle-agent
+</span></span><span class="line"><span class="cl">%files
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成的文件要这里添加</span>
+</span></span><span class="line"><span class="cl">%defattr<span class="o">(</span>-,root,root,-<span class="o">)</span>
+</span></span><span class="line"><span class="cl">%doc
+</span></span><span class="line"><span class="cl">/opt/howlink/oracle-agent
+</span></span><span class="line"><span class="cl">/etc/init.d/oracle-agent
+</span></span><span class="line"><span class="cl">%preun
+</span></span><span class="line"><span class="cl">systemctl stop oracle-agent
+</span></span><span class="line"><span class="cl">%changelog
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="问题汇总">问题汇总</h1>
 <p>rpmbuild报error: Installed (but unpackaged) file(s) found的问题</p>
@@ -837,13 +837,13 @@ systemctl stop oracle-agent
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">找到 /usr/lib/rpm/macros 中
-%__check_files
-/usr/lib/rpm/check-files %<span class="o">{</span>buildroot<span class="o">}</span>   注释掉
-<span class="c1">#%__check_files</span>
-/usr/lib/rpm/check-files %<span class="o">{</span>buildroot<span class="o">}</span>
-意思就是说不要在检查文件了，所以也就不会包file found的报错了
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">找到 /usr/lib/rpm/macros 中
+</span></span><span class="line"><span class="cl">%__check_files
+</span></span><span class="line"><span class="cl">/usr/lib/rpm/check-files %<span class="o">{</span>buildroot<span class="o">}</span>   注释掉
+</span></span><span class="line"><span class="cl"><span class="c1">#%__check_files</span>
+</span></span><span class="line"><span class="cl">/usr/lib/rpm/check-files %<span class="o">{</span>buildroot<span class="o">}</span>
+</span></span><span class="line"><span class="cl">意思就是说不要在检查文件了，所以也就不会包file found的报错了
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>check-rpaths的问题</li>
@@ -859,14 +859,14 @@ systemctl stop oracle-agent
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">报error
-ERROR 0002: file <span class="s1">&#39;xxx.so&#39;</span> contains an invalid rpath <span class="s1">&#39;xxx&#39;</span> in <span class="o">[</span>xxx<span class="o">]</span>
-经过网上查询，得知这一步只是一种检测是不是代码中使用了rpath，那我们可以简单的注释掉rpath检测就可以了，具体做法就是：
-vi ~/.rpmmacros
-找到这行
-%__arch_install_post /usr/lib/rpm/check-rpaths /usr/lib/rpm/check-buildroot 注释掉
-<span class="c1">#%__arch_install_post /usr/lib/rpm/check-rpaths /usr/lib/rpm/check-buildroot</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">报error
+</span></span><span class="line"><span class="cl">ERROR 0002: file <span class="s1">&#39;xxx.so&#39;</span> contains an invalid rpath <span class="s1">&#39;xxx&#39;</span> in <span class="o">[</span>xxx<span class="o">]</span>
+</span></span><span class="line"><span class="cl">经过网上查询，得知这一步只是一种检测是不是代码中使用了rpath，那我们可以简单的注释掉rpath检测就可以了，具体做法就是：
+</span></span><span class="line"><span class="cl">vi ~/.rpmmacros
+</span></span><span class="line"><span class="cl">找到这行
+</span></span><span class="line"><span class="cl">%__arch_install_post /usr/lib/rpm/check-rpaths /usr/lib/rpm/check-buildroot 注释掉
+</span></span><span class="line"><span class="cl"><span class="c1">#%__arch_install_post /usr/lib/rpm/check-rpaths /usr/lib/rpm/check-buildroot</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>.在生成rpm包同时，还会生成debuginfo包，如果要避免生成debuginfo包：这个是默认会生成的rpm包。则可以使用下面的命令：</p>
 <div class="highlight"><div class="chroma">
@@ -875,9 +875,9 @@ vi ~/.rpmmacros
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">&#39;%debug_package %{nil}&#39;</span> &gt;&gt; ~/.rpmmacros
-把%debug_package %<span class="o">{</span>nil<span class="o">}</span> 追加到 ~/.rpmmacros 文件中便可。
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;%debug_package %{nil}&#39;</span> &gt;&gt; ~/.rpmmacros
+</span></span><span class="line"><span class="cl">把%debug_package %<span class="o">{</span>nil<span class="o">}</span> 追加到 ~/.rpmmacros 文件中便可。
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>(%prep)阶段提示包找不到</p>
 <div class="highlight"><div class="chroma">
@@ -887,10 +887,10 @@ vi ~/.rpmmacros
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">可以是软件的包解压后不会生成一个对应的目录，两个解决方式：
-1.重新修改tar包
-2.%setup -c
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">可以是软件的包解压后不会生成一个对应的目录，两个解决方式：
+</span></span><span class="line"><span class="cl">1.重新修改tar包
+</span></span><span class="line"><span class="cl">2.%setup -c
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -924,7 +924,7 @@ vi ~/.rpmmacros
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

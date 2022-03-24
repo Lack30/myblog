@@ -129,8 +129,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">zfs <span class="nb">set</span> <span class="nv">volsize</span><span class="o">=</span>20G tank/vol
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">zfs <span class="nb">set</span> <span class="nv">volsize</span><span class="o">=</span>20G tank/vol
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改 scst 中 device 的 size 属性</p>
 <div class="highlight"><div class="chroma">
@@ -138,8 +138,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -set_dev_attr device1 -attributes <span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span> -noprompt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -set_dev_attr device1 -attributes <span class="nv">size</span><span class="o">=</span><span class="m">21474836480</span> -noprompt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="iscsi-客户端">iscsi 客户端</h1>
 <p>重新扫描 target</p>
@@ -148,8 +148,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">iscsiadm -m node --target &lt;target_name&gt; -R
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iscsiadm -m node --target &lt;target_name&gt; -R
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>扩展磁盘容量，如果磁盘存储 mount 状态则先 umount。</p>
 <div class="highlight"><div class="chroma">
@@ -159,10 +159,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">resize2fs /dev/sdX
-e2fsck -f /dev/sdX
-resize2fs /dev/sdX
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">resize2fs /dev/sdX
+</span></span><span class="line"><span class="cl">e2fsck -f /dev/sdX
+</span></span><span class="line"><span class="cl">resize2fs /dev/sdX
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>重新挂载，使用 <code>df</code> 即可发现磁盘的容量被修改。</p>
 <h1 id="fc-客户端">FC 客户端</h1>
@@ -172,8 +172,8 @@ resize2fs /dev/sdX
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/hostX/scan
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/hostX/scan
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>扩展磁盘容量如上。</p>
 </div><div class="post-footer" id="post-footer">
@@ -208,7 +208,7 @@ resize2fs /dev/sdX
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

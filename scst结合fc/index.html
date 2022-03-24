@@ -173,8 +173,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 device 对应本地的块文件</p>
 <div class="highlight"><div class="chroma">
@@ -182,8 +182,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -open_dev fc1 -handler vdisk_fileio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/sdc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -open_dev fc1 -handler vdisk_fileio -attributes <span class="nv">filename</span><span class="o">=</span>/dev/sdc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 group，scst 中的 group 用于限定共享的对象。</p>
 <div class="highlight"><div class="chroma">
@@ -191,8 +191,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_group group1 -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>创建 lun，因为 scst target 和 FC 设置是一对一关系，所以当需要在同一个 FC 下共享多个磁盘给不同的客户端时就需要在同一个 target 下创建多个 lun。</p>
 <div class="highlight"><div class="chroma">
@@ -200,8 +200,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_lun <span class="m">0</span> -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_lun <span class="m">0</span> -target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>指定共享的客户端，这里需要知道客户端 FC 设备对应的 ID。查看 <code>/sys/class/fc_host/hostx/port_name</code>
 <img
@@ -217,8 +217,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -add_init 50:01:10:a0:00:16:bf:34 --target 50:01:10:a0:00:16:bf:30 -driver qla2x00t -group group1 -device fc1
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动 target</p>
 <div class="highlight"><div class="chroma">
@@ -226,8 +226,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -enable_target 50:01:10:a0:00:16:bf:30 --driver qla2x00t
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -enable_target 50:01:10:a0:00:16:bf:30 --driver qla2x00t
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后将改动写入配置文件</p>
 <div class="highlight"><div class="chroma">
@@ -235,8 +235,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">scstadmin -write_config /etc/scst.conf
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scstadmin -write_config /etc/scst.conf
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>（如果对应的客户端已经属于某个已存在的 group，则复用这个 group，并选择不存在的 lun id）</p>
 <h2 id="客户端配置">客户端配置</h2>
@@ -246,8 +246,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/host3/scan
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;- - -&#34;</span> &gt; /sys/class/scst_host/host3/scan
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中 <code>&quot;- - -&quot;</code> 这三个值代表通道，SCSI目标ID和LUN。破折号充当通配符，表示“重新扫描所有内容”。<code>host3</code> 和 <code>/sys/class/fc_host/host3</code> 相对应。执行命令后客户端增加了一块磁盘。</p>
 </div><div class="post-footer" id="post-footer">
@@ -282,7 +282,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

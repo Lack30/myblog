@@ -136,8 +136,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ yum install zsh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ yum install zsh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后，替换默认的 bash 为 zsh。需要在 root 用户下使用</p>
 <div class="highlight"><div class="chroma">
@@ -150,13 +150,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ chsh -s /bin/zsh
-Changing shell <span class="k">for</span> root.
-Shell changed.
-<span class="c1"># 在新终端中验证</span>
-$ <span class="nb">echo</span> <span class="nv">$SHELL</span>
-/bin/zsh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chsh -s /bin/zsh
+</span></span><span class="line"><span class="cl">Changing shell <span class="k">for</span> root.
+</span></span><span class="line"><span class="cl">Shell changed.
+</span></span><span class="line"><span class="cl"><span class="c1"># 在新终端中验证</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">echo</span> <span class="nv">$SHELL</span>
+</span></span><span class="line"><span class="cl">/bin/zsh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行以下命令自动安装 oh-my-zsh</p>
 <div class="highlight"><div class="chroma">
@@ -167,11 +167,11 @@ $ <span class="nb">echo</span> <span class="nv">$SHELL</span>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - <span class="p">|</span> sh
-<span class="c1"># 省略输出...</span>
-$ <span class="nb">source</span> .zshrc 
-<span class="c1"># .zshrc 为 zsh 的配置文件</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - <span class="p">|</span> sh
+</span></span><span class="line"><span class="cl"><span class="c1"># 省略输出...</span>
+</span></span><span class="line"><span class="cl">$ <span class="nb">source</span> .zshrc 
+</span></span><span class="line"><span class="cl"><span class="c1"># .zshrc 为 zsh 的配置文件</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="三配置-oh-my-zsh">三、配置 oh-my-zsh</h1>
 <p>接下来还要添加额外的功能。oh-my-zsh 支持很多强大的功能，这些功能都是以插件的方式实现。插件放在目录~/.oh-my-zsh/plugins 下。要让插件开始工作还需要在 .zshrc 中配置相关参数。</p>
@@ -180,8 +180,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>git textmate ruby autojump osx mvn gradle<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>git textmate ruby autojump osx mvn gradle<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="autojump">autojump</h2>
 <p><strong>作用</strong>目录间快速跳转,不用再一直 <code>cd</code> 了 😁**使用 **使用 <code>autojump</code> 的缩写 <code>j``cd</code> 命令进入 <code>~/user/github/Youthink</code> 文件夹，下一次再想进入 <code>Yourhink</code> 文件夹的时候,直接 <code>j youthink</code> 即可, 或者只输入 <code>youthink</code> 的一部分 <code>youth</code> 都行删除无效路径</p>
@@ -190,8 +190,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ j --purge 无效路径
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ j --purge 无效路径
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>需要额外下载 <code>autojump</code> 并配置首先安装 <code>autojump</code>，如果你用 <code>Mac</code>，可以使用 <code>brew</code> 安装：</p>
 <div class="highlight"><div class="chroma">
@@ -199,8 +199,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ brew install autojump
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ brew install autojump
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果是 <code>Linux</code>，可以使用 <code>git</code> 安装，比如：</p>
 <div class="highlight"><div class="chroma">
@@ -208,8 +208,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git clone git://github.com/joelthelion/autojump.git
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone git://github.com/joelthelion/autojump.git
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>进入目录，执行</p>
 <div class="highlight"><div class="chroma">
@@ -217,8 +217,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ ./install.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ./install.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>最后把以下代码加入 <code>.zshrc</code>：</p>
 <div class="highlight"><div class="chroma">
@@ -226,8 +226,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[[</span> -s ~/.autojump/etc/profile.d/autojump.sh <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.autojump/etc/profile.d/autojump.sh
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[[</span> -s ~/.autojump/etc/profile.d/autojump.sh <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.autojump/etc/profile.d/autojump.sh
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="zsh-syntax-highlighting">zsh-syntax-highlighting</h2>
 <p><strong>作用</strong><br/>平常用的<code>ls</code>、<code>cd</code> 等命令输入正确会绿色高亮显示，输入错误会显示其他的颜色。</p>
@@ -245,8 +245,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="si">${</span><span class="nv">ZSH_CUSTOM</span><span class="k">:-</span><span class="p">~/.oh-my-zsh/custom</span><span class="si">}</span>/plugins/zsh-syntax-highlighting
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="si">${</span><span class="nv">ZSH_CUSTOM</span><span class="k">:-</span><span class="p">~/.oh-my-zsh/custom</span><span class="si">}</span>/plugins/zsh-syntax-highlighting
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 <code>~/.zshrc</code> 中配置</p>
 <div class="highlight"><div class="chroma">
@@ -254,8 +254,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-syntax-highlighting<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-syntax-highlighting<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使配置生效</p>
 <div class="highlight"><div class="chroma">
@@ -263,8 +263,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> ~/.zshrc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="zsh-autosuggestions">zsh-autosuggestions</h2>
 <p><strong>作用</strong> 如图输入命令时，会给出建议的命令（灰色部分）按键盘 → 补全</p>
@@ -282,8 +282,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">bindkey <span class="s1">&#39;,&#39;</span> autosuggest-accept
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bindkey <span class="s1">&#39;,&#39;</span> autosuggest-accept
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 <code>.zshrc</code> 文件添加这句话即可。<strong>安装</strong></p>
 <div class="highlight"><div class="chroma">
@@ -291,8 +291,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ git clone git://github.com/zsh-users/zsh-autosuggestions <span class="nv">$ZSH_CUSTOM</span>/plugins/zsh-autosuggestions
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone git://github.com/zsh-users/zsh-autosuggestions <span class="nv">$ZSH_CUSTOM</span>/plugins/zsh-autosuggestions
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 <code>~/.zshrc</code> 中配置</p>
 <div class="highlight"><div class="chroma">
@@ -300,8 +300,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-autosuggestions<span class="o">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">plugins</span><span class="o">=(</span>其他的插件 zsh-autosuggestions<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使配置生效</p>
 <div class="highlight"><div class="chroma">
@@ -309,8 +309,8 @@ $ <span class="nb">source</span> .zshrc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">source</span> ~/.zshrc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.zshrc
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -344,7 +344,7 @@ $ <span class="nb">source</span> .zshrc
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -234,36 +234,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">    &lt;properties&gt;
-        &lt;java.version&gt;1.8&lt;/java.version&gt;
-        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;dependencyManagement&gt;
-        &lt;dependencies&gt;
-            &lt;dependency&gt;
-                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
-                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
-                &lt;type&gt;pom&lt;/type&gt;
-                &lt;scope&gt;import&lt;/scope&gt;
-            &lt;/dependency&gt;
-        &lt;/dependencies&gt;
-    &lt;/dependencyManagement&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    &lt;properties&gt;
+</span></span><span class="line"><span class="cl">        &lt;java.version&gt;1.8&lt;/java.version&gt;
+</span></span><span class="line"><span class="cl">        &lt;spring-cloud.version&gt;Greenwich.SR2&lt;/spring-cloud.version&gt;
+</span></span><span class="line"><span class="cl">    &lt;/properties&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">            &lt;scope&gt;test&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    &lt;dependencyManagement&gt;
+</span></span><span class="line"><span class="cl">        &lt;dependencies&gt;
+</span></span><span class="line"><span class="cl">            &lt;dependency&gt;
+</span></span><span class="line"><span class="cl">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">                &lt;version&gt;${spring-cloud.version}&lt;/version&gt;
+</span></span><span class="line"><span class="cl">                &lt;type&gt;pom&lt;/type&gt;
+</span></span><span class="line"><span class="cl">                &lt;scope&gt;import&lt;/scope&gt;
+</span></span><span class="line"><span class="cl">            &lt;/dependency&gt;
+</span></span><span class="line"><span class="cl">        &lt;/dependencies&gt;
+</span></span><span class="line"><span class="cl">    &lt;/dependencyManagement&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="配置文件">配置文件</h3>
 <p>spring cloud gateway底层使用netty+webflux, 不再依赖web了</p>
@@ -281,17 +281,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server:
-  port: 8080
-spring:
-  cloud:
-    gateway:
-      routes:
-      - id: iyk_route
-        uri: http://www.ityouknow.com
-        predicates:
-        - Path=/spring-cloud
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  port: 8080
+</span></span><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: iyk_route
+</span></span><span class="line"><span class="cl">        uri: http://www.ityouknow.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Path=/spring-cloud
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>说明下该配置:</p>
 <ul>
@@ -313,15 +313,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 直接写在启动类中
-</span><span class="c1"></span>    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">RouteLocator</span> <span class="nf">customRouteLocator</span><span class="o">(</span><span class="n">RouteLocatorBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">routes</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">route</span><span class="o">(</span><span class="s">&#34;path_route&#34;</span><span class="o">,</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&#34;/about&#34;</span><span class="o">)</span>
-                        <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="s">&#34;http://ityouknow.com&#34;</span><span class="o">))</span>
-                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-    <span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 直接写在启动类中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">RouteLocator</span> <span class="nf">customRouteLocator</span><span class="o">(</span><span class="n">RouteLocatorBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">routes</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">route</span><span class="o">(</span><span class="s">&#34;path_route&#34;</span><span class="o">,</span> <span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&#34;/about&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="s">&#34;http://ityouknow.com&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>注: 虽然两种方法都可以,但还是建议写在配置文件中</p>
@@ -354,15 +354,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-       - id: time_route
-        uri: http://example.com
-        predicates:
-         - After=2019-08-17T12:00:00+08:00[Asia/Shanghai]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">       - id: time_route
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">         - After=2019-08-17T12:00:00+08:00[Asia/Shanghai]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Spring 是通过 ZonedDateTime 来对时间进行的对比，ZonedDateTime 是 Java 8 中日期时间功能里，用于表示带时区的日期与时间信息的类，ZonedDateTime 支持通过时区来设置时间，中国的时区是：<code>Asia/Shanghai</code>。</p>
 <p>After Route Predicate 是指在这个时间之后的请求都转发到目标地址。上面的示例是指，请求时间在 2018年1月20日6点6分6秒之后的所有请求都转发到地址http://example.com。+08:00是指时间和UTC时间相差八个小时，时间地区为<code>Asia/Shanghai</code>。</p>
@@ -380,15 +380,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-       - id: before_route
-        uri: http://example.com
-        predicates:
-         - Before=2019-08-17T12:00:00+08:00[Asia/Shanghai]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">       - id: before_route
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">         - Before=2019-08-17T12:00:00+08:00[Asia/Shanghai]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>既然有这个时间前<code>After</code>和这个时间后<code>Before</code>,predicate还支持在一段时间之内匹配,那就需要使用<code>Between</code></p>
 <div class="highlight"><div class="chroma">
@@ -403,15 +403,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-       - id: after_route
-        uri: http://example.com
-        predicates:
-         - Between=2019-08-17T08:00:00+08:00[Asia/Shanghai], 2019-08-17T09:00:00+08:00[Asia/Shanghai]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">       - id: after_route
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">         - Between=2019-08-17T08:00:00+08:00[Asia/Shanghai], 2019-08-17T09:00:00+08:00[Asia/Shanghai]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个功能刚好可以使用在一些抢购活动中.</p>
 <h3 id="cookie-匹配">Cookie 匹配</h3>
@@ -428,15 +428,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-       - id: cookie_route
-         uri: http://example.com
-         predicates:
-         - Cookie=a,b.c
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">       - id: cookie_route
+</span></span><span class="line"><span class="cl">         uri: http://example.com
+</span></span><span class="line"><span class="cl">         predicates:
+</span></span><span class="line"><span class="cl">         - Cookie=a,b.c
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这表示请求的cookie需要携带 a=b.c 才可以访问,否则就报404错误,可以使用 <code>curl http://localhost:8080 --cookie &quot;a=b.c&quot;</code></p>
 <h3 id="header-匹配">Header 匹配</h3>
@@ -453,15 +453,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: header_route
-        uri: http://example.com
-        predicates:
-        - Header=X-Request-Id, \d+
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: header_route
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Header=X-Request-Id, \d+
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>同样的可以使用命令<code>url http://localhost:8080 --header &quot;X-Request-Id:11&quot;</code>来测试.</p>
 <h3 id="host-匹配">Host 匹配</h3>
@@ -478,15 +478,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: header_route
-        uri: http://example.com
-        predicates:
-        - Host=**.example.com
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: header_route
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Host=**.example.com
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="请求方法匹配">请求方法匹配</h3>
 <p>可以通过请求方式GET，POST，PATH和DELETE方法进行匹配：</p>
@@ -502,15 +502,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: method_route
-        uri: https://example.org
-        predicates:
-        - Method=GET
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: method_route
+</span></span><span class="line"><span class="cl">        uri: https://example.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Method=GET
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="请求路径匹配">请求路径匹配</h3>
 <p>predicate接受两个参数，一个<code>PathMatcher</code> 表达式 和一个可选参数 <code>matchOptionalTrailingSeparator</code></p>
@@ -526,15 +526,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: host_route
-        uri: https://example.org
-        predicates:
-        - Path=/foo/{segment},/bar/{segment}
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: host_route
+</span></span><span class="line"><span class="cl">        uri: https://example.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Path=/foo/{segment},/bar/{segment}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>能匹配到<code>/foo/1</code>, <code>/foo/bar</code> 或<code> /bar/baz</code>等路径。
 同时也可以使用代码获取：</p>
@@ -544,9 +544,9 @@ spring:
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">uriVariables</span> <span class="o">=</span> <span class="n">ServerWebExchangeUtils</span><span class="o">.</span><span class="na">getPathPredicateVariables</span><span class="o">(</span><span class="n">exchange</span><span class="o">);</span>
-<span class="n">String</span> <span class="n">segment</span> <span class="o">=</span> <span class="n">uriVariables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;segment&#34;</span><span class="o">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">uriVariables</span> <span class="o">=</span> <span class="n">ServerWebExchangeUtils</span><span class="o">.</span><span class="na">getPathPredicateVariables</span><span class="o">(</span><span class="n">exchange</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">String</span> <span class="n">segment</span> <span class="o">=</span> <span class="n">uriVariables</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;segment&#34;</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="请求参数匹配">请求参数匹配</h3>
 <p>Query Route Predicate 支持传入两个参数，一个是属性名一个为属性值，属性值可以是正则表达式。</p>
@@ -562,15 +562,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: query_route
-        uri: https://example.org
-        predicates:
-        - Query=baz
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: query_route
+</span></span><span class="line"><span class="cl">        uri: https://example.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Query=baz
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="ip地址匹配">ip地址匹配</h3>
 <p>RemoteAddr Route Predicate 支持匹配相应的ip地址，如(IPv4 or IPv6)，或者一个网段<code>192.168.0.1/16</code>，一个地址<code>192.168.0.1</code></p>
@@ -586,15 +586,15 @@ spring:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: remoteaddr_route
-        uri: https://example.org
-        predicates:
-        - RemoteAddr=192.168.1.1/24
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: remoteaddr_route
+</span></span><span class="line"><span class="cl">        uri: https://example.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - RemoteAddr=192.168.1.1/24
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="权重匹配">权重匹配</h3>
 <p>Weight Route Predicate 接受两个参数，分组和权重：</p>
@@ -614,19 +614,19 @@ spring:
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: weight_high
-        uri: https://weighthigh.org
-        predicates:
-        - Weight=group1, 8
-      - id: weight_low
-        uri: https://weightlow.org
-        predicates:
-        - Weight=group1, 2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: weight_high
+</span></span><span class="line"><span class="cl">        uri: https://weighthigh.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Weight=group1, 8
+</span></span><span class="line"><span class="cl">      - id: weight_low
+</span></span><span class="line"><span class="cl">        uri: https://weightlow.org
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Weight=group1, 2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="组合使用">组合使用</h3>
 <p>除此之外，这些匹配还可以组合起来使用</p>
@@ -649,22 +649,22 @@ spring:
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-       - id: host_foo_path_headers_to_httpbin
-        uri: http://example.com
-        predicates:
-        - Host=**.foo.org
-        - Path=/headers
-        - Method=GET
-        - Header=X-Request-Id, \d+
-        - Query=foo, ba.
-        - Query=baz
-        - Cookie=chocolate, ch.p
-        - After=2019-08-18T12:00:00+08:00[Asia/Shanghai]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">       - id: host_foo_path_headers_to_httpbin
+</span></span><span class="line"><span class="cl">        uri: http://example.com
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Host=**.foo.org
+</span></span><span class="line"><span class="cl">        - Path=/headers
+</span></span><span class="line"><span class="cl">        - Method=GET
+</span></span><span class="line"><span class="cl">        - Header=X-Request-Id, \d+
+</span></span><span class="line"><span class="cl">        - Query=foo, ba.
+</span></span><span class="line"><span class="cl">        - Query=baz
+</span></span><span class="line"><span class="cl">        - Cookie=chocolate, ch.p
+</span></span><span class="line"><span class="cl">        - After=2019-08-18T12:00:00+08:00[Asia/Shanghai]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>各种 Predicates 同时存在于同一个路由时，请求必须同时满足所有的条件才被这个路由匹配。</p>
 <blockquote>
@@ -681,11 +681,11 @@ spring:
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;dependency&gt;
+</span></span><span class="line"><span class="cl">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">&lt;/dependency&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="配置文件-1">配置文件</h2>
 <p>修改配置文件，添加discovery的配置</p>
@@ -710,24 +710,24 @@ spring:
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">server:
-  port: 8888
-spring:
-  application:
-    name: gateway
-  cloud:
-    gateway:
-     discovery:
-        locator:
-         enabled: true
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8000/eureka/
-logging:
-  level:
-    org.springframework.cloud.gateway: debug
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  port: 8888
+</span></span><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  application:
+</span></span><span class="line"><span class="cl">    name: gateway
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">     discovery:
+</span></span><span class="line"><span class="cl">        locator:
+</span></span><span class="line"><span class="cl">         enabled: true
+</span></span><span class="line"><span class="cl">eureka:
+</span></span><span class="line"><span class="cl">  client:
+</span></span><span class="line"><span class="cl">    service-url:
+</span></span><span class="line"><span class="cl">      defaultZone: http://localhost:8000/eureka/
+</span></span><span class="line"><span class="cl">logging:
+</span></span><span class="line"><span class="cl">  level:
+</span></span><span class="line"><span class="cl">    org.springframework.cloud.gateway: debug
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置说明：</p>
 <ul>
@@ -747,14 +747,14 @@ logging:
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
-<span class="nd">@EnableDiscoveryClient</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableDiscoveryClient</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>修改完成后启动项目，访问注册中心地址 http://localhost:8000/ 即可看到名为GATEWAY的服务。</p>
 <h2 id="测试">测试</h2>
@@ -784,15 +784,15 @@ logging:
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: add_request_parameter_route
-        uri: http://example.org
-        filters:
-        - AddRequestParameter=foo, bar
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: add_request_parameter_route
+</span></span><span class="line"><span class="cl">        uri: http://example.org
+</span></span><span class="line"><span class="cl">        filters:
+</span></span><span class="line"><span class="cl">        - AddRequestParameter=foo, bar
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样以来就会给每个请求都加上foo=bar</p>
 <h2 id="路由转发">路由转发</h2>
@@ -803,9 +803,9 @@ logging:
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">#格式为：lb://应用注册服务名
-uri: lb://producer
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#格式为：lb://应用注册服务名
+</span></span><span class="line"><span class="cl">uri: lb://producer
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里其实默认使用了全局过滤器 LoadBalancerClient ，当路由配置中 uri 所用的协议为 lb 时（以uri: lb://producer为例），gateway 将使用 LoadBalancerClient 把 spring-cloud-producer 通过 eureka 解析为实际的主机和端口，并进行负载均衡。</p>
 <h2 id="修改请求路径">修改请求路径</h2>
@@ -825,17 +825,17 @@ uri: lb://producer
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: nameRoot
-        uri: http://nameservice
-        predicates:
-        - Path=/name/**
-        filters:
-        - StripPrefix=2
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: nameRoot
+</span></span><span class="line"><span class="cl">        uri: http://nameservice
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Path=/name/**
+</span></span><span class="line"><span class="cl">        filters:
+</span></span><span class="line"><span class="cl">        - StripPrefix=2
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上面这个配置的例子表示，当请求路径匹配到<code>/name/**</code>会将包含name和后边的字符串接去掉转发， StripPrefix=2就代表截取路径的个数，这样配置后当请求<code>/name/bar/foo</code>后端匹配到的请求路径就会变成<code>http://nameservice/foo</code>。</p>
 <blockquote>
@@ -852,11 +852,11 @@ uri: lb://producer
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;dependency&gt;
-  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-  &lt;artifactId&gt;spring-boot-starter-data-redis-reactive&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;dependency&gt;
+</span></span><span class="line"><span class="cl">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">  &lt;artifactId&gt;spring-boot-starter-data-redis-reactive&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">&lt;/dependency&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><em>application.yml</em></p>
 <div class="highlight"><div class="chroma">
@@ -886,30 +886,30 @@ uri: lb://producer
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  application:
-    name: gateway
-  redis:
-    host: localhost
-    password:
-    port: 6379
-  cloud:
-    gateway:
-     discovery:
-        locator:
-         enabled: true
-     routes:
-     - id: requestratelimiter_route
-       uri: http://example.org
-       filters:
-       - name: RequestRateLimiter
-         args:
-           redis-rate-limiter.replenishRate: 10
-           redis-rate-limiter.burstCapacity: 20
-           key-resolver: &#34;#{@userKeyResolver}&#34;
-       predicates:
-         - Method=GET
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  application:
+</span></span><span class="line"><span class="cl">    name: gateway
+</span></span><span class="line"><span class="cl">  redis:
+</span></span><span class="line"><span class="cl">    host: localhost
+</span></span><span class="line"><span class="cl">    password:
+</span></span><span class="line"><span class="cl">    port: 6379
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">     discovery:
+</span></span><span class="line"><span class="cl">        locator:
+</span></span><span class="line"><span class="cl">         enabled: true
+</span></span><span class="line"><span class="cl">     routes:
+</span></span><span class="line"><span class="cl">     - id: requestratelimiter_route
+</span></span><span class="line"><span class="cl">       uri: http://example.org
+</span></span><span class="line"><span class="cl">       filters:
+</span></span><span class="line"><span class="cl">       - name: RequestRateLimiter
+</span></span><span class="line"><span class="cl">         args:
+</span></span><span class="line"><span class="cl">           redis-rate-limiter.replenishRate: 10
+</span></span><span class="line"><span class="cl">           redis-rate-limiter.burstCapacity: 20
+</span></span><span class="line"><span class="cl">           key-resolver: &#34;#{@userKeyResolver}&#34;
+</span></span><span class="line"><span class="cl">       predicates:
+</span></span><span class="line"><span class="cl">         - Method=GET
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>filter 名称必须是 RequestRateLimiter</li>
@@ -938,23 +938,23 @@ uri: lb://producer
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Config</span> <span class="o">{</span>
-
-    <span class="c1">// 根据请求参数中的 user 字段来限流
-</span><span class="c1"></span>    <span class="nd">@Primary</span>
-    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">KeyResolver</span> <span class="nf">userKeyResolver</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">exchange</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">exchange</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getQueryParams</span><span class="o">().</span><span class="na">getFirst</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">));</span>
-    <span class="o">}</span>
-
-    <span class="c1">// 设置根据请求 IP 地址来限流
-</span><span class="c1"></span>    <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">KeyResolver</span> <span class="nf">ipKeyResolver</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">exchange</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">exchange</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getRemoteAddress</span><span class="o">().</span><span class="na">getHostName</span><span class="o">());</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Config</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 根据请求参数中的 user 字段来限流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Primary</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">KeyResolver</span> <span class="nf">userKeyResolver</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">exchange</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">exchange</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getQueryParams</span><span class="o">().</span><span class="na">getFirst</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置根据请求 IP 地址来限流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">KeyResolver</span> <span class="nf">ipKeyResolver</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">exchange</span> <span class="o">-&gt;</span> <span class="n">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="n">exchange</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getRemoteAddress</span><span class="o">().</span><span class="na">getHostName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="熔断器">熔断器</h2>
 <p>同样的，使用Filter的特性，我们也可以实现熔断器的功能。首先添加依赖包：
@@ -967,11 +967,11 @@ uri: lb://producer
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;dependency&gt;
-  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
-  &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;dependency&gt;
+</span></span><span class="line"><span class="cl">  &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+</span></span><span class="line"><span class="cl">  &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+</span></span><span class="line"><span class="cl">&lt;/dependency&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后添加熔断器的配置 <em>application.yml</em></p>
 <div class="highlight"><div class="chroma">
@@ -992,21 +992,21 @@ uri: lb://producer
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: hystrix_route
-        uri: lb://producer
-        predicates:
-        - Path=/consumingserviceendpoint
-        filters:
-        - Hystrix=myCommandName
-        - name: Hystrix
-          args:
-            name: fallbackcmd
-            fallbackUri: forward:/incaseoffailureusethis
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: hystrix_route
+</span></span><span class="line"><span class="cl">        uri: lb://producer
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Path=/consumingserviceendpoint
+</span></span><span class="line"><span class="cl">        filters:
+</span></span><span class="line"><span class="cl">        - Hystrix=myCommandName
+</span></span><span class="line"><span class="cl">        - name: Hystrix
+</span></span><span class="line"><span class="cl">          args:
+</span></span><span class="line"><span class="cl">            name: fallbackcmd
+</span></span><span class="line"><span class="cl">            fallbackUri: forward:/incaseoffailureusethis
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置后gateway 将使用 myCommandName 作为名称生成 HystrixCommand 对象来进行熔断管理，<code>fallbackUri: forward:/incaseoffailureusethis</code>配置了 fallback 时要会调的路径，当调用 Hystrix 的 fallback 被调用时，请求将转发到<code>/incaseoffailureuset</code>这个 URI。</p>
 <h2 id="路由重试">路由重试</h2>
@@ -1034,25 +1034,25 @@ uri: lb://producer
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spring:
-  cloud:
-    gateway:
-      routes:
-      - id: retry_test
-        uri: http://localhost:8080/flakey
-        predicates:
-        - Host=*.retry.com
-        filters:
-        - name: Retry
-          args:
-            retries: 3
-            statuses: BAD_GATEWAY
-            backoff:
-              firstBackoff: 10ms
-              maxBackoff: 50ms
-              factor: 2
-              basedOnPreviousValue: false
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  cloud:
+</span></span><span class="line"><span class="cl">    gateway:
+</span></span><span class="line"><span class="cl">      routes:
+</span></span><span class="line"><span class="cl">      - id: retry_test
+</span></span><span class="line"><span class="cl">        uri: http://localhost:8080/flakey
+</span></span><span class="line"><span class="cl">        predicates:
+</span></span><span class="line"><span class="cl">        - Host=*.retry.com
+</span></span><span class="line"><span class="cl">        filters:
+</span></span><span class="line"><span class="cl">        - name: Retry
+</span></span><span class="line"><span class="cl">          args:
+</span></span><span class="line"><span class="cl">            retries: 3
+</span></span><span class="line"><span class="cl">            statuses: BAD_GATEWAY
+</span></span><span class="line"><span class="cl">            backoff:
+</span></span><span class="line"><span class="cl">              firstBackoff: 10ms
+</span></span><span class="line"><span class="cl">              maxBackoff: 50ms
+</span></span><span class="line"><span class="cl">              factor: 2
+</span></span><span class="line"><span class="cl">              basedOnPreviousValue: false
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>retries：应尝试的重试次数</li>
@@ -1094,7 +1094,7 @@ uri: lb://producer
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

@@ -122,12 +122,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
-</span><span class="w"></span><span class="c1">------------------
-</span><span class="c1"></span><span class="k">NO</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">NO</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看是否配置了db_recover_file_dest</p>
 <div class="highlight"><div class="chroma">
@@ -140,13 +140,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">db_recovery</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="n">NAME</span><span class="w">				     </span><span class="k">TYPE</span><span class="w">	 </span><span class="n">VALUE</span><span class="w">
-</span><span class="w"></span><span class="c1">------------------------------------ ----------- ------------------------------
-</span><span class="c1"></span><span class="n">db_recovery_file_dest</span><span class="w">		     </span><span class="n">string</span><span class="w">
-</span><span class="w"></span><span class="n">db_recovery_file_dest_size</span><span class="w">	     </span><span class="n">big</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">db_recovery</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">NAME</span><span class="w">				     </span><span class="k">TYPE</span><span class="w">	 </span><span class="n">VALUE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">------------------------------------ ----------- ------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">db_recovery_file_dest</span><span class="w">		     </span><span class="n">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">db_recovery_file_dest_size</span><span class="w">	     </span><span class="n">big</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>没有配置的话，先创建对应的目录，注意目录的权限和oracle数据库的一致</p>
 <div class="highlight"><div class="chroma">
@@ -155,9 +155,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mkdir /u01/flashback
-chown oracle:oinstall /u01/flashback
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir /u01/flashback
+</span></span><span class="line"><span class="cl">chown oracle:oinstall /u01/flashback
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -167,11 +167,11 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest_size</span><span class="o">=</span><span class="mi">30</span><span class="k">G</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest</span><span class="o">=</span><span class="s1">&#39;/u01/flashback&#39;</span><span class="w">  </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">System</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest_size</span><span class="o">=</span><span class="mi">30</span><span class="k">G</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_recovery_file_dest</span><span class="o">=</span><span class="s1">&#39;/u01/flashback&#39;</span><span class="w">  </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">System</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>关闭 oracle</p>
 <div class="highlight"><div class="chroma">
@@ -182,11 +182,11 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">closed</span><span class="p">.</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">dismounted</span><span class="p">.</span><span class="w">
-</span><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">shut</span><span class="w"> </span><span class="n">down</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">closed</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">dismounted</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">shut</span><span class="w"> </span><span class="n">down</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动到 mount 状态</p>
 <div class="highlight"><div class="chroma">
@@ -202,16 +202,16 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">started</span><span class="p">.</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="n">Total</span><span class="w"> </span><span class="k">System</span><span class="w"> </span><span class="k">Global</span><span class="w"> </span><span class="n">Area</span><span class="w"> </span><span class="mi">1603411968</span><span class="w"> </span><span class="n">bytes</span><span class="w">
-</span><span class="w"></span><span class="n">Fixed</span><span class="w"> </span><span class="k">Size</span><span class="w">		    </span><span class="mi">2253664</span><span class="w"> </span><span class="n">bytes</span><span class="w">
-</span><span class="w"></span><span class="k">Variable</span><span class="w"> </span><span class="k">Size</span><span class="w">		  </span><span class="mi">905972896</span><span class="w"> </span><span class="n">bytes</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">Buffers</span><span class="w">	  </span><span class="mi">687865856</span><span class="w"> </span><span class="n">bytes</span><span class="w">
-</span><span class="w"></span><span class="n">Redo</span><span class="w"> </span><span class="n">Buffers</span><span class="w">		    </span><span class="mi">7319552</span><span class="w"> </span><span class="n">bytes</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">mounted</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ORACLE</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="n">started</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Total</span><span class="w"> </span><span class="k">System</span><span class="w"> </span><span class="k">Global</span><span class="w"> </span><span class="n">Area</span><span class="w"> </span><span class="mi">1603411968</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Fixed</span><span class="w"> </span><span class="k">Size</span><span class="w">		    </span><span class="mi">2253664</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Variable</span><span class="w"> </span><span class="k">Size</span><span class="w">		  </span><span class="mi">905972896</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">Buffers</span><span class="w">	  </span><span class="mi">687865856</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Redo</span><span class="w"> </span><span class="n">Buffers</span><span class="w">		    </span><span class="mi">7319552</span><span class="w"> </span><span class="n">bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">mounted</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>开启 archeve log</p>
 <div class="highlight"><div class="chroma">
@@ -221,10 +221,10 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">archivelog</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">archivelog</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>开启闪回功能</p>
 <div class="highlight"><div class="chroma">
@@ -234,10 +234,10 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">flashback</span><span class="w"> </span><span class="k">on</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">flashback</span><span class="w"> </span><span class="k">on</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动数据库到 open 状态</p>
 <div class="highlight"><div class="chroma">
@@ -247,10 +247,10 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">open</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">open</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">altered</span><span class="p">.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -261,12 +261,12 @@ chown oracle:oinstall /u01/flashback
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
-</span><span class="w"></span><span class="c1">------------------
-</span><span class="c1"></span><span class="n">YES</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">flashback_on</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">FLASHBACK_ON</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">YES</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -298,7 +298,7 @@ chown oracle:oinstall /u01/flashback
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.87.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
