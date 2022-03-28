@@ -115,7 +115,7 @@ netsh interface set interface name="本地连接 4" newname="realserver"
 netsh interface ip set address name="realserver" source=static 192.168.221.150 255.255.255.255
 ```
 
-修改网卡接口和回环设备接口连接模式
+修改网卡接口和回环设备接口连接模式，开启[弱主机模式](https://docs.microsoft.com/zh-cn/previous-versions/technet-magazine/cc137807(v=msdn.10)?redirectedfrom=MSDN)
 
 ```bash
 netsh interface ipv4 set interface "realserver" weakhostreceive=enabled
