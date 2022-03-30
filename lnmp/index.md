@@ -1,9 +1,9 @@
 # 搭建lnmp环境
 
-lnmp即：nginx + mysql + php
-与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。
-同样的php依赖mysql，所以首先安装mysql
+lnmp即：nginx + mysql + php。与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。同样的php依赖mysql，所以首先安装mysql
+
 这里环境为CentOS6.5
+
 # 安装mysql
 这里选择免编译安装，可以在官网找到。在mysql5.5之后的版本不在开源了，但还可以选择mariadb的分支版本作为这个架构的代替。接下来就可以开始mysql的安装了。
 
