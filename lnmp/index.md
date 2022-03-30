@@ -12,6 +12,7 @@ lnmp即：nginx + mysql + php。与lamp不同的是，lnmp的php不在只是http
 wget http://mirrors.sohu.com/mysql/MySQL-5.1/mysql-5.1.73-linux-i686-glibc23.tar.gz
 ```
 这个版本有点低，可以自己选择合适版本
+
 ## 解压
 ```bash
 tar -zxvf tar -zxvf mysql-5.1.73-linux-i686-glibc23.tar.gz
