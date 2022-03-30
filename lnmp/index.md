@@ -1,6 +1,5 @@
 # 搭建lnmp环境
 
-![](http://image.xingyys.club/blog/linux.png)
 lnmp即：nginx + mysql + php
 与lamp不同的是，lnmp的php不在只是httpd中的一个库，lnmp架构中php作为一个服务，专门解析php。
 同样的php依赖mysql，所以首先安装mysql
