@@ -4,9 +4,16 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 23 Mar 2022 17:24:13 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 05 Apr 2022 20:22:20 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>常见的数据结构</title>
+    <link>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <pubDate>Tue, 05 Apr 2022 20:22:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+    <description><![CDATA[作为总结和回顾，本篇来梳理下开发和刷题过程中所遇到的常用数据结构。 首先什么是数据结构呢？在一般的算法书籍中都会告诉读者这句话: $$程序 = 数据]]></description>
+</item><item>
     <title>Lvs 负载均衡实战</title>
     <link>http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/</link>
     <pubDate>Wed, 23 Mar 2022 17:24:13 &#43;0800</pubDate>
@@ -71,12 +78,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</guid>
     <description><![CDATA[进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(th]]></description>
-</item><item>
-    <title>Linux内存</title>
-    <link>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</link>
-    <pubDate>Sun, 10 Oct 2021 23:54:28 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/linux%E5%86%85%E5%AD%98/</guid>
-    <description><![CDATA[内存概论 虚拟内存 虚拟内存(virtual memory)是 Unix 系统中一种对内存的抽象。虚拟内存作为一种逻辑层，处于应用程序的内存请求与硬件内存管]]></description>
 </item></channel>
 </rss>
