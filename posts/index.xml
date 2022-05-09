@@ -4,7 +4,14 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 05 Apr 2022 20:22:20 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Apr 2022 20:18:58 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>常见的算法思想</title>
+    <link>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link>
+    <pubDate>Mon, 25 Apr 2022 20:18:58 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</guid>
+    <description><![CDATA[数据结构和算法是编程的两个核心部分。之前我们介绍了几种常见的数据结构，但是要解决实际的问题光有数据结构还不够，我们还需要知道处理这些数据结构]]></description>
+</item><item>
     <title>常见的数据结构</title>
     <link>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
     <pubDate>Tue, 05 Apr 2022 20:22:20 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</guid>
     <description><![CDATA[中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。 中断]]></description>
-</item><item>
-    <title>Linux进程</title>
-    <link>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</link>
-    <pubDate>Mon, 25 Oct 2021 08:41:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/linux%E8%BF%9B%E7%A8%8B/</guid>
-    <description><![CDATA[进程时程序执行的一个实例，可以把它看作充分描述程序已经执行到何种程度的数据结构的汇集。在 Linux 源代码中，常把进程称为任务(task)或线程(th]]></description>
 </item></channel>
 </rss>
