@@ -372,9 +372,9 @@ func dfs(board *[][]byte, word *string, i, j, k int) bool {
 动态规划，简单讲就是利用历史记录，来避免我们的重复计算。而这些历史记录，通常是用一维数组或者二维数组来保存。
 
 动态规划的主要步骤：
-1. 定义数组元素的含义。
-2. 找出数组元素之间的关系式。
-3. 找出初始值
+1. 定义数组元素的含义，设置 dp 记录历史数据。
+2. 找出数组元素之间的关系式，确定状态转移方程式。
+3. 找出初始值。
 
 ### 题解
 我们使用模拟算法来解 [leetcode题目](https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof/)
@@ -382,8 +382,8 @@ func dfs(board *[][]byte, word *string, i, j, k int) bool {
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220509232857.png)
 
 代入步骤来解答此题。
-1. 使用一组数组 dp 来保存每次计算的斐波那契的值。
-2. 更具斐波那契的定义可知: $F(i) = F(i-1) + F(i-2)$。
+1. 使用一维数组 dp[n] 来保存每次计算的斐波那契值。
+2. 根据斐波那契的定义可得状态转移方程式: $F(i) = F(i-1) + F(i-2)$。
 3. 确定初始化，F(0) = 0, F(0) = 1。
 
 需要注意的是 n 的最大值为 100，计算结果会超出 int 范围，所以结果取模。

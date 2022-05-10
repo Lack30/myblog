@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "算法, golang","wordcount":  4259 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "算法, golang","wordcount":  4286 ,
         "url": "http:\/\/xingyys.tech\/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3\/","datePublished": "2022-04-25T20:18:58+08:00","dateModified": "2022-04-26T20:18:58+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">常见的算法思想</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>数据结构与算法</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-25">2022-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4259 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-25">2022-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4286 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -799,9 +799,9 @@
 <p>动态规划，简单讲就是利用历史记录，来避免我们的重复计算。而这些历史记录，通常是用一维数组或者二维数组来保存。</p>
 <p>动态规划的主要步骤：</p>
 <ol>
-<li>定义数组元素的含义。</li>
-<li>找出数组元素之间的关系式。</li>
-<li>找出初始值</li>
+<li>定义数组元素的含义，设置 dp 记录历史数据。</li>
+<li>找出数组元素之间的关系式，确定状态转移方程式。</li>
+<li>找出初始值。</li>
 </ol>
 <h3 id="题解-6">题解</h3>
 <p>我们使用模拟算法来解 <a href="https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof/" target="_blank" rel="noopener noreffer">leetcode题目</a></p>
@@ -815,8 +815,8 @@
         title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220509232857.png" /></p>
 <p>代入步骤来解答此题。</p>
 <ol>
-<li>使用一组数组 dp 来保存每次计算的斐波那契的值。</li>
-<li>更具斐波那契的定义可知: $F(i) = F(i-1) + F(i-2)$。</li>
+<li>使用一维数组 dp[n] 来保存每次计算的斐波那契值。</li>
+<li>根据斐波那契的定义可得状态转移方程式: $F(i) = F(i-1) + F(i-2)$。</li>
 <li>确定初始化，F(0) = 0, F(0) = 1。</li>
 </ol>
 <p>需要注意的是 n 的最大值为 100，计算结果会超出 int 范围，所以结果取模。</p>
