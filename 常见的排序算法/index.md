@@ -7,6 +7,8 @@
 
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/冒泡排序.gif)
 
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/选择排序.gif)
+
 冒泡排序
 选择排序
 插入排序
