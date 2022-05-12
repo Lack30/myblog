@@ -5,7 +5,7 @@
 
 // TODO
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220512113108.png)
+![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220512113108.gif)
 
 冒泡排序
 选择排序
