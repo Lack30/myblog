@@ -19,13 +19,6 @@
     <guid>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
     <description><![CDATA[作为总结和回顾，本篇来梳理下开发和刷题过程中所遇到的常用数据结构。 首先什么是数据结构呢？在一般的算法书籍中都会告诉读者这句话: $$程序 = 数据]]></description>
 </item><item>
-    <title>常见的排序算法</title>
-    <link>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</link>
-    <pubDate>Tue, 05 Apr 2022 20:20:46 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
     <title>Lvs 负载均衡实战</title>
     <link>http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/</link>
     <pubDate>Wed, 23 Mar 2022 17:24:13 &#43;0800</pubDate>
@@ -76,5 +69,12 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</guid>
     <description><![CDATA[内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢占内核的区别: 在进]]></description>
+</item><item>
+    <title>Linux中断和异常</title>
+    <link>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</link>
+    <pubDate>Thu, 28 Oct 2021 08:28:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</guid>
+    <description><![CDATA[中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。 中断]]></description>
 </item></channel>
 </rss>
