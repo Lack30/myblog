@@ -32,7 +32,7 @@ fn main() {
 
 fn main() {
 
-    let s = 3;
+    let s = "hello world".to_string();
     // 发生所有权的转移，现在 s1 拥有 3 的所有权，使用变量 s 时将会报错。
     let s1 = s;
 }
@@ -70,6 +70,26 @@ impl P {
             name: name,
         }
     }
+}
+```
+
+Rust 的变量可以保存在堆和栈上，值保存在栈的变量的默认转移语义为 Copy，值保存在堆上的变量的默认转移语义为 Move。
+
+```rust
+fn main() {
+    let v = "s"; // &str 保存在栈上
+    let v1 = v;  // 赋值后， v 变量依然有效
+
+    let s = "s".to_string();  // String 保存在堆上
+    let s1 = s;               // 赋值后会 move，所以 s 变量被销毁
+}
+```
+
+我们可以使用 `Box` 将变量保存到堆上:
+```rust
+fn main() {
+    let v = Box::new(3); // 变量保存到堆上
+    let v1 = v;          // 赋值时 move
 }
 ```
 
