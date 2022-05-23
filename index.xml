@@ -4,9 +4,18 @@
         <link>http://xingyys.tech/</link>
         <description>关于 DoIt 主题</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Apr 2022 20:18:58 &#43;0800</lastBuildDate>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 17 May 2022 13:32:50 &#43;0800</lastBuildDate>
             <atom:link href="http://xingyys.tech/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Rust所有权与生命周期</title>
+    <link>http://xingyys.tech/rust%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
+    <pubDate>Tue, 17 May 2022 13:32:50 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/rust%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/rust-logo.png" referrerpolicy="no-referrer">
+            </div>在 Rust 编程语言的内存管理总共有两种，一种是 C/C++ 方式的手动管理内存，优点就是程序性能好，内存使用率高，但是缺点是手动管理内存难度高，处理不好就会出]]></description>
+</item><item>
     <title>常见的算法思想</title>
     <link>http://xingyys.tech/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/</link>
     <pubDate>Mon, 25 Apr 2022 20:18:58 &#43;0800</pubDate>
@@ -71,12 +80,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/linux%E5%86%85%E6%A0%B8%E5%90%8C%E6%AD%A5/</guid>
     <description><![CDATA[内核抢占 抢占内核的主要特点是: 一个在内核态运行的进程，可能在执行内核函数期间被另外一个进程取代。 用实例来说明抢占内核和非抢占内核的区别: 在进]]></description>
-</item><item>
-    <title>Linux中断和异常</title>
-    <link>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</link>
-    <pubDate>Thu, 28 Oct 2021 08:28:44 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/linux%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8/</guid>
-    <description><![CDATA[中断(interrupt)通常被定义为一个事件，该事件改变处理器执行的指令顺序。这样的事件与CPU芯片内外部硬件电路产生的点信号相对应。 中断]]></description>
 </item></channel>
 </rss>
