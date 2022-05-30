@@ -595,7 +595,7 @@ kubectl create clusterrolebinding kube-dashboard-admin-sa \
 
 获取集群管理员登录dashboard所需token:
 ```bash
-kubectl describe -n kube-system secret $(kubectl -n kube-system get secret | grep kube-dashboard-admin-sa-token|awk -F ' ' '{print $1}')
+kubectl describe -n kube-system secret $(kubectl -n kube-system get serviceaccount | grep kube-dashboard-admin-sa-token|awk -F ' ' '{print $1}')
 Name:         kube-dashboard-admin-sa-token-7r5dh
 Namespace:    kube-system
 Labels:       <none>
