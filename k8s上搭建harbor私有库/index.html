@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>K8s上搭建harbor私有库 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="K8s上搭建harbor私有库" />
+<meta property="og:description" content="由于公共镜像库都是部署在外网，而且有些镜像的体积也比较庞大。因此在自建的 k8s 环境上安装一套私有镜像仓库是十分有必要的。接下来就详细说明如何一步" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-30T19:08:00+08:00" />
+<meta property="article:modified_time" content="2022-05-30T19:08:00+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8s上搭建harbor私有库"/>
+<meta name="twitter:description" content="由于公共镜像库都是部署在外网，而且有些镜像的体积也比较庞大。因此在自建的 k8s 环境上安装一套私有镜像仓库是十分有必要的。接下来就详细说明如何一步"/>
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" /><link rel="prev" href="http://xingyys.tech/rust%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "K8s上搭建harbor私有库",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93\/"
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  2175 ,
+        "url": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93\/","datePublished": "2022-05-30T19:08:00+08:00","dateModified": "2022-05-30T19:08:00+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/xingyys.tech\/images\/avatar.webp",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Lack"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">Lack个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/authors/"> 作者 </a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">Lack个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/authors/" title="">作者</a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">K8s上搭建harbor私有库</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-30">2022-05-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2175 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#安装-gluster">安装 gluster</a>
+      <ul>
+        <li><a href="#gluster-配置">gluster 配置</a></li>
+        <li><a href="#heketi-配置">heketi 配置</a></li>
+        <li><a href="#添加默认的-storageclass">添加默认的 StorageClass</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装-harbor">安装 harbor</a></li>
+    <li><a href="#设置私有库">设置私有库</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>由于公共镜像库都是部署在外网，而且有些镜像的体积也比较庞大。因此在自建的 k8s 环境上安装一套私有镜像仓库是十分有必要的。接下来就详细说明如何一步步搭建一个 harbor
+环境。</p>
+<h2 id="准备">准备</h2>
+<p>首先需要安装有一套可用的 k8s 环境，本人的环境如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>系统</th>
+<th>配置</th>
+<th>ip 地址</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k8s-master</td>
+<td>CentOS7</td>
+<td>2 core 8G, 两块 100 硬盘</td>
+<td>192.168.2.21</td>
+<td>master,glusterfs,heketi,helm</td>
+</tr>
+<tr>
+<td>k8s-node1</td>
+<td>CentOS7</td>
+<td>2 core 4G , 两块 100 硬盘</td>
+<td>192.168.2.22</td>
+<td>node,gluster</td>
+</tr>
+<tr>
+<td>k8s-node2</td>
+<td>CentOS7</td>
+<td>2 core 4G , 两块 100 硬盘</td>
+<td>192.168.2.23</td>
+<td>node,gluster</td>
+</tr>
+</tbody>
+</table>
+<h2 id="安装-gluster">安装 gluster</h2>
+<p>因为 harbor 需要 k8s pv 和 pvc，所以需要先安装 StorageClass</p>
+<h3 id="gluster-配置">gluster 配置</h3>
+<p>这个环境上是没有配置 StorageClass，这里选择 gluster 作为默认的存储。</p>
+<p>安装 gluster 软件包，每个节点上都要执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y glusterfs-server gluster-common glusterfs-client fuse
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 gluster 服务</span>
+</span></span><span class="line"><span class="cl">systemctl start glusterd
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> glusterd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="heketi-配置">heketi 配置</h3>
+<p><a href="https://github.com/heketi/heketi" target="_blank" rel="noopener noreffer">Heketi</a>提供了一个RESTful管理界面，可以用来管理GlusterFS卷的生命周期。 通过Heketi，就可以像使用OpenStack Manila，
+Kubernetes和OpenShift一样申请可以动态配置GlusterFS卷。Heketi会动态在集群内选择bricks构建所需的volumes，这样以确保数据的副本会分散到集群不同的故障域内。
+同时Heketi还支持任意数量的ClusterFS集群，以保证接入的云服务器不局限于单个GlusterFS集群。</p>
+<p>下载 heketi</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y heketi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim /etc/heketi.json</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;port&#34;</span>: <span class="s2">&#34;18080&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;user_auth&#34;</span>: false,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;jwt&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;admin&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;key&#34;</span>: <span class="s2">&#34;adminkey&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;user&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;key&#34;</span>: <span class="s2">&#34;userkey&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;glusterfs&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;executor&#34;</span>: <span class="s2">&#34;ssh&#34;</span>,
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;sshexec&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;keyfile&#34;</span>: <span class="s2">&#34;/etc/heketi/heketi_key&#34;</span>,
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;user&#34;</span>: <span class="s2">&#34;root&#34;</span>,
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;port&#34;</span>: <span class="s2">&#34;22&#34;</span>,
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;fstab&#34;</span>: <span class="s2">&#34;/etc/fstab&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;db&#34;</span>: <span class="s2">&#34;/var/lib/heketi/heketi.db&#34;</span>,
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;loglevel&#34;</span>: <span class="s2">&#34;info&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成 ssh 密钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t rsa -q -f /etc/heketi/heketi_key -N <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">600</span> /etc/heketi/heketi_key.pub
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ssh公钥传递，这里只以一个节点为例</span>
+</span></span><span class="line"><span class="cl">ssh-copy-id -i /etc/heketi/heketi_key.pub root@192.168.2.21
+</span></span><span class="line"><span class="cl">ssh-copy-id -i /etc/heketi/heketi_key.pub root@192.168.2.22
+</span></span><span class="line"><span class="cl">ssh-copy-id -i /etc/heketi/heketi_key.pub root@192.168.2.23
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证是否能通过ssh密钥正常连接到glusterfs节点</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ssh -i /etc/heketi/heketi_key root@192.168.2.22
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动 heketi</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start heketi
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> heketi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 gluster 节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">heketi-cli --server http://192.168.2.127:18080   --user <span class="s2">&#34;admin&#34;</span> --secret <span class="s2">&#34;adminkey&#34;</span> cluster create
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.21 --storage-host-name 192.168.2.21 --zone <span class="m">1</span>
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.22 --storage-host-name 192.168.2.22 --zone <span class="m">1</span>
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.23 --storage-host-name 192.168.2.23 --zone <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加每个节点上的磁盘</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdb&#34;</span> --node 314d3fb4d3e7eb4d7c9a6a3f5c800d74
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdc&#34;</span> --node 314d3fb4d3e7eb4d7c9a6a3f5c800d74
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdb&#34;</span> --node 500c293b77696808673a4c25d7d4961a
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdc&#34;</span> --node 500c293b77696808673a4c25d7d4961a
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdb&#34;</span> --node e4827cda4d3da2b33d30b95ec085cc8a
+</span></span><span class="line"><span class="cl">heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey device add --name<span class="o">=</span><span class="s2">&#34;/dev/sdc&#34;</span> --node e4827cda4d3da2b33d30b95ec085cc8a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="添加默认的-storageclass">添加默认的 StorageClass</h3>
+<p>新增 StorageClass 配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim gluster-sa.yaml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="cl">kind: Secret
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  name: heketi-secret
+</span></span><span class="line"><span class="cl">  namespace: default
+</span></span><span class="line"><span class="cl">data:
+</span></span><span class="line"><span class="cl">  key: <span class="nv">YWRtaW5rZXk</span><span class="o">=</span>   <span class="c1"># echo -n &#34;adminkey&#34; | base64 </span>
+</span></span><span class="line"><span class="cl">type: kubernetes.io/glusterfs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">apiVersion: storage.k8s.io/v1
+</span></span><span class="line"><span class="cl">kind: StorageClass
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  name: glusterfs
+</span></span><span class="line"><span class="cl">provisioner: kubernetes.io/glusterfs
+</span></span><span class="line"><span class="cl">allowVolumeExpansion: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">parameters:
+</span></span><span class="line"><span class="cl">  resturl: <span class="s2">&#34;http://192.168.2.21:18080&#34;</span>
+</span></span><span class="line"><span class="cl">  clusterid: <span class="s2">&#34;2292936a36f1798e588ac0a687b58a6d&#34;</span>
+</span></span><span class="line"><span class="cl">  restauthenabled: <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">  restuser: <span class="s2">&#34;admin&#34;</span>
+</span></span><span class="line"><span class="cl">  restuserkey: <span class="s2">&#34;adminkey&#34;</span>
+</span></span><span class="line"><span class="cl">  secretNamespace: <span class="s2">&#34;default&#34;</span>
+</span></span><span class="line"><span class="cl">  secretName: <span class="s2">&#34;heketi-secret&#34;</span>
+</span></span><span class="line"><span class="cl">  gidMin: <span class="s2">&#34;40000&#34;</span>
+</span></span><span class="line"><span class="cl">  gidMax: <span class="s2">&#34;50000&#34;</span>
+</span></span><span class="line"><span class="cl">  volumetype: <span class="s2">&#34;replicate:2&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 StorageClass</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f gluster-sa.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置为默认 StorageClass</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl patch storageclass glusterfs -p <span class="s1">&#39;{&#34;metadata&#34;: {&#34;annotations&#34;:{&#34;storageclass.kubernetes.io/is-default-class&#34;:&#34;true&#34;}}}&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kubectl get storageclass</span>
+</span></span><span class="line"><span class="cl">NAME                  PROVISIONER               RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+</span></span><span class="line"><span class="cl">glusterfs <span class="o">(</span>default<span class="o">)</span>   kubernetes.io/glusterfs   Delete          Immediate           <span class="nb">true</span>                   8h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-harbor">安装 harbor</h2>
+<p>安装完 gluster 就可以开始安装 harbor，先使用 helm 下载 harbor chart</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add harbor https://helm.goharbor.io
+</span></span><span class="line"><span class="cl">helm pull harbor/harbor --untar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 values 配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim harbor/values.yaml</span>
+</span></span><span class="line"><span class="cl">expose:
+</span></span><span class="line"><span class="cl">  type: ingress    <span class="c1"># 第4行，使用 ingress 对外提供服务</span>
+</span></span><span class="line"><span class="cl">  tls:
+</span></span><span class="line"><span class="cl">    enabled: <span class="nb">true</span>  
+</span></span><span class="line"><span class="cl">    certSource: secret <span class="c1"># 第19行，选择 k8s secret 作为 tls 来源</span>
+</span></span><span class="line"><span class="cl">    secret:
+</span></span><span class="line"><span class="cl">      secretName: <span class="s2">&#34;tls-harbor&#34;</span>       <span class="c1"># 第28行，k8s secret 名称，提供 https 证书</span>
+</span></span><span class="line"><span class="cl">      notarySecretName: <span class="s2">&#34;tls-harbor&#34;</span> <span class="c1"># 第33行，k8s secret 名称，提供 https 证书</span>
+</span></span><span class="line"><span class="cl">  ingress:
+</span></span><span class="line"><span class="cl">    hosts:
+</span></span><span class="line"><span class="cl">      core: harbor.howlinkdev.com    <span class="c1"># 第36行，harbor 域名</span>
+</span></span><span class="line"><span class="cl">      notary: notary.howlinkdev.com  <span class="c1"># 第37行，notary 域名，用于镜像的签名，保证镜像安全，不能与core设置的域名一样</span>
+</span></span><span class="line"><span class="cl">externalURL: https://harbor.howlinkdev.com  <span class="c1"># 第126行，harbor 访问 URL，与第36行域名保持一致</span>
+</span></span><span class="line"><span class="cl">persistence:
+</span></span><span class="line"><span class="cl">   enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">   resourcePolicy: <span class="s2">&#34;keep&#34;</span>
+</span></span><span class="line"><span class="cl">   persistentVolumeClaim:
+</span></span><span class="line"><span class="cl">     registry:   <span class="c1"># 镜像存储</span>
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>  <span class="c1"># 第219行， 存储类型，选择 gluster</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-registry&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 50Gi  <span class="c1"># pv 容量</span>
+</span></span><span class="line"><span class="cl">     chartmuseum:  <span class="c1"># helm chart 存储</span>
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-chartmuseum&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 5Gi
+</span></span><span class="line"><span class="cl">     jobservice:
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-jobservice&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 5Gi
+</span></span><span class="line"><span class="cl">     database:
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-database&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 10Gi
+</span></span><span class="line"><span class="cl">     redis:
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-redis&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 5Gi
+</span></span><span class="line"><span class="cl">     trivy:
+</span></span><span class="line"><span class="cl">       storageClass: <span class="s2">&#34;glusterfs&#34;</span>
+</span></span><span class="line"><span class="cl">       subPath: <span class="s2">&#34;harbor-trivy&#34;</span>
+</span></span><span class="line"><span class="cl">       accessMode: ReadWriteOnce
+</span></span><span class="line"><span class="cl">       size: 5Gi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生成自签证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim ssl/openssl.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ca根证书配置</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> ca <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">subjectKeyIdentifier</span><span class="o">=</span><span class="nb">hash</span>
+</span></span><span class="line"><span class="cl"><span class="nv">authorityKeyIdentifier</span><span class="o">=</span>keyid:always,issuer
+</span></span><span class="line"><span class="cl"><span class="nv">basicConstraints</span> <span class="o">=</span> critical,CA:true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># HTTPS应用证书配置</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> crt <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">subjectKeyIdentifier</span> <span class="o">=</span> <span class="nb">hash</span>
+</span></span><span class="line"><span class="cl"><span class="nv">authorityKeyIdentifier</span><span class="o">=</span>keyid:always,issuer
+</span></span><span class="line"><span class="cl"><span class="nv">basicConstraints</span> <span class="o">=</span> critical, CA:false
+</span></span><span class="line"><span class="cl"><span class="nv">keyUsage</span> <span class="o">=</span> critical, digitalSignature, cRLSign, keyEncipherment
+</span></span><span class="line"><span class="cl"><span class="nv">extendedKeyUsage</span> <span class="o">=</span> critical, serverAuth, clientAuth
+</span></span><span class="line"><span class="cl"><span class="nv">subjectAltName</span><span class="o">=</span>@alt_names
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># SANs可以将一个证书给多个域名或IP使用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 访问的域名或IP必须包含在此，否则无效</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改为你要保护的域名或者IP地址，支持通配符</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>alt_names<span class="o">]</span>
+</span></span><span class="line"><span class="cl">DNS.1 <span class="o">=</span> howlinkdev.com
+</span></span><span class="line"><span class="cl">DNS.2 <span class="o">=</span> harbor.howlinkdev.com
+</span></span><span class="line"><span class="cl">IP.1 <span class="o">=</span> 192.168.2.21
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ssl
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成根证书</span>
+</span></span><span class="line"><span class="cl">openssl genrsa -out root.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key root.key  -out root.csr -subj <span class="s2">&#34;/C=CN/ST=Zhejiang/L=Wenzhou/O=howlink/OU=howlink/CN=howlinkdev.com&#34;</span>
+</span></span><span class="line"><span class="cl">openssl x509 -req -extfile openssl.cnf -extensions ca -in root.csr -out root.crt -signkey root.key -CAcreateserial -days <span class="m">3650</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成 harbor 应用证书</span>
+</span></span><span class="line"><span class="cl">openssl genrsa -out harbor.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key harbor.key -out harbor.csr -subj <span class="s2">&#34;/C=CN/ST=Zhejiang/L=Wenzhou/O=howlink/OU=howlink/CN=harbor.howlinkdev.com&#34;</span>
+</span></span><span class="line"><span class="cl">openssl x509 -req -extfile openssl.cnf -extensions crt -CA root.crt -CAkey root.key -CAserial harbor.srl -CAcreateserial -in harbor.csr -out harbor.crt -days <span class="m">3650</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create namespace harbor
+</span></span><span class="line"><span class="cl">kubectl create secret tls tls-harbor --cert<span class="o">=</span>ssl/harbor.crt --key<span class="o">=</span>ssl/harbor.key -n harbor
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 harbor</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> harbor/harbor
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">helm install harbor . -n harbor
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看 pod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kubectl get pods -n harbor</span>
+</span></span><span class="line"><span class="cl">NAME                                    READY   STATUS    RESTARTS     AGE
+</span></span><span class="line"><span class="cl">harbor-chartmuseum-76cbb9445b-hq9vm     1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-core-6846c8d495-h26nw            1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-database-0                       1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-jobservice-c6f985dcf-nlg4h       1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-notary-server-7d89946d7c-g9lj2   1/1     Running   <span class="m">1</span> <span class="o">(</span>4h ago<span class="o">)</span>   4h1m
+</span></span><span class="line"><span class="cl">harbor-notary-signer-58ff89f555-92pmr   1/1     Running   <span class="m">1</span> <span class="o">(</span>4h ago<span class="o">)</span>   4h1m
+</span></span><span class="line"><span class="cl">harbor-portal-f6f488566-5zc6k           1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-redis-0                          1/1     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-registry-65f599f844-gxf5r        2/2     Running   <span class="m">0</span>            4h1m
+</span></span><span class="line"><span class="cl">harbor-trivy-0                          1/1     Running   <span class="m">0</span>            4h1m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于 <code>harbor.howlinkdev.com</code> 由于自建的域名，k8s core dns 默认无法解析，所以需要修改客户端的 <code>/etc/hosts</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/hosts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">192.168.2.21 harbor.howlinkdev.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还需要修改 coredns 的配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kubectl edit cm coredns -n kube-system</span>
+</span></span><span class="line"><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="cl">data:
+</span></span><span class="line"><span class="cl">  Corefile: <span class="p">|</span>
+</span></span><span class="line"><span class="cl">    .:53 <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        log
+</span></span><span class="line"><span class="cl">        errors
+</span></span><span class="line"><span class="cl">        health <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           lameduck 5s
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        ready
+</span></span><span class="line"><span class="cl">        kubernetes cluster.local in-addr.arpa ip6.arpa <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           pods insecure
+</span></span><span class="line"><span class="cl">           fallthrough in-addr.arpa ip6.arpa
+</span></span><span class="line"><span class="cl">           ttl <span class="m">30</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 添加自定义解析规则</span>
+</span></span><span class="line"><span class="cl">        hosts <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           192.168.2.21 harbor.howlinkdev.com
+</span></span><span class="line"><span class="cl">           fallthrough
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        prometheus :9153
+</span></span><span class="line"><span class="cl">        forward . /etc/resolv.conf <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           max_concurrent <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        cache <span class="m">30</span>
+</span></span><span class="line"><span class="cl">        reload
+</span></span><span class="line"><span class="cl">        loop
+</span></span><span class="line"><span class="cl">        loadbalance
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">kind: ConfigMap
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  creationTimestamp: <span class="s2">&#34;2022-05-30T02:29:32Z&#34;</span>
+</span></span><span class="line"><span class="cl">  name: coredns
+</span></span><span class="line"><span class="cl">  namespace: kube-system
+</span></span><span class="line"><span class="cl">  resourceVersion: <span class="s2">&#34;57400&#34;</span>
+</span></span><span class="line"><span class="cl">  uid: 702890ed-fb08-443e-9ce2-f28dac4ec9b4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>客户端使用浏览器访问 <code>https://harbor.howlinkdev.com</code>，默认的用户名密码为 admin/Harbor12345</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220530200012.png" /></p>
+<h2 id="设置私有库">设置私有库</h2>
+<p>最后我们就可以修改 containerd 的配置文件，新增 <code>harbor.howlinkdev.com</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim /etc/containerd/config.toml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry<span class="o">]</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">config_path</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.headers<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.mirrors<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.mirrors.<span class="s2">&#34;harbor.howlinkdev.com&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">endpoint</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;https://harbor.howlinkdev.com&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.auths<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.configs<span class="o">]</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.configs.<span class="s2">&#34;harbor.howlinkdev.com&#34;</span>.tls<span class="o">]</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">insecure_skip_verify</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">        <span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span>.registry.configs.<span class="s2">&#34;harbor.howlinkdev.com&#34;</span>.auth<span class="o">]</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">username</span><span class="o">=</span><span class="s2">&#34;admin&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="nv">password</span><span class="o">=</span><span class="s2">&#34;Harbor12345&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启 containerd</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl restart containerd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 nerdctl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/containerd/nerdctl/releases/download/v0.20.0/nerdctl-0.20.0-linux-amd64.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">tar nerdctl-0.20.0-linux-amd64.tar.gz
+</span></span><span class="line"><span class="cl">mv nerdctl /usr/local/sbin/nerdctl
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/sbin/nerdctl
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 <code>/etc/hosts</code>，添加记录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">192.168.2.21 harbor.howlinkdev.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 nerdctl 登录 harbor</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nerdctl login https://harbor.howlinkdev.com --insecure-registry -u admin -p Harbor12345
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nerdctl push harbor.howlinkdev.com/library/nginx --insecure-registry 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>nerdctl push报错：Request Entity Too Large，这里报错是因为ingress-nginx的配置文件中client_max_body_size参数过小。
+修改 ingress-nginx 的 /etc/nginx/nginx.conf</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim /etc/nginx/nginx.conf</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">client_body_timeout             120s<span class="p">;</span>
+</span></span><span class="line"><span class="cl">client_header_timeout           120s<span class="p">;</span>
+</span></span><span class="line"><span class="cl">client_max_body_size                    500m<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">location /configuration 中的client_max_body_size 21m不用改
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/k8s/">k8s</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/rust%E6%89%80%E6%9C%89%E6%9D%83%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="prev" rel="prev" title="Rust所有权与生命周期"><i class="fas fa-angle-left fa-fw"></i>Rust所有权与生命周期</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-05-30T19:08:00+08:00","owner":"lack-io","repo":"blog_comment","title":"K8s上搭建harbor私有库"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

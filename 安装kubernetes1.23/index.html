@@ -1315,7 +1315,7 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl describe -n kube-system secret <span class="k">$(</span>kubectl -n kube-system get secret <span class="p">|</span> grep kube-dashboard-admin-sa-token<span class="p">|</span>awk -F <span class="s1">&#39; &#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl describe -n kube-system secret <span class="k">$(</span>kubectl -n kube-system get serviceaccount <span class="p">|</span> grep kube-dashboard-admin-sa-token<span class="p">|</span>awk -F <span class="s1">&#39; &#39;</span> <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span>
 </span></span><span class="line"><span class="cl">Name:         kube-dashboard-admin-sa-token-7r5dh
 </span></span><span class="line"><span class="cl">Namespace:    kube-system
 </span></span><span class="line"><span class="cl">Labels:       &lt;none&gt;
