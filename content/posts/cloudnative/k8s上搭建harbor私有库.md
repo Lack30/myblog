@@ -15,7 +15,7 @@ author: "Lack"
 
 ## 准备
 
-首先需要安装有一套可用的 k8s 环境，本人的环境如下：
+首先需要安装有一套可用的 k8s 环境，本地的环境如下：
 
 | 主机名     | 系统    | 配置      | ip 地址      | 角色                    |
 | ---------- | ------- | --------- | ------------ | ----------------------- |
@@ -96,13 +96,24 @@ systemctl start heketi
 systemctl enable heketi
 ```
 
+添加 heketi 环境变量
+```bash
+cat >>  /etc/profile << EOF
+export HEKETI_CLI_SERVER=http://192.168.2.21:18080
+export HEKETI_CLI_USER=admin
+export HEKETI_CLI_SECRET=adminkey
+EOF
+
+source /etc/profile
+```
+
 添加 gluster 节点
 ```bash
-heketi-cli --server http://192.168.2.127:18080   --user "admin" --secret "adminkey" cluster create
+heketi-cli cluster create
 
-heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.21 --storage-host-name 192.168.2.21 --zone 1
-heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.22 --storage-host-name 192.168.2.22 --zone 1
-heketi-cli --server http://192.168.2.21:18080 --user admin --secret adminkey node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.23 --storage-host-name 192.168.2.23 --zone 1
+heketi-cli node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.21 --storage-host-name 192.168.2.21 --zone 1
+heketi-cli node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.22 --storage-host-name 192.168.2.22 --zone 1
+heketi-cli node add --cluster 2292936a36f1798e588ac0a687b58a6d --management-host-name 192.168.2.23 --storage-host-name 192.168.2.23 --zone 1
 ```
 
 添加每个节点上的磁盘
@@ -146,7 +157,7 @@ parameters:
   secretName: "heketi-secret"
   gidMin: "40000"
   gidMax: "50000"
-  volumetype: "replicate:2"
+  volumetype: "replicate:3"
 ```
 创建 StorageClass 
 ```bash
@@ -287,6 +298,8 @@ harbor-registry-65f599f844-gxf5r        2/2     Running   0            4h1m
 harbor-trivy-0                          1/1     Running   0            4h1m
 ```
 由于 `harbor.howlinkdev.com` 由于自建的域名，k8s core dns 默认无法解析，所以需要修改客户端的 `/etc/hosts`
+
+> 注: 如果安装失败需要重新安装时，需要先删除残留的 pv 和 pvc。不然可能出现 harbor-registry /storage 目录权限错误的情况。
 
 ```bash
 # /etc/hosts
