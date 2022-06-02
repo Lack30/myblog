@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>K8s上部署CI/CD - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="K8s上部署CI/CD" />
+<meta property="og:description" content="云原生的一大应用场景就是 Devops 了，本篇就来介绍如何搭建一套 CI/CD 工作流环境。选择组件为 Kubernetes &#43; Gitlab &#43; ArgoCD。 准备 首先需要安装有一套可用的 k8s 环境，本地" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-31T10:13:28+08:00" />
+<meta property="article:modified_time" content="2022-05-31T10:13:28+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8s上部署CI/CD"/>
+<meta name="twitter:description" content="云原生的一大应用场景就是 Devops 了，本篇就来介绍如何搭建一套 CI/CD 工作流环境。选择组件为 Kubernetes &#43; Gitlab &#43; ArgoCD。 准备 首先需要安装有一套可用的 k8s 环境，本地"/>
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" /><link rel="prev" href="http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "K8s上部署CI/CD",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd\/"
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  4824 ,
+        "url": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd\/","datePublished": "2022-05-31T10:13:28+08:00","dateModified": "2022-05-31T10:13:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/xingyys.tech\/images\/avatar.webp",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Lack"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">Lack个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/authors/"> 作者 </a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">Lack个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/authors/" title="">作者</a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">K8s上部署CI/CD</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-31">2022-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4824 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#准备">准备</a></li>
+    <li><a href="#安装-gitlab">安装 Gitlab</a></li>
+    <li><a href="#安装-gitlab-runner">安装 gitlab-runner</a></li>
+    <li><a href="#安装-argocd">安装 ArgoCD</a></li>
+    <li><a href="#配置-cicd">配置 CI/CD</a>
+      <ul>
+        <li><a href="#gitlab-配置">gitlab 配置</a></li>
+        <li><a href="#argocd-配置">ArgoCD 配置</a></li>
+        <li><a href="#配置-gitlab-ci-流水线">配置 Gitlab CI 流水线</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>云原生的一大应用场景就是 Devops 了，本篇就来介绍如何搭建一套 CI/CD 工作流环境。选择组件为 Kubernetes + Gitlab + ArgoCD。</p>
+<h2 id="准备">准备</h2>
+<p>首先需要安装有一套可用的 k8s 环境，本地的环境如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>系统</th>
+<th>配置</th>
+<th>ip 地址</th>
+<th>版本</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k8s-master</td>
+<td>CentOS7</td>
+<td>2 core 8G</td>
+<td>192.168.2.21</td>
+<td>v1.24.0</td>
+<td>master,helm</td>
+</tr>
+<tr>
+<td>k8s-node1</td>
+<td>CentOS7</td>
+<td>2 core 4G</td>
+<td>192.168.2.22</td>
+<td>v1.24.0</td>
+<td>node</td>
+</tr>
+<tr>
+<td>k8s-node2</td>
+<td>CentOS7</td>
+<td>2 core 4G</td>
+<td>192.168.2.23</td>
+<td>v1.24.0</td>
+<td>node</td>
+</tr>
+</tbody>
+</table>
+<h2 id="安装-gitlab">安装 Gitlab</h2>
+<p>gitlab 是开源的代码管理平台，可以看作是私有 github。因为官网的 helm 安装方式太复杂，这里选择使用 yaml 方式安装。这里参考<a href="https://duiniwukenaihe.github.io/2021/04/01/Kubernetes-1.20.5-%E5%AE%89%E8%A3%85gitlab/" target="_blank" rel="noopener noreffer">这篇文章</a></p>
+<p>gitlab 依赖 redis 和 postgresql 组件，需要外部存储。这里选择 gluster 作为 StorageClass，关于配置 gluster 作为 StorageClass 可以参考<a href="http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" target="_blank" rel="noopener noreffer">K8s 上搭建 harbor 私有库</a></p>
+<p>创建 namespace</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create namespace devops
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 redis</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitlab-redis.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">## PVC
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: PersistentVolumeClaim
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-redis-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  accessModes:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - ReadWriteOnce
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">    requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">      storage: 5Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">  storageClassName: glusterfs
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Service
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Service
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  type: ClusterIP
+</span></span></span><span class="line"><span class="cl"><span class="s">  ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - name: redis
+</span></span></span><span class="line"><span class="cl"><span class="s">      protocol: TCP
+</span></span></span><span class="line"><span class="cl"><span class="s">      port: 6379
+</span></span></span><span class="line"><span class="cl"><span class="s">      targetPort: redis
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: apps/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  replicas: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    matchLabels:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">        name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">      containers:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">        image: &#39;sameersbn/redis:4.0.9-3&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: redis
+</span></span></span><span class="line"><span class="cl"><span class="s">          containerPort: 6379
+</span></span></span><span class="line"><span class="cl"><span class="s">          protocol: TCP
+</span></span></span><span class="line"><span class="cl"><span class="s">        resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">          limits:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 1000m
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">          requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 1000m
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">        volumeMounts:
+</span></span></span><span class="line"><span class="cl"><span class="s">          - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">            mountPath: /var/lib/redis
+</span></span></span><span class="line"><span class="cl"><span class="s">        livenessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          exec:
+</span></span></span><span class="line"><span class="cl"><span class="s">            command:
+</span></span></span><span class="line"><span class="cl"><span class="s">              - redis-cli
+</span></span></span><span class="line"><span class="cl"><span class="s">              - ping
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 3
+</span></span></span><span class="line"><span class="cl"><span class="s">        readinessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          exec:
+</span></span></span><span class="line"><span class="cl"><span class="s">            command:
+</span></span></span><span class="line"><span class="cl"><span class="s">              - redis-cli
+</span></span></span><span class="line"><span class="cl"><span class="s">              - ping
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 3
+</span></span></span><span class="line"><span class="cl"><span class="s">      volumes:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">        persistentVolumeClaim:
+</span></span></span><span class="line"><span class="cl"><span class="s">          claimName: gitlab-redis-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl apply -f gitlab-redis.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 postgresql</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitlab-pgsql.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">## PVC
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: PersistentVolumeClaim
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-pg-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  accessModes:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - ReadWriteOnce
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">    requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">      storage: 10Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">  storageClassName: glusterfs
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Service
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Service
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab-postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - name: postgres
+</span></span></span><span class="line"><span class="cl"><span class="s">      protocol: TCP
+</span></span></span><span class="line"><span class="cl"><span class="s">      port: 5432
+</span></span></span><span class="line"><span class="cl"><span class="s">      targetPort: postgres
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">  type: ClusterIP
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: apps/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  replicas: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    matchLabels:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">        name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">      containers:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">        image: sameersbn/postgresql:12-20200524
+</span></span></span><span class="line"><span class="cl"><span class="s">        ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: postgres
+</span></span></span><span class="line"><span class="cl"><span class="s">          containerPort: 5432
+</span></span></span><span class="line"><span class="cl"><span class="s">        env:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_USER
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_PASS
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: admin@howlinkdev
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_NAME
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlabhq_production
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_EXTENSION
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;pg_trgm,btree_gist&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">          requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">          limits:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">        livenessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          exec:
+</span></span></span><span class="line"><span class="cl"><span class="s">            command: [&#34;pg_isready&#34;,&#34;-h&#34;,&#34;localhost&#34;,&#34;-U&#34;,&#34;postgres&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 30
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 3
+</span></span></span><span class="line"><span class="cl"><span class="s">        readinessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          exec:
+</span></span></span><span class="line"><span class="cl"><span class="s">            command: [&#34;pg_isready&#34;,&#34;-h&#34;,&#34;localhost&#34;,&#34;-U&#34;,&#34;postgres&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 3
+</span></span></span><span class="line"><span class="cl"><span class="s">        volumeMounts:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">          mountPath: /var/lib/postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">      volumes:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">        persistentVolumeClaim:
+</span></span></span><span class="line"><span class="cl"><span class="s">          claimName: gitlab-pg-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl apply -f gitlab-pgsql.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后就是安装 gitlab</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitlab.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">## PVC
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: PersistentVolumeClaim
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  accessModes:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - ReadWriteOnce
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">    requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">      storage: 30Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">  storageClassName: glusterfs
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Service
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Service
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - name: http
+</span></span></span><span class="line"><span class="cl"><span class="s">      protocol: TCP
+</span></span></span><span class="line"><span class="cl"><span class="s">      port: 80
+</span></span></span><span class="line"><span class="cl"><span class="s">    - name: ssh
+</span></span></span><span class="line"><span class="cl"><span class="s">      protocol: TCP
+</span></span></span><span class="line"><span class="cl"><span class="s">      port: 22
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">  type: ClusterIP
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">## Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Deployment
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: apps/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">    name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  replicas: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="cl"><span class="s">    matchLabels:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">      name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">        name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">      containers:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">        image: &#39;sameersbn/gitlab:13.6.2&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        ports:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: ssh
+</span></span></span><span class="line"><span class="cl"><span class="s">          containerPort: 22
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: http
+</span></span></span><span class="line"><span class="cl"><span class="s">          containerPort: 80
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: https
+</span></span></span><span class="line"><span class="cl"><span class="s">          containerPort: 443
+</span></span></span><span class="line"><span class="cl"><span class="s">        env:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: TZ
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: Asia/Shanghai
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_TIMEZONE
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: Beijing
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_SECRETS_DB_KEY_BASE
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: long-and-random-alpha-numeric-string
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_SECRETS_SECRET_KEY_BASE
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: long-and-random-alpha-numeric-string
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_SECRETS_OTP_KEY_BASE
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: long-and-random-alpha-numeric-string
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_ROOT_PASSWORD
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: admin@howlinkdev
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_ROOT_EMAIL
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: 598223084@qq.com
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_HOST
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;gitlab.howlinkdev.com&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_PORT
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;80&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_SSH_PORT
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;22&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_NOTIFY_ON_BROKEN_BUILDS
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;true&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: GITLAB_NOTIFY_PUSHER
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;false&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_TYPE
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: postgres
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_HOST
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlab-postgresql
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_PORT
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;5432&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_USER
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_PASS
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: admin@howlinkdev
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: DB_NAME
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlabhq_production
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: REDIS_HOST
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: gitlab-redis
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: REDIS_PORT
+</span></span></span><span class="line"><span class="cl"><span class="s">          value: &#39;6379&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">        resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">          requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 4Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">          limits:
+</span></span></span><span class="line"><span class="cl"><span class="s">            cpu: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 4Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">        livenessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          httpGet:
+</span></span></span><span class="line"><span class="cl"><span class="s">            path: /
+</span></span></span><span class="line"><span class="cl"><span class="s">            port: 80
+</span></span></span><span class="line"><span class="cl"><span class="s">            scheme: HTTP
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 400
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 15
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">        readinessProbe:
+</span></span></span><span class="line"><span class="cl"><span class="s">          httpGet:
+</span></span></span><span class="line"><span class="cl"><span class="s">            path: /
+</span></span></span><span class="line"><span class="cl"><span class="s">            port: 80
+</span></span></span><span class="line"><span class="cl"><span class="s">            scheme: HTTP
+</span></span></span><span class="line"><span class="cl"><span class="s">          initialDelaySeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          timeoutSeconds: 30
+</span></span></span><span class="line"><span class="cl"><span class="s">          periodSeconds: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">          successThreshold: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">          failureThreshold: 5
+</span></span></span><span class="line"><span class="cl"><span class="s">        volumeMounts:
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">          mountPath: /home/git/data
+</span></span></span><span class="line"><span class="cl"><span class="s">        - name: localtime
+</span></span></span><span class="line"><span class="cl"><span class="s">          mountPath: /etc/localtime
+</span></span></span><span class="line"><span class="cl"><span class="s">      volumes:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: data
+</span></span></span><span class="line"><span class="cl"><span class="s">        persistentVolumeClaim:
+</span></span></span><span class="line"><span class="cl"><span class="s">          claimName: gitlab-pvc
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: localtime
+</span></span></span><span class="line"><span class="cl"><span class="s">        hostPath:
+</span></span></span><span class="line"><span class="cl"><span class="s">          path: /etc/localtime
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl apply -f gitlab.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注: postgresql 和 gitlab 都是需要一段时间初始化，所以安装过程中可能会保证重试，这是正常情况。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601134636.png" /></p>
+<p>使用 ingress 方式对外提供服务</p>
+<p>添加证书配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim ssl/openssl.cnf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ca根证书配置</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> ca <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">subjectKeyIdentifier</span><span class="o">=</span><span class="nb">hash</span>
+</span></span><span class="line"><span class="cl"><span class="nv">authorityKeyIdentifier</span><span class="o">=</span>keyid:always,issuer
+</span></span><span class="line"><span class="cl"><span class="nv">basicConstraints</span> <span class="o">=</span> critical,CA:true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># HTTPS应用证书配置</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span> crt <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">subjectKeyIdentifier</span> <span class="o">=</span> <span class="nb">hash</span>
+</span></span><span class="line"><span class="cl"><span class="nv">authorityKeyIdentifier</span><span class="o">=</span>keyid:always,issuer
+</span></span><span class="line"><span class="cl"><span class="nv">basicConstraints</span> <span class="o">=</span> critical, CA:false
+</span></span><span class="line"><span class="cl"><span class="nv">keyUsage</span> <span class="o">=</span> critical, digitalSignature, cRLSign, keyEncipherment
+</span></span><span class="line"><span class="cl"><span class="nv">extendedKeyUsage</span> <span class="o">=</span> critical, serverAuth, clientAuth
+</span></span><span class="line"><span class="cl"><span class="nv">subjectAltName</span><span class="o">=</span>@alt_names
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># SANs可以将一个证书给多个域名或IP使用</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 访问的域名或IP必须包含在此，否则无效</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改为你要保护的域名或者IP地址，支持通配符</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>alt_names<span class="o">]</span>
+</span></span><span class="line"><span class="cl">DNS.1 <span class="o">=</span> howlinkdev.com
+</span></span><span class="line"><span class="cl">DNS.2 <span class="o">=</span> gitlab.howlinkdev.com
+</span></span><span class="line"><span class="cl">IP.1 <span class="o">=</span> 192.168.2.21
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ssl
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成根证书</span>
+</span></span><span class="line"><span class="cl">openssl genrsa -out root.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key root.key  -out root.csr -subj <span class="s2">&#34;/C=CN/ST=Zhejiang/L=Wenzhou/O=howlink/OU=howlink/CN=howlinkdev.com&#34;</span>
+</span></span><span class="line"><span class="cl">openssl x509 -req -extfile openssl.cnf -extensions ca -in root.csr -out root.crt -signkey root.key -CAcreateserial -days <span class="m">3650</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成 harbor 应用证书</span>
+</span></span><span class="line"><span class="cl">openssl genrsa -out gitlab.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key gitlab.key -out gitlab.csr -subj <span class="s2">&#34;/C=CN/ST=Zhejiang/L=Wenzhou/O=howlink/OU=howlink/CN=gitlab.howlinkdev.com&#34;</span>
+</span></span><span class="line"><span class="cl">openssl x509 -req -extfile openssl.cnf -extensions crt -CA root.crt -CAkey root.key -CAserial gitlab.srl -CAcreateserial -in gitlab.csr -out gitlab.crt -days <span class="m">3650</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 secret</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create secret tls tls-gitlab --cert<span class="o">=</span>gitlab.crt --key<span class="o">=</span>gitlab.key -n devops
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 ingress 配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitlab-ingress.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: networking.k8s.io/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Ingress
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  annotations:
+</span></span></span><span class="line"><span class="cl"><span class="s">    ingress.kubernetes.io/ssl-redirect: &#34;true&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    kubernetes.io/ingress.class: nginx
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: gitlab-ingress
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  rules:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - host: gitlab.howlinkdev.com
+</span></span></span><span class="line"><span class="cl"><span class="s">    http:
+</span></span></span><span class="line"><span class="cl"><span class="s">      paths:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - backend:
+</span></span></span><span class="line"><span class="cl"><span class="s">          service:
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">            port:
+</span></span></span><span class="line"><span class="cl"><span class="s">              number: 80
+</span></span></span><span class="line"><span class="cl"><span class="s">        path: /
+</span></span></span><span class="line"><span class="cl"><span class="s">        pathType: Prefix
+</span></span></span><span class="line"><span class="cl"><span class="s">  tls:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - hosts:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - gitlab.howlinkdev.com
+</span></span></span><span class="line"><span class="cl"><span class="s">    secretName: tls-gitlab
+</span></span></span><span class="line"><span class="cl"><span class="s">status:
+</span></span></span><span class="line"><span class="cl"><span class="s">  loadBalancer: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl apply -f github-ingress.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为 <code>gitlab.howlinkdev.com</code> 是自定义域名，客户端访问这个域名需要 DNS 解析，可以选择以下方式:</p>
+<ul>
+<li>在内部环境中添加 DNS 服务记录</li>
+<li>直接修改 k8s coredns 配置文件并修改本地 /etc/hosts 文件</li>
+</ul>
+<p>这里选择第二种方式，修改 coredns</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kubectl edit cm coredns -n kube-system</span>
+</span></span><span class="line"><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="cl">data:
+</span></span><span class="line"><span class="cl">  Corefile: <span class="p">|</span>
+</span></span><span class="line"><span class="cl">    .:53 <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        log
+</span></span><span class="line"><span class="cl">        errors
+</span></span><span class="line"><span class="cl">        health <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           lameduck 5s
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        ready
+</span></span><span class="line"><span class="cl">        kubernetes cluster.local in-addr.arpa ip6.arpa <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           pods insecure
+</span></span><span class="line"><span class="cl">           fallthrough in-addr.arpa ip6.arpa
+</span></span><span class="line"><span class="cl">           ttl <span class="m">30</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        hosts <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           <span class="c1"># 直接添加这条记录</span>
+</span></span><span class="line"><span class="cl">           192.168.2.21 gitlab.howlinkdev.com
+</span></span><span class="line"><span class="cl">           fallthrough
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        prometheus :9153
+</span></span><span class="line"><span class="cl">        forward . /etc/resolv.conf <span class="o">{</span>
+</span></span><span class="line"><span class="cl">           max_concurrent <span class="m">1000</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        cache <span class="m">30</span>
+</span></span><span class="line"><span class="cl">        reload
+</span></span><span class="line"><span class="cl">        loop
+</span></span><span class="line"><span class="cl">        loadbalance
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">kind: ConfigMap
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  creationTimestamp: <span class="s2">&#34;2022-05-30T02:29:32Z&#34;</span>
+</span></span><span class="line"><span class="cl">  name: coredns
+</span></span><span class="line"><span class="cl">  namespace: kube-system
+</span></span><span class="line"><span class="cl">  resourceVersion: <span class="s2">&#34;538951&#34;</span>
+</span></span><span class="line"><span class="cl">  uid: 702890ed-fb08-443e-9ce2-f28dac4ec9b4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改本地 /etc/hosts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># /etc/hosts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">192.168.2.21 gitlab.howlinkdev.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置完成后就可以直接使用浏览器访问 <code>https://gitlab.howlinkdev.com</code>，初始用户名密码为 <a href="mailto:root/admin@howlinkdev.com" rel="">root/admin@howlinkdev.com</a> (可以在 gitlab.yaml 直接修改初始密码)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601135541.png" /></p>
+<h2 id="安装-gitlab-runner">安装 gitlab-runner</h2>
+<p>gitlab CI 工作流需要外部 runner，这里选择 gitlab-runner。</p>
+<p>使用 helm 方式安装 gitlab-runner，先下载仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm show gitlab/gitlab-runner values
+</span></span><span class="line"><span class="cl">helm repo update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改配置文件，先从 gitlab 上复制 registration token。Settings -&gt; CI/CD -&gt; Runners</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602143719.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitlab-runner-value.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">imagePullPolicy: IfNotPresent
+</span></span></span><span class="line"><span class="cl"><span class="s">#gitlab服务器地址
+</span></span></span><span class="line"><span class="cl"><span class="s">gitlabUrl: http://gitlab.howlinkdev.com
+</span></span></span><span class="line"><span class="cl"><span class="s">#runner注册token
+</span></span></span><span class="line"><span class="cl"><span class="s">runnerRegistrationToken: &#34;GR1348941D7DmBX6wi8412x_qKma5&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">#当停止管道时等待其他作业终止时间
+</span></span></span><span class="line"><span class="cl"><span class="s">terminationGracePeriodSeconds: 3600
+</span></span></span><span class="line"><span class="cl"><span class="s">#最大并发作业数量
+</span></span></span><span class="line"><span class="cl"><span class="s">concurrent: 10
+</span></span></span><span class="line"><span class="cl"><span class="s">#新作业检查时隔
+</span></span></span><span class="line"><span class="cl"><span class="s">checkInterval: 30
+</span></span></span><span class="line"><span class="cl"><span class="s">sessionServer:
+</span></span></span><span class="line"><span class="cl"><span class="s">  enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="s">rbac:
+</span></span></span><span class="line"><span class="cl"><span class="s">  create: true
+</span></span></span><span class="line"><span class="cl"><span class="s">  resources: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  verbs: [&#34;*&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="s">  rules: []
+</span></span></span><span class="line"><span class="cl"><span class="s">  clusterWideAccess: false
+</span></span></span><span class="line"><span class="cl"><span class="s">  podSecurityPolicy:
+</span></span></span><span class="line"><span class="cl"><span class="s">    enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="s">    resourceNames:
+</span></span></span><span class="line"><span class="cl"><span class="s">    - gitlab-runner
+</span></span></span><span class="line"><span class="cl"><span class="s">metrics:
+</span></span></span><span class="line"><span class="cl"><span class="s">  enabled: true
+</span></span></span><span class="line"><span class="cl"><span class="s">  portName: metrics
+</span></span></span><span class="line"><span class="cl"><span class="s">  port: 9252
+</span></span></span><span class="line"><span class="cl"><span class="s">  serviceMonitor:
+</span></span></span><span class="line"><span class="cl"><span class="s">    enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="s">service:
+</span></span></span><span class="line"><span class="cl"><span class="s">  enabled: false
+</span></span></span><span class="line"><span class="cl"><span class="s">  type: ClusterIP
+</span></span></span><span class="line"><span class="cl"><span class="s">runners:
+</span></span></span><span class="line"><span class="cl"><span class="s">  config: |
+</span></span></span><span class="line"><span class="cl"><span class="s">    [[runners]]
+</span></span></span><span class="line"><span class="cl"><span class="s">      [runners.kubernetes]
+</span></span></span><span class="line"><span class="cl"><span class="s">        namespace = &#34;{{.Release.Namespace}}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        image = &#34;ubuntu:16.04&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  #执行器类型
+</span></span></span><span class="line"><span class="cl"><span class="s">  executor: kubernetes
+</span></span></span><span class="line"><span class="cl"><span class="s">  #是否锁定false
+</span></span></span><span class="line"><span class="cl"><span class="s">  locked: false
+</span></span></span><span class="line"><span class="cl"><span class="s">  #你的tags
+</span></span></span><span class="line"><span class="cl"><span class="s">  tags: &#34;k8s-runner,k8s&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  #是否运行没有标签的项目
+</span></span></span><span class="line"><span class="cl"><span class="s">  runUntagged: true
+</span></span></span><span class="line"><span class="cl"><span class="s">  #开启docker in docker
+</span></span></span><span class="line"><span class="cl"><span class="s">  privileged: true
+</span></span></span><span class="line"><span class="cl"><span class="s">  cache: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">  builds: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">  services: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">  helpers: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">securityContext:
+</span></span></span><span class="line"><span class="cl"><span class="s">  runAsUser: 100
+</span></span></span><span class="line"><span class="cl"><span class="s">  fsGroup: 65533
+</span></span></span><span class="line"><span class="cl"><span class="s">resources: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">affinity: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">nodeSelector: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">tolerations: []
+</span></span></span><span class="line"><span class="cl"><span class="s">hostAliases: []
+</span></span></span><span class="line"><span class="cl"><span class="s">podAnnotations: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">podLabels: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">secrets: []
+</span></span></span><span class="line"><span class="cl"><span class="s">configMaps: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 gitlab-runner</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm install gitlab/gitlab-runner -n devops -f gitlab-runner-value.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="安装-argocd">安装 ArgoCD</h2>
+<p>使用 helm 安装 argocd，先添加 helm repo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add argo https://argoproj.github.io/argo-helm
+</span></span><span class="line"><span class="cl">helm repo update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">helm pull argo/argo-cd --untar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 helm argo-cd 配置文件 values.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  ingress:
+</span></span><span class="line"><span class="cl">    enabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">    annotations:
+</span></span><span class="line"><span class="cl">      kubernetes.io/ingress.class: <span class="s2">&#34;nginx&#34;</span>
+</span></span><span class="line"><span class="cl">      nginx.ingress.kubernetes.io/force-ssl-redirect: <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">      nginx.ingress.kubernetes.io/ssl-passthrough: <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl">      nginx.ingress.kubernetes.io/backend-protocol: <span class="s2">&#34;HTTPS&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    hosts:
+</span></span><span class="line"><span class="cl">      - argo.howlinkdev.com
+</span></span><span class="line"><span class="cl">    paths:
+</span></span><span class="line"><span class="cl">      - /
+</span></span><span class="line"><span class="cl">    pathType: Prefix
+</span></span><span class="line"><span class="cl">    tls:
+</span></span><span class="line"><span class="cl">      - secretName: tls-argo
+</span></span><span class="line"><span class="cl">        hosts:
+</span></span><span class="line"><span class="cl">          - argo.howlinkdev.com
+</span></span><span class="line"><span class="cl">    https: <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 ssl 证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">openssl genrsa -out argo.key <span class="m">2048</span>
+</span></span><span class="line"><span class="cl">openssl req -new -key argo.key -out argo.csr -subj <span class="s2">&#34;/C=CN/ST=Zhejiang/L=Wenzhou/O=howlink/OU=howlink/CN=argo.howlinkdev.com&#34;</span>
+</span></span><span class="line"><span class="cl">openssl x509 -req -extfile openssl.cnf -extensions crt -CA root.crt -CAkey root.key -CAserial argo.srl -CAcreateserial -in argo.csr -out argo.crt -days <span class="m">3650</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 secret</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create secret tls tls-argo --cert<span class="o">=</span>argo.crt --key<span class="o">=</span>argo.key -n devops
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 argo-cd</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm install argo argo-cd -n devops
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601141703.png" /></p>
+<p>根据 helm 的输出获取 argo 的登录密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kubectl -n devops get secret argocd-initial-admin-secret -o jsonpath=&#34;{.data.password}&#34; | base64 -d</span>
+</span></span><span class="line"><span class="cl">aiaWM7zIqP18vxSC
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考 gitlab，修改 DNS 记录，使用浏览器访问 <code>https://argo.howlinkdev.com</code>，用户名密码为 admin/aiaWM7zIqP18vxSC</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220601142547.png" /></p>
+<h2 id="配置-cicd">配置 CI/CD</h2>
+<h3 id="gitlab-配置">gitlab 配置</h3>
+<p>这里我们创建一个 Golang 的实例项目，功能是在首页显示 pod 名称和系统版本，项目地址<a href="https://github.com/lack-io/gitops-demo" target="_blank" rel="noopener noreffer">在此</a>。先将这个
+项目上传到 gitlab 上，地址为 <a href="http://gitlab.howlinkdev.com/gitops/demo" target="_blank" rel="noopener noreffer">http://gitlab.howlinkdev.com/gitops/demo</a>。</p>
+<p>接着设置环境变量 Settings -&gt; CI/CD -&gt; Variables:</p>
+<table>
+<thead>
+<tr>
+<th>variable</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CI_REGISTRY</td>
+<td>镜像仓库地址，我们选择 harbor 私有仓库，值为：https://harbor.howlikdev.com</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_IMAGE</td>
+<td>镜像名称，值为：harbor.howlinkdev.com/gitops/demo</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_USER</td>
+<td>harbor 仓库用户名，这里需要在 harbor 创建一个机器人账号，值为 robot$$cicd (harbor 机器人账号格式为前缀为 robot$，$需要使用 $$ 代替)</td>
+</tr>
+<tr>
+<td>CI_REGISTRY_PASSWORD</td>
+<td>harbor 仓库密码</td>
+</tr>
+<tr>
+<td>CI_PASSWORD</td>
+<td>Git 仓库访问密码，如果密码是纯文本，则可以正常工作，但如果密码具有感叹号等特殊字符，则需要使用 URL 编码</td>
+</tr>
+<tr>
+<td>CI_USERNAME</td>
+<td>Git 仓库访问用户名</td>
+</tr>
+</tbody>
+</table>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602200822.png" /></p>
+<h3 id="argocd-配置">ArgoCD 配置</h3>
+<p>Argo CD 自带了一套 CRD 对象，可以用来进行声明式配置，这当然也是推荐的方式，把我们的基础设施作为代码来进行托管，下面是我们为开发和生产两套环境配置的资源清单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; gitops-demo.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s"># gitops-demo-app.yaml
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: argoproj.io/v1alpha1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Application
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: demo-dev
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  project: default
+</span></span></span><span class="line"><span class="cl"><span class="s">  source:
+</span></span></span><span class="line"><span class="cl"><span class="s">    repoURL: http://gitlab.howlinkdev.com/gitops/demo.git
+</span></span></span><span class="line"><span class="cl"><span class="s">    targetRevision: HEAD
+</span></span></span><span class="line"><span class="cl"><span class="s">    path: deployment/dev
+</span></span></span><span class="line"><span class="cl"><span class="s">  destination:
+</span></span></span><span class="line"><span class="cl"><span class="s">    server: https://kubernetes.default.svc
+</span></span></span><span class="line"><span class="cl"><span class="s">    namespace: dev
+</span></span></span><span class="line"><span class="cl"><span class="s">  syncPolicy:
+</span></span></span><span class="line"><span class="cl"><span class="s">    automated:
+</span></span></span><span class="line"><span class="cl"><span class="s">      prune: true
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: argoproj.io/v1alpha1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: Application
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: demo-prod
+</span></span></span><span class="line"><span class="cl"><span class="s">  namespace: devops
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  project: default
+</span></span></span><span class="line"><span class="cl"><span class="s">  source:
+</span></span></span><span class="line"><span class="cl"><span class="s">    repoURL: http://gitlab.howlinkdev.com/gitops/demo.git
+</span></span></span><span class="line"><span class="cl"><span class="s">    targetRevision: HEAD
+</span></span></span><span class="line"><span class="cl"><span class="s">    path: deployment/prod
+</span></span></span><span class="line"><span class="cl"><span class="s">  destination:
+</span></span></span><span class="line"><span class="cl"><span class="s">    server: https://kubernetes.default.svc
+</span></span></span><span class="line"><span class="cl"><span class="s">    namespace: prod
+</span></span></span><span class="line"><span class="cl"><span class="s">  syncPolicy:
+</span></span></span><span class="line"><span class="cl"><span class="s">    automated:
+</span></span></span><span class="line"><span class="cl"><span class="s">      prune: true
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面定义的 Application 这个资源，就是 Argo CD 用于描述应用的 CRD 对象：</p>
+<p>name：Argo CD 应用程序的名称
+project：应用程序将被配置的项目名称，这是在 Argo CD 中应用程序的一种组织方式
+repoURL：源代码的仓库地址
+targetRevision：想要使用的 git 分支
+path：Kubernetes 资源清单在仓库中的路径
+destination：Kubernetes 集群中的目标，server 固定为 <a href="https://kubernetes.default.svc" target="_blank" rel="noopener noreffer">https://kubernetes.default.svc</a></p>
+<p>应用这个 yaml 文件会生成两个 Application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl apply -f gitops-demo.yaml
+</span></span><span class="line"><span class="cl">application.argoproj.io/demo-dev created
+</span></span><span class="line"><span class="cl">application.argoproj.io/demo-prod created
+</span></span><span class="line"><span class="cl">$ kubectl get app -n devops
+</span></span><span class="line"><span class="cl">NAME        SYNC STATUS   HEALTH STATUS
+</span></span><span class="line"><span class="cl">demo-dev    Synced        Healthy
+</span></span><span class="line"><span class="cl">demo-prod   Synced        Healthy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时可以在 Argo CD Dashboard 上看到 Application 的同步信息</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203141.png" /></p>
+<p>点击其中一个就可以看到关于应用的详细信息，我们可以在 gitops/demo 代码仓库的 deployment/<env> 目录里面找到资源对象。我们可以看到，在每个文件夹下面都有一个 kustomization.yaml 文件，Argo CD 可以识别它，不需要任何其他的设置就可以使用。</p>
+<p>由于我们这里的代码仓库是私有的 GitLab，所以我们还需要配置对应的仓库地址，在页面上 Settings -&gt; Repositories，点击 CONNECTI REPO USING HTTPS 按钮：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203310.png" /></p>
+<p>添加代码认证信息
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602203516.png" /></p>
+<p>如果使用的是 HTTPS，所以我们需要勾选下方的 Skip server verification，然后点击上方的 CONNECT 按钮添加即可。然后重新同步上面的两个 Application，就可以看到正常的状态了。</p>
+<p>在 <a href="http://gitlab.howlinkdev.com/gitops/demo" target="_blank" rel="noopener noreffer">http://gitlab.howlinkdev.com/gitops/demo</a> 项目的 <code>deployment</code> 目录下存放这</p>
+<h3 id="配置-gitlab-ci-流水线">配置 Gitlab CI 流水线</h3>
+<p>接下来我们需要为应用程序创建流水线，自动构建我们的应用程序，推送到镜像仓库，然后更新 Kubernetes 的资源清单文件。</p>
+<p>开发人员在自己的分支上开发代码，他们分支的每一次提交都会触发一个阶段性的构建，当他们将自己的修改和主分支合并时，完整的流水线就被触发。将构建应用程序，打包成容器镜像，将镜像推送到 harbor 仓库，并自动更新 Kubernetes 资源清单。
+GitLab CI 中的流水线默认定义在代码仓库根目录下的 .gitlab-ci.yml 文件中，在改文件的最上面定义了一些构建阶段和环境变量、镜像以及一些前置脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">stages:
+</span></span><span class="line"><span class="cl">- build
+</span></span><span class="line"><span class="cl">- publish
+</span></span><span class="line"><span class="cl">- deploy-dev
+</span></span><span class="line"><span class="cl">- deploy-prod
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接下来是阶段的定义和所需的任务声明。我们这里的构建过程比较简单，只需要在一个 golang 镜像中执行一个构建命令即可，然后将编译好的二进制文件保存到下一个阶段处理，这一个阶段适合分支的任何变更：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">build:
+</span></span><span class="line"><span class="cl">  stage: build
+</span></span><span class="line"><span class="cl">  image:
+</span></span><span class="line"><span class="cl">    name: golang:1.18.2
+</span></span><span class="line"><span class="cl">  script:
+</span></span><span class="line"><span class="cl">    - go build -o main main.go
+</span></span><span class="line"><span class="cl">  artifacts:
+</span></span><span class="line"><span class="cl">    paths:
+</span></span><span class="line"><span class="cl">      - main
+</span></span><span class="line"><span class="cl">  variables:
+</span></span><span class="line"><span class="cl">    CGO_ENABLED: <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后就是构建镜像并推送到镜像仓库，这里我们使用 Kaniko，当然也可以使用 DinD 模式进行构建，只是安全性不高，这里我们可以使用 GIT 提交的 commit 哈希值作为镜像 tag，关于 Docker 镜像仓库的认证和镜像地址信息可以通过项目的参数来进行传递，不过这个阶段只在主分支发生变化时才会触发：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">publish:
+</span></span><span class="line"><span class="cl">  stage: publish
+</span></span><span class="line"><span class="cl">  image:
+</span></span><span class="line"><span class="cl">    name: cnych/kaniko-executor:debug
+</span></span><span class="line"><span class="cl">    entrypoint: <span class="o">[</span><span class="s2">&#34;&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">  script:
+</span></span><span class="line"><span class="cl">    - mkdir -p /kaniko/.docker
+</span></span><span class="line"><span class="cl">    - <span class="nb">echo</span> <span class="s2">&#34;{\&#34;auths\&#34;:{\&#34;</span><span class="nv">$CI_REGISTRY</span><span class="s2">\&#34;:{\&#34;username\&#34;:\&#34;</span><span class="nv">$CI_REGISTRY_USER</span><span class="s2">\&#34;,\&#34;password\&#34;:\&#34;</span><span class="nv">$CI_REGISTRY_PASSWORD</span><span class="s2">\&#34;}}}&#34;</span> &gt; /kaniko/.docker/config.json
+</span></span><span class="line"><span class="cl">    - cat /kaniko/.docker/config.json
+</span></span><span class="line"><span class="cl">    - <span class="nb">echo</span> <span class="nv">$PROJECT_DIR</span>
+</span></span><span class="line"><span class="cl">    - <span class="nb">echo</span> <span class="nv">$REGISTRY_IMAGE</span>:<span class="nv">$COMMIT_SHORT_SHA</span>
+</span></span><span class="line"><span class="cl">    - &gt;-
+</span></span><span class="line"><span class="cl">      /kaniko/executor 
+</span></span><span class="line"><span class="cl">      --insecure --skip-tls-verify 
+</span></span><span class="line"><span class="cl">      --context <span class="nv">$CI_PROJECT_DIR</span> 
+</span></span><span class="line"><span class="cl">      --dockerfile ./Dockerfile 
+</span></span><span class="line"><span class="cl">      --reproducible 
+</span></span><span class="line"><span class="cl">      --label org.opencontainers.image.revision<span class="o">=</span><span class="nv">$CI_COMMIT_SHORT_SHA</span> --label org.opencontainers.image.source<span class="o">=</span><span class="nv">$GIT_URL</span> 
+</span></span><span class="line"><span class="cl">      --destination <span class="nv">$CI_REGISTRY_IMAGE</span>:<span class="nv">$CI_COMMIT_SHORT_SHA</span>
+</span></span><span class="line"><span class="cl">  dependencies:
+</span></span><span class="line"><span class="cl">    - build
+</span></span><span class="line"><span class="cl">  only:
+</span></span><span class="line"><span class="cl">    - main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下一个阶段就是将应用程序部署到开发环境中，在 GitOps 中就意味着需要更新 Kubernetes 的资源清单，这样 Argo CD 就可以拉取更新的版本来部署应用。这里我们使用了为项目定义的环境变量，包括用户名和 TOKEN，此外在提交消息里面增加 [skip ci] 这样的关键字，这样流水线就不会被触发：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">deploy-dev:
+</span></span><span class="line"><span class="cl">  stage: deploy-dev
+</span></span><span class="line"><span class="cl">  image: cnych/kustomize:v1.0
+</span></span><span class="line"><span class="cl">  before_script:
+</span></span><span class="line"><span class="cl">    - git remote set-url origin http://<span class="si">${</span><span class="nv">CI_USERNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">CI_PASSWORD</span><span class="si">}</span>@gitlab.howlinkdev.com/gitops/demo.git
+</span></span><span class="line"><span class="cl">    - git config --global user.email <span class="s2">&#34;598223084@qq.com&#34;</span>
+</span></span><span class="line"><span class="cl">    - git config --global user.name <span class="s2">&#34;root&#34;</span>
+</span></span><span class="line"><span class="cl">  script:
+</span></span><span class="line"><span class="cl">    - git checkout -B main
+</span></span><span class="line"><span class="cl">    - <span class="nb">cd</span> deployment/dev
+</span></span><span class="line"><span class="cl">    - kustomize edit <span class="nb">set</span> image <span class="nv">$CI_REGISTRY_IMAGE</span>:<span class="nv">$CI_COMMIT_SHORT_SHA</span>
+</span></span><span class="line"><span class="cl">    - cat kustomization.yaml
+</span></span><span class="line"><span class="cl">    - git commit -am <span class="s1">&#39;[skip ci] DEV image update&#39;</span>
+</span></span><span class="line"><span class="cl">    - git push origin main
+</span></span><span class="line"><span class="cl">  only:
+</span></span><span class="line"><span class="cl">    - main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后添加一个部署到 prod 环境的阶段，和前面非常类似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">deploy-prod:
+</span></span><span class="line"><span class="cl">  stage: deploy-prod
+</span></span><span class="line"><span class="cl">  image: cnych/kustomize:v1.0
+</span></span><span class="line"><span class="cl">  before_script:
+</span></span><span class="line"><span class="cl">    - git remote set-url origin http://<span class="si">${</span><span class="nv">CI_USERNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">CI_PASSWORD</span><span class="si">}</span>@gitlab.howlinkdev.com/gitops/demo.git
+</span></span><span class="line"><span class="cl">    - git config --global user.email <span class="s2">&#34;598223084@qq.com&#34;</span>
+</span></span><span class="line"><span class="cl">    - git config --global user.name <span class="s2">&#34;root&#34;</span>
+</span></span><span class="line"><span class="cl">  script:
+</span></span><span class="line"><span class="cl">    - git checkout -B main
+</span></span><span class="line"><span class="cl">    - git pull origin main
+</span></span><span class="line"><span class="cl">    - <span class="nb">cd</span> deployment/prod
+</span></span><span class="line"><span class="cl">    - kustomize edit <span class="nb">set</span> image <span class="nv">$CI_REGISTRY_IMAGE</span>:<span class="nv">$CI_COMMIT_SHORT_SHA</span>
+</span></span><span class="line"><span class="cl">    - cat kustomization.yaml
+</span></span><span class="line"><span class="cl">    - git commit -am <span class="s1">&#39;[skip ci] PROD image update&#39;</span>
+</span></span><span class="line"><span class="cl">    - git push origin main
+</span></span><span class="line"><span class="cl">  only:
+</span></span><span class="line"><span class="cl">    - main
+</span></span><span class="line"><span class="cl"><span class="c1">#  手动操作的流程，如果设置 when: manual deploy-prod 阶段需要在 gitlab 手动点击才会执行    </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#  when: manual</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上就是整个完整流水线的定义了，配置完成后每次上传代码都会触发 CI pipeline。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602201531.png" /></p>
+<p>如果在 build 阶段出现报错:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="m">413</span> Request Entity Too Large ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个原因是 nginx 反向代码限制了请求体数据容量，解决方式是修改 ingress-nginx 配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl patch configmap ingress-nginx-controller -n ingress-nginx -p <span class="s1">&#39;{&#34;data&#34;:{&#34;proxy-body-size&#34;:&#34;0&#34;}}&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们将开发和线上两个环境的应用分别部署在了 dev 和 prod 命名空间之下，通过 Ingress 暴露服务，同样需要将两个应用的域名 <a href="http://demo.dev.howlinkdev.com/" target="_blank" rel="noopener noreffer">http://demo.dev.howlinkdev.com/</a> 与 <a href="http://demo.prod.howlinkdev.com/" target="_blank" rel="noopener noreffer">http://demo.prod.howlinkdev.com/</a> 在本地 /etc/hosts 中添加映射并修改 coredns 记录。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204509.png" /></p>
+<p>prod 环境如下:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204552.png" /></p>
+<p>以下是 Argo CD 更新图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png" /></p>
+<p>如果出现 gitops-demo-ingress 同步正常，但是左上角 APP HEALTH 的状态一直显示为 Processing 的情况，可以参考 <a href="https://github.com/argoproj/argo-cd/issues/1704" target="_blank" rel="noopener noreffer">argocd gitlab</a></p>
+<p>解决方式分成两步：</p>
+<p>1.修改 gitops/demo.git deployment/<env>/ingress.yaml，加上 status 信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim ingress.yaml</span>
+</span></span><span class="line"><span class="cl">status:
+</span></span><span class="line"><span class="cl">  loadBalancer: <span class="o">{}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2.修改 argo-cd 配置文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; patch.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">data:
+</span></span></span><span class="line"><span class="cl"><span class="s">  resource.customizations: |
+</span></span></span><span class="line"><span class="cl"><span class="s">    networking.k8s.io/Ingress:
+</span></span></span><span class="line"><span class="cl"><span class="s">        health.lua: |
+</span></span></span><span class="line"><span class="cl"><span class="s">          hs = {}
+</span></span></span><span class="line"><span class="cl"><span class="s">          hs.status = &#34;Healthy&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">          return hs
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">kubectl patch cm argocd-cm -n devops --patch-file<span class="o">=</span>patch.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上就是全部的 kubernetes 1.24 上部署 gitlab + ArgoCD 的 CI/CD 流程了</p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li>(<a href="https://duiniwukenaihe.github.io/2021/04/01/Kubernetes-1.20.5-%E5%AE%89%E8%A3%85gitlab/%29[https://duiniwukenaihe.github.io/2021/04/01/Kubernetes-1.20.5-%E5%AE%89%E8%A3%85gitlab/]" target="_blank" rel="noopener noreffer">https://duiniwukenaihe.github.io/2021/04/01/Kubernetes-1.20.5-%E5%AE%89%E8%A3%85gitlab/)[https://duiniwukenaihe.github.io/2021/04/01/Kubernetes-1.20.5-%E5%AE%89%E8%A3%85gitlab/]</a></li>
+<li>(<a href="https://www.qikqiak.com/post/gitlab-ci-argo-cd-gitops/%29[https://www.qikqiak.com/post/gitlab-ci-argo-cd-gitops/]" target="_blank" rel="noopener noreffer">https://www.qikqiak.com/post/gitlab-ci-argo-cd-gitops/)[https://www.qikqiak.com/post/gitlab-ci-argo-cd-gitops/]</a></li>
+<li>(<a href="https://docs.gitlab.com/ee/ci/variables/index.html#predefined-cicd-variables%29[https://docs.gitlab.com/ee/ci/variables/index.html#predefined-cicd-variables]" target="_blank" rel="noopener noreffer">https://docs.gitlab.com/ee/ci/variables/index.html#predefined-cicd-variables)[https://docs.gitlab.com/ee/ci/variables/index.html#predefined-cicd-variables]</a></li>
+<li>(<a href="https://blog.csdn.net/daihaoxin/article/details/119573422%29[https://blog.csdn.net/daihaoxin/article/details/119573422]" target="_blank" rel="noopener noreffer">https://blog.csdn.net/daihaoxin/article/details/119573422)[https://blog.csdn.net/daihaoxin/article/details/119573422]</a></li>
+<li>(<a href="https://github.com/argoproj/argo-cd/issues/1704%29[https://github.com/argoproj/argo-cd/issues/1704]" target="_blank" rel="noopener noreffer">https://github.com/argoproj/argo-cd/issues/1704)[https://github.com/argoproj/argo-cd/issues/1704]</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-31</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/k8s/">k8s</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/" class="prev" rel="prev" title="K8s上搭建harbor私有库"><i class="fas fa-angle-left fa-fw"></i>K8s上搭建harbor私有库</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-05-31T10:13:28+08:00","owner":"lack-io","repo":"blog_comment","title":"K8s上部署CI/CD"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

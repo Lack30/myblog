@@ -4,7 +4,14 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 30 May 2022 19:08:00 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 May 2022 10:13:28 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>K8s上部署CI/CD</title>
+    <link>http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/</link>
+    <pubDate>Tue, 31 May 2022 10:13:28 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/</guid>
+    <description><![CDATA[云原生的一大应用场景就是 Devops 了，本篇就来介绍如何搭建一套 CI/CD 工作流环境。选择组件为 Kubernetes + Gitlab + ArgoCD。 准备 首先需要安装有一套可用的 k8s 环境，本地]]></description>
+</item><item>
     <title>K8s上搭建harbor私有库</title>
     <link>http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/</link>
     <pubDate>Mon, 30 May 2022 19:08:00 &#43;0800</pubDate>
@@ -69,14 +76,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</guid>
     <description><![CDATA[本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配]]></description>
-</item><item>
-    <title>Containerd源码分析</title>
-    <link>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
-    <pubDate>Tue, 16 Nov 2021 23:17:49 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20210926200427.png" referrerpolicy="no-referrer">
-            </div>从 Kubernetes 1.22 开始，k8s 的容器运行是默认替换成 containerd。有必要深入了解 containerd 的内部实现原理。本篇通过分析 containerd 的代码深入理解其内部原理。 使用的]]></description>
 </item></channel>
 </rss>
