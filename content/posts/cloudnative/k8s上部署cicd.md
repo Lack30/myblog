@@ -19,8 +19,8 @@ author: "Lack"
 | 主机名     | 系统    | 配置      | ip 地址      | 版本    | 角色        |
 | ---------- | ------- | --------- | ------------ | ------- | ----------- |
 | k8s-master | CentOS7 | 2 core 8G | 192.168.2.21 | v1.24.0 | master,helm |
-| k8s-node1  | CentOS7 | 2 core 4G | 192.168.2.22 | v1.24.0 | node        |
-| k8s-node2  | CentOS7 | 2 core 4G | 192.168.2.23 | v1.24.0 | node        |
+| k8s-node1  | CentOS7 | 2 core 8G | 192.168.2.22 | v1.24.0 | node        |
+| k8s-node2  | CentOS7 | 2 core 8G | 192.168.2.23 | v1.24.0 | node        |
 
 ## 安装 Gitlab
 
@@ -932,7 +932,7 @@ prod 环境如下:
 
 解决方式分成两步：
 
-1.修改 gitops/demo.git deployment/<env>/ingress.yaml，加上 status 信息
+1.修改 gitops/demo.git deployment/\<env\>/ingress.yaml，加上 status 信息
 
 ```bash
 # vim ingress.yaml

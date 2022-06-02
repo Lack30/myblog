@@ -20,8 +20,8 @@ author: "Lack"
 | 主机名     | 系统    | 配置      | ip 地址      | 角色                    |
 | ---------- | ------- | --------- | ------------ | ----------------------- |
 | k8s-master | CentOS7 | 2 core 8G, 两块 100 硬盘 | 192.168.2.21 | master,glusterfs,heketi,helm |
-| k8s-node1 | CentOS7 | 2 core 4G , 两块 100 硬盘 | 192.168.2.22 | node,gluster |
-| k8s-node2 | CentOS7 | 2 core 4G , 两块 100 硬盘 | 192.168.2.23 | node,gluster |
+| k8s-node1 | CentOS7 | 2 core 8G , 两块 100 硬盘 | 192.168.2.22 | node,gluster |
+| k8s-node2 | CentOS7 | 2 core 8G , 两块 100 硬盘 | 192.168.2.23 | node,gluster |
 
 ## 安装 gluster
 
