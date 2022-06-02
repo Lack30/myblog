@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  4824 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  4835 ,
         "url": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd\/","datePublished": "2022-05-31T10:13:28+08:00","dateModified": "2022-05-31T10:13:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">K8s上部署CI/CD</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-31">2022-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4824 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-31">2022-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4835 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -162,7 +162,7 @@
 <tr>
 <td>k8s-node1</td>
 <td>CentOS7</td>
-<td>2 core 4G</td>
+<td>2 core 8G</td>
 <td>192.168.2.22</td>
 <td>v1.24.0</td>
 <td>node</td>
@@ -170,7 +170,7 @@
 <tr>
 <td>k8s-node2</td>
 <td>CentOS7</td>
-<td>2 core 4G</td>
+<td>2 core 8G</td>
 <td>192.168.2.23</td>
 <td>v1.24.0</td>
 <td>node</td>
@@ -1892,7 +1892,7 @@ GitLab CI 中的流水线默认定义在代码仓库根目录下的 .gitlab-ci.y
         title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220602204702.png" /></p>
 <p>如果出现 gitops-demo-ingress 同步正常，但是左上角 APP HEALTH 的状态一直显示为 Processing 的情况，可以参考 <a href="https://github.com/argoproj/argo-cd/issues/1704" target="_blank" rel="noopener noreffer">argocd gitlab</a></p>
 <p>解决方式分成两步：</p>
-<p>1.修改 gitops/demo.git deployment/<env>/ingress.yaml，加上 status 信息</p>
+<p>1.修改 gitops/demo.git deployment/&lt;env&gt;/ingress.yaml，加上 status 信息</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
