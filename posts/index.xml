@@ -70,11 +70,11 @@
     <guid>http://xingyys.tech/clion%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95c%E4%BB%A3%E7%A0%81/</guid>
     <description><![CDATA[本篇主要介绍如何使用 Clion 来远程调整 C 语言代码。所需环境如下: Mac 主机 Clion 2021.3.3 CentOS8 远程开发机 在 mac 上新建一个 mac 项目 添加远程工具链 toolchains: settings &ndash;&gt; Build &ndash;&gt; toolchains Clion 默认项目默认]]></description>
 </item><item>
-    <title>安装kubernetes1.23</title>
+    <title>安装kubernetes1.24</title>
     <link>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</link>
     <pubDate>Thu, 13 Jan 2022 18:44:33 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/</guid>
-    <description><![CDATA[本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配]]></description>
+    <description><![CDATA[本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配]]></description>
 </item></channel>
 </rss>

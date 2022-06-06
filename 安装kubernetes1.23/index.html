@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>安装kubernetes1.23 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="安装kubernetes1.23" />
-<meta property="og:description" content="本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配" />
+        <title>安装kubernetes1.24 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="安装kubernetes1.24" />
+<meta property="og:description" content="本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-13T18:44:33+08:00" />
 <meta property="article:modified_time" content="2022-01-13T18:44:33+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="安装kubernetes1.23"/>
-<meta name="twitter:description" content="本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配"/>
+<meta name="twitter:title" content="安装kubernetes1.24"/>
+<meta name="twitter:description" content="本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配"/>
 <meta name="application-name" content="DoIt">
 <meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -22,12 +22,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "安装kubernetes1.23",
+        "headline": "安装kubernetes1.24",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/%E5%AE%89%E8%A3%85kubernetes1.23\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  3854 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  3819 ,
         "url": "http:\/\/xingyys.tech\/%E5%AE%89%E8%A3%85kubernetes1.23\/","datePublished": "2022-01-13T18:44:33+08:00","dateModified": "2022-01-13T18:44:33+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -111,9 +111,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">安装kubernetes1.23</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">安装kubernetes1.24</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-13">2022-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3854 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-13">2022-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3819 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -148,7 +148,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。</p>
+            </div><div class="content" id="content"><p>本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。</p>
 <h2 id="一准备">一、准备</h2>
 <h3 id="11-系统环境">1.1 系统环境</h3>
 <p>准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下:</p>
@@ -316,7 +316,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/containerd/containerd/releases/download/v1.5.8/cri-containerd-cni-1.5.8-linux-amd64.tar.gz
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/containerd/containerd/releases/download/1.6.4/cri-containerd-cni-1.6.4-linux-amd64.tar.gz
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>直接解压到 <code>/</code> 目录下，</p>
@@ -325,18 +325,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf cri-containerd-cni-1.5.8-linux-amd64.tar.gz -C /
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>由于 <code>cri-containerd-cni-1.5.8-linux-amd64.tar.gz</code> 包内部的 runc 包在 CentOS7 下的动态链接有问题，所以需要下载二进制文件替换它。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/opencontainers/runc/releases/download/v1.1.0-rc.1/runc.amd64
-</span></span><span class="line"><span class="cl">mv runc.amd64 /usr/local/sbin/runc
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">tar -zxvf cri-containerd-cni-1.6.4-linux-amd64.tar.gz -C /
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>生成 containerd 的配置文件并修改</p>
@@ -378,7 +367,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>plugins.<span class="s2">&#34;io.containerd.grpc.v1.cri&#34;</span><span class="o">]</span>
 </span></span><span class="line"><span class="cl">  ...
 </span></span><span class="line"><span class="cl">  <span class="c1"># sandbox_image = &#34;k8s.gcr.io/pause:3.5&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nv">sandbox_image</span> <span class="o">=</span> <span class="s2">&#34;registry.aliyuncs.com/google_containers/pause:3.6&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">sandbox_image</span> <span class="o">=</span> <span class="s2">&#34;registry.aliyuncs.com/google_containers/pause:3.7&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>配置 containerd 开机自启</p>
@@ -405,7 +394,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> crictl version
 </span></span><span class="line"><span class="cl">Version:  0.1.0
 </span></span><span class="line"><span class="cl">RuntimeName:  containerd
-</span></span><span class="line"><span class="cl">RuntimeVersion:  v1.5.8
+</span></span><span class="line"><span class="cl">RuntimeVersion:  1.6.4
 </span></span><span class="line"><span class="cl">RuntimeApiVersion:  v1alpha2
 </span></span></code></pre></td></tr></table>
 </div>
@@ -575,7 +564,7 @@
 </span></span><span class="line"><span class="cl">    dataDir: /var/lib/etcd
 </span></span><span class="line"><span class="cl">imageRepository: k8s.gcr.io
 </span></span><span class="line"><span class="cl">kind: ClusterConfiguration
-</span></span><span class="line"><span class="cl">kubernetesVersion: 1.23.0
+</span></span><span class="line"><span class="cl">kubernetesVersion: 1.24.0
 </span></span><span class="line"><span class="cl">networking:
 </span></span><span class="line"><span class="cl">  dnsDomain: cluster.local
 </span></span><span class="line"><span class="cl">  serviceSubnet: 10.96.0.0/12
@@ -655,34 +644,38 @@
 </span><span class="lnt">24
 </span><span class="lnt">25
 </span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apiVersion: kubeadm.k8s.io/v1beta3
-</span></span><span class="line"><span class="cl">kind: InitConfiguration
-</span></span><span class="line"><span class="cl">localAPIEndpoint:
-</span></span><span class="line"><span class="cl">  advertiseAddress: 172.16.219.100
-</span></span><span class="line"><span class="cl">  bindPort: <span class="m">6443</span>
-</span></span><span class="line"><span class="cl">nodeRegistration:
-</span></span><span class="line"><span class="cl">  criSocket: /run/containerd/containerd.sock
-</span></span><span class="line"><span class="cl">  taints:
-</span></span><span class="line"><span class="cl">  - effect: PreferNoSchedule
-</span></span><span class="line"><span class="cl">    key: node-role.kubernetes.io/master
-</span></span><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">apiVersion: kubeadm.k8s.io/v1beta2
-</span></span><span class="line"><span class="cl">kind: ClusterConfiguration
-</span></span><span class="line"><span class="cl">kubernetesVersion: v1.23.1
-</span></span><span class="line"><span class="cl">imageRepository: registry.aliyuncs.com/google_containers
-</span></span><span class="line"><span class="cl">networking:
-</span></span><span class="line"><span class="cl">  podSubnet: 10.244.0.0/16
-</span></span><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">apiVersion: kubelet.config.k8s.io/v1beta1
-</span></span><span class="line"><span class="cl">kind: KubeletConfiguration
-</span></span><span class="line"><span class="cl">cgroupDriver: systemd
-</span></span><span class="line"><span class="cl">failSwapOn: <span class="nb">false</span>
-</span></span><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">apiVersion: kubeproxy.config.k8s.io/v1alpha1
-</span></span><span class="line"><span class="cl">kind: KubeProxyConfiguration
-</span></span><span class="line"><span class="cl">mode: ipvs
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; kubeadm.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubeadm.k8s.io/v1beta3
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: InitConfiguration
+</span></span></span><span class="line"><span class="cl"><span class="s">localAPIEndpoint:
+</span></span></span><span class="line"><span class="cl"><span class="s">  advertiseAddress: 172.16.219.100
+</span></span></span><span class="line"><span class="cl"><span class="s">  bindPort: 6443
+</span></span></span><span class="line"><span class="cl"><span class="s">nodeRegistration:
+</span></span></span><span class="line"><span class="cl"><span class="s">  criSocket: /run/containerd/containerd.sock
+</span></span></span><span class="line"><span class="cl"><span class="s">  taints:
+</span></span></span><span class="line"><span class="cl"><span class="s">  - effect: PreferNoSchedule
+</span></span></span><span class="line"><span class="cl"><span class="s">    key: node-role.kubernetes.io/master
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubeadm.k8s.io/v1beta2
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: ClusterConfiguration
+</span></span></span><span class="line"><span class="cl"><span class="s">kubernetesVersion: v1.24.0
+</span></span></span><span class="line"><span class="cl"><span class="s">imageRepository: registry.aliyuncs.com/google_containers
+</span></span></span><span class="line"><span class="cl"><span class="s">networking:
+</span></span></span><span class="line"><span class="cl"><span class="s">  podSubnet: 10.244.0.0/16
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubelet.config.k8s.io/v1beta1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: KubeletConfiguration
+</span></span></span><span class="line"><span class="cl"><span class="s">cgroupDriver: systemd
+</span></span></span><span class="line"><span class="cl"><span class="s">failSwapOn: false
+</span></span></span><span class="line"><span class="cl"><span class="s">---
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubeproxy.config.k8s.io/v1alpha1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: KubeProxyConfiguration
+</span></span></span><span class="line"><span class="cl"><span class="s">mode: ipvs
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里定制了<code>imageRepository</code>为阿里云的registry，避免因gcr被墙，无法直接拉取镜像。<code>criSocket</code> 设置了容器运行时为containerd。 同时设置kubelet的<code>cgroupDriver</code>为systemd，设置kube-proxy代理模式为ipvs。</p>
@@ -773,7 +766,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/projectcalico/calico/releases/download/v3.21.2/tigera-operator-v3.21.2-1.tgz
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/projectcalico/calico/releases/download/v3.23.1/tigera-operator-v3.23.1.tgz
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看这个 chart 中可定制的配置:</p>
@@ -811,7 +804,7 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm show values tigera-operator-v3.21.2-1.tgz &gt; calico.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm show values tigera-operator-v3.21.1.tgz &gt; calico.yaml
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl">imagePullSecrets: <span class="o">{}</span>
 </span></span><span class="line"><span class="cl">
@@ -836,11 +829,11 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># Configuration for the tigera operator</span>
 </span></span><span class="line"><span class="cl">tigeraOperator:
 </span></span><span class="line"><span class="cl">  image: tigera/operator
-</span></span><span class="line"><span class="cl">  version: v1.23.3
+</span></span><span class="line"><span class="cl">  version: v1.27.1
 </span></span><span class="line"><span class="cl">  registry: quay.io
 </span></span><span class="line"><span class="cl">calicoctl:
-</span></span><span class="line"><span class="cl">  image: quay.io/docker.io/calico/ctl
-</span></span><span class="line"><span class="cl">  tag: v3.21.2
+</span></span><span class="line"><span class="cl">  image: docker.io/calico/ctl
+</span></span><span class="line"><span class="cl">  tag: v3.23.1
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用 helm 安装 calico</p>
@@ -849,7 +842,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm install calico tigera-operator-v3.21.2-1.tgz -f calico.yaml
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm install calico tigera-operator-v3.23.1.tgz -f calico.yaml
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>等待所有 Pod 安装完成</p>
@@ -921,7 +914,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/bin
-</span></span><span class="line"><span class="cl">curl -o kubectl-calico -O -L  <span class="s2">&#34;https://github.com/projectcalico/calicoctl/releases/download/v3.21.2/calicoctl&#34;</span> 
+</span></span><span class="line"><span class="cl">curl -o kubectl-calico -O -L  <span class="s2">&#34;https://github.com/projectcalico/calicoctl/releases/download/v3.23.1/calicoctl&#34;</span> 
 </span></span><span class="line"><span class="cl">chmod +x kubectl-calico
 </span></span></code></pre></td></tr></table>
 </div>
@@ -988,9 +981,9 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get nodes
 </span></span><span class="line"><span class="cl">NAME         STATUS   ROLES                       AGE   VERSION
-</span></span><span class="line"><span class="cl">k8s-master   Ready    control-plane,edge,master   9h    v1.23.1
-</span></span><span class="line"><span class="cl">k8s-slave1   Ready    &lt;none&gt;                      9h    v1.23.1
-</span></span><span class="line"><span class="cl">k8s-slave2   Ready    &lt;none&gt;                      9h    v1.23.1
+</span></span><span class="line"><span class="cl">k8s-master   Ready    control-plane,edge,master   9h    v1.24.1
+</span></span><span class="line"><span class="cl">k8s-slave1   Ready    &lt;none&gt;                      9h    v1.24.1
+</span></span><span class="line"><span class="cl">k8s-slave2   Ready    &lt;none&gt;                      9h    v1.24.1
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="三kubernetes-常用组件">三、Kubernetes 常用组件</h2>
@@ -1474,5 +1467,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-01-13T18:44:33+08:00","owner":"lack-io","repo":"blog_comment","title":"安装kubernetes1.23"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-01-13T18:44:33+08:00","owner":"lack-io","repo":"blog_comment","title":"安装kubernetes1.24"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

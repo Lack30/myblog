@@ -1,7 +1,7 @@
-# 安装kubernetes1.23
+# 安装kubernetes1.24
 
 
-本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.23。
+本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。
 
 ## 一、准备
 
@@ -88,17 +88,12 @@ yum install -y ipset ipvsadm
 
 安装部署 containerd，在各个节点上安装 containerd
 ```bash
-wget https://github.com/containerd/containerd/releases/download/v1.5.8/cri-containerd-cni-1.5.8-linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/1.6.4/cri-containerd-cni-1.6.4-linux-amd64.tar.gz
 ```
 直接解压到 `/` 目录下，
 ```bash
-tar -zxvf cri-containerd-cni-1.5.8-linux-amd64.tar.gz -C /
+tar -zxvf cri-containerd-cni-1.6.4-linux-amd64.tar.gz -C /
 ```
-由于 `cri-containerd-cni-1.5.8-linux-amd64.tar.gz` 包内部的 runc 包在 CentOS7 下的动态链接有问题，所以需要下载二进制文件替换它。
-```bash
-wget https://github.com/opencontainers/runc/releases/download/v1.1.0-rc.1/runc.amd64
-mv runc.amd64 /usr/local/sbin/runc
-``` 
 生成 containerd 的配置文件并修改
 ```bash
 mkdir -p /etc/containerd
@@ -118,7 +113,7 @@ containerd config default > /etc/containerd/config.toml
 [plugins."io.containerd.grpc.v1.cri"]
   ...
   # sandbox_image = "k8s.gcr.io/pause:3.5"
-  sandbox_image = "registry.aliyuncs.com/google_containers/pause:3.6"
+  sandbox_image = "registry.aliyuncs.com/google_containers/pause:3.7"
 ```
 配置 containerd 开机自启
 ```bash
@@ -130,7 +125,7 @@ systemctl start containerd
  crictl version
 Version:  0.1.0
 RuntimeName:  containerd
-RuntimeVersion:  v1.5.8
+RuntimeVersion:  1.6.4
 RuntimeApiVersion:  v1alpha2
 ```
 
@@ -193,7 +188,7 @@ etcd:
     dataDir: /var/lib/etcd
 imageRepository: k8s.gcr.io
 kind: ClusterConfiguration
-kubernetesVersion: 1.23.0
+kubernetesVersion: 1.24.0
 networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
@@ -245,6 +240,7 @@ volumeStatsAggPeriod: 0s
 ```
 从默认的配置中可以看到，可以使用`imageRepository`定制在集群初始化时拉取k8s所需镜像的地址。基于默认配置定制出本次使用kubeadm初始化集群所需的配置文件`kubeadm.yaml`：
 ```bash
+cat > kubeadm.yaml << EOF
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 localAPIEndpoint:
@@ -258,7 +254,7 @@ nodeRegistration:
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.23.1
+kubernetesVersion: v1.24.0
 imageRepository: registry.aliyuncs.com/google_containers
 networking:
   podSubnet: 10.244.0.0/16
@@ -271,6 +267,7 @@ failSwapOn: false
 apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: ipvs
+EOF
 ```
 这里定制了`imageRepository`为阿里云的registry，避免因gcr被墙，无法直接拉取镜像。`criSocket` 设置了容器运行时为containerd。 同时设置kubelet的`cgroupDriver`为systemd，设置kube-proxy代理模式为ipvs。
 
@@ -320,11 +317,11 @@ mv linux-amd64/helm  /usr/local/bin/
 使用 Calico 作为 k8s 的 CNI。这里使用 helm 安装。
 下载 `tigera-openrator` 的 helm chart：
 ```bash
-wget https://github.com/projectcalico/calico/releases/download/v3.21.2/tigera-operator-v3.21.2-1.tgz
+wget https://github.com/projectcalico/calico/releases/download/v3.23.1/tigera-operator-v3.23.1.tgz
 ```
 查看这个 chart 中可定制的配置:
 ```bash
-helm show values tigera-operator-v3.21.2-1.tgz > calico.yaml
+helm show values tigera-operator-v3.21.1.tgz > calico.yaml
  
 imagePullSecrets: {}
 
@@ -349,15 +346,15 @@ certs:
 # Configuration for the tigera operator
 tigeraOperator:
   image: tigera/operator
-  version: v1.23.3
+  version: v1.27.1
   registry: quay.io
 calicoctl:
-  image: quay.io/docker.io/calico/ctl
-  tag: v3.21.2
+  image: docker.io/calico/ctl
+  tag: v3.23.1
 ```
 使用 helm 安装 calico
 ```bash
-helm install calico tigera-operator-v3.21.2-1.tgz -f calico.yaml
+helm install calico tigera-operator-v3.23.1.tgz -f calico.yaml
 ```
 等待所有 Pod 安装完成
 ```bash
@@ -391,7 +388,7 @@ networksets                                    crd.projectcalico.org/v1         
 这些api资源是属于calico的，因此不建议使用kubectl来管理，推荐按照calicoctl来管理这些api资源。 将calicoctl安装为kubectl的插件:
 ```bash
 cd /usr/local/bin
-curl -o kubectl-calico -O -L  "https://github.com/projectcalico/calicoctl/releases/download/v3.21.2/calicoctl" 
+curl -o kubectl-calico -O -L  "https://github.com/projectcalico/calicoctl/releases/download/v3.23.1/calicoctl" 
 chmod +x kubectl-calico
 ```
 验证插件正常工作:
@@ -423,9 +420,9 @@ kubeadm join 172.16.219.100:6443 --token rdm2to.z9n608f4ix4lnik8 --discovery-tok
 ```bash
 kubectl get nodes
 NAME         STATUS   ROLES                       AGE   VERSION
-k8s-master   Ready    control-plane,edge,master   9h    v1.23.1
-k8s-slave1   Ready    <none>                      9h    v1.23.1
-k8s-slave2   Ready    <none>                      9h    v1.23.1
+k8s-master   Ready    control-plane,edge,master   9h    v1.24.1
+k8s-slave1   Ready    <none>                      9h    v1.24.1
+k8s-slave2   Ready    <none>                      9h    v1.24.1
 ```
 
 ## 三、Kubernetes 常用组件
