@@ -30,6 +30,33 @@ author: "Lack"
 ### gluster 配置
 这个环境上是没有配置 StorageClass，这里选择 gluster 作为默认的存储。
 
+添加 gluster yum 源
+```bash
+cat > /etc/yum.repos.d/CentOS-Gluster-9.repo << EOF
+# CentOS-Gluster-9.repo
+#
+# Please see http://wiki.centos.org/SpecialInterestGroup/Storage for more
+# information
+
+[centos-gluster9]
+name=CentOS-$releasever - Gluster 9
+mirrorlist=http://mirrorlist.centos.org?arch=$basearch&release=$releasever&repo=storage-gluster-9
+#baseurl=http://mirror.centos.org/$contentdir/$releasever/storage/$basearch/gluster-9/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Storage
+
+[centos-gluster9-test]
+name=CentOS-$releasever - Gluster 9 Testing
+baseurl=http://buildlogs.centos.org/centos/$releasever/storage/$basearch/gluster-9/
+gpgcheck=0
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Storage
+EOF
+
+yum makecache
+```
+
 安装 gluster 软件包，每个节点上都要执行
 ```bash
 yum install -y glusterfs-server gluster-common glusterfs-client fuse
