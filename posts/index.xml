@@ -10,7 +10,7 @@
     <pubDate>Mon, 06 Jun 2022 12:19:12 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://xingyys.tech/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
-    <description><![CDATA[什么是 KubeVirt KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器方式管理虚拟机。 Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理： VirtualMachi]]></description>
+    <description><![CDATA[什么是 KubeVirt KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器的方式来管理虚拟机。 Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理： VirtualMac]]></description>
 </item><item>
     <title>K8s上部署CI/CD</title>
     <link>http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/</link>

@@ -2,7 +2,7 @@
 
 
 ## 什么是 KubeVirt
-KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器方式管理虚拟机。
+KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器的方式来管理虚拟机。
 
 
 Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理：
