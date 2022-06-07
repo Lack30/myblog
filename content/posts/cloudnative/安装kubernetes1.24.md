@@ -97,11 +97,11 @@ yum install -y ipset ipvsadm
 
 安装部署 containerd，在各个节点上安装 containerd
 ```bash
-wget https://github.com/containerd/containerd/releases/download/1.6.4/cri-containerd-cni-1.6.4-linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/1.6.5/cri-containerd-cni-1.6.5-linux-amd64.tar.gz
 ```
 直接解压到 `/` 目录下，
 ```bash
-tar -zxvf cri-containerd-cni-1.6.4-linux-amd64.tar.gz -C /
+tar -zxvf cri-containerd-cni-1.6.5-linux-amd64.tar.gz -C /
 ```
 生成 containerd 的配置文件并修改
 ```bash
@@ -131,11 +131,11 @@ systemctl start containerd
 ```
 执行 crictl 命令测试
 ```bash
- crictl version
+$ crictl version
 Version:  0.1.0
 RuntimeName:  containerd
-RuntimeVersion:  1.6.4
-RuntimeApiVersion:  v1alpha2
+RuntimeVersion:  v1.6.5
+RuntimeApiVersion:  v1
 ```
 
 ## 二、部署 Kubernetes
