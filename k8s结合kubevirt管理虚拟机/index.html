@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>K8s结合kubevirt管理虚拟机 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="K8s结合kubevirt管理虚拟机" />
+<meta property="og:description" content="什么是 KubeVirt KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器方式管理虚拟机。 Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理： VirtualMachi" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-06T12:19:12+08:00" />
+<meta property="article:modified_time" content="2022-06-06T12:19:12+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8s结合kubevirt管理虚拟机"/>
+<meta name="twitter:description" content="什么是 KubeVirt KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器方式管理虚拟机。 Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理： VirtualMachi"/>
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" /><link rel="prev" href="http://xingyys.tech/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "K8s结合kubevirt管理虚拟机",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA\/"
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  3126 ,
+        "url": "http:\/\/xingyys.tech\/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA\/","datePublished": "2022-06-06T12:19:12+08:00","dateModified": "2022-06-06T12:19:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/xingyys.tech\/images\/avatar.webp",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Lack"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">Lack个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/authors/"> 作者 </a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">Lack个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/authors/" title="">作者</a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">K8s结合kubevirt管理虚拟机</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-06-06">2022-06-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3126 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是-kubevirt">什么是 KubeVirt</a></li>
+    <li><a href="#准备">准备</a>
+      <ul>
+        <li><a href="#系统环境">系统环境</a></li>
+        <li><a href="#修改主机">修改主机</a></li>
+        <li><a href="#安装-kubevirt">安装 KubeVirt</a></li>
+        <li><a href="#安装-libvirt-和-qemu">安装 libvirt 和 qemu</a></li>
+        <li><a href="#部署-kubevirt">部署 KubeVirt</a></li>
+        <li><a href="#部署-cdi">部署 CDI</a></li>
+        <li><a href="#安装-virtctl-工具">安装 virtctl 工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#创建虚拟机">创建虚拟机</a>
+      <ul>
+        <li><a href="#准备系统镜像">准备系统镜像</a></li>
+        <li><a href="#安装-centos7-虚拟机">安装 CentOS7 虚拟机</a></li>
+        <li><a href="#安装-windows2012-虚拟机">安装 Windows2012 虚拟机</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="什么是-kubevirt">什么是 KubeVirt</h2>
+<p>KubeVirt 作为 Red Hat 公司的开源项目，它可以让用户以容器方式管理虚拟机。</p>
+<p>Kubevirt 主要实现了下面几种资源，以实现对虚拟机的管理：</p>
+<ul>
+<li>VirtualMachineInstance（VMI） : 类似于 kubernetes Pod，是管理虚拟机的最小资源。一个 VirtualMachineInstance 对象即表示一台正在运行的虚拟机实例，包含一个虚拟机所需要的各种配置。</li>
+<li>VirtualMachine（VM）: 为群集内的 VirtualMachineInstance 提供管理功能，例如开机/关机/重启虚拟机，确保虚拟机实例的启动状态，与虚拟机实例是 1:1 的关系，类似与 spec.replica 为 1 的 StatefulSet。</li>
+<li>VirtualMachineInstanceReplicaSet : 类似 ReplicaSet，可以启动指定数量的 VirtualMachineInstance，并且保证指定数量的 VirtualMachineInstance 运行，可以配置 HPA。</li>
+</ul>
+<p>KubeVirt 架构图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607102220.png" /></p>
+<ul>
+<li>virt-api : 负责提供一些 KubeVirt 特有的 api，像是 console, vnc, startvm, stopvm 等，工具 virtctl 会直接和该组件通讯</li>
+<li>virt-controller : 管理和监控 VMI 对象及其关联的 Pod，对其状态进行更新。</li>
+<li>virt-handler : 以 DaemonSet 运行在每一个节点上，监听 VMI 的状态向上汇报，管理 VMI 的生命周期。</li>
+<li>virt-launcher : 以 Pod 方式运行，每个 VMI Object 都会对应一个 virt-launcher Pod，容器内有单独的 libvirtd，用于启动和管理虚拟机。</li>
+</ul>
+<h2 id="准备">准备</h2>
+<h3 id="系统环境">系统环境</h3>
+<p>首先需要安装有一套可用的 k8s 环境，本地的环境如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>系统</th>
+<th>配置</th>
+<th>ip 地址</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>k8s-master</td>
+<td>CentOS7</td>
+<td>2 core 8G, 两块 100 硬盘</td>
+<td>192.168.2.21</td>
+<td>master,glusterfs,heketi,helm</td>
+</tr>
+<tr>
+<td>k8s-node1</td>
+<td>CentOS7</td>
+<td>2 core 8G , 两块 100 硬盘</td>
+<td>192.168.2.22</td>
+<td>node,gluster</td>
+</tr>
+<tr>
+<td>k8s-node2</td>
+<td>CentOS7</td>
+<td>2 core 8G , 两块 100 硬盘</td>
+<td>192.168.2.23</td>
+<td>node,gluster</td>
+</tr>
+<tr>
+<td>k8s-virt</td>
+<td>CentOS7</td>
+<td>4 core 8G , 两块 100 硬盘</td>
+<td>192.168.2.24</td>
+<td>node,gluster,kvm</td>
+</tr>
+</tbody>
+</table>
+<h3 id="修改主机">修改主机</h3>
+<p>升级 k8s-virt 节点内核，可以参考<a href="https://www.cnblogs.com/ding2016/p/10429640.html" target="_blank" rel="noopener noreffer">CentOS7 升级内核</a></p>
+<p>升级完成后:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ uname -r
+</span></span><span class="line"><span class="cl">5.18.2-1.el7.elrepo.x86_64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将 k8s-virt 加入 gluster 集群，可以参考<a href="http://xingyys.tech/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93/#gluster-%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener noreffer">gluster 配置</a></p>
+<p>安装 containerd 和 kubelet，可以参考<a href="http://xingyys.tech/%E5%AE%89%E8%A3%85kubernetes1.23/#14-%E9%83%A8%E7%BD%B2-containerd" target="_blank" rel="noopener noreffer">部署 containerd</a></p>
+<p>k8s-virt 加入 k8s 集群，先获取 token，在 k8s-master 直接命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubeadm token create --print-join-command
+</span></span><span class="line"><span class="cl">kubeadm join 192.168.2.21:6443 --token ysrnjl.j78kztr0k1dwpwt6 --discovery-token-ca-cert-hash sha256:3496a635ca78755b032c077ff7bcf27b070868b78ff8058c412575f4127bccaa
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 k8s-virt 上执行命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubeadm join 192.168.2.21:6443 --token ysrnjl.j78kztr0k1dwpwt6 --discovery-token-ca-cert-hash sha256:3496a635ca78755b032c077ff7bcf27b070868b78ff8058c412575f4127bccaa
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-kubevirt">安装 KubeVirt</h3>
+<h3 id="安装-libvirt-和-qemu">安装 libvirt 和 qemu</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yum install -y qemu-kvm libvirt virt-install bridge-utils
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看节点是否支持 kvm 虚拟机化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ virt-host-validate qemu
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> hardware virtualization                                 : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">if</span> device /dev/kvm exists                                   : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">if</span> device /dev/kvm is accessible                            : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">if</span> device /dev/vhost-net exists                             : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">if</span> device /dev/net/tun exists                               : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;memory&#39;</span> controller support                      : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;memory&#39;</span> controller mount-point                  : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpu&#39;</span> controller support                         : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpu&#39;</span> controller mount-point                     : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpuacct&#39;</span> controller support                     : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpuacct&#39;</span> controller mount-point                 : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpuset&#39;</span> controller support                      : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;cpuset&#39;</span> controller mount-point                  : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;devices&#39;</span> controller support                     : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;devices&#39;</span> controller mount-point                 : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;blkio&#39;</span> controller support                       : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> cgroup <span class="s1">&#39;blkio&#39;</span> controller mount-point                   : PASS
+</span></span><span class="line"><span class="cl">  QEMU: 正在检查 <span class="k">for</span> device assignment IOMMU support                         : WARN <span class="o">(</span>No ACPI DMAR table found, IOMMU either disabled in BIOS or not supported by this hardware platform<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果不支持，则让 Kubevirt 使用软件虚拟化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create namespace kubevirt
+</span></span><span class="line"><span class="cl">kubectl create configmap -n kubevirt kubevirt-config --from-literal debug.useEmulation<span class="o">=</span><span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="部署-kubevirt">部署 KubeVirt</h3>
+<p>部署最新版本的 KubeVirt</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>curl -s https://api.github.com/repos/kubevirt/kubevirt/releases <span class="p">|</span> grep tag_name <span class="p">|</span> grep -v -- <span class="s1">&#39;-rc&#39;</span> <span class="p">|</span> head -1 <span class="p">|</span> awk -F<span class="s1">&#39;: &#39;</span> <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/,//&#39;</span> <span class="p">|</span> xargs<span class="k">)</span>
+</span></span><span class="line"><span class="cl">kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/kubevirt-operator.yaml
+</span></span><span class="line"><span class="cl">kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/kubevirt-cr.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看命令执行结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl get pods -n kubevirt
+</span></span><span class="line"><span class="cl">NAME                               READY   STATUS    RESTARTS      AGE
+</span></span><span class="line"><span class="cl">virt-api-59d4c5cb49-6b2r2          1/1     Running   <span class="m">1</span> <span class="o">(</span>82m ago<span class="o">)</span>   82m
+</span></span><span class="line"><span class="cl">virt-api-59d4c5cb49-d9w4z          1/1     Running   <span class="m">1</span> <span class="o">(</span>82m ago<span class="o">)</span>   82m
+</span></span><span class="line"><span class="cl">virt-controller-8684f9db98-d6w6p   1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-controller-8684f9db98-hrkjg   1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-handler-2hfxz                 1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-handler-4vk84                 1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-handler-qg4qt                 1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-handler-qnzsh                 1/1     Running   <span class="m">0</span>             82m
+</span></span><span class="line"><span class="cl">virt-operator-5fcd4ff76f-47n27     1/1     Running   <span class="m">0</span>             84m
+</span></span><span class="line"><span class="cl">virt-operator-5fcd4ff76f-kq4h8     1/1     Running   <span class="m">0</span>             84m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="部署-cdi">部署 CDI</h3>
+<p>CDI (Containerized Data Importer) 可以使用 PVC 作为 KubeVirt VM 磁盘，建议同时安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>curl -s https://github.com/kubevirt/containerized-data-importer/releases <span class="p">|</span> grep -o <span class="s2">&#34;v[0-9]\.[0-9]*\.[0-9]*&#34;</span> <span class="p">|</span> head -1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/<span class="nv">$VERSION</span>/cdi-operator.yaml
+</span></span><span class="line"><span class="cl">kubectl create -f https://github.com/kubevirt/containerized-data-importer/releases/download/<span class="nv">$VERSION</span>/cdi-cr.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-virtctl-工具">安装 virtctl 工具</h3>
+<p>virtctl 工具可以直接用来操作虚拟机，执行以下命令下载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>curl -s https://api.github.com/repos/kubevirt/kubevirt/releases <span class="p">|</span> grep tag_name <span class="p">|</span> grep -v -- <span class="s1">&#39;-rc&#39;</span> <span class="p">|</span> head -1 <span class="p">|</span> awk -F<span class="s1">&#39;: &#39;</span> <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/,//&#39;</span> <span class="p">|</span> xargs<span class="k">)</span>
+</span></span><span class="line"><span class="cl">curl -L -o /usr/local/bin/virtctl https://github.com/kubevirt/kubevirt/releases/download/<span class="nv">$VERSION</span>/virtctl-<span class="nv">$VERSION</span>-linux-amd64
+</span></span><span class="line"><span class="cl">chmod +x /usr/local/bin/virtctl
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="创建虚拟机">创建虚拟机</h2>
+<h3 id="准备系统镜像">准备系统镜像</h3>
+<p>这里推荐一个 windows 系统镜像站 <a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener noreffer">https://msdn.itellyou.cn/</a>，下载 windows 2012 R2</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111630.png" /></p>
+<p>下载 CentOS7 镜像，选择阿里云镜像站 <a href="https://mirrors.aliyun.com/centos/7/isos/x86_64/" target="_blank" rel="noopener noreffer">https://mirrors.aliyun.com/centos/7/isos/x86_64/</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607111807.png" /></p>
+<h3 id="安装-centos7-虚拟机">安装 CentOS7 虚拟机</h3>
+<p>KubeVirt 可以使用 PVC 作为后端磁盘，使用 filesystem 类型的 PVC 时，默认使用的时 /disk.img 这个镜像，用户可以将镜像上传到 PVC，
+在创建 VMI 时使用此 PVC。使用这种方式需要注意下面几点：</p>
+<ul>
+<li>一个 PVC 只允许存在一个镜像，只允许一个 VMI 使用，要创建多个 VMI，需要上传多次</li>
+<li>/disk.img 的格式必须是 RAW 格式</li>
+</ul>
+<p>CDI 提供了使用使用 PVC 作为虚拟机磁盘的方案，在虚拟机启动前通过下面方式填充 PVC：</p>
+<ul>
+<li>通过 URL 导入虚拟机镜像到 PVC，URL 可以是 http 链接，s3 链接</li>
+<li>Clone 一个已经存在的 PVC</li>
+<li>通过 container registry 导入虚拟机磁盘到 PVC，需要结合 ContainerDisk 使用</li>
+<li>通过客户端上传本地镜像到 PVC</li>
+</ul>
+<p>通过命令行 <code>virtctl</code>，结合 CDI 项目，可以上传本地镜像到 PVC 上，支持的镜像格式有：</p>
+<ul>
+<li>.img</li>
+<li>.qcow2</li>
+<li>.iso</li>
+<li>压缩为 .tar，.gz，.xz 格式的上述镜像</li>
+</ul>
+<p>上传镜像文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$  <span class="nb">export</span> <span class="nv">CDI_PROXY</span><span class="o">=</span><span class="sb">`</span>kubectl -n cdi get svc -l cdi.kubevirt.io<span class="o">=</span>cdi-uploadproxy -o go-template --template<span class="o">=</span><span class="s1">&#39;{{ (index .items 0).spec.clusterIP }}&#39;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">$ virtctl image-upload --image-path<span class="o">=</span><span class="s1">&#39;/root/iso/CentOS-7-x86_64-DVD-2009.iso&#39;</span> --pvc-name<span class="o">=</span>iso-centos7  --pvc-size<span class="o">=</span>5G --uploadproxy-url<span class="o">=</span>https://<span class="nv">$CDI_PROXY</span>  --insecure  --wait-secs<span class="o">=</span><span class="m">240</span>
+</span></span><span class="line"><span class="cl">PVC default/iso-centos7 not found
+</span></span><span class="line"><span class="cl">PersistentVolumeClaim default/iso-centos7 created
+</span></span><span class="line"><span class="cl">Waiting <span class="k">for</span> PVC iso-centos7 upload pod to be ready...
+</span></span><span class="line"><span class="cl">Pod now ready
+</span></span><span class="line"><span class="cl">Uploading data to https://10.98.254.51
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 4.39 GiB / 4.39 GiB <span class="o">[=============================================================================================================================================================]</span> 100.00% 3m43s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Uploading data completed successfully, waiting <span class="k">for</span> processing to complete, you can hit ctrl-c without interrupting the progress
+</span></span><span class="line"><span class="cl">Processing completed successfully
+</span></span><span class="line"><span class="cl">Uploading /root/iso/CentOS-7-x86_64-DVD-2009.iso completed successfully
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数说明：</p>
+<ul>
+<li>&ndash;image-path : 操作系统镜像路径。</li>
+<li>&ndash;pvc-name : 指定存储操作系统镜像的 PVC，这个 PVC 不需要提前准备好，镜像上传过程中会自动创建。</li>
+<li>&ndash;pvc-size : PVC 大小，根据操作系统镜像大小来设定，一般略大一个 G 就行。</li>
+<li>&ndash;uploadproxy-url : cdi-uploadproxy 的 Service IP，可以通过命令 <code>kubectl -n cdi get svc -l cdi.kubevirt.io=cdi-uploadproxy</code> 来查看。</li>
+</ul>
+<p>KubeVirt 支持 HostDisk</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ kubectl edit kubevirt kubevirt -n kubevirt
+</span></span><span class="line"><span class="cl">    ...
+</span></span><span class="line"><span class="cl">    spec:
+</span></span><span class="line"><span class="cl">      configuration:
+</span></span><span class="line"><span class="cl">        developerConfiguration:
+</span></span><span class="line"><span class="cl">          featureGates:
+</span></span><span class="line"><span class="cl">            - DataVolumes
+</span></span><span class="line"><span class="cl">            - LiveMigration
+</span></span><span class="line"><span class="cl">            - HostDisk
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CentOS7 虚拟机的模板文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; kubevirt-centos7.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubevirt.io/v1alpha3
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: VirtualMachine
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: centos7
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  running: false
+</span></span></span><span class="line"><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">        kubevirt.io/domain: centos7
+</span></span></span><span class="line"><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">      domain:
+</span></span></span><span class="line"><span class="cl"><span class="s">        cpu:
+</span></span></span><span class="line"><span class="cl"><span class="s">          cores: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">        devices:
+</span></span></span><span class="line"><span class="cl"><span class="s">          disks:
+</span></span></span><span class="line"><span class="cl"><span class="s">          - bootOrder: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">            cdrom:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: sata
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: cdromiso
+</span></span></span><span class="line"><span class="cl"><span class="s">          - disk:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: virtio
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: harddrive
+</span></span></span><span class="line"><span class="cl"><span class="s">          - cdrom:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: sata
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: virtiocontainerdisk
+</span></span></span><span class="line"><span class="cl"><span class="s">          interfaces:
+</span></span></span><span class="line"><span class="cl"><span class="s">          - masquerade: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">            model: e1000
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: default
+</span></span></span><span class="line"><span class="cl"><span class="s">        machine:
+</span></span></span><span class="line"><span class="cl"><span class="s">          type: q35
+</span></span></span><span class="line"><span class="cl"><span class="s">        resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">          requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2G
+</span></span></span><span class="line"><span class="cl"><span class="s">      networks:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: default
+</span></span></span><span class="line"><span class="cl"><span class="s">        pod: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">      volumes:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: cdromiso
+</span></span></span><span class="line"><span class="cl"><span class="s">        persistentVolumeClaim:
+</span></span></span><span class="line"><span class="cl"><span class="s">          claimName: iso-centos7
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: harddrive
+</span></span></span><span class="line"><span class="cl"><span class="s">        hostDisk:
+</span></span></span><span class="line"><span class="cl"><span class="s">          capacity: 30Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">          path: /data/disk.img
+</span></span></span><span class="line"><span class="cl"><span class="s">          type: DiskOrCreate
+</span></span></span><span class="line"><span class="cl"><span class="s">      - containerDisk:
+</span></span></span><span class="line"><span class="cl"><span class="s">          image: kubevirt/virtio-container-disk
+</span></span></span><span class="line"><span class="cl"><span class="s">        name: virtiocontainerdisk
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里用到了 3 个 Volume：</p>
+<ul>
+<li>cdromiso : 提供操作系统安装镜像，即上文上传镜像后生成的 PVC iso-centos7。</li>
+<li>harddrive : 虚拟机使用的磁盘，即操作系统就会安装在该磁盘上。这里选择 hostDisk 直接挂载到宿主机以提升性能，如果使用分布式存储则体验非常不好。</li>
+<li>containerDisk : 由于 Windows 默认无法识别 raw 格式的磁盘，所以需要安装 virtio 驱动。 containerDisk 可以将打包好 virtio 驱动的容器镜像挂载到虚拟机中。</li>
+</ul>
+<p>关于网络部分，spec.template.spec.networks 定义了一个网络叫 default，这里表示使用 Kubernetes 默认的 CNI。spec.template.spec.domain.devices.interfaces 选择定义的
+网络 default，并开启 <code>masquerade</code>，以使用网络地址转换 (NAT) 来通过 Linux 网桥将虚拟机连接至 Pod 网络后端。</p>
+<p>使用模板文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f kubevirt-centos7.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动虚拟机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtctl start centos7
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动 vnc 代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ virtctl vnc centos7 --proxy-only --address<span class="o">=</span>0.0.0.0
+</span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;port&#34;</span>:42743<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;component&#34;</span>:<span class="s2">&#34;&#34;</span>,<span class="s2">&#34;level&#34;</span>:<span class="s2">&#34;info&#34;</span>,<span class="s2">&#34;msg&#34;</span>:<span class="s2">&#34;connection timeout: 1m0s&#34;</span>,<span class="s2">&#34;pos&#34;</span>:<span class="s2">&#34;vnc.go:153&#34;</span>,<span class="s2">&#34;timestamp&#34;</span>:<span class="s2">&#34;2022-06-07T10:06:11.066704Z&#34;</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span><span class="s2">&#34;component&#34;</span>:<span class="s2">&#34;&#34;</span>,<span class="s2">&#34;level&#34;</span>:<span class="s2">&#34;info&#34;</span>,<span class="s2">&#34;msg&#34;</span>:<span class="s2">&#34;VNC Client connected in 7.866330333s&#34;</span>,<span class="s2">&#34;pos&#34;</span>:<span class="s2">&#34;vnc.go:166&#34;</span>,<span class="s2">&#34;timestamp&#34;</span>:<span class="s2">&#34;2022-06-07T10:06:18.933070Z&#34;</span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行完上面的命令后，就会打开本地的 VNC 客户端连接到虚拟机</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607100912.png" /></p>
+<p>直接下一步直到完成即可</p>
+<p>安装完成重启后虚拟机依旧会从 cdrom 启动，修改 vm</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtctl stop centos7
+</span></span><span class="line"><span class="cl">kubectl edit virtualmachine.kubevirt.io/centos7
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设硬盘为第一启动项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">        devices:
+</span></span><span class="line"><span class="cl">          disks:
+</span></span><span class="line"><span class="cl">          - bootOrder: <span class="m">2</span>
+</span></span><span class="line"><span class="cl">            cdrom:
+</span></span><span class="line"><span class="cl">              bus: sata
+</span></span><span class="line"><span class="cl">            name: cdromiso
+</span></span><span class="line"><span class="cl">          - bootOrder: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">            disk:
+</span></span><span class="line"><span class="cl">              bus: virtio
+</span></span><span class="line"><span class="cl">            name: harddrive
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改完成，重启虚拟机</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtctl start centos7
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>centos7 虚拟机启动正常</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607104750.png" /></p>
+<h3 id="安装-windows2012-虚拟机">安装 Windows2012 虚拟机</h3>
+<p>上传 windows2012 镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ virtctl image-upload --image-path<span class="o">=</span><span class="s1">&#39;/root/iso/cn_windows_server_2012_r2_x64_dvd_2707961.iso&#39;</span> --pvc-name<span class="o">=</span>iso-win12  --pvc-size<span class="o">=</span>5G --uploadproxy-url<span class="o">=</span>https://<span class="nv">$CDI_PROXY</span>  --insecure  --wait-secs<span class="o">=</span><span class="m">240</span>
+</span></span><span class="line"><span class="cl">PVC default/iso-win12 not found
+</span></span><span class="line"><span class="cl">PersistentVolumeClaim default/iso-win12 created
+</span></span><span class="line"><span class="cl">Waiting <span class="k">for</span> PVC iso-win12 upload pod to be ready...
+</span></span><span class="line"><span class="cl">Pod now ready
+</span></span><span class="line"><span class="cl">Uploading data to https://10.98.254.51
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 4.11 GiB / 4.11 GiB <span class="o">[=============================================================================================================================================================]</span> 100.00% 3m54s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Uploading data completed successfully, waiting <span class="k">for</span> processing to complete, you can hit ctrl-c without interrupting the progress
+</span></span><span class="line"><span class="cl">Processing completed successfully
+</span></span><span class="line"><span class="cl">Uploading /root/iso/cn_windows_server_2012_r2_x64_dvd_2707961.iso completed successfully
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>虚拟机配置文件 kubevirt-win12.yaml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; kubevirt-win12.yaml <span class="s">&lt;&lt; EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">apiVersion: kubevirt.io/v1
+</span></span></span><span class="line"><span class="cl"><span class="s">kind: VirtualMachine
+</span></span></span><span class="line"><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">  name: win12
+</span></span></span><span class="line"><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">  running: false
+</span></span></span><span class="line"><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="cl"><span class="s">        kubevirt.io/domain: win12
+</span></span></span><span class="line"><span class="cl"><span class="s">        kubevirt.io/os: win2k12r2
+</span></span></span><span class="line"><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="cl"><span class="s">      domain:
+</span></span></span><span class="line"><span class="cl"><span class="s">        clock:
+</span></span></span><span class="line"><span class="cl"><span class="s">          timer:
+</span></span></span><span class="line"><span class="cl"><span class="s">            hpet:
+</span></span></span><span class="line"><span class="cl"><span class="s">              present: false
+</span></span></span><span class="line"><span class="cl"><span class="s">            hyperv: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">            pit:
+</span></span></span><span class="line"><span class="cl"><span class="s">              tickPolicy: delay
+</span></span></span><span class="line"><span class="cl"><span class="s">            rtc:
+</span></span></span><span class="line"><span class="cl"><span class="s">              tickPolicy: catchup
+</span></span></span><span class="line"><span class="cl"><span class="s">          utc: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">        cpu:
+</span></span></span><span class="line"><span class="cl"><span class="s">          cores: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">        devices:
+</span></span></span><span class="line"><span class="cl"><span class="s">          disks:
+</span></span></span><span class="line"><span class="cl"><span class="s">          - bootOrder: 1
+</span></span></span><span class="line"><span class="cl"><span class="s">            cdrom:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: sata
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: cdromiso
+</span></span></span><span class="line"><span class="cl"><span class="s">          - disk:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: virtio
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: harddrive
+</span></span></span><span class="line"><span class="cl"><span class="s">          - cdrom:
+</span></span></span><span class="line"><span class="cl"><span class="s">              bus: sata
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: virtiocontainerdisk
+</span></span></span><span class="line"><span class="cl"><span class="s">          interfaces:
+</span></span></span><span class="line"><span class="cl"><span class="s">          - masquerade: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">            model: e1000
+</span></span></span><span class="line"><span class="cl"><span class="s">            name: default
+</span></span></span><span class="line"><span class="cl"><span class="s">        features:
+</span></span></span><span class="line"><span class="cl"><span class="s">          acpi: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">          apic: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">          hyperv:
+</span></span></span><span class="line"><span class="cl"><span class="s">            relaxed: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">            spinlocks:
+</span></span></span><span class="line"><span class="cl"><span class="s">              spinlocks: 8191
+</span></span></span><span class="line"><span class="cl"><span class="s">            vapic: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">          smm: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">        firmware:
+</span></span></span><span class="line"><span class="cl"><span class="s">          bootloader:
+</span></span></span><span class="line"><span class="cl"><span class="s">            efi:
+</span></span></span><span class="line"><span class="cl"><span class="s">              secureBoot: true
+</span></span></span><span class="line"><span class="cl"><span class="s">        machine:
+</span></span></span><span class="line"><span class="cl"><span class="s">          type: q35
+</span></span></span><span class="line"><span class="cl"><span class="s">        resources:
+</span></span></span><span class="line"><span class="cl"><span class="s">          requests:
+</span></span></span><span class="line"><span class="cl"><span class="s">            memory: 2G
+</span></span></span><span class="line"><span class="cl"><span class="s">      networks:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: default
+</span></span></span><span class="line"><span class="cl"><span class="s">        pod: {}
+</span></span></span><span class="line"><span class="cl"><span class="s">      volumes:
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: cdromiso
+</span></span></span><span class="line"><span class="cl"><span class="s">        persistentVolumeClaim:
+</span></span></span><span class="line"><span class="cl"><span class="s">          claimName: iso-win12
+</span></span></span><span class="line"><span class="cl"><span class="s">      - name: harddrive
+</span></span></span><span class="line"><span class="cl"><span class="s">        hostDisk:
+</span></span></span><span class="line"><span class="cl"><span class="s">          capacity: 30Gi
+</span></span></span><span class="line"><span class="cl"><span class="s">          path: /data/win12.img
+</span></span></span><span class="line"><span class="cl"><span class="s">          type: DiskOrCreate
+</span></span></span><span class="line"><span class="cl"><span class="s">      - containerDisk:
+</span></span></span><span class="line"><span class="cl"><span class="s">          image: kubevirt/virtio-container-disk
+</span></span></span><span class="line"><span class="cl"><span class="s">        name: virtiocontainerdisk
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>应用配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f kubevirt-win12.yaml
+</span></span><span class="line"><span class="cl">virtctl start win12
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动 vnc 代理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">virtctl vnc win12 --address<span class="o">=</span>0.0.0.0 --proxy-only
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行命令之后，使用 vnc 连接到虚拟机: 192.168.1.21:40710，打开就可以看到</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161015.png" /></p>
+<p>直接下一步，开始安装</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161326.png" /></p>
+<p>直接百度一个序列码，下一步</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161459.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161610.png" /></p>
+<p>如果选择硬盘时没有一个可供使用，就需要安装 virtio 驱动</p>
+<p>virtio 驱动挂载进来后，直接点击<em>浏览</em>:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200905.png" /></p>
+<p>选择 viostor/2k12R2/amd64</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607200950.png" /></p>
+<p>接着下一步</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png" /></p>
+<p>按提示解决问题</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png" /></p>
+<p>继续安装</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607201140.png" /></p>
+<p>安装成功后会自动重启进行初始化设置</p>
+<p>如果你的 Kubernetes 集群 CNI 插件用的是 Calico，这里会遇到虚拟机无法联网的问题。因为 Calico 默认禁用了容器的 ip forward 功能，而 masquerade 需要开启这个功能才能生效。</p>
+<p>我们只需要修改 Calico 的 ConfigMap 就可以启用容器的 ip forward 功能了，执行以下命令打开 configmap calico-config：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl -n calico-system edit cm cni-config
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;container_settings&#34;</span>: <span class="o">{</span>
+</span></span><span class="line"><span class="cl">              <span class="s2">&#34;allow_ip_forwarding&#34;</span>: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span>,
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/ryanyangcs/p/14079144.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/ryanyangcs/p/14079144.html</a></li>
+<li><a href="https://www.cnblogs.com/ding2016/p/10429640.html" target="_blank" rel="noopener noreffer">https://www.cnblogs.com/ding2016/p/10429640.html</a></li>
+<li><a href="https://kubevirt.io/user-guide/operations/activating_feature_gates/" target="_blank" rel="noopener noreffer">https://kubevirt.io/user-guide/operations/activating_feature_gates/</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/k8s/">k8s</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/k8s%E4%B8%8A%E9%83%A8%E7%BD%B2cicd/" class="prev" rel="prev" title="K8s上部署CI/CD"><i class="fas fa-angle-left fa-fw"></i>K8s上部署CI/CD</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-06-06T12:19:12+08:00","owner":"lack-io","repo":"blog_comment","title":"K8s结合kubevirt管理虚拟机"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

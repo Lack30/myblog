@@ -43,6 +43,7 @@ baseurl=http://buildlogs.centos.org/centos/$releasever/storage/$basearch/gluster
 gpgcheck=0
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Storage
+
 EOF
 
 yum makecache
@@ -163,6 +164,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: glusterfs
+annotations:
+  storageclass.kubernetes.io/is-default-class: "true"
 provisioner: kubernetes.io/glusterfs
 allowVolumeExpansion: true
 parameters:

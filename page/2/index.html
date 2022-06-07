@@ -103,7 +103,12 @@
         data-sizes="auto"
         alt="/images/avatar1.jpeg"
         title="/images/avatar1.jpeg" /></a></div></div>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/%E5%AE%89%E8%A3%85kubernetes1.24/">安装kubernetes1.24</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-01-13">2022-01-13</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div><div class="content">本文介绍如何通过 Kubeadm 工具安装 Kubernetes 1.24。 一、准备 1.1 系统环境 准备三台vmware虚拟机，配置为 CentOS7.6 / 2Core / 2G，系统环境如下: 1 2 3 172.16.219.100 k8s-master 172.16.219.101 k8s-slave1 172.16.219.102 k8s-slave2 1.2 配</div><div class="post-footer">
+        <a href="/%E5%AE%89%E8%A3%85kubernetes1.24/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/k8s/">k8s</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/containerd%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -193,11 +198,6 @@
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-08-30">2021-08-30</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw"></i>笔记</a></span></div><div class="content">查询所有触发器 1 select*fromuser_triggers; 根据名称禁用触发器 1 altertriggerLOGMNRGGC_TRIGGERdisable; 查询所有 job 1 select*fromuser_jobs; 根据 id 禁用 job 1 BEGINdbms_job.broken(4001,true);END; 禁用 oracle dblink 1 2 altersystemsetopen_links=0sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=0sid=&#39;$sid&#39;scope=spfile; 启用 oracle dblink 1 2 altersystemsetopen_links=4sid=&#39;$sid&#39;scope=spfile;altersystemsetopen_links_per_instance=4sid=&#39;$sid&#39;scope=spfile;</div><div class="post-footer">
         <a href="/dblink/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/oracle/">oracle</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/libguestfs/">KVM镜像管理工具libguestfs</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-01-31">2021-01-31</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/"><i class="far fa-folder fa-fw"></i>虚拟化</a></span></div><div class="content">简介 libguestfs 是一套管理虚拟机镜像的工具。它提供以一系列命令和API来修改和管理虚拟机的镜像。 安装 直接使用 yum 安装 libguestfs : 1 yum install -y libguestfs-tool libguestfs-devel 默认不支持修改 windows 镜像</div><div class="post-footer">
-        <a href="/libguestfs/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kvm/">kvm</a>,&nbsp;<a href="/tags/linux/">linux</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>

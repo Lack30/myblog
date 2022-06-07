@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  2294 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "k8s","wordcount":  2300 ,
         "url": "http:\/\/xingyys.tech\/k8s%E4%B8%8A%E6%90%AD%E5%BB%BAharbor%E7%A7%81%E6%9C%89%E5%BA%93\/","datePublished": "2022-05-30T19:08:00+08:00","dateModified": "2022-05-30T19:08:00+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">K8s上搭建harbor私有库</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"><i class="far fa-folder fa-fw"></i>云原生</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-30">2022-05-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2294 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-30">2022-05-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2300 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -202,6 +202,7 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/yum.repos.d/CentOS-Gluster-9.repo <span class="s">&lt;&lt; EOF
@@ -224,6 +225,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="s">gpgcheck=0
 </span></span></span><span class="line"><span class="cl"><span class="s">enabled=0
 </span></span></span><span class="line"><span class="cl"><span class="s">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Storage
+</span></span></span><span class="line"><span class="cl"><span class="s">
 </span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">yum makecache
@@ -444,6 +446,8 @@ Kubernetes和OpenShift一样申请可以动态配置GlusterFS卷。Heketi会动�
 </span><span class="lnt">27
 </span><span class="lnt">28
 </span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vim gluster-sa.yaml</span>
@@ -462,6 +466,8 @@ Kubernetes和OpenShift一样申请可以动态配置GlusterFS卷。Heketi会动�
 </span></span><span class="line"><span class="cl">kind: StorageClass
 </span></span><span class="line"><span class="cl">metadata:
 </span></span><span class="line"><span class="cl">  name: glusterfs
+</span></span><span class="line"><span class="cl">annotations:
+</span></span><span class="line"><span class="cl">  storageclass.kubernetes.io/is-default-class: <span class="s2">&#34;true&#34;</span>
 </span></span><span class="line"><span class="cl">provisioner: kubernetes.io/glusterfs
 </span></span><span class="line"><span class="cl">allowVolumeExpansion: <span class="nb">true</span>
 </span></span><span class="line"><span class="cl">parameters:
