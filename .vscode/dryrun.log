@@ -1,0 +1,17 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/xingyys/project/myblog'
+hugo -t LoveIt
+ 
+cd /Users/xingyys/project/myblog/public && \
+	git pull && \
+	git add . && \
+	git commit -m "rebuilding site Wed Jul 20 09:34:41 CST 2022" && \
+	git push -u origin main
+cd /Users/xingyys/project/myblog && \
+	git pull && \
+    git add . && \
+    git commit -m "rebuilding site Wed Jul 20 09:34:41 CST 2022" && \
+    git push -u origin gh-pages 
+yarn global add atomic-algolia
+make: Leaving directory `/Users/xingyys/project/myblog'
+ 
