@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>编译调试 ceph v16.2.10 - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="编译调试 ceph v16.2.10" />
+<meta property="og:description" content="对于学习分布式存储而言，ceph 是一个很好的例子。它具有分布式存储所需的各种常用功能。本篇通过一个开发者的角度来尝试对 ceph 源码进行编译，并且调" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-01T10:58:11+08:00" />
+<meta property="article:modified_time" content="2022-11-01T10:58:11+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="编译调试 ceph v16.2.10"/>
+<meta name="twitter:description" content="对于学习分布式存储而言，ceph 是一个很好的例子。它具有分布式存储所需的各种常用功能。本篇通过一个开发者的角度来尝试对 ceph 源码进行编译，并且调"/>
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" /><link rel="prev" href="http://xingyys.tech/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "编译调试 ceph v16.2.10",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph\/"
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "ceph, linux, C\u002b\u002b, 分布式存储","wordcount":  1562 ,
+        "url": "http:\/\/xingyys.tech\/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph\/","datePublished": "2022-11-01T10:58:11+08:00","dateModified": "2022-11-01T10:58:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/xingyys.tech\/images\/avatar.webp",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Lack"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">Lack个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/authors/"> 作者 </a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">Lack个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/authors/" title="">作者</a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">编译调试 ceph v16.2.10</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%BC%80%E5%8F%91/"><i class="far fa-folder fa-fw"></i>开发</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-11-01">2022-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1562 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/ceph-logo.png" /></div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>对于学习分布式存储而言，ceph 是一个很好的例子。它具有分布式存储所需的各种常用功能。本篇通过一个开发者的角度来尝试对 ceph 源码进行编译，并且调试。</p>
+<h1 id="准备阶段">准备阶段</h1>
+<p>先说明实验的环境：</p>
+<ul>
+<li>操作系统：Ubuntu desktop 20.04</li>
+<li>编译工具： gcc/g++ 9.4.0 、 python 3.8 、 cmake 3.16.3</li>
+<li>源码版本：ceph v16.2.10</li>
+<li>IDE：vscode 、clangd</li>
+</ul>
+<h1 id="编译-ceph">编译 ceph</h1>
+<p>直接从 github 上下载 ceph 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/ceph/ceph
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ceph
+</span></span><span class="line"><span class="cl">git submodule update --init --recursive
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装依赖项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ceph
+</span></span><span class="line"><span class="cl">./install-deps.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里出现一个问题，在安装 pytest 包时提示版本错误，解决方式时修改 requirement.txt 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim src/pybind/mgr/dashboard/requirements-lint.txt
+</span></span><span class="line"><span class="cl"><span class="c1"># pytest==6.2.4</span>
+</span></span><span class="line"><span class="cl">pytest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译 ceph，因为需要设置开发环境，所以需要先修改 ceph 编译参数，直接修改 do_cmake.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[[</span> ! <span class="s2">&#34;</span><span class="nv">$ARGS</span><span class="s2"> </span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="o">=</span>~ <span class="s2">&#34;-DBOOST_J&#34;</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ncpu</span><span class="o">=</span><span class="k">$(</span>getconf _NPROCESSORS_ONLN 2&gt;<span class="p">&amp;</span>1<span class="k">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$ncpu</span><span class="s2">&#34;</span> -a <span class="s2">&#34;</span><span class="nv">$ncpu</span><span class="s2">&#34;</span> -gt <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">ARGS</span><span class="o">+=</span><span class="s2">&#34; -DBOOST_J=</span><span class="k">$(</span>expr <span class="nv">$ncpu</span> / 2<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ARGS</span><span class="o">+=</span><span class="s2">&#34; -DCMAKE_EXPORT_COMPILE_COMMANDS=1&#34;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>-DCMAKE_EXPORT_COMPILE_COMMANDS=1</code> 参数是告诉 cmake 预编译时生成 <code>compile_commmands.json</code>，配合 clangd 可以进行代码补全。</p>
+<p>生成 makefile 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./do_cmake.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行完成后会生成 build 目录，在 build 目录内编译二进制文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">make -j4 vstart
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过这个命令就可以生成 ceph 本地开发环境需要的各种文件了。这个命令需要一段时间，先直接配置 vscode 环境。</p>
+<h1 id="配置-vscode">配置 vscode</h1>
+<p>vscode 配合 clangd 可以很好的实现 C++ 代码补全功能。先设置 vscode 远程连接，在远程机器上安装插件</p>
+<ul>
+<li>C/C++</li>
+<li>clangd</li>
+<li>CMake</li>
+<li>GDB Debug</li>
+<li>CodeLLDB</li>
+</ul>
+<p>ubuntu 安装 clangd，添加 clangd 源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">deb http://apt.llvm.org/focal/ llvm-toolchain-focal-14 main
+</span></span><span class="line"><span class="cl">deb-src http://apt.llvm.org/focal/ llvm-toolchain-focal-14 main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">apt update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 clangd-14</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y clang-14 clangd-14
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-14 <span class="m">1</span> --slave /usr/bin/clang++ clang++ /usr/bin/clang++-14
+</span></span><span class="line"><span class="cl">sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 vscode 远程打开 ceph 目录
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101141924.png" /></p>
+<p>添加 settings.json 和 lauch.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir .vscode
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; .vscode/settings.json
+</span></span></span><span class="line"><span class="cl"><span class="s">{
+</span></span></span><span class="line"><span class="cl"><span class="s">    /**********
+</span></span></span><span class="line"><span class="cl"><span class="s">   * Clangd *
+</span></span></span><span class="line"><span class="cl"><span class="s">   **********/
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 关闭 C/C++ 提供的 IntelliSenseEngine
+</span></span></span><span class="line"><span class="cl"><span class="s">    // Clangd 运行参数(在终端/命令行输入 clangd --help-list-hidden 可查看更多)
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;clangd.onConfigChanged&#34;: &#34;restart&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;clangd.path&#34;: &#34;/usr/bin/clangd-14&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;clangd.arguments&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;--compile-commands-dir=${workspaceFolder}/build&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;--background-index&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;--clang-tidy&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;--log=verbose&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;--pretty&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;-j=4&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    ],
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 自动检测 clangd 更新
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;clangd.checkUpdates&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // clangd的snippets有很多的跳转点，不用这个就必须手动触发Intellisense了
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;C_Cpp.intelliSenseEngine&#34;: &#34;Disabled&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;C_Cpp.autocomplete&#34;: &#34;Disabled&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;C_Cpp.errorSquiggles&#34;: &#34;Disabled&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;editor.suggest.snippetsPreventQuickSuggestions&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">    /*********
+</span></span></span><span class="line"><span class="cl"><span class="s">   * CMake *
+</span></span></span><span class="line"><span class="cl"><span class="s">   *********/
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 保存 cmake.sourceDirectory 或 CMakeLists.txt 内容时，不自动配置 CMake 项目目录
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;cmake.configureOnEdit&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 在 CMake 项目目录打开时自动对其进行配置
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;cmake.configureOnOpen&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 成功配置后，将 compile_commands.json 复制到此位置
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;cmake.copyCompileCommands&#34;: &#34;build&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    /********
+</span></span></span><span class="line"><span class="cl"><span class="s">   * LLDB *
+</span></span></span><span class="line"><span class="cl"><span class="s">   ********/
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 指令自动补全
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.commandCompletions&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 指针显示解引用内容
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.dereferencePointers&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 鼠标悬停在变量上时预览变量值
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.evaluateForHovers&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 监视表达式的默认类型
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.launch.expressions&#34;: &#34;simple&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 不显示汇编代码
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.showDisassembly&#34;: &#34;never&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // LLDB 生成更详细的日志
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;lldb.verboseLogging&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    /*********
+</span></span></span><span class="line"><span class="cl"><span class="s">   * Color *
+</span></span></span><span class="line"><span class="cl"><span class="s">   *********/
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 控制是否对括号着色
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;editor.bracketPairColorization.enabled&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 启用括号指导线
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;editor.guides.bracketPairs&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 语义高亮
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;editor.semanticHighlighting.enabled&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 语义高亮自定义
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;editor.semanticTokenColorCustomizations&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;enabled&#34;: true,
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;rules&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 抽象符号
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;*.abstract&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;fontStyle&#34;: &#34;italic&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 只读量等效为宏
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;readonly&#34;: &#34;#4FC1FF&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 静态量（静态变量，静态函数）
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;*.static&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;fontStyle&#34;: &#34;bold&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 宏
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;macro&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                // &#34;foreground&#34;: &#34;#8F5DAF&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;foreground&#34;: &#34;#4FC1FF&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 成员函数
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;method&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;fontStyle&#34;: &#34;underline&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 命名空间
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;namespace&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;foreground&#34;: &#34;#00D780&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 函数参数
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;parameter&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;foreground&#34;: &#34;#C8ECFF&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 只读的函数参数
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;parameter.readonly&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;foreground&#34;: &#34;#7BD1FF&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 成员变量，似乎需要clangd12以上
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;property&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;fontStyle&#34;: &#34;underline&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;foreground&#34;: &#34;#C8ECFF&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            },
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 类型参数
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;typeParameter&#34;: &#34;#31A567&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            // 未启用的宏
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;comment&#34;: &#34;#767BA6&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">    },
+</span></span></span><span class="line"><span class="cl"><span class="s">    // 括号颜色
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;workbench.colorCustomizations&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">        &#34;[Default Dark+]&#34;: {
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;editorBracketHighlight.foreground3&#34;: &#34;#9CDCFE&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;editorBracketHighlight.foreground4&#34;: &#34;#F3FD00&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;editorBracketHighlight.foreground5&#34;: &#34;#F47D9F&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;editorBracketHighlight.foreground6&#34;: &#34;#A5ADFE&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">    },
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;C_Cpp.clang_format_fallbackStyle&#34;: &#34;Google&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; .vscode/lauch.json
+</span></span></span><span class="line"><span class="cl"><span class="s">{
+</span></span></span><span class="line"><span class="cl"><span class="s">    &#34;configurations&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">        {
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;name&#34;: &#34;(gdb) rbd&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;type&#34;: &#34;cppdbg&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;request&#34;: &#34;launch&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;program&#34;: &#34;${workspaceFolder}/build/bin/rbd&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;args&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;info&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;vol&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            ],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;stopAtEntry&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;cwd&#34;: &#34;${workspaceFolder}/build&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;environment&#34;: [],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;externalConsole&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;MIMode&#34;: &#34;gdb&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;setupCommands&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;为 gdb 启用整齐打印&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-enable-pretty-printing&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                },
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;将反汇编风格设置为 Intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-gdb-set disassembly-flavor intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                }
+</span></span></span><span class="line"><span class="cl"><span class="s">            ]
+</span></span></span><span class="line"><span class="cl"><span class="s">        },
+</span></span></span><span class="line"><span class="cl"><span class="s">        {
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;name&#34;: &#34;(gdb) ceph-osd-0&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;type&#34;: &#34;cppdbg&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;request&#34;: &#34;launch&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;program&#34;: &#34;${workspaceFolder}/build/bin/ceph-osd&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;args&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-d&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-i&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;0&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-c&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;${workspaceFolder}/build/ceph.conf&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            ],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;stopAtEntry&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;cwd&#34;: &#34;${workspaceFolder}/build&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;environment&#34;: [],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;externalConsole&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;MIMode&#34;: &#34;gdb&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;setupCommands&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;为 gdb 启用整齐打印&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-enable-pretty-printing&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                },
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;将反汇编风格设置为 Intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-gdb-set disassembly-flavor intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                }
+</span></span></span><span class="line"><span class="cl"><span class="s">            ]
+</span></span></span><span class="line"><span class="cl"><span class="s">        },
+</span></span></span><span class="line"><span class="cl"><span class="s">        {
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;name&#34;: &#34;(gdb) ceph-mon-a&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;type&#34;: &#34;cppdbg&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;request&#34;: &#34;launch&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;program&#34;: &#34;${workspaceFolder}/build/bin/ceph-mon&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;args&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-d&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-i&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;a&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;-c&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                &#34;${workspaceFolder}/build/ceph.conf&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">            ],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;stopAtEntry&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;cwd&#34;: &#34;${workspaceFolder}/build&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;environment&#34;: [],
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;externalConsole&#34;: false,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;MIMode&#34;: &#34;gdb&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">            &#34;setupCommands&#34;: [
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;为 gdb 启用整齐打印&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-enable-pretty-printing&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                },
+</span></span></span><span class="line"><span class="cl"><span class="s">                {
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;description&#34;: &#34;将反汇编风格设置为 Intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;text&#34;: &#34;-gdb-set disassembly-flavor intel&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">                    &#34;ignoreFailures&#34;: true
+</span></span></span><span class="line"><span class="cl"><span class="s">                }
+</span></span></span><span class="line"><span class="cl"><span class="s">            ]
+</span></span></span><span class="line"><span class="cl"><span class="s">        }
+</span></span></span><span class="line"><span class="cl"><span class="s">    ]
+</span></span></span><span class="line"><span class="cl"><span class="s">}
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="调试-ceph">调试 ceph</h1>
+<p>等待 make 命令编译完成，执行 vstart</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">MON</span><span class="o">=</span><span class="m">1</span> <span class="nv">OSD</span><span class="o">=</span><span class="m">1</span> <span class="nv">MDS</span><span class="o">=</span><span class="m">0</span> <span class="nv">MGR</span><span class="o">=</span><span class="m">0</span> <span class="nv">RGW</span><span class="o">=</span><span class="m">0</span> <span class="nv">NFS</span><span class="o">=</span><span class="m">0</span> ../src/vstart.sh -n -d --without-dashboard
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本地会启动一个 <code>ceph-mon</code> 和 一个 <code>ceph-osd</code>。直接 kill <code>ceph-osd</code> 进程，调试 <code>ceph-osd</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png"
+        data-srcset="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png 1.5x, https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png"
+        title="https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20221101142651.png" /></p>
+<p>接着就可以愉快的编译调试 ceph 源码了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-11-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ceph/">ceph</a>,&nbsp;<a href="/tags/linux/">linux</a>,&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>,&nbsp;<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/">分布式存储</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/k8s%E7%BB%93%E5%90%88kubevirt%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="prev" rel="prev" title="K8s结合kubevirt管理虚拟机"><i class="fas fa-angle-left fa-fw"></i>K8s结合kubevirt管理虚拟机</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2022-11-01T10:58:11+08:00","owner":"lack-io","repo":"blog_comment","title":"编译调试 ceph v16.2.10"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

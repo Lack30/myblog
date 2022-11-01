@@ -454,10 +454,6 @@ virtio 驱动挂载进来后，直接点击*浏览*:
 
 接着下一步
 
-![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161725.png)
-
-按提示解决问题
-
 ![](https://raw.githubusercontent.com/xingyys/myblog/main/posts/images/20220607161952.png)
 
 继续安装
