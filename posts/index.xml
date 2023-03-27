@@ -4,7 +4,14 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Nov 2022 10:58:11 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 27 Mar 2023 21:00:17 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>CentOS7 静默安装单机 oracle11g</title>
+    <link>http://xingyys.tech/single_oracle_install/</link>
+    <pubDate>Mon, 27 Mar 2023 21:00:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/single_oracle_install/</guid>
+    <description><![CDATA[确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba用户密码 oracle sys用户密码 oracle system用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配]]></description>
+</item><item>
     <title>编译调试 ceph v16.2.10</title>
     <link>http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/</link>
     <pubDate>Tue, 01 Nov 2022 10:58:11 &#43;0800</pubDate>
@@ -71,12 +78,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/</guid>
     <description><![CDATA[简介 众所周知，O&rsquo;Reilly 是一家世界著名的技术书出版商，提供大量高质量的技术书籍。但是不支持下载功能，所以本篇就来说明如何下]]></description>
-</item><item>
-    <title>配置CentOS8的yum源</title>
-    <link>http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/</link>
-    <pubDate>Wed, 16 Feb 2022 17:29:27 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E9%85%8D%E7%BD%AEcentos8%E7%9A%84yum%E6%BA%90/</guid>
-    <description><![CDATA[简介 如何更换 CentOS8 的 yum 源成国内源。 内容 备份老的 *.repo 文件 1 2 3 cd /etc/yum.repo.d/ mkdir bak mv *.repo ./bak 添加新的 CentOS-Base.repo 文件 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29]]></description>
 </item></channel>
 </rss>
