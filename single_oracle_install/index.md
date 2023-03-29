@@ -3,18 +3,18 @@
 
 # 确认资源
 
-| 用户 | oracle |
-| --- | --- |
-| 安装包解压目录 | /u01/database |
-| ORACLE_BASE | /u01/app/oracle |
-| ORACLE_HOME | $ORACLE_BASE/product/11.2.0/dbname_1 |
-| ORACLE_SID | orcl |
-| GDBNAME | orcl |
-| sysdba用户密码 | oracle |
-| sys用户密码 | oracle |
-| system用户密码 | oracle |
-| 数据库版本 | 11.2.0.4 |
-| 操作系统版本 | CentOS 7.5 |
+| 用户            | oracle                               |
+| --------------- | ------------------------------------ |
+| 安装包解压目录  | /u01/database                        |
+| ORACLE_BASE     | /u01/app/oracle                      |
+| ORACLE_HOME     | $ORACLE_BASE/product/11.2.0/dbname_1 |
+| ORACLE_SID      | orcl                                 |
+| GDBNAME         | orcl                                 |
+| sysdba 用户密码 | oracle                               |
+| sys 用户密码    | oracle                               |
+| system 用户密码 | oracle                               |
+| 数据库版本      | 11.2.0.4                             |
+| 操作系统版本    | CentOS 7.5                           |
 
 # 环境配置
 
@@ -153,7 +153,7 @@ inst_group=oinstall
 
 ```bash
 su - oracle
-/u01/database/runInstaller -silent -responseFile /u01/database/response/db_install.rsp -ignorePrereq
+/u01/database/runInstaller -silent -ignorePrereq -waitforcompletion -responseFile /u01/database/response/db_install.rsp
 ```
 
 切换到 root 用户执行 root.sh 脚本
@@ -206,11 +206,9 @@ dbca -silent -responseFile /u01/database/response/dbca.rsp
 ```
 
 - 使用 dbca 也可以删除实例，使用命令为
-    
-    ```bash
-    dbca -silent -deleteDatabase -sourcedb orcl
-    ```
-    
+  ```bash
+  dbca -silent -deleteDatabase -sourcedb orcl
+  ```
 
 创建完成后就可以使用 sqlplus 登录
 
@@ -233,3 +231,4 @@ OPEN
 ```
 
 以上就是在 CentOS7 上静默按 oracle 11g 的全部内容了
+

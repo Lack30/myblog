@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>CentOS7 静默安装单机 oracle11g - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="CentOS7 静默安装单机 oracle11g" />
-<meta property="og:description" content="确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba用户密码 oracle sys用户密码 oracle system用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配" />
+<meta property="og:description" content="确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba 用户密码 oracle sys 用户密码 oracle system 用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配置 修改主机名 1 2 hostnamectl set-hostname oracle echo" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://xingyys.tech/single_oracle_install/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-27T21:00:17+08:00" />
@@ -14,11 +14,11 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CentOS7 静默安装单机 oracle11g"/>
-<meta name="twitter:description" content="确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba用户密码 oracle sys用户密码 oracle system用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配"/>
+<meta name="twitter:description" content="确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba 用户密码 oracle sys 用户密码 oracle system 用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配置 修改主机名 1 2 hostnamectl set-hostname oracle echo"/>
 <meta name="application-name" content="DoIt">
 <meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/single_oracle_install/" /><link rel="prev" href="http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/single_oracle_install/" /><link rel="prev" href="http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" /><link rel="next" href="http://xingyys.tech/single_oracle_dg/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/xingyys.tech\/single_oracle_install\/"
-        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "oracle","wordcount":  821 ,
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "oracle","wordcount":  810 ,
         "url": "http:\/\/xingyys.tech\/single_oracle_install\/","datePublished": "2023-03-27T21:00:17+08:00","dateModified": "2023-03-27T21:00:17+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">CentOS7 静默安装单机 oracle11g</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-03-27">2023-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 821 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-03-27">2023-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 810 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -151,15 +151,15 @@
 <td>orcl</td>
 </tr>
 <tr>
-<td>sysdba用户密码</td>
+<td>sysdba 用户密码</td>
 <td>oracle</td>
 </tr>
 <tr>
-<td>sys用户密码</td>
+<td>sys 用户密码</td>
 <td>oracle</td>
 </tr>
 <tr>
-<td>system用户密码</td>
+<td>system 用户密码</td>
 <td>oracle</td>
 </tr>
 <tr>
@@ -403,7 +403,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">su - oracle
-</span></span><span class="line"><span class="cl">/u01/database/runInstaller -silent -responseFile /u01/database/response/db_install.rsp -ignorePrereq
+</span></span><span class="line"><span class="cl">/u01/database/runInstaller -silent -ignorePrereq -waitforcompletion -responseFile /u01/database/response/db_install.rsp
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>切换到 root 用户执行 root.sh 脚本</p>
@@ -487,8 +487,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>
-<p>使用 dbca 也可以删除实例，使用命令为</p>
+<li>使用 dbca 也可以删除实例，使用命令为
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -562,7 +561,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" class="prev" rel="prev" title="编译调试 ceph v16.2.10"><i class="fas fa-angle-left fa-fw"></i>编译调试 ceph v16.2.10</a></div>
+    <div class="post-nav"><a href="/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/" class="prev" rel="prev" title="编译调试 ceph v16.2.10"><i class="fas fa-angle-left fa-fw"></i>编译调试 ceph v16.2.10</a>
+            <a href="/single_oracle_dg/" class="next" rel="next" title="oracle11g 单机创建 data guard">oracle11g 单机创建 data guard<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.

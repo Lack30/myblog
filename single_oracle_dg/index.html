@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>oracle11g 单机创建 data guard - lack 的个人博客</title><meta name="Description" content="关于 DoIt 主题"><meta property="og:title" content="oracle11g 单机创建 data guard" />
+<meta property="og:description" content="准备环境 主库 备库 操作系统 CentOS7 CentOS7 数据库版本 oracle 11.2.0.4.0 oracle 11.2.0.4.0 ip 地址 192.168.2.141 192.168.2.142 ORACLE_BASE /u01/app/oracle /u01/app/oracle ORACLE_HOME /u01/app/oracle/product/11.2.0/dbhome_1 /u01/app/oracle/product/11.2.0/dbname_1 SID orcl orclst 1.主库修改参数 开始归档模式 (只有这步需要重启数据库) 1 2 3 4 5 6" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://xingyys.tech/single_oracle_dg/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-29T15:51:40+08:00" />
+<meta property="article:modified_time" content="2023-03-29T15:51:40+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="oracle11g 单机创建 data guard"/>
+<meta name="twitter:description" content="准备环境 主库 备库 操作系统 CentOS7 CentOS7 数据库版本 oracle 11.2.0.4.0 oracle 11.2.0.4.0 ip 地址 192.168.2.141 192.168.2.142 ORACLE_BASE /u01/app/oracle /u01/app/oracle ORACLE_HOME /u01/app/oracle/product/11.2.0/dbhome_1 /u01/app/oracle/product/11.2.0/dbname_1 SID orcl orclst 1.主库修改参数 开始归档模式 (只有这步需要重启数据库) 1 2 3 4 5 6"/>
+<meta name="application-name" content="DoIt">
+<meta name="apple-mobile-web-app-title" content="DoIt"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://xingyys.tech/single_oracle_dg/" /><link rel="prev" href="http://xingyys.tech/single_oracle_install/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><meta name="google-site-verification" content="MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "oracle11g 单机创建 data guard",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/xingyys.tech\/single_oracle_dg\/"
+        },"image": ["http:\/\/xingyys.tech\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "oracle","wordcount":  2339 ,
+        "url": "http:\/\/xingyys.tech\/single_oracle_dg\/","datePublished": "2023-03-29T15:51:40+08:00","dateModified": "2023-03-29T15:51:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "http:\/\/xingyys.tech\/images\/avatar.webp",
+                    "width":  528 ,
+                    "height":  560 
+                }},"author": {
+                "@type": "Person",
+                "name": "Lack"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lack 的个人博客">Lack个人博客</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/authors/"> 作者 </a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><a class="menu-item" href="/about/" title="关于"> 关于 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/single_oracle_dg/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lack 的个人博客">Lack个人博客</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/authors/" title="">作者</a><a class="menu-item" href="https://github.com/lack-io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a class="menu-item" href="/about/" title="关于">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/single_oracle_dg/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">oracle11g 单机创建 data guard</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/lack-io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Lack</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%BF%90%E7%BB%B4/"><i class="far fa-folder fa-fw"></i>运维</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-03-29">2023-03-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2339 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#查看-data-guard-信息">查看 data guard 信息</a></li>
+    <li><a href="#查看数据库信息">查看数据库信息</a></li>
+    <li><a href="#switchover">switchover</a></li>
+    <li><a href="#failover">failover</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="准备环境">准备环境</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>主库</th>
+<th>备库</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作系统</td>
+<td>CentOS7</td>
+<td>CentOS7</td>
+</tr>
+<tr>
+<td>数据库版本</td>
+<td>oracle 11.2.0.4.0</td>
+<td>oracle 11.2.0.4.0</td>
+</tr>
+<tr>
+<td>ip 地址</td>
+<td>192.168.2.141</td>
+<td>192.168.2.142</td>
+</tr>
+<tr>
+<td>ORACLE_BASE</td>
+<td>/u01/app/oracle</td>
+<td>/u01/app/oracle</td>
+</tr>
+<tr>
+<td>ORACLE_HOME</td>
+<td>/u01/app/oracle/product/11.2.0/dbhome_1</td>
+<td>/u01/app/oracle/product/11.2.0/dbname_1</td>
+</tr>
+<tr>
+<td>SID</td>
+<td>orcl</td>
+<td>orclst</td>
+</tr>
+</tbody>
+</table>
+<h1 id="1主库修改参数">1.主库修改参数</h1>
+<p>开始归档模式 (只有这步需要重启数据库)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">archivelog</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">open</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 数据库设置为 force logging
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">force</span><span class="w"> </span><span class="n">logging</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="n">log_mode</span><span class="p">,</span><span class="n">force_logging</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$database</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">NAME</span><span class="w">	  </span><span class="n">LOG_MODE</span><span class="w">     </span><span class="k">FOR</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">--------- ------------ ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ORCL</span><span class="w">	  </span><span class="n">ARCHIVELOG</span><span class="w">   </span><span class="n">YES</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改监听文件 <code>$ORACLE_HOME/network/admin/listener.ora</code>，添加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SID_LIST_LISTENER</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="nv">SID_LIST</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="nv">SID_DESC</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">GLOBAL_DBNAME</span> <span class="o">=</span> ORCL <span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">ORACLE_HOME</span> <span class="o">=</span> /u01/app/oracle/product/11.2.0/dbhome_1 <span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">SID_NAME</span> <span class="o">=</span> orcl <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 standby 日志</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">thread</span><span class="o">#</span><span class="p">,</span><span class="k">group</span><span class="o">#</span><span class="p">,</span><span class="n">members</span><span class="p">,</span><span class="n">bytes</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$log</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">THREAD</span><span class="o">#</span><span class="w">     </span><span class="k">GROUP</span><span class="o">#</span><span class="w">	 </span><span class="n">MEMBERS</span><span class="w"> </span><span class="n">BYTES</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">---------- ---------- ---------- ---------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	 </span><span class="mi">1</span><span class="w">	    </span><span class="mi">1</span><span class="w">	       </span><span class="mi">1</span><span class="w">	      </span><span class="mi">50</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="mi">1</span><span class="w">	    </span><span class="mi">2</span><span class="w">	       </span><span class="mi">1</span><span class="w">	      </span><span class="mi">50</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="mi">1</span><span class="w">	    </span><span class="mi">3</span><span class="w">	       </span><span class="mi">1</span><span class="w">	      </span><span class="mi">50</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 添加和 log 相同数量的 standby 日志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="n">logfile</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/redo/redo11_std01.log&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="mi">50</span><span class="n">M</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="n">logfile</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/redo/redo12_std01.log&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="mi">50</span><span class="n">M</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="n">logfile</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="mi">13</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/redo/redo13_std01.log&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="mi">50</span><span class="n">M</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">group</span><span class="o">#</span><span class="p">,</span><span class="n">thread</span><span class="o">#</span><span class="p">,</span><span class="n">sequence</span><span class="o">#</span><span class="p">,</span><span class="n">archived</span><span class="p">,</span><span class="n">status</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">v$standby_log</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">GROUP</span><span class="o">#</span><span class="w">    </span><span class="n">THREAD</span><span class="o">#</span><span class="w">  </span><span class="n">SEQUENCE</span><span class="o">#</span><span class="w"> </span><span class="n">ARC</span><span class="w"> </span><span class="n">STATUS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">---------- ---------- ---------- --- ----------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="mi">11</span><span class="w">	    </span><span class="mi">0</span><span class="w">	       </span><span class="mi">0</span><span class="w"> </span><span class="n">YES</span><span class="w"> </span><span class="n">UNASSIGNED</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="mi">12</span><span class="w">	    </span><span class="mi">0</span><span class="w">	       </span><span class="mi">0</span><span class="w"> </span><span class="n">YES</span><span class="w"> </span><span class="n">UNASSIGNED</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="mi">13</span><span class="w">	    </span><span class="mi">0</span><span class="w">	       </span><span class="mi">0</span><span class="w"> </span><span class="n">YES</span><span class="w"> </span><span class="n">UNASSIGNED</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置数据库口令文件的使用模式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">show</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">remote_login_passwordfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">NAME</span><span class="w">				     </span><span class="k">TYPE</span><span class="w">	 </span><span class="n">VALUE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">------------------------------------ ----------- ------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">remote_login_passwordfile</span><span class="w">	     </span><span class="n">string</span><span class="w">	 </span><span class="k">EXCLUSIVE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 设置为 EXCLUSIVE，注意修改完需要重启数据库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">remote_login_passwordfile</span><span class="o">=</span><span class="k">EXCLUSIVE</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>参数设置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 启动 broker
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">dg_broker_start</span><span class="o">=</span><span class="k">true</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 修改日志转化模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_config</span><span class="o">=</span><span class="s1">&#39;DG_CONFIG=(orcl,orclst)&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 添加归档日志路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_dest_1</span><span class="o">=</span><span class="s1">&#39;location=/u01/app/oracle/oradata/orcl/archive valid_for=(all_logfiles,all_roles) db_unique_name=orcl&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_dest_2</span><span class="o">=</span><span class="s1">&#39;service=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED))) LGWR ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) db_unique_name=orclst&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_dest_state_1</span><span class="o">=</span><span class="s1">&#39;ENABLE&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_dest_state_2</span><span class="o">=</span><span class="s1">&#39;ENABLE&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 配置 fal
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">fal_client</span><span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">fal_server</span><span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 设置归档日志进程的最大数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_archive_max_processes</span><span class="o">=</span><span class="mi">10</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="k">both</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 设置备库文件管理模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">standby_file_management</span><span class="o">=</span><span class="s1">&#39;AUTO&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 启动 OMF 功能
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_create_file_dest</span><span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/datafile&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 如果主备库文件的存放路径不一致，还需要修改以下参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">db_file_name_convert</span><span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl&#39;</span><span class="p">,</span><span class="s1">&#39;/u01/app/oracle/oradata/orclst&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">log_file_name_convert</span><span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/onlinelog&#39;</span><span class="p">,</span><span class="s1">&#39;/u01/app/oracle/oradata/orclst/onlinelog&#39;</span><span class="w"> </span><span class="k">scope</span><span class="o">=</span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 生成 pfile
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">pfile</span><span class="o">=</span><span class="s1">&#39;/tmp/initorcl.ora&#39;</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">spfile</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 oracle 密码文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">su</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">oracle</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">orapwd</span><span class="w"> </span><span class="n">file</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">orapworcl</span><span class="w"> </span><span class="n">password</span><span class="o">=</span><span class="n">oracle</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>将密码文件和 pfile 复制到备库机器上，并修改为备库的 sid</p>
+<h1 id="2启动备库">2.启动备库</h1>
+<p>复制 initorcl.ora 和 orapworcl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">root# mv initorcl.ora <span class="nv">$ORACLE_HOME</span>/dbs/initorclst.ora
+</span></span><span class="line"><span class="cl">root# mv orapworcl <span class="nv">$ORACLE_HOME</span>/dbs/orapworclst
+</span></span><span class="line"><span class="cl">root# chown oracle:oinstall <span class="nv">$ORACLE_HOME</span>/dbs/initorclst.ora
+</span></span><span class="line"><span class="cl">root# chown oracle:oinstall <span class="nv">$ORACLE_HOME</span>/dbs/orapworclst
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 initorclst.ora</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">orcl.__db_cache_size<span class="o">=</span><span class="m">654311424</span>
+</span></span><span class="line"><span class="cl">orcl.__java_pool_size<span class="o">=</span><span class="m">16777216</span>
+</span></span><span class="line"><span class="cl">orcl.__large_pool_size<span class="o">=</span><span class="m">33554432</span>
+</span></span><span class="line"><span class="cl">orcl.__oracle_base<span class="o">=</span><span class="s1">&#39;/u01/app/oracle&#39;</span><span class="c1">#ORACLE_BASE set from environment</span>
+</span></span><span class="line"><span class="cl">orcl.__pga_aggregate_target<span class="o">=</span><span class="m">637534208</span>
+</span></span><span class="line"><span class="cl">orcl.__sga_target<span class="o">=</span><span class="m">956301312</span>
+</span></span><span class="line"><span class="cl">orcl.__shared_io_pool_size<span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">orcl.__shared_pool_size<span class="o">=</span><span class="m">234881024</span>
+</span></span><span class="line"><span class="cl">orcl.__streams_pool_size<span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">*.audit_file_dest<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/admin/orclst/adump&#39;</span>
+</span></span><span class="line"><span class="cl">*.audit_trail<span class="o">=</span><span class="s1">&#39;db&#39;</span>
+</span></span><span class="line"><span class="cl">*.compatible<span class="o">=</span><span class="s1">&#39;11.2.0.4.0&#39;</span>
+</span></span><span class="line"><span class="cl">*.control_files<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orclst/control01.ctl&#39;</span>,<span class="s1">&#39;/u01/app/oracle/fast_recovery_area/orclst/control02.ctl&#39;</span>
+</span></span><span class="line"><span class="cl">*.db_block_size<span class="o">=</span><span class="m">8192</span>
+</span></span><span class="line"><span class="cl">*.db_create_file_dest<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orclst/datafile&#39;</span>
+</span></span><span class="line"><span class="cl">*.db_domain<span class="o">=</span><span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">*.db_file_name_convert<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl&#39;</span>,<span class="s1">&#39;/u01/app/oracle/oradata/orclst&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 这个需要和主库 SID 一直</span>
+</span></span><span class="line"><span class="cl">*.db_name<span class="o">=</span><span class="s1">&#39;orcl&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 这里修改备库 SID</span>
+</span></span><span class="line"><span class="cl">*.db_unique_name<span class="o">=</span><span class="s1">&#39;orclst&#39;</span>
+</span></span><span class="line"><span class="cl">*.db_recovery_file_dest<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/fast_recovery_area&#39;</span>
+</span></span><span class="line"><span class="cl">*.db_recovery_file_dest_size<span class="o">=</span><span class="m">4385144832</span>
+</span></span><span class="line"><span class="cl">*.dg_broker_start<span class="o">=</span>TRUE
+</span></span><span class="line"><span class="cl">*.diagnostic_dest<span class="o">=</span><span class="s1">&#39;/u01/app/oracle&#39;</span>
+</span></span><span class="line"><span class="cl">*.dispatchers<span class="o">=</span><span class="s1">&#39;(PROTOCOL=TCP) (SERVICE=orclstXDB)&#39;</span>
+</span></span><span class="line"><span class="cl">*.fal_server<span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED)))&#39;</span>
+</span></span><span class="line"><span class="cl">*.fal_client<span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED)))&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_config<span class="o">=</span><span class="s1">&#39;DG_CONFIG=(orcl,orclst)&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_dest_1<span class="o">=</span><span class="s1">&#39;location=/u01/app/oracle/oradata/orclst/archive valid_for=(all_logfiles,all_roles) db_unique_name=orclst&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_dest_2<span class="o">=</span><span class="s1">&#39;service=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED))) LGWR ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) db_unique_name=orcl&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_dest_state_1<span class="o">=</span><span class="s1">&#39;ENABLE&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_dest_state_2<span class="o">=</span><span class="s1">&#39;ENABLE&#39;</span>
+</span></span><span class="line"><span class="cl">*.log_archive_max_processes<span class="o">=</span><span class="m">10</span>
+</span></span><span class="line"><span class="cl">*.log_file_name_convert<span class="o">=</span><span class="s1">&#39;/u01/app/oracle/oradata/orcl/onlinelog&#39;</span>,<span class="s1">&#39;/u01/app/oracle/oradata/orclst/onlinelog&#39;</span>
+</span></span><span class="line"><span class="cl">*.memory_target<span class="o">=</span><span class="m">1588592640</span>
+</span></span><span class="line"><span class="cl">*.open_cursors<span class="o">=</span><span class="m">300</span>
+</span></span><span class="line"><span class="cl">*.processes<span class="o">=</span><span class="m">150</span>
+</span></span><span class="line"><span class="cl">*.remote_login_passwordfile<span class="o">=</span><span class="s1">&#39;EXCLUSIVE&#39;</span>
+</span></span><span class="line"><span class="cl">*.standby_file_management<span class="o">=</span><span class="s1">&#39;AUTO&#39;</span>
+</span></span><span class="line"><span class="cl">*.undo_tablespace<span class="o">=</span><span class="s1">&#39;UNDOTBS1&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>注：需要 spfile 中创建字段包含的目录并设置 oracle:oinstall 文件属主</li>
+</ul>
+<p>启动数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># export ORACLE_SID=orclst</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sqlplus / as sysdba</span>
+</span></span><span class="line"><span class="cl">SQL&gt; startup nomount <span class="nv">pfile</span><span class="o">=</span>/u01/app/oracle/product/11.2.0/dbname_1/dbs/initorclst.ora<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建 spfile</span>
+</span></span><span class="line"><span class="cl">SQL&gt; create spfile from pfile<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改监听文件 <code>$ORACLE_HOME/network/admin/listener.ora</code>，添加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">SID_LIST_LISTENER</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="nv">SID_LIST</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="nv">SID_DESC</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">GLOBAL_DBNAME</span> <span class="o">=</span> ORCLST <span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">ORACLE_HOME</span> <span class="o">=</span> /u01/app/oracle/product/11.2.0/dbname_1 <span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">(</span><span class="nv">SID_NAME</span> <span class="o">=</span> orclst <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3同步数据">3.同步数据</h1>
+<p>在主库上使用 rman 同步数据到备份</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">rman</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="n">sys</span><span class="o">/</span><span class="n">oracle</span><span class="o">@</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED)))&#39;</span><span class="w"> </span><span class="n">auxiliary</span><span class="w"> </span><span class="n">sys</span><span class="o">/</span><span class="n">oracle</span><span class="o">@</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED)))&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">run</span><span class="w"> </span><span class="err">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">NEWNAME</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;/u01/app/oracle/oradata/orclst/datafile/%U&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">duplicate</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">dorecover</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4启动备库">4.启动备库</h1>
+<p>重启数据库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">flashback</span><span class="w"> </span><span class="k">on</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">open</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">recover</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">logfile</span><span class="w"> </span><span class="k">disconnect</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">session</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5配置-broker">5.配置 broker</h1>
+<p>使用 broker 管理 oracle data guard 环境，在主库机器上执行相关操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="o">#</span><span class="w"> </span><span class="n">export</span><span class="w"> </span><span class="n">ORACLE_SID</span><span class="o">=</span><span class="n">orcl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="n">dgmgrl</span><span class="w"> </span><span class="o">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">创建</span><span class="w"> </span><span class="n">broker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DGMGRL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="n">CONFIGURATION</span><span class="w"> </span><span class="n">orcl_broker</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="n">orcl</span><span class="w"> </span><span class="k">CONNECT</span><span class="w"> </span><span class="n">IDENTIFIER</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">添加备库</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DGMGRL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">orclst</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">CONNECT</span><span class="w"> </span><span class="n">IDENTIFIER</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCLST)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">启动</span><span class="w"> </span><span class="n">broker</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DGMGRL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ENABLE</span><span class="w"> </span><span class="n">CONFIGURATION</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">设置主备库静态连接，之后就不用再备份监听文件了</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DGMGRL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">EDIT</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">orcl</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">PROPERTY</span><span class="w"> </span><span class="n">StaticConnectIdentifier</span><span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">DGMGRL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">EDIT</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">orclst</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">PROPERTY</span><span class="w"> </span><span class="n">StaticConnectIdentifier</span><span class="o">=</span><span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED)))&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="broker-操作">broker 操作</h1>
+<h2 id="查看-data-guard-信息">查看 data guard 信息</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">export</span> <span class="nv">ORACLE_SID</span><span class="o">=</span>orcl
+</span></span><span class="line"><span class="cl">$ dgmgrl /
+</span></span><span class="line"><span class="cl">DGMGRL <span class="k">for</span> Linux: Version 11.2.0.4.0 - 64bit Production
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2009, Oracle. All rights reserved.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Welcome to DGMGRL, <span class="nb">type</span> <span class="s2">&#34;help&#34;</span> <span class="k">for</span> information.
+</span></span><span class="line"><span class="cl">Connected.
+</span></span><span class="line"><span class="cl">DGMGRL&gt; show configuration verbose<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Configuration - orcl_broker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Protection Mode: MaxPerformance
+</span></span><span class="line"><span class="cl">  Databases:
+</span></span><span class="line"><span class="cl">    orcl   - Primary database
+</span></span><span class="line"><span class="cl">    orclst - Physical standby database
+</span></span><span class="line"><span class="cl">      Warning: ORA-16857: standby disconnected from redo <span class="nb">source</span> <span class="k">for</span> longer than specified threshold
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Properties:
+</span></span><span class="line"><span class="cl">    <span class="nv">FastStartFailoverThreshold</span>      <span class="o">=</span> <span class="s1">&#39;30&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">OperationTimeout</span>                <span class="o">=</span> <span class="s1">&#39;30&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">FastStartFailoverLagLimit</span>       <span class="o">=</span> <span class="s1">&#39;30&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">CommunicationTimeout</span>            <span class="o">=</span> <span class="s1">&#39;180&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ObserverReconnect</span>               <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">FastStartFailoverAutoReinstate</span>  <span class="o">=</span> <span class="s1">&#39;TRUE&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">FastStartFailoverPmyShutdown</span>    <span class="o">=</span> <span class="s1">&#39;TRUE&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">BystandersFollowRoleChange</span>      <span class="o">=</span> <span class="s1">&#39;ALL&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ObserverOverride</span>                <span class="o">=</span> <span class="s1">&#39;FALSE&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ExternalDestination1</span>            <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ExternalDestination2</span>            <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PrimaryLostWriteAction</span>          <span class="o">=</span> <span class="s1">&#39;CONTINUE&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Fast-Start Failover: DISABLED
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Configuration Status:
+</span></span><span class="line"><span class="cl">WARNING
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查看数据库信息">查看数据库信息</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">DGMGRL&gt; show database verbose orcl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Database - orcl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Role:            PRIMARY
+</span></span><span class="line"><span class="cl">  Intended State:  TRANSPORT-ON
+</span></span><span class="line"><span class="cl">  Instance<span class="o">(</span>s<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">    orcl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Properties:
+</span></span><span class="line"><span class="cl">    <span class="nv">DGConnectIdentifier</span>             <span class="o">=</span> <span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)))&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ObserverConnectIdentifier</span>       <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogXptMode</span>                      <span class="o">=</span> <span class="s1">&#39;ASYNC&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">DelayMins</span>                       <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">Binding</span>                         <span class="o">=</span> <span class="s1">&#39;optional&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">MaxFailure</span>                      <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">MaxConnections</span>                  <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ReopenSecs</span>                      <span class="o">=</span> <span class="s1">&#39;300&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">NetTimeout</span>                      <span class="o">=</span> <span class="s1">&#39;30&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">RedoCompression</span>                 <span class="o">=</span> <span class="s1">&#39;DISABLE&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogShipping</span>                     <span class="o">=</span> <span class="s1">&#39;ON&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">PreferredApplyInstance</span>          <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ApplyInstanceTimeout</span>            <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ApplyParallel</span>                   <span class="o">=</span> <span class="s1">&#39;AUTO&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">StandbyFileManagement</span>           <span class="o">=</span> <span class="s1">&#39;MANUAL&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ArchiveLagTarget</span>                <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogArchiveMaxProcesses</span>          <span class="o">=</span> <span class="s1">&#39;10&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogArchiveMinSucceedDest</span>        <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">DbFileNameConvert</span>               <span class="o">=</span> <span class="s1">&#39;/u01/app/oracle/oradata/orcl, /u01/app/oracle/oradata/orclst&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogFileNameConvert</span>              <span class="o">=</span> <span class="s1">&#39;/u01/app/oracle/oradata/orcl/onlinelog, /u01/app/oracle/oradata/orclst/onlinelog&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">FastStartFailoverTarget</span>         <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">InconsistentProperties</span>          <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">InconsistentLogXptProps</span>         <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">SendQEntries</span>                    <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogXptStatus</span>                    <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">RecvQEntries</span>                    <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">ApplyLagThreshold</span>               <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">TransportLagThreshold</span>           <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">TransportDisconnectedThreshold</span>  <span class="o">=</span> <span class="s1">&#39;30&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">SidName</span>                         <span class="o">=</span> <span class="s1">&#39;orcl&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">StaticConnectIdentifier</span>         <span class="o">=</span> <span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.2.141)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)(INSTANCE_NAME=orcl)(SERVER=DEDICATED)))&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">StandbyArchiveLocation</span>          <span class="o">=</span> <span class="s1">&#39;/u01/app/oracle/oradata/orcl/archive&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">AlternateLocation</span>               <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogArchiveTrace</span>                 <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">LogArchiveFormat</span>                <span class="o">=</span> <span class="s1">&#39;%t_%s_%r.dbf&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">TopWaitEvents</span>                   <span class="o">=</span> <span class="s1">&#39;(monitor)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Database Status:
+</span></span><span class="line"><span class="cl">SUCCESS
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="switchover">switchover</h2>
+<p>执行 switchover 切换，先连接到备库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dgmgrl /
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 identifier 连接</span>
+</span></span><span class="line"><span class="cl">DGMGRL&gt; connect sys/oracle@<span class="s1">&#39;(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=192.168.2.142)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCLST)(INSTANCE_NAME=orclst)(SERVER=DEDICATED)))&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">Connected.
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 switchover 命令执行主备切换</span>
+</span></span><span class="line"><span class="cl">DGMGRL&gt; switchover to orclst<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>切换过程中如果出现 <code>ORA-12514: TNS:listener does not currently know of service requested in connect descriptor</code> 错误，直接启动源主库即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dgmgrl /
+</span></span><span class="line"><span class="cl">DGMGRL&gt; startup<span class="p">;</span>
+</span></span><span class="line"><span class="cl">DGMGRL&gt; show configuration verbose<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="failover">failover</h2>
+<p>模拟主库意外关闭</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">abort</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在备库上执行 failover 切换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dgmgrl /
+</span></span><span class="line"><span class="cl">DGMGRL&gt; failover to orclst
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重新启动原主库，想要原主库启动可用，需要保证开启闪回</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 启动原主库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="w"> </span><span class="n">mount</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 这个 scn 从现主库查看，sql 语句为 select to_char(standby_became_primary_scn) from v$database
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">flashback</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">scn</span><span class="w"> </span><span class="mi">1129493</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 切换数据库角色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">convert</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">physical</span><span class="w"> </span><span class="n">standby</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 重启数据库并恢复
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shutdown</span><span class="w"> </span><span class="k">immediate</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="n">startup</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SQL</span><span class="o">&gt;</span><span class="w"> </span><span class="k">alter</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">recover</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">standby</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">logfile</span><span class="w"> </span><span class="k">disconnect</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">session</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后调整 broker，在现主库上操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ dgmgrl /
+</span></span><span class="line"><span class="cl">DGMGRL&gt; reinstate database orcl<span class="p">;</span>
+</span></span><span class="line"><span class="cl">DGMGRL&gt; show configuration<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Configuration - orcl_broker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Protection Mode: MaxPerformance
+</span></span><span class="line"><span class="cl">  Databases:
+</span></span><span class="line"><span class="cl">    orclst - Primary database
+</span></span><span class="line"><span class="cl">    orcl   - Physical standby database
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Fast-Start Failover: DISABLED
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Configuration Status:
+</span></span><span class="line"><span class="cl">SUCCESS
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看状态，可以看出 dg 已经恢复正常</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-03-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/single_oracle_dg/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/oracle/">oracle</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/single_oracle_install/" class="prev" rel="prev" title="CentOS7 静默安装单机 oracle11g"><i class="fas fa-angle-left fa-fw"></i>CentOS7 静默安装单机 oracle11g</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/lack-io" target="_blank">Lack</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/algoliasearch/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"gitalk":{"admin":["lack-io"],"clientID":"e0b00024a2e428bbbcba","clientSecret":"3aa82dd31f80aace3a4ee39da331ebc5cab55c79","id":"2023-03-29T15:51:40+08:00","owner":"lack-io","repo":"blog_comment","title":"oracle11g 单机创建 data guard"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"2F98FFY5I5","algoliaIndex":"zh_cn_index","algoliaSearchKey":"b00eb2b5541b2ebb14e1d581011b4daf","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

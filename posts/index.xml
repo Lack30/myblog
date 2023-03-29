@@ -4,13 +4,20 @@
         <link>http://xingyys.tech/posts/</link>
         <description>所有文章 | lack 的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>598223084@qq.com (Lack)</managingEditor>
-            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 27 Mar 2023 21:00:17 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>598223084@qq.com (Lack)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 29 Mar 2023 15:51:40 &#43;0800</lastBuildDate><atom:link href="http://xingyys.tech/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>oracle11g 单机创建 data guard</title>
+    <link>http://xingyys.tech/single_oracle_dg/</link>
+    <pubDate>Wed, 29 Mar 2023 15:51:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://xingyys.tech/single_oracle_dg/</guid>
+    <description><![CDATA[准备环境 主库 备库 操作系统 CentOS7 CentOS7 数据库版本 oracle 11.2.0.4.0 oracle 11.2.0.4.0 ip 地址 192.168.2.141 192.168.2.142 ORACLE_BASE /u01/app/oracle /u01/app/oracle ORACLE_HOME /u01/app/oracle/product/11.2.0/dbhome_1 /u01/app/oracle/product/11.2.0/dbname_1 SID orcl orclst 1.主库修改参数 开始归档模式 (只有这步需要重启数据库) 1 2 3 4 5 6]]></description>
+</item><item>
     <title>CentOS7 静默安装单机 oracle11g</title>
     <link>http://xingyys.tech/single_oracle_install/</link>
     <pubDate>Mon, 27 Mar 2023 21:00:17 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://xingyys.tech/single_oracle_install/</guid>
-    <description><![CDATA[确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba用户密码 oracle sys用户密码 oracle system用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配]]></description>
+    <description><![CDATA[确认资源 用户 oracle 安装包解压目录 /u01/database ORACLE_BASE /u01/app/oracle ORACLE_HOME $ORACLE_BASE/product/11.2.0/dbname_1 ORACLE_SID orcl GDBNAME orcl sysdba 用户密码 oracle sys 用户密码 oracle system 用户密码 oracle 数据库版本 11.2.0.4 操作系统版本 CentOS 7.5 环境配置 修改主机名 1 2 hostnamectl set-hostname oracle echo]]></description>
 </item><item>
     <title>编译调试 ceph v16.2.10</title>
     <link>http://xingyys.tech/%E7%BC%96%E8%AF%91%E8%B0%83%E8%AF%95ceph/</link>
@@ -71,12 +78,5 @@
     <author>作者</author>
     <guid>http://xingyys.tech/lvs%E5%9D%87%E8%A1%A1%E8%B4%9F%E8%BD%BD%E5%AE%9E%E6%88%98/</guid>
     <description><![CDATA[由于在项目中有负载均衡需求，所以就想到几年前学过的 lvs。本文记录下 lvs 在 linux 和 windows 两个平台下部署方式。 lvs 简介 Linux Virtual Server 项目的目标 ：使用集群技术和 Linux 操]]></description>
-</item><item>
-    <title>下载oreilly电子书</title>
-    <link>http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/</link>
-    <pubDate>Tue, 08 Mar 2022 10:13:28 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://xingyys.tech/%E4%B8%8B%E8%BD%BDoreilly%E7%94%B5%E5%AD%90%E4%B9%A6/</guid>
-    <description><![CDATA[简介 众所周知，O&rsquo;Reilly 是一家世界著名的技术书出版商，提供大量高质量的技术书籍。但是不支持下载功能，所以本篇就来说明如何下]]></description>
 </item></channel>
 </rss>
